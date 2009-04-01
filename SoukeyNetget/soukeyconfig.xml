@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SystemConfig>
+	<DataTemplate>
+		<Temp ID="">综合</Temp>
+		<Temp ID="">社会</Temp>
+	</DataTemplate>
+	<SoukeyPackage>
+		<Package ID="">汽车</Package>
+		<Package ID="">综合</Package>
+	</SoukeyPackage>
+</SystemConfig>

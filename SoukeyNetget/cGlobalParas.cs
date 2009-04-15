@@ -74,6 +74,8 @@ namespace SoukeyNetget
             NoPublish=1060,
             PublishAccess = 1061,
             PublishMSSql = 1062,
+            PublishTxt=1063,
+            PublishExcel=1064,
         }
 
         public enum LimitSign
@@ -89,6 +91,12 @@ namespace SoukeyNetget
             gb2312 = 1001,
             utf8 = 1002,
             gbk = 1003,
+        }
+
+        public enum ExitPara
+        {
+            Exit=2010,
+            MinForm=2012,
         }
 
         #endregion

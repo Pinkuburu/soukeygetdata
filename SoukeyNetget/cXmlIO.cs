@@ -192,6 +192,14 @@ namespace SoukeyNetget
             }
         }
 
+        //根据制定的节点修改器值
+        public void EditNodeValue(string nodPath,string NewValue)
+        {
+            XmlNode Nod= objXmlDoc.SelectSingleNode(nodPath);
+            Nod.InnerText = NewValue;
+            Save();
+        }
+
         //插入一个节点，带一个属性
         public void InsertElement(string MainNode,string Element,string Attrib,string AttribContent,string Content)
         {

@@ -30,7 +30,7 @@ namespace SoukeyNetget
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-             System.Diagnostics.Process.Start("http://www.soukey.com/yijie/index.html"); 
+            System.Diagnostics.Process.Start("http://www.yijie.net"); 
         }
 
        

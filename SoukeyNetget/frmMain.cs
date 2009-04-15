@@ -33,6 +33,7 @@ namespace SoukeyNetget
         private cPublishControl m_PublishControl;
         private bool IsTimer = true;
         private string DelName="";
+        private cGlobalParas.ExitPara m_ePara = cGlobalParas.ExitPara.Exit;
 
         #region 窗体初始化操作
         
@@ -56,8 +57,8 @@ namespace SoukeyNetget
             TreeNode newNode;
             int i = 0;
 
-            //初始化网页
-            this.webBrowser.Navigate("http://www.soukey.com/yijie/info.html");
+            //初始化网页，固定地址，具体跳转由此页面来控制
+            this.webBrowser.Navigate("http://www.yijie.net/softini.html");
 
             //开始初始化树形结构,取xml中的数据,读取任务分类
             Task.cTaskClass xmlTClass = new Task.cTaskClass();
@@ -2078,6 +2079,8 @@ namespace SoukeyNetget
             EditTask();
         }
 
+       
+
         private void EditTask()
         {
             if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
@@ -2117,8 +2120,34 @@ namespace SoukeyNetget
             ExportTxt();
         }
 
+        private void toolExportExcel_Click(object sender, EventArgs e)
+        {
+            ExportExcel();
+        }
+
+        #region 此部分代码用于手工导出数据（已经从网上采集下来的数据）
+        //定义一个代理，用于在导出数据时进行进度条的刷新
+        delegate void ShowProgressDelegate(int totalMessages, int messagesSoFar, bool statusDone);
+
+        //手动导出数据同一时间只能导出一个任务，不能进行多任务的数据导出
+        private bool IsExportData()
+        {
+            if (this.PrograBarTxt.Visible == true)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
         private void ExportTxt()
         {
+            if (IsExportData() == false)
+            {
+                MessageBox.Show("已经有手动导出任务正在运行，请等待此任务运行完成后，再进行手动数据导出！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             string FileName;
 
             this.saveFileDialog1.OverwritePrompt = true;
@@ -2136,28 +2165,18 @@ namespace SoukeyNetget
             }
             Application.DoEvents();
 
-            cExport eTxt = new cExport();
-            string tName = this.tabControl1.SelectedTab.Tag.ToString();
-            DataGridView tmp = (DataGridView)this.tabControl1.SelectedTab.Controls[0].Controls[0].Controls[0];
-            bool IsSuce = eTxt.ExportTxt(FileName, (DataTable)tmp.DataSource);
-            tName = null;
-            if (!IsSuce)
-            {
-                MessageBox.Show("导出失败！", "soukey消息", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-            tmp = null;
-        }
-
-        private void toolExportExcel_Click(object sender, EventArgs e)
-        {
-
-            ExportExcel();
+            ExportData(FileName , cGlobalParas.PublishType.PublishTxt);
 
         }
 
         private void ExportExcel()
         {
+            if (IsExportData() == false)
+            {
+                MessageBox.Show("已经有手动导出任务正在运行，请等待此任务运行完成后，再进行手动数据导出！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             string FileName;
 
             this.saveFileDialog1.OverwritePrompt = true;
@@ -2175,18 +2194,50 @@ namespace SoukeyNetget
             }
             Application.DoEvents();
 
-            cExport eExcel = new cExport();
+            ExportData(FileName , cGlobalParas.PublishType.PublishExcel);
+           
+        }
+
+        private void ExportData(string FileName,cGlobalParas.PublishType pType)
+        {
+            cExport eTxt = new cExport();
             string tName = this.tabControl1.SelectedTab.Tag.ToString();
             DataGridView tmp = (DataGridView)this.tabControl1.SelectedTab.Controls[0].Controls[0].Controls[0];
-            bool IsSuce = eExcel.ExportExcel(FileName, tName, (DataTable)tmp.DataSource);
-            tName = null;
-            if (!IsSuce)
-            {
-                MessageBox.Show("导出失败！", "soukey消息", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            this.PrograBarTxt.Visible = true;
+            this.PrograBarTxt.Text = "手动导出数据：" + tName + " " + "0/0";
+            this.ExportProbar.Visible = true;
 
-            tmp = null;
+            //定义一个后台线程用于导出数据操作
+            ShowProgressDelegate showProgress = new ShowProgressDelegate(ShowProgress);
+
+            cExport eExcel = new cExport(this, showProgress, pType, FileName, (DataTable)tmp.DataSource);
+            Thread t = new Thread(new ThreadStart(eExcel.RunProcess));
+            t.IsBackground = true;
+            t.Start();
+            ShowInfo("手工导出数据", "导出数据已经开始");
+
+            tName = null;
         }
+
+        private void ShowProgress(int total, int messagesSoFar, bool done)
+        {
+            if (this.ExportProbar.Maximum != total)
+            {
+                this.ExportProbar.Maximum = total;
+            }
+            
+            ExportProbar.Value = messagesSoFar;
+            this.PrograBarTxt.Text = this.PrograBarTxt.Text.Substring(0, this.PrograBarTxt.Text.IndexOf(" ")) + " " + messagesSoFar + "/" + total;
+
+            if (done)
+            {
+                ShowInfo("手动导出数据", "导出数据已经完成");
+                this.ExportProbar.Visible = false;
+                this.PrograBarTxt.Visible = false;
+            }
+        }
+
+        #endregion
 
         private void toolAbout_Click(object sender, EventArgs e)
         {
@@ -2352,6 +2403,70 @@ namespace SoukeyNetget
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            cXmlSConfig m_config=null;
+            
+            //初始化参数配置信息
+            try
+            {
+                m_config = new cXmlSConfig();
+                if (m_config.ExitIsShow == true)
+                {
+                    frmClose fc = new frmClose();
+                    fc.RExitPara = new frmClose.ReturnExitPara(GetExitPara);
+                    if (fc.ShowDialog() == DialogResult.Cancel)
+                    {
+                        fc.Dispose();
+                        e.Cancel = true;
+                        return;
+                    }
+                    else
+                    {
+                        if (m_ePara == cGlobalParas.ExitPara.MinForm)
+                        {
+                            fc.Dispose();
+                            e.Cancel = true;
+                            this.Hide();
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    //判断是直接退出还是最小化窗体
+                    if (m_config.ExitSelected == 0)
+                    {
+                        this.Hide();
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+
+                m_config = null;
+            }
+            catch (System.Exception)
+            {
+                MessageBox.Show("系统配置文件加载失败，可从安装文件中拷贝文件：SoukeyConfig.xml 到Soukey采摘安装目录，配置文件损坏并不影响系统运行，但您做的系统配置可能无法保存！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                frmClose fc = new frmClose();
+                fc.RExitPara = new frmClose.ReturnExitPara(GetExitPara);
+                if (fc.ShowDialog() == DialogResult.Cancel)
+                {
+                    fc.Dispose();
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    if (m_ePara == cGlobalParas.ExitPara.MinForm)
+                    {
+                        fc.Dispose();
+                        e.Cancel = true;
+                        this.Hide();
+                        return;
+                    }
+                }
+            }
+
             //判断是否存在运行的任务
             if (m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count != 0)
             {
@@ -2365,9 +2480,12 @@ namespace SoukeyNetget
             //窗体关闭 首先先停止正在运行的任务
             m_GatherControl.Stop();
 
-            //然后在保存各个任务的执行状态
+        }
 
 
+        private void GetExitPara(cGlobalParas.ExitPara ePara)
+        {
+            m_ePara = ePara;
         }
 
         private void toolRestartTask_Click(object sender, EventArgs e)
@@ -2611,7 +2729,7 @@ namespace SoukeyNetget
 
         private void toolMenuVisityijie_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.soukey.com/yijie/index.html"); 
+            System.Diagnostics.Process.Start("http://www.yijie.net"); 
         }
 
         private void frmMain_SizeChanged(object sender, EventArgs e)
@@ -2848,7 +2966,7 @@ namespace SoukeyNetget
 
         private void toolMenuDownloadTask_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.soukey.com/yijie/downloadTask.html"); 
+            System.Diagnostics.Process.Start("http://www.yijie.net/downloadTask.html"); 
         }
 
 

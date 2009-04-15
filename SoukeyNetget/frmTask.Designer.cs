@@ -55,7 +55,6 @@
             this.button9 = new System.Windows.Forms.Button();
             this.DataSource = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.raExportMSSql = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
             this.cmdBrowser = new System.Windows.Forms.Button();
             this.raExportAccess = new System.Windows.Forms.RadioButton();
@@ -77,7 +76,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.txtNag = new System.Windows.Forms.TextBox();
             this.comUrlEncode = new System.Windows.Forms.ComboBox();
+            this.txtWebLink = new System.Windows.Forms.TextBox();
+            this.cmdEditWeblink = new System.Windows.Forms.Button();
             this.IsUrlEncode = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -87,13 +89,11 @@
             this.label13 = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtNag = new System.Windows.Forms.TextBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.cmdDelWeblink = new System.Windows.Forms.Button();
-            this.txtWebLink = new System.Windows.Forms.TextBox();
             this.listWeblink = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -152,8 +152,9 @@
             this.menuOpenDict = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.cmdEditWeblink = new System.Windows.Forms.Button();
+            this.raExportTxt = new System.Windows.Forms.RadioButton();
+            this.raExportExcel = new System.Windows.Forms.RadioButton();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -348,6 +349,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.raExportExcel);
+            this.groupBox4.Controls.Add(this.raExportTxt);
             this.groupBox4.Controls.Add(this.label29);
             this.groupBox4.Controls.Add(this.txtTableName);
             this.groupBox4.Controls.Add(this.label27);
@@ -357,7 +360,6 @@
             this.groupBox4.Controls.Add(this.button9);
             this.groupBox4.Controls.Add(this.DataSource);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.raExportMSSql);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.cmdBrowser);
             this.groupBox4.Controls.Add(this.raExportAccess);
@@ -382,6 +384,7 @@
             // txtTableName
             // 
             this.txtTableName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTableName.Enabled = false;
             this.txtTableName.Location = new System.Drawing.Point(66, 106);
             this.txtTableName.Name = "txtTableName";
             this.txtTableName.Size = new System.Drawing.Size(157, 20);
@@ -401,6 +404,7 @@
             // txtDataPwd
             // 
             this.txtDataPwd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDataPwd.Enabled = false;
             this.txtDataPwd.Location = new System.Drawing.Point(286, 78);
             this.txtDataPwd.Name = "txtDataPwd";
             this.txtDataPwd.PasswordChar = '*';
@@ -410,6 +414,7 @@
             // txtDataUser
             // 
             this.txtDataUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDataUser.Enabled = false;
             this.txtDataUser.Location = new System.Drawing.Point(66, 78);
             this.txtDataUser.Name = "txtDataUser";
             this.txtDataUser.Size = new System.Drawing.Size(157, 20);
@@ -418,6 +423,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Enabled = false;
             this.label5.Location = new System.Drawing.Point(235, 85);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(46, 13);
@@ -426,6 +432,7 @@
             // 
             // button9
             // 
+            this.button9.Enabled = false;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.Location = new System.Drawing.Point(449, 78);
             this.button9.Name = "button9";
@@ -446,27 +453,17 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.Enabled = false;
             this.label8.Location = new System.Drawing.Point(6, 112);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 13);
             this.label8.TabIndex = 14;
             this.label8.Text = "数据表：";
             // 
-            // raExportMSSql
-            // 
-            this.raExportMSSql.AutoSize = true;
-            this.raExportMSSql.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.raExportMSSql.Location = new System.Drawing.Point(134, 20);
-            this.raExportMSSql.Name = "raExportMSSql";
-            this.raExportMSSql.Size = new System.Drawing.Size(123, 17);
-            this.raExportMSSql.TabIndex = 12;
-            this.raExportMSSql.Text = "发布到MS Sqlserver";
-            this.raExportMSSql.UseVisualStyleBackColor = true;
-            this.raExportMSSql.CheckedChanged += new System.EventHandler(this.raExportMSSql_CheckedChanged);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Enabled = false;
             this.label7.Location = new System.Drawing.Point(5, 85);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 13);
@@ -487,13 +484,11 @@
             // raExportAccess
             // 
             this.raExportAccess.AutoSize = true;
-            this.raExportAccess.Checked = true;
             this.raExportAccess.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.raExportAccess.Location = new System.Drawing.Point(7, 20);
+            this.raExportAccess.Location = new System.Drawing.Point(285, 19);
             this.raExportAccess.Name = "raExportAccess";
             this.raExportAccess.Size = new System.Drawing.Size(95, 17);
             this.raExportAccess.TabIndex = 11;
-            this.raExportAccess.TabStop = true;
             this.raExportAccess.Text = "发布到Access";
             this.raExportAccess.UseVisualStyleBackColor = true;
             this.raExportAccess.CheckedChanged += new System.EventHandler(this.raExportAccess_CheckedChanged);
@@ -719,6 +714,16 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "网址列表";
             // 
+            // txtNag
+            // 
+            this.txtNag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNag.Enabled = false;
+            this.txtNag.Location = new System.Drawing.Point(83, 157);
+            this.txtNag.Name = "txtNag";
+            this.txtNag.Size = new System.Drawing.Size(421, 20);
+            this.txtNag.TabIndex = 19;
+            this.txtNag.TextChanged += new System.EventHandler(this.txtNag_TextChanged);
+            // 
             // comUrlEncode
             // 
             this.comUrlEncode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -729,6 +734,28 @@
             this.comUrlEncode.Name = "comUrlEncode";
             this.comUrlEncode.Size = new System.Drawing.Size(144, 21);
             this.comUrlEncode.TabIndex = 30;
+            // 
+            // txtWebLink
+            // 
+            this.txtWebLink.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWebLink.Location = new System.Drawing.Point(83, 43);
+            this.txtWebLink.Multiline = true;
+            this.txtWebLink.Name = "txtWebLink";
+            this.txtWebLink.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtWebLink.Size = new System.Drawing.Size(421, 61);
+            this.txtWebLink.TabIndex = 1;
+            this.txtWebLink.Text = "http://";
+            // 
+            // cmdEditWeblink
+            // 
+            this.cmdEditWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdEditWeblink.Location = new System.Drawing.Point(461, 196);
+            this.cmdEditWeblink.Name = "cmdEditWeblink";
+            this.cmdEditWeblink.Size = new System.Drawing.Size(57, 23);
+            this.cmdEditWeblink.TabIndex = 31;
+            this.cmdEditWeblink.Text = "修 改";
+            this.cmdEditWeblink.UseVisualStyleBackColor = true;
+            this.cmdEditWeblink.Click += new System.EventHandler(this.cmdEditWeblink_Click);
             // 
             // IsUrlEncode
             // 
@@ -828,16 +855,6 @@
             this.label10.TabIndex = 20;
             this.label10.Text = "导航规则：";
             // 
-            // txtNag
-            // 
-            this.txtNag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNag.Enabled = false;
-            this.txtNag.Location = new System.Drawing.Point(83, 157);
-            this.txtNag.Name = "txtNag";
-            this.txtNag.Size = new System.Drawing.Size(421, 20);
-            this.txtNag.TabIndex = 19;
-            this.txtNag.TextChanged += new System.EventHandler(this.txtNag_TextChanged);
-            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
@@ -890,17 +907,6 @@
             this.cmdDelWeblink.Text = "删 除";
             this.cmdDelWeblink.UseVisualStyleBackColor = true;
             this.cmdDelWeblink.Click += new System.EventHandler(this.cmdDelWeblink_Click);
-            // 
-            // txtWebLink
-            // 
-            this.txtWebLink.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtWebLink.Location = new System.Drawing.Point(83, 43);
-            this.txtWebLink.Multiline = true;
-            this.txtWebLink.Name = "txtWebLink";
-            this.txtWebLink.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtWebLink.Size = new System.Drawing.Size(421, 61);
-            this.txtWebLink.TabIndex = 1;
-            this.txtWebLink.Text = "http://";
             // 
             // listWeblink
             // 
@@ -1433,20 +1439,31 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
-            // openFileDialog1
+            // raExportTxt
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.raExportTxt.AutoSize = true;
+            this.raExportTxt.Checked = true;
+            this.raExportTxt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.raExportTxt.Location = new System.Drawing.Point(9, 19);
+            this.raExportTxt.Name = "raExportTxt";
+            this.raExportTxt.Size = new System.Drawing.Size(108, 17);
+            this.raExportTxt.TabIndex = 23;
+            this.raExportTxt.TabStop = true;
+            this.raExportTxt.Text = "发布到文本文件";
+            this.raExportTxt.UseVisualStyleBackColor = true;
+            this.raExportTxt.CheckedChanged += new System.EventHandler(this.raExportTxt_CheckedChanged);
             // 
-            // cmdEditWeblink
+            // raExportExcel
             // 
-            this.cmdEditWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdEditWeblink.Location = new System.Drawing.Point(461, 196);
-            this.cmdEditWeblink.Name = "cmdEditWeblink";
-            this.cmdEditWeblink.Size = new System.Drawing.Size(57, 23);
-            this.cmdEditWeblink.TabIndex = 31;
-            this.cmdEditWeblink.Text = "修 改";
-            this.cmdEditWeblink.UseVisualStyleBackColor = true;
-            this.cmdEditWeblink.Click += new System.EventHandler(this.cmdEditWeblink_Click);
+            this.raExportExcel.AutoSize = true;
+            this.raExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.raExportExcel.Location = new System.Drawing.Point(149, 19);
+            this.raExportExcel.Name = "raExportExcel";
+            this.raExportExcel.Size = new System.Drawing.Size(110, 17);
+            this.raExportExcel.TabIndex = 24;
+            this.raExportExcel.Text = "发布到Excel文件";
+            this.raExportExcel.UseVisualStyleBackColor = true;
+            this.raExportExcel.CheckedChanged += new System.EventHandler(this.raExportExcel_CheckedChanged);
             // 
             // frmTask
             // 
@@ -1528,7 +1545,6 @@
         private System.Windows.Forms.ListView listWeblink;
         private System.Windows.Forms.TextBox txtWebLink;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.RadioButton raExportMSSql;
         private System.Windows.Forms.RadioButton raExportAccess;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.TextBox DataSource;
@@ -1603,7 +1619,6 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox txtTableName;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.TextBox txtCookie;
@@ -1620,6 +1635,9 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ToolStripMenuItem rmenuGetPostData;
         private System.Windows.Forms.Button cmdEditWeblink;
+        private System.Windows.Forms.RadioButton raExportExcel;
+        private System.Windows.Forms.RadioButton raExportTxt;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
 
 
     }

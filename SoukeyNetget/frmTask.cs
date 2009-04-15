@@ -103,13 +103,21 @@ namespace SoukeyNetget
             {
                 //存在导出任务
                 this.groupBox4.Enabled = true;
-                if ((cGlobalParas.PublishType)int.Parse (t.ExportType) == cGlobalParas.PublishType.PublishAccess)
+
+                switch ((cGlobalParas.PublishType)int.Parse(t.ExportType))
                 {
-                    this.raExportAccess.Checked = true;
-                }
-                else if ((cGlobalParas.PublishType)int.Parse (t.ExportType) == cGlobalParas.PublishType.PublishMSSql)
-                {
-                    this.raExportMSSql.Checked = true;
+                    case cGlobalParas.PublishType.PublishAccess:
+                        this.raExportAccess.Checked  = true;
+                        break;
+                    case cGlobalParas.PublishType.PublishExcel :
+                        this.raExportExcel.Checked = true;
+                        break;
+                    case cGlobalParas.PublishType.PublishTxt :
+
+                        this.raExportTxt.Checked = true;
+                        break;
+                    default :
+                        break;
                 }
                 this.DataSource.Text = t.DataSource;
                 this.txtDataUser.Text  = t.DataUser;
@@ -228,15 +236,31 @@ namespace SoukeyNetget
 
        private void cmdBrowser_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.Title = "请指定Access文件名";
-
-            openFileDialog1.InitialDirectory = Program.getPrjPath();
-            openFileDialog1.Filter = "Excel Files(*.mdb)|*.mdb|All Files(*.*)|*.*";
-
-
-            if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (this.raExportTxt.Checked == true)
             {
-                this.DataSource.Text = this.openFileDialog1.FileName;
+                this.saveFileDialog1.Title = "请指定导出的文本文件名";
+
+                saveFileDialog1.InitialDirectory = Program.getPrjPath();
+                saveFileDialog1.Filter = "txt Files(*.txt)|*.txt|All Files(*.*)|*.*";
+            }
+            else if (this.raExportExcel.Checked == true)
+            {
+                this.saveFileDialog1.Title = "请指定导出的Excel文件名";
+
+                saveFileDialog1.InitialDirectory = Program.getPrjPath();
+                saveFileDialog1.Filter = "Excel Files(*.xls)|*.xls|All Files(*.*)|*.*";
+            }
+            else if (this.raExportAccess.Checked == true)
+            {
+                this.saveFileDialog1.Title = "请指定导出的Access文件名";
+
+                saveFileDialog1.InitialDirectory = Program.getPrjPath();
+                saveFileDialog1.Filter = "Access Files(*.mdb)|*.mdb|All Files(*.*)|*.*";
+            }
+
+            if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.DataSource.Text = this.saveFileDialog1.FileName;
             }
         }
 
@@ -464,9 +488,13 @@ namespace SoukeyNetget
                 {
                     t.ExportType =((int) cGlobalParas.PublishType.PublishAccess).ToString () ;
                 }
-                else if (this.raExportMSSql.Checked ==true )
+                else if (this.raExportTxt.Checked ==true )
                 {
-                    t.ExportType = ((int)cGlobalParas.PublishType.PublishMSSql).ToString ();
+                    t.ExportType = ((int)cGlobalParas.PublishType.PublishTxt).ToString ();
+                }
+                else if (this.raExportExcel.Checked == true)
+                {
+                    t.ExportType = ((int)cGlobalParas.PublishType.PublishExcel ).ToString();
                 }
 
                 t.DataSource  = this.DataSource.Text.ToString();
@@ -1116,14 +1144,19 @@ namespace SoukeyNetget
         private void raExportAccess_CheckedChanged(object sender, EventArgs e)
         {
             if (this.raExportAccess.Checked == true)
-                this.cmdBrowser.Enabled = true;
+            {
+                this.label6.Text = "数据库：";
+                this.label5.Enabled = true;
+                this.label7.Enabled = true;
+                this.label8.Enabled = true;
+                this.txtDataUser.Enabled = true;
+                this.txtDataPwd.Enabled = true;
+                this.txtTableName.Enabled = true;
+                this.button9.Enabled = true;
+            }
         }
 
-        private void raExportMSSql_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.raExportMSSql.Checked == true)
-                this.cmdBrowser.Enabled = false;
-        }
+      
 
         private void ConnectAccess()
         {
@@ -1151,13 +1184,13 @@ namespace SoukeyNetget
 
         private void button9_Click(object sender, EventArgs e)
         {
-            if (this.raExportAccess.Checked == true)
+            try
             {
                 ConnectAccess();
             }
-            else if (this.raExportMSSql.Checked == true)
+            catch (System.Exception ex)
             {
-                ConnectSqlServer();
+                MessageBox.Show("数据库连接失败，请检查您输入的信息是否正确！", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error );
             }
         }
 
@@ -1336,6 +1369,37 @@ namespace SoukeyNetget
             this.checkBox3.Checked = false;
             this.txtNag.Text = "";
             this.txtNextPage.Text = "";
+        }
+
+        private void raExportTxt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.raExportTxt.Checked == true)
+            {
+                this.label6.Text = "文件名：";
+                this.label5.Enabled = false;
+                this.label7.Enabled = false;
+                this.label8.Enabled = false;
+                this.txtDataUser.Enabled = false;
+                this.txtDataPwd.Enabled = false;
+                this.txtTableName.Enabled = false;
+                this.button9.Enabled = false;
+            }
+                
+        }
+
+        private void raExportExcel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.raExportExcel.Checked == true)
+            {
+                this.label6.Text = "文件名：";
+                this.label5.Enabled = false;
+                this.label7.Enabled = false;
+                this.label8.Enabled = false;
+                this.txtDataUser.Enabled = false;
+                this.txtDataPwd.Enabled = false;
+                this.txtTableName.Enabled = false;
+                this.button9.Enabled = false;
+            }
         }
         
 

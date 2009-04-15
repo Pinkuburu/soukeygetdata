@@ -48,18 +48,18 @@
             this.comTaskClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comTaskClass.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comTaskClass.FormattingEnabled = true;
-            this.comTaskClass.Location = new System.Drawing.Point(83, 13);
+            this.comTaskClass.Location = new System.Drawing.Point(83, 14);
             this.comTaskClass.Name = "comTaskClass";
-            this.comTaskClass.Size = new System.Drawing.Size(332, 20);
+            this.comTaskClass.Size = new System.Drawing.Size(332, 21);
             this.comTaskClass.TabIndex = 0;
             this.comTaskClass.SelectedIndexChanged += new System.EventHandler(this.comTaskClass_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 16);
+            this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "任务分类：";
             // 
@@ -71,10 +71,10 @@
             this.columnHeader2});
             this.listTask.FullRowSelect = true;
             this.listTask.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listTask.Location = new System.Drawing.Point(14, 39);
+            this.listTask.Location = new System.Drawing.Point(14, 42);
             this.listTask.MultiSelect = false;
             this.listTask.Name = "listTask";
-            this.listTask.Size = new System.Drawing.Size(401, 167);
+            this.listTask.Size = new System.Drawing.Size(401, 181);
             this.listTask.SmallImageList = this.imageList1;
             this.listTask.TabIndex = 2;
             this.listTask.UseCompatibleStateImageBehavior = false;
@@ -99,18 +99,18 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(2, 212);
+            this.groupBox1.Location = new System.Drawing.Point(2, 230);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(450, 8);
+            this.groupBox1.Size = new System.Drawing.Size(450, 9);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
             // cmdOK
             // 
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(246, 232);
+            this.cmdOK.Location = new System.Drawing.Point(246, 251);
             this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(76, 23);
+            this.cmdOK.Size = new System.Drawing.Size(76, 25);
             this.cmdOK.TabIndex = 6;
             this.cmdOK.Text = "确 定";
             this.cmdOK.UseVisualStyleBackColor = true;
@@ -119,9 +119,9 @@
             // cmdCancel
             // 
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(339, 232);
+            this.cmdCancel.Location = new System.Drawing.Point(339, 251);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(76, 23);
+            this.cmdCancel.Size = new System.Drawing.Size(76, 25);
             this.cmdCancel.TabIndex = 7;
             this.cmdCancel.Text = "取 消";
             this.cmdCancel.UseVisualStyleBackColor = true;
@@ -133,9 +133,9 @@
             // 
             // frmImportTask
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(429, 266);
+            this.ClientSize = new System.Drawing.Size(429, 288);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.groupBox1);
@@ -143,6 +143,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comTaskClass);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmImportTask";

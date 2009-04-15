@@ -173,6 +173,7 @@
             this.ClientSize = new System.Drawing.Size(833, 493);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.Name = "frmWeblink";
             this.ShowInTaskbar = false;

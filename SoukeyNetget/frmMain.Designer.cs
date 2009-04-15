@@ -59,6 +59,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.staIsInternet = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ExportProbar = new System.Windows.Forms.ToolStripProgressBar();
             this.StateInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -112,6 +113,7 @@
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.PrograBarTxt = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -293,11 +295,13 @@
             this.staIsInternet,
             this.StateInfo,
             this.toolStripStatusLabel1,
+            this.ExportProbar,
+            this.PrograBarTxt,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 456);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 454);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(891, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(891, 24);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -309,8 +313,16 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.staIsInternet.Image = ((System.Drawing.Image)(resources.GetObject("staIsInternet.Image")));
             this.staIsInternet.Name = "staIsInternet";
-            this.staIsInternet.Size = new System.Drawing.Size(60, 17);
+            this.staIsInternet.Size = new System.Drawing.Size(60, 19);
             this.staIsInternet.Text = "在线";
+            // 
+            // ExportProbar
+            // 
+            this.ExportProbar.AutoSize = false;
+            this.ExportProbar.Enabled = false;
+            this.ExportProbar.Name = "ExportProbar";
+            this.ExportProbar.Size = new System.Drawing.Size(100, 18);
+            this.ExportProbar.Visible = false;
             // 
             // StateInfo
             // 
@@ -319,14 +331,14 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.StateInfo.Name = "StateInfo";
-            this.StateInfo.Size = new System.Drawing.Size(150, 17);
+            this.StateInfo.Size = new System.Drawing.Size(150, 19);
             this.StateInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 19);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // toolStripStatusLabel2
@@ -335,7 +347,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(666, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(438, 19);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -374,12 +386,12 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(891, 407);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(891, 405);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.LeftToolStripPanelVisible = false;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 49);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(891, 407);
+            this.toolStripContainer1.Size = new System.Drawing.Size(891, 405);
             this.toolStripContainer1.TabIndex = 5;
             this.toolStripContainer1.Text = "toolStripContainer1";
             this.toolStripContainer1.TopToolStripPanelVisible = false;
@@ -397,7 +409,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(891, 407);
+            this.splitContainer1.Size = new System.Drawing.Size(891, 405);
             this.splitContainer1.SplitterDistance = 169;
             this.splitContainer1.TabIndex = 4;
             // 
@@ -439,7 +451,7 @@
             treeNode4,
             treeNode5});
             this.treeMenu.SelectedImageIndex = 0;
-            this.treeMenu.Size = new System.Drawing.Size(169, 407);
+            this.treeMenu.Size = new System.Drawing.Size(169, 405);
             this.treeMenu.TabIndex = 0;
             this.treeMenu.Enter += new System.EventHandler(this.treeMenu_Enter);
             this.treeMenu.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeMenu_DragDrop);
@@ -501,8 +513,8 @@
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.splitContainer2.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(718, 407);
-            this.splitContainer2.SplitterDistance = 204;
+            this.splitContainer2.Size = new System.Drawing.Size(718, 405);
+            this.splitContainer2.SplitterDistance = 202;
             this.splitContainer2.TabIndex = 0;
             // 
             // dataTask
@@ -539,7 +551,7 @@
             this.dataTask.RowHeadersVisible = false;
             this.dataTask.RowTemplate.Height = 23;
             this.dataTask.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataTask.Size = new System.Drawing.Size(718, 204);
+            this.dataTask.Size = new System.Drawing.Size(718, 202);
             this.dataTask.StandardTab = true;
             this.dataTask.TabIndex = 0;
             this.dataTask.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataTask_MouseDown);
@@ -780,14 +792,14 @@
             // toolMenuImportTask
             // 
             this.toolMenuImportTask.Name = "toolMenuImportTask";
-            this.toolMenuImportTask.Size = new System.Drawing.Size(152, 22);
+            this.toolMenuImportTask.Size = new System.Drawing.Size(146, 22);
             this.toolMenuImportTask.Text = "导入任务";
             this.toolMenuImportTask.Click += new System.EventHandler(this.toolMenuImportTask_Click);
             // 
             // toolMenuDownloadTask
             // 
             this.toolMenuDownloadTask.Name = "toolMenuDownloadTask";
-            this.toolMenuDownloadTask.Size = new System.Drawing.Size(152, 22);
+            this.toolMenuDownloadTask.Size = new System.Drawing.Size(146, 22);
             this.toolMenuDownloadTask.Text = "下载任务模板";
             this.toolMenuDownloadTask.Click += new System.EventHandler(this.toolMenuDownloadTask_Click);
             // 
@@ -832,6 +844,16 @@
             this.timer2.Enabled = true;
             this.timer2.Interval = 500;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // PrograBarTxt
+            // 
+            this.PrograBarTxt.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.PrograBarTxt.Name = "PrograBarTxt";
+            this.PrograBarTxt.Size = new System.Drawing.Size(95, 19);
+            this.PrograBarTxt.Text = "当前正在导出：";
+            this.PrograBarTxt.Visible = false;
             // 
             // frmMain
             // 
@@ -955,5 +977,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolMenuImportTask;
         private System.Windows.Forms.ToolStripMenuItem toolMenuDownloadTask;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripProgressBar ExportProbar;
+        private System.Windows.Forms.ToolStripStatusLabel PrograBarTxt;
     }
 }

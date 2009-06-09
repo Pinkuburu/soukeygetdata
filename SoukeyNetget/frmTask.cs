@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.IO;
 
 
 ///功能：采集任务信息处理  
@@ -135,6 +136,7 @@ namespace SoukeyNetget
 
             }
 
+            this.txtSavePath.Text = t.SavePath;
             this.udThread.Value = t.ThreadCount;
             this.txtStartPos.Text = t.StartPos;
             this.txtEndPos.Text = t.EndPos;
@@ -174,6 +176,7 @@ namespace SoukeyNetget
                 item=new ListViewItem() ;
                 item.Name =t.WebpageCutFlag[i].id.ToString ();
                 item.Text =t.WebpageCutFlag[i].Title.ToString ();
+                item.SubItems.Add(cGlobalParas.ConvertName (t.WebpageCutFlag[i].DataType) );
                 item.SubItems.Add (t.WebpageCutFlag[i].StartPos.ToString ());
                 item.SubItems.Add (t.WebpageCutFlag[i].EndPos .ToString ());
                 item.SubItems.Add(cGlobalParas.ConvertName (t.WebpageCutFlag[i].LimitSign));
@@ -210,8 +213,23 @@ namespace SoukeyNetget
 
             this.comUrlEncode.Items.Add("UTF-8");
             this.comUrlEncode.Items.Add("gb2312");
+            this.comUrlEncode.Items.Add("gbk");
 
-            //初始化页面加载时各个控间的状态
+            this.comGetType.Items.Add("文本");
+            this.comGetType.Items.Add("图片");
+            this.comGetType.Items.Add("Flash");
+            this.comGetType.Items.Add("文件");
+            this.comGetType.SelectedIndex =0;
+
+            this.txtSavePath.Text =Program.getPrjPath() + "data";
+
+            this.txtGetTitleName.Items.Add("链接地址");
+            this.txtGetTitleName.Items.Add("标题");
+            this.txtGetTitleName.Items.Add("内容");
+            this.txtGetTitleName.Items.Add("图片");
+            
+
+            //初始化页面加载时各个控件的状态
 
 
             //初始化任务分类
@@ -335,28 +353,26 @@ namespace SoukeyNetget
             this.txtNextPage.Text = "";
         }
 
-        private void AddDemoUrl()
+        private string AddDemoUrl(string SourceUrl,bool IsNavPage,bool IsAPath,string APath)
         {
-            if (this.listWeblink.Items.Count != 0)
-            {
                 string Url;
                 List<string> Urls;
 
                 if (this.IsUrlEncode.Checked == true)
                 {
-                    Urls = gUrl.SplitWebUrl(this.listWeblink.Items[0].Text.ToString(), this.IsUrlEncode.Checked, cGlobalParas.ConvertID(this.comUrlEncode.SelectedItem.ToString()).ToString());
+                    Urls = gUrl.SplitWebUrl(SourceUrl, this.IsUrlEncode.Checked, cGlobalParas.ConvertID(this.comUrlEncode.SelectedItem.ToString()).ToString());
                 }
                 else
                 {
-                    Urls = gUrl.SplitWebUrl(this.listWeblink.Items[0].Text.ToString(), this.IsUrlEncode.Checked);
+                    Urls = gUrl.SplitWebUrl(SourceUrl, this.IsUrlEncode.Checked);
                 }
-                if (this.listWeblink.Items[0].SubItems[1].Text  != "")
+                if (IsNavPage ==true )
                 {
-                    
-                    if (this.listWeblink.Items[0].SubItems[2].Text  == "是")
-                        Url = GetUrl(this.listWeblink.Items[0].Text.ToString(), this.listWeblink.Items[0].SubItems[1].Text, true);
+
+                    if (IsAPath ==true)
+                        Url = GetUrl(SourceUrl, APath, true);
                     else
-                        Url = GetUrl(this.listWeblink.Items[0].Text.ToString(), this.listWeblink.Items[0].SubItems[1].Text, false);
+                        Url = GetUrl(SourceUrl, APath, false);
 
                 }
                 else
@@ -364,9 +380,9 @@ namespace SoukeyNetget
                     Url = Urls[0].ToString();
                 }
 
-                this.txtWeblinkDemo.Text = Url;
                 Urls = null;
-            }
+                return Url;
+
         }
 
         private void cmdGetCode_Click(object sender, EventArgs e)
@@ -385,8 +401,10 @@ namespace SoukeyNetget
 
         private void cmdDelWeblink_Click(object sender, EventArgs e)
         {
-
-            this.listWeblink.Items.Remove(this.listWeblink.SelectedItems[0]);
+            if (this.listWeblink.SelectedItems.Count != 0)
+            {
+                this.listWeblink.Items.Remove(this.listWeblink.SelectedItems[0]);
+            }
 
             if (this.listWeblink.Items.Count == 0)
             {
@@ -463,6 +481,10 @@ namespace SoukeyNetget
 
             t.TaskType = cGlobalParas.ConvertID ( this.TaskType.SelectedItem.ToString ()).ToString ();
             t.RunType = cGlobalParas.ConvertID(this.comRunType.SelectedItem.ToString()).ToString();
+            if (this.txtSavePath.Text.Trim().ToString() == "")
+                t.SavePath = Program.getPrjPath() + "data";
+            else
+                t.SavePath = this.txtSavePath.Text;
             t.ThreadCount = int.Parse (this.udThread.Value.ToString ());
             t.StartPos = this.txtStartPos.Text;
             t.EndPos = this.txtEndPos.Text;
@@ -549,7 +571,7 @@ namespace SoukeyNetget
                 else 
                 {
                     w.IsNextpage = true;
-                    w.NextPageRule = this.txtNextPage.Text.ToString();
+                    w.NextPageRule = this.listWeblink.Items[i].SubItems[3].Text;
                 }
 
                 t.WebpageLink.Add (w);
@@ -562,9 +584,11 @@ namespace SoukeyNetget
                 c = new Task.cWebpageCutFlag();
                 c.id = i;
                 c.Title = this.listWebGetFlag.Items[i].Text;
-                c.StartPos = this.listWebGetFlag.Items[i].SubItems[1].Text;
-                c.EndPos = this.listWebGetFlag.Items[i].SubItems[2].Text;
-                c.LimitSign =cGlobalParas.ConvertID (this.listWebGetFlag.Items[i].SubItems[3].Text);
+                c.DataType = cGlobalParas.ConvertID(this.listWebGetFlag.Items[i].SubItems[1].Text);
+                c.StartPos = this.listWebGetFlag.Items[i].SubItems[2].Text;
+                c.EndPos = this.listWebGetFlag.Items[i].SubItems[3].Text;
+                c.LimitSign =cGlobalParas.ConvertID (this.listWebGetFlag.Items[i].SubItems[4].Text);
+                
                 t.WebpageCutFlag.Add(c);
                 c = null;
 
@@ -599,19 +623,6 @@ namespace SoukeyNetget
             }
 
             this.Dispose();
-
-        }
-
-        private void cmdSelectTask_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("在原有任务基础上修改建立新的任务将导入您即将选择的任务信息，这样您当前已经输入的任务信息将全部删除（任务名称会保留），继续使用此功能？", "系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            {
-                return;
-            }
-            frmImportTask ft = new frmImportTask();
-            ft.RTaskID = new frmImportTask.ReturnTaskID(GetTaskID);
-            ft.ShowDialog();
-            ft.Dispose();
 
         }
 
@@ -679,12 +690,12 @@ namespace SoukeyNetget
         #endregion
 
         #region 传递给委托的方法
-        private void GetTaskID(int TaskID,string TaskName)
-        {
-            this.txtTaskTemp.Tag  = TaskID.ToString();
-            this.txtTaskTemp.Text = TaskName;
+        //private void GetTaskID(int TaskID,string TaskName)
+        //{
+        //    this.txtTaskTemp.Tag  = TaskID.ToString();
+        //    this.txtTaskTemp.Text = TaskName;
 
-        }
+        //}
 
         private void GetUrl(string Url, int UrlCount)
         {
@@ -744,20 +755,6 @@ namespace SoukeyNetget
 
             SetTooltip();
 
-            ////初始化字典菜单的项目
-            //cDict d = new cDict();
-            //int count = d.GetDictClassCount();
-            //ToolStripMenuItem cItem;
-
-            //for (int i = 0; i < count; i++)
-            //{
-            //    cItem =new ToolStripMenuItem ();
-            //    cItem.Name =d.GetDictClassName(i).ToString();
-            //    cItem.Text ="字典:{Dict:" + d.GetDictClassName(i).ToString() + "}";
-            //    //this.contextMenuStrip1.Items.Add("字典:{Dict:" + d.GetDictClassName(i).ToString() + "}");
-            //    this.contextMenuStrip1.Items.Add(cItem);
-            //}
-
             switch (this.FormState)
             {
                 case cGlobalParas.FormState.New :
@@ -766,6 +763,7 @@ namespace SoukeyNetget
                     this.tTask.ReadOnly = true;
                     break;
                 case cGlobalParas.FormState.Browser :
+                    SetFormBrowser();
                     break;
                 default :
                     break ;
@@ -774,25 +772,44 @@ namespace SoukeyNetget
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SetFormBrowser()
         {
+            this.cmdOpenFolder.Enabled = false;
+            this.button10.Enabled = false;
+            this.cmdBrowser.Enabled = false;
+            this.button9.Enabled = false;
+            this.button2.Enabled = false;
+            this.button3.Enabled = false;
+            this.button4.Enabled = false;
+            this.button6.Enabled = false;
+            this.cmdAddWeblink.Enabled = false;
+            this.cmdEditWeblink.Enabled = false;
+            this.cmdDelWeblink.Enabled = false;
 
-          GatherData ();
+            this.cmdAddCutFlag.Enabled = false;
+            this.button8.Enabled = false;
+            this.cmdDelCutFlag.Enabled = false;
 
+            this.button7.Enabled = false;
+
+            this.button1.Enabled = false;
+
+            this.cmdCancel.Text = "返 回";
+
+            this.cmdOK.Enabled =false ;
         }
 
+      
         private void GatherData()
         {
             //测试采集，根据用户定义的内容测试采集
             //验证数据是否正确
             //比部分内容有可能在下一版中单独一个页面来处理
 
+            //判断是否已经提取了示例网址，如果没有，则进行提取
             if (this.txtWeblinkDemo.Text.ToString() == null || this.txtWeblinkDemo.Text.ToString() == "")
             {
-                this.errorProvider1.Clear();
-                this.tabControl1.SelectedTab = this.tabControl1.TabPages[2];
-                this.errorProvider1.SetError(this.txtWeblinkDemo, "需要指定示例网址，此示例网址是根据您指定的网址自动产生");
-                return;
+                GetDemoUrl();
             }
                        
             this.tabControl1.SelectedTab = this.tabControl1.TabPages[3];
@@ -810,16 +827,18 @@ namespace SoukeyNetget
                 c = new Task.cWebpageCutFlag();
                 c.id = i;
                 c.Title = this.listWebGetFlag.Items[i].Text;
-                c.StartPos = this.listWebGetFlag.Items[i].SubItems[1].Text;
-                c.EndPos = this.listWebGetFlag.Items[i].SubItems[2].Text;
-                c.LimitSign =cGlobalParas.ConvertID ( this.listWebGetFlag.Items[i].SubItems[3].Text);
+                c.DataType = cGlobalParas.ConvertID ( this.listWebGetFlag.Items[i].SubItems[1].Text);
+                c.StartPos = this.listWebGetFlag.Items[i].SubItems[2].Text;
+                c.EndPos = this.listWebGetFlag.Items[i].SubItems[3].Text;
+                c.LimitSign =cGlobalParas.ConvertID ( this.listWebGetFlag.Items[i].SubItems[4].Text);
                 gData.CutFlag.Add(c);
                 c = null;
             }
 
             try
             {
-                DataTable dGather = gData.GetGatherData(this.txtWeblinkDemo.Text.ToString(), (cGlobalParas.WebCode)cGlobalParas.ConvertID(this.comWebCode.SelectedItem.ToString()), this.txtCookie.Text.ToString(), this.txtStartPos.Text.ToString(), this.txtEndPos.Text.ToString());
+                string tmpSavePath = this.txtSavePath.Text.ToString() + "\\" + this.tTask.Text.ToString() + "_file";
+                DataTable dGather = gData.GetGatherData(this.txtWeblinkDemo.Text.ToString(), (cGlobalParas.WebCode)cGlobalParas.ConvertID(this.comWebCode.SelectedItem.ToString()), this.txtCookie.Text.ToString(), this.txtStartPos.Text.ToString(), this.txtEndPos.Text.ToString(), tmpSavePath);
 
                 //绑定到显示的DataGrid中
                 this.dataTestGather.DataSource = dGather;
@@ -834,71 +853,7 @@ namespace SoukeyNetget
 
         }
 
-        private void cmdAddCutFlag_Click(object sender, EventArgs e)
-        {
-            this.errorProvider1.Clear();
-
-            if (this.txtGetTitleName.Text.Trim().ToString() == "")
-            {
-                this.errorProvider1.SetError(this.txtGetTitleName, "请输入采集数据的名称");
-                return;
-            }
-
-            if (this.txtGetStart.Text.Trim().ToString() == "")
-            {
-                this.errorProvider1.SetError(this.txtGetStart, "请输入采集数据的起始标志");
-                return;
-
-            }
-
-            if (this.txtGetEnd.Text.Trim().ToString() == "")
-            {
-                this.errorProvider1.SetError(this.txtGetEnd, "请输入采集数据的结束标志");
-                return;
-            }
-
-            if (this.comLimit.SelectedIndex ==-1)
-            {
-                this.comLimit.SelectedIndex=0;
-            }
-
-            //判断名称是否已经重复
-            for (int i = 0; i < this.listWebGetFlag.Items.Count;i++ )
-            {
-                if (this.listWebGetFlag.Items[i].Text == this.txtGetTitleName.Text)
-                {
-                    this.errorProvider1.Clear();
-                    this.errorProvider1.SetError(this.txtGetEnd, "采集的名称不能重复，请重新命名");
-                    return;
-                }
-            }
-
-            ListViewItem item = new ListViewItem();
-            item.Text = this.txtGetTitleName.Text.ToString();
-            item.SubItems.Add(cTool.ClearFlag ( this.txtGetStart.Text.ToString()));
-            item.SubItems.Add(cTool.ClearFlag ( this.txtGetEnd.Text.ToString()));
-            item.SubItems.Add(this.comLimit.SelectedItem.ToString());
-            this.listWebGetFlag.Items.Add(item);
-            item = null;
-
-            this.txtGetTitleName.Text = "";
-            this.txtGetStart.Text ="";
-            this.txtGetEnd.Text ="";
-            this.comLimit.SelectedIndex = -1;
-            
-
-        }
-
-        private void cmdDelCutFlag_Click(object sender, EventArgs e)
-        {
-            if (this.listWebGetFlag.Items.Count  == 0)
-            {
-                return;
-            }
-            this.listWebGetFlag.Items.Remove(this.listWebGetFlag.SelectedItems[0]);
-        }
-
-  
+      
         private void button2_Click(object sender, EventArgs e)
         {
             this.contextMenuStrip1.Show(this.button2,0,21);
@@ -973,9 +928,14 @@ namespace SoukeyNetget
             {
                 this.label13.Enabled = true;
                 this.txtNextPage.Enabled =true ;
+                this.txtNextPage.Text = "下一页";
             }
             else
             {
+                if (this.txtNextPage.Text == "下一页")
+                {
+                    this.txtNextPage.Text = "";
+                }
                 this.label13.Enabled = false;
                 this.txtNextPage.Enabled =false ;
             }
@@ -1079,6 +1039,29 @@ namespace SoukeyNetget
 
         private void cmdWebSource_Click(object sender, EventArgs e)
         {
+            if (this.txtWeblinkDemo.Text.Trim().ToString() == "")
+            {
+                MessageBox.Show("请首先获取示例网址，再进行源代码查看！", "Soukey提示", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                this.errorProvider1.Clear();
+                this.errorProvider1.SetError(this.txtWeblinkDemo, "请输入网址信息");
+
+                return;
+            }
+
+            string tmpPath = Path.GetTempPath();
+            string WebSource = cTool.GetHtmlSource(this.txtWeblinkDemo.Text, false);
+
+
+            //创建临时文件
+            string m_FileName = "~" + DateTime.Now.ToFileTime().ToString() + ".txt";
+            m_FileName = tmpPath + "\\" + m_FileName;
+            FileStream myStream = File.Open(m_FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
+            StreamWriter sw = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("gb2312"));
+            sw.Write(WebSource);
+            sw.Close();
+            myStream.Close();
+
+            System.Diagnostics.Process.Start(m_FileName); 
 
         }
 
@@ -1087,58 +1070,35 @@ namespace SoukeyNetget
 
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void GetDemoUrl()
         {
             if (this.listWeblink.Items.Count >= 1)
             {
-                AddDemoUrl();
+                bool IsNav;
+                bool IsAPath;
+                string APath = "";
+
+                if (this.listWeblink.Items[0].SubItems[1].Text == "")
+                {
+                    IsNav = false;
+                }
+                else
+                {
+                    IsNav = true;
+                    APath = this.listWeblink.Items[0].SubItems[1].Text;
+                }
+
+                if (this.listWeblink.Items[0].SubItems[2].Text == "是")
+                {
+                    IsAPath = true;
+                }
+                else
+                {
+                    IsAPath = false;
+                }
+
+                this.txtWeblinkDemo.Text = AddDemoUrl(this.listWeblink.Items[0].Text.ToString(), IsNav, IsAPath, APath);
             }
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            if (this.listWebGetFlag.SelectedItems.Count  == 0)
-            {
-                return;
-            }
-
-            this.errorProvider1.Clear();
-
-            if (this.txtGetTitleName.Text.Trim().ToString() == "")
-            {
-                this.errorProvider1.SetError(this.txtGetTitleName, "请输入采集数据的名称");
-                return;
-            }
-
-            if (this.txtGetStart.Text.Trim().ToString() == "")
-            {
-                this.errorProvider1.SetError(this.txtGetStart, "请输入采集数据的起始标志");
-                return;
-
-            }
-
-            if (this.txtGetEnd.Text.Trim().ToString() == "")
-            {
-                this.errorProvider1.SetError(this.txtGetEnd, "请输入采集数据的结束标志");
-                return;
-            }
-
-            this.listWebGetFlag.SelectedItems[0].Text = this.txtGetTitleName.Text.ToString();
-            this.listWebGetFlag.SelectedItems[0].SubItems[1].Text=cTool.ClearFlag(this.txtGetStart.Text.ToString());
-            this.listWebGetFlag.SelectedItems[0].SubItems[2].Text=cTool.ClearFlag(this.txtGetEnd.Text.ToString());
-            if (this.comLimit.SelectedIndex == -1)
-            {
-                this.listWebGetFlag.SelectedItems[0].SubItems[3].Text = this.comLimit.Items[0].ToString();
-            }
-            else
-            {
-                this.listWebGetFlag.SelectedItems[0].SubItems[3].Text = this.comLimit.SelectedItem.ToString();
-            }
-
-            this.txtGetTitleName.Text = "";
-            this.txtGetStart.Text = "";
-            this.txtGetEnd.Text = "";
-            this.comLimit.SelectedIndex = -1;
         }
 
         private void raExportAccess_CheckedChanged(object sender, EventArgs e)
@@ -1155,8 +1115,6 @@ namespace SoukeyNetget
                 this.button9.Enabled = true;
             }
         }
-
-      
 
         private void ConnectAccess()
         {
@@ -1266,9 +1224,10 @@ namespace SoukeyNetget
             if (this.listWebGetFlag.SelectedItems.Count != 0)
             {
                 this.txtGetTitleName.Text = this.listWebGetFlag.SelectedItems[0].Text;
-                this.txtGetStart.Text = this.listWebGetFlag.SelectedItems[0].SubItems[1].Text;
-                this.txtGetEnd.Text = this.listWebGetFlag.SelectedItems[0].SubItems[2].Text;
-                this.comLimit.SelectedItem = this.listWebGetFlag.SelectedItems[0].SubItems[3].Text;
+                this.comGetType.Text = this.listWebGetFlag.SelectedItems[0].SubItems[1].Text;
+                this.txtGetStart.Text = this.listWebGetFlag.SelectedItems[0].SubItems[2].Text;
+                this.txtGetEnd.Text = this.listWebGetFlag.SelectedItems[0].SubItems[3].Text;
+                this.comLimit.SelectedItem = this.listWebGetFlag.SelectedItems[0].SubItems[4].Text;
             }
         }
 
@@ -1302,9 +1261,20 @@ namespace SoukeyNetget
                 {
                     this.checkBox1.Checked = false;
                 }
+               
             }
 
-            this.txtNextPage.Text = this.listWeblink.SelectedItems[0].SubItems[1].Text; ;
+            if (this.listWeblink.SelectedItems[0].SubItems[3].Text == "")
+            {
+                this.checkBox3.Checked = false;
+                this.txtNextPage.Text = "";
+            }
+            else
+            {
+                this.checkBox3.Checked = true;
+                this.txtNextPage.Text = this.listWeblink.SelectedItems[0].SubItems[3].Text;
+            }
+
         }
 
         private void cmdEditWeblink_Click(object sender, EventArgs e)
@@ -1362,6 +1332,7 @@ namespace SoukeyNetget
             }
 
             UrlCount = gUrl.GetUrlCount(this.txtWebLink.Text.ToString());
+            this.listWeblink.SelectedItems[0].SubItems[4].Text = UrlCount.ToString ();
 
             this.txtWebLink.Text = "http://";
             this.checkBox2.Checked = false;
@@ -1401,8 +1372,171 @@ namespace SoukeyNetget
                 this.button9.Enabled = false;
             }
         }
-        
 
-             
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (!Regex.IsMatch(this.txtWebLink.Text, @"(http|https|ftp)+://[^\s]*"))
+            {
+                MessageBox.Show("网址无法打开，可能出错，请检查网址及导航规则。", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
+            string Url=AddDemoUrl (this.txtWebLink.Text,false,false,"" );
+            GetNextPageFlag(Url);
+
+        }
+        
+        //自动获取下一页的标识
+        private string GetNextPageFlag(string Url)
+        {
+            string webCode = cTool.GetHtmlSource(Url, true);
+            return "";
+        }
+
+        private void comGetType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.comGetType.SelectedIndex == 0)
+            {
+                this.comLimit.Enabled = true;
+            }
+            else
+            {
+                this.comLimit.SelectedIndex = -1;
+                this.comLimit.Enabled = false;
+            }
+        }
+
+        private void cmdAddCutFlag_Click(object sender, EventArgs e)
+        {
+            this.errorProvider1.Clear();
+
+            if (this.txtGetTitleName.Text.Trim().ToString() == "")
+            {
+                this.errorProvider1.SetError(this.txtGetTitleName, "请输入采集数据的名称");
+                return;
+            }
+
+            if (this.txtGetStart.Text.Trim().ToString() == "")
+            {
+                this.errorProvider1.SetError(this.txtGetStart, "请输入采集数据的起始标志");
+                return;
+
+            }
+
+            if (this.txtGetEnd.Text.Trim().ToString() == "")
+            {
+                this.errorProvider1.SetError(this.txtGetEnd, "请输入采集数据的结束标志");
+                return;
+            }
+
+            if (this.comLimit.SelectedIndex == -1)
+            {
+                this.comLimit.SelectedIndex = 0;
+            }
+
+            //判断名称是否已经重复
+            for (int i = 0; i < this.listWebGetFlag.Items.Count; i++)
+            {
+                if (this.listWebGetFlag.Items[i].Text == this.txtGetTitleName.Text)
+                {
+                    this.errorProvider1.Clear();
+                    this.errorProvider1.SetError(this.txtGetEnd, "采集的名称不能重复，请重新命名");
+                    return;
+                }
+            }
+
+            ListViewItem item = new ListViewItem();
+            item.Text = this.txtGetTitleName.Text.ToString();
+            item.SubItems.Add(this.comGetType.SelectedItem.ToString());
+            item.SubItems.Add(cTool.ClearFlag(this.txtGetStart.Text.ToString()));
+            item.SubItems.Add(cTool.ClearFlag(this.txtGetEnd.Text.ToString()));
+            item.SubItems.Add(this.comLimit.SelectedItem.ToString());
+            this.listWebGetFlag.Items.Add(item);
+            item = null;
+
+            this.txtGetTitleName.Text = "";
+            this.txtGetStart.Text = "";
+            this.txtGetEnd.Text = "";
+            this.comLimit.SelectedIndex = -1;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (this.listWebGetFlag.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
+            this.errorProvider1.Clear();
+
+            if (this.txtGetTitleName.Text.Trim().ToString() == "")
+            {
+                this.errorProvider1.SetError(this.txtGetTitleName, "请输入采集数据的名称");
+                return;
+            }
+
+            if (this.txtGetStart.Text.Trim().ToString() == "")
+            {
+                this.errorProvider1.SetError(this.txtGetStart, "请输入采集数据的起始标志");
+                return;
+
+            }
+
+            if (this.txtGetEnd.Text.Trim().ToString() == "")
+            {
+                this.errorProvider1.SetError(this.txtGetEnd, "请输入采集数据的结束标志");
+                return;
+            }
+
+            this.listWebGetFlag.SelectedItems[0].Text = this.txtGetTitleName.Text.ToString();
+            this.listWebGetFlag.SelectedItems[0].SubItems[1].Text = this.comGetType.SelectedItem.ToString();
+            this.listWebGetFlag.SelectedItems[0].SubItems[2].Text = cTool.ClearFlag(this.txtGetStart.Text.ToString());
+            this.listWebGetFlag.SelectedItems[0].SubItems[3].Text = cTool.ClearFlag(this.txtGetEnd.Text.ToString());
+            if (this.comLimit.SelectedIndex == -1)
+            {
+                this.listWebGetFlag.SelectedItems[0].SubItems[4].Text = this.comLimit.Items[0].ToString();
+            }
+            else
+            {
+                this.listWebGetFlag.SelectedItems[0].SubItems[4].Text = this.comLimit.SelectedItem.ToString();
+            }
+
+            this.txtGetTitleName.Text = "";
+            this.txtGetStart.Text = "";
+            this.txtGetEnd.Text = "";
+            this.comLimit.SelectedIndex = -1;
+        }
+
+        private void cmdDelCutFlag_Click(object sender, EventArgs e)
+        {
+            if (this.listWebGetFlag.SelectedItems.Count != 0)
+            {
+                this.listWebGetFlag.Items.Remove(this.listWebGetFlag.SelectedItems[0]);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GatherData();
+        }
+
+        private void cmdOpenFolder_Click(object sender, EventArgs e)
+        {
+            this.folderBrowserDialog1.Description = "请选择采集任务数据存储的路径：" ;
+            this.folderBrowserDialog1.SelectedPath = Program.getPrjPath();
+            if (this.folderBrowserDialog1.ShowDialog()==DialogResult.OK)
+            {
+                this.txtSavePath.Text = this.folderBrowserDialog1.SelectedPath;
+            }
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            GetDemoUrl();
+        }
+
+      
+
     }
 }

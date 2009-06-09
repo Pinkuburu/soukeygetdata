@@ -14,6 +14,7 @@ using SoukeyNetget.CustomControl;
 using System.Runtime.InteropServices;
 using SoukeyNetget.publish ;
 using System.Web;
+using System.IO;
 
 ///功能：Soukey采摘主界面处理（包括线程响应事件）
 ///完成时间：2009-3-2
@@ -116,14 +117,15 @@ namespace SoukeyNetget
             gList.LoadTaskRunData ();
             
             //根据加载的运行区的任务信息,开始初始化采集任务
-            //try
-            //{
+            try
+            {
                 m_GatherControl.AddGatherTask(gList);
-            //}
-            //catch (System.Exception ex)
-            //{
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show ("加载运行任务出错，有可能存在正在运行的任务，但数据已经遭到破坏无法加载！" + "\n\r" + "错误信息为：" + ex.Message , "Soukey错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            //}
+            }
 
             //采集控制器事件绑定,绑定后,页面可以响应采集任务的相关事件
             m_GatherControl.TaskManage.TaskCompleted += tManage_Completed;
@@ -146,6 +148,7 @@ namespace SoukeyNetget
             m_PublishControl.PublishManage.PublishError += this.Publish_Error;
             m_PublishControl.PublishManage.PublishFailed += this.Publish_Failed;
             m_PublishControl.PublishManage.PublishStarted  += this.Publish_Started;
+            m_PublishControl.PublishManage.PublishTempDataCompleted += this.Publish_TempDataCompleted;
 
             //更新状态条信息
             UpdateStatebarTask();
@@ -171,20 +174,7 @@ namespace SoukeyNetget
         //启动任务，当前设计是只能启动一个任务，不支持启动多个任务
         private void toolStartTask_Click(object sender, EventArgs e)
         {
-
-            if (int.Parse(this.dataTask.SelectedCells[7].Value.ToString()) > 0 && this.treeMenu.SelectedNode.Name.ToString () =="nodRunning")
-            {
-                cGatherTask t = m_GatherControl.TaskManage.FindTask(Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString()));
-                t.ResetTask();
-
-                //删除Tabpage
-                string pageName = "page" + t.TaskID;
-                string conName="sCon" + t.TaskID ;
-
-                ((cMyDataGridView)this.tabControl1.TabPages[pageName].Controls[conName].Controls[0].Controls[0]).Clear();
-
-            }
-
+            
             StartTask();
             
         }
@@ -201,7 +191,6 @@ namespace SoukeyNetget
             {
                 //执行正在执行的任务
                 t = m_GatherControl.TaskManage.FindTask(Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString()));
-
             }
             else if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
             {
@@ -229,7 +218,14 @@ namespace SoukeyNetget
             }
 
             //任务成功启动后，需要建立TabPage用于显示此任务的日志及采集数据的信息
-            AddTab(t.TaskID,t.TaskName );
+            if (this.treeMenu.SelectedNode.Name.ToString() == "nodRunning" && (int.Parse(this.dataTask.SelectedCells[7].Value.ToString()) + int.Parse(this.dataTask.SelectedCells[8].Value.ToString())) > 0)
+            {
+                BrowserData(t.TaskID);
+            }
+            else
+            {
+                AddTab(t.TaskID, t.TaskName);
+            }
 
             //启动此任务
             m_GatherControl.Start(t);
@@ -410,7 +406,10 @@ namespace SoukeyNetget
                     }
                     t = null;
 
-                    this.rmenuBrowserData.Enabled = false;
+                    if (int.Parse(dataTask.SelectedCells[7].Value.ToString()) > 0)
+                        this.rmenuBrowserData.Enabled = true;
+                    else
+                        this.rmenuBrowserData.Enabled = false;
                     this.rmmenuNewTask.Enabled = false;
                     this.rmmenuEditTask.Enabled = false;
                     this.rmmenuDelTask.Enabled = true;
@@ -671,42 +670,42 @@ namespace SoukeyNetget
                     case cGlobalParas.TaskState.Started:
                         dataTask.Rows.Add(imageList1.Images["started"],taskList[i].TaskID , taskList[i].State , this.treeMenu.SelectedNode.Name,
                             taskList[i].TaskName,cGlobalParas.ConvertName ((int) taskList[i].TaskType),(taskList[i].IsLogin ==true ? "登录":"不登录"),
-                            taskList[i].GatheredUrlCount, taskList[i].UrlCount, taskList[i].GatheredUrlCount * 100 / taskList[i].UrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
+                            taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
                             cGlobalParas.ConvertName((int)taskList[i].PublishType));
                         break ;
 
                     case cGlobalParas.TaskState.Stopped :
-                        if (taskList[i].GatheredUrlCount > 0)
+                        if ((taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) > 0)
                         {
                             dataTask.Rows.Add(imageList1.Images["pause"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
                                 taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
-                                taskList[i].GatheredUrlCount, taskList[i].UrlCount, taskList[i].GatheredUrlCount * 100 / taskList[i].UrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
+                                taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
                                 cGlobalParas.ConvertName((int)taskList[i].PublishType ));
                         }
                         else
                         {
                             dataTask.Rows.Add(imageList1.Images["stop"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
                                 taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
-                                taskList[i].GatheredUrlCount, taskList[i].UrlCount, taskList[i].GatheredUrlCount * 100 / taskList[i].UrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
+                                taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
                                 cGlobalParas.ConvertName((int)taskList[i].PublishType));
                         }
                         break;
                     case cGlobalParas.TaskState.UnStart :
                         dataTask.Rows.Add(imageList1.Images["stop"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
                             taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
-                            taskList[i].GatheredUrlCount, taskList[i].UrlCount, taskList[i].GatheredUrlCount * 100 / taskList[i].UrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
+                            taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
                             cGlobalParas.ConvertName((int)taskList[i].PublishType));
                         break;
                     case cGlobalParas.TaskState.Failed:
                         dataTask.Rows.Add(imageList1.Images["error"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
                             taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
-                            taskList[i].GatheredUrlCount, taskList[i].UrlCount, taskList[i].GatheredUrlCount * 100 / taskList[i].UrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
+                            taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
                             cGlobalParas.ConvertName((int)taskList[i].PublishType));
                         break;
                     default:
                         dataTask.Rows.Add(imageList1.Images["stop"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
                             taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
-                            taskList[i].GatheredUrlCount, taskList[i].UrlCount, taskList[i].GatheredUrlCount * 100 / taskList[i].UrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
+                            taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
                             cGlobalParas.ConvertName((int)taskList[i].PublishType));
                         break;
                 }
@@ -985,18 +984,7 @@ namespace SoukeyNetget
             cGatherTask t = (cGatherTask)sender;
             InvokeMethod(this, "ShowInfo", new object[] { "任务采集完成", t.TaskName });
 
-            //判断此任务是否需要自动导出数据
-            //if (t.PublishType == cGlobalParas.PublishType.NoPublish)
-            //{
-            //    //不自动发布数据
-            //    InvokeMethod(this, "UpdateTaskComplete", new object[] { t.TaskID });
-
-            //}
-            //else
-            //{
-                //自动发布数据
             InvokeMethod(this, "UpdateTaskPublish", new object[] { t.TaskID });
-            //}
 
             t = null;
 
@@ -1009,7 +997,21 @@ namespace SoukeyNetget
 
         }
 
-        
+        //保存采集任务的临时数据
+        public void SaveGatherTempData(Int64 TaskID)
+        {
+
+            //将此任务添加到发布队列中
+
+            string conName = "sCon" + TaskID;
+            string pageName = "page" + TaskID;
+
+            DataTable d = (DataTable)((DataGridView)this.tabControl1.TabPages[pageName].Controls[conName].Controls[0].Controls[0]).DataSource;
+
+            cPublishTask pt = new cPublishTask(m_PublishControl.PublishManage, TaskID, d);
+            m_PublishControl.startSaveTempData (pt);
+
+        }
 
         //处理任务采集完成的工作,但在此的处理是需要发布的任务
         public void UpdateTaskPublish(Int64 TaskID)
@@ -1124,7 +1126,7 @@ namespace SoukeyNetget
             if (this.dataTask.SelectedCells[3].Value.ToString() == "nodRunning")
             {
                 //cGatherTask gt = (cGatherTask)sender;
-                if (int.Parse(dataTask.SelectedCells[7].Value.ToString()) > 0)
+                if ((int.Parse(dataTask.SelectedCells[7].Value.ToString()) + int.Parse(dataTask.SelectedCells[8].Value.ToString())) > 0)
                 {
                     this.dataTask.SelectedCells[0].Value = imageList1.Images["pause"];
                 }
@@ -1133,22 +1135,39 @@ namespace SoukeyNetget
                     this.dataTask.SelectedCells[0].Value = imageList1.Images["stop"];
                 }
                 SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", true);
-                SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", false);
+                SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", true);
                 SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", false);
                 //gt = null;
             }
 
+            //在此处处理任务由于用户中断，需要进行的必要保存工作
+            //任务中断后，系统需保存已经采集完成的数据，保存已经采集的网址记录，
+            //确保下次运行任务时，可以直接进行，即类似下载的断点功能操作
+            cGatherTask t = (cGatherTask)sender;
+
+            SaveGatherTempData(t.TaskID);
+
             UpdateStatebarTask();
+
+            t = null;
            
         }
 
+        //单个Url采集发生错误，不进行界面响应，记录日志即可，日志由其他事件记录完成
+        //当错误达到一定的数量后，会由后台线程触发任务失败的事件，由任务失败事件完成
+        //临时数据的存储
         private void tManage_TaskError(object sender, TaskErrorEventArgs e)
         {
-            cGatherTask t = (cGatherTask)sender;
-            InvokeMethod(this, "ShowInfo", new object[] { "任务采集错误", t.TaskName });
-            t = null;
+            //cGatherTask t = (cGatherTask)sender;
+            ////不需要通过窗口通知告诉用户，直接写入采集日子，注销下面代码
+            ////InvokeMethod(this, "ShowInfo", new object[] { "任务采集错误", t.TaskName });
+           
 
-            InvokeMethod(this, "UpdateStatebarTask", null);
+            //InvokeMethod(this, "UpdateStatebarTask", null);
+
+            //InvokeMethod(this, "SaveGatherTempData", new object[] { t.TaskID });
+
+            //t = null;
         }
 
         private void tManage_TaskFailed(object sender, EventArgs e)
@@ -1156,6 +1175,8 @@ namespace SoukeyNetget
             cGatherTask t = (cGatherTask)sender;
             InvokeMethod(this, "ShowInfo", new object[] { "任务采集失败", t.TaskName });
             t = null;
+
+            InvokeMethod(this, "SaveGatherTempData", new object[] { t.TaskID });
 
             InvokeMethod(this, "UpdateStatebarTask", null);
         }
@@ -1398,8 +1419,10 @@ namespace SoukeyNetget
             tData.tempFileName = tr.GetTempFile(0);
             tData.TaskState = tr.GetTaskState(0);
             tData.UrlCount = tr.GetUrlCount(0);
+            tData.TrueUrlCount = tr.GetTrueUrlCount(0);
             tData.ThreadCount = tr.GetThreadCount(0);
             tData.GatheredUrlCount = tr.GetGatheredUrlCount(0);
+            tData.GatherErrUrlCount = tr.GetErrUrlCount(0);
 
             //添加任务到运行区
             m_GatherControl.AddGatherTask(tData);
@@ -1423,7 +1446,7 @@ namespace SoukeyNetget
                 //执行正在执行的任务
                 t = m_GatherControl.TaskManage.FindTask(Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString()));
 
-                //启动此任务
+                //停止此任务
                 m_GatherControl.Stop(t);
 
                 //任务启动成功显示消息
@@ -1509,27 +1532,33 @@ namespace SoukeyNetget
             GatheredUrlCount.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataTask.Columns.Insert(7, GatheredUrlCount);
 
+            DataGridViewTextBoxColumn GatheredErrUrlCount = new DataGridViewTextBoxColumn();
+            GatheredErrUrlCount.HeaderText = "错误";
+            GatheredErrUrlCount.Width = 50;
+            GatheredErrUrlCount.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            this.dataTask.Columns.Insert(8, GatheredErrUrlCount);
+
             DataGridViewTextBoxColumn tUrlCount = new DataGridViewTextBoxColumn();
             tUrlCount.HeaderText  = "采集数";
             tUrlCount.Width = 50;
             tUrlCount.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            this.dataTask.Columns.Insert(8, tUrlCount);
+            this.dataTask.Columns.Insert(9, tUrlCount);
 
              
             DataGridViewProgressBarColumn tPro = new DataGridViewProgressBarColumn();
             tPro.HeaderText = "进度";
             tPro.Width = 120;
-            this.dataTask.Columns.Insert(9, tPro);
+            this.dataTask.Columns.Insert(10, tPro);
 
             DataGridViewTextBoxColumn tRunType = new DataGridViewTextBoxColumn();
             tRunType.HeaderText = "执行类型";
             tRunType.Width = 120;
-            this.dataTask.Columns.Insert(10, tRunType);
+            this.dataTask.Columns.Insert(11, tRunType);
 
             DataGridViewTextBoxColumn tExportFile = new DataGridViewTextBoxColumn();
             tExportFile.HeaderText  = "导出类型";
             tExportFile.Width = 1900;
-            this.dataTask.Columns.Insert(11, tExportFile);
+            this.dataTask.Columns.Insert(12, tExportFile);
 
         }
 
@@ -1753,39 +1782,44 @@ namespace SoukeyNetget
                 return;
             }
 
+            SetToolbarState();
+           
+        }
+
+        //根据菜单选择及点击的数据内容，自动控制工具栏的按钮状态
+        private void SetToolbarState()
+        {
             switch (this.treeMenu.SelectedNode.Name)
             {
                 case "nodRunning":
-                   cGatherTask t = m_GatherControl.TaskManage.FindTask((Int64)this.dataTask.SelectedCells[1].Value);
+                    cGatherTask t = m_GatherControl.TaskManage.FindTask((Int64)this.dataTask.SelectedCells[1].Value);
                     if (t.TaskState == cGlobalParas.TaskState.Started)
                     {
                         this.toolStartTask.Enabled = false;
                         this.toolStopTask.Enabled = true;
+                        this.toolRestartTask.Enabled = false;
                     }
                     else
                     {
                         this.toolStartTask.Enabled = true;
                         this.toolStopTask.Enabled = false;
-                    }
-                    
-                    if (t.GatheredUrlCount ==0)
-                    {
-                        this.toolRestartTask.Enabled = false;
-                    }
-                    else
-                    {
                         this.toolRestartTask.Enabled = true;
                     }
 
                     UpdateStatebarTaskState(t.TaskState);
 
-                    t = null;
 
                     //只要有内容就可以删除
                     this.toolDelTask.Enabled = true;
-                    this.toolBrowserData.Enabled = false;
 
-                    break ;
+                    if (t.GatheredUrlCount > 0)
+                        this.toolBrowserData.Enabled = true;
+                    else
+                        this.toolBrowserData.Enabled = false;
+
+                    t = null;
+
+                    break;
                 case "nodPublish":
 
                     this.toolStartTask.Enabled = false;
@@ -1794,7 +1828,7 @@ namespace SoukeyNetget
                     this.toolDelTask.Enabled = false;
                     this.toolBrowserData.Enabled = false;
 
-                    UpdateStatebarTaskState(cGlobalParas.TaskState.Publishing );
+                    UpdateStatebarTaskState(cGlobalParas.TaskState.Publishing);
                     break;
                 case "nodComplete":
                     this.toolStartTask.Enabled = false;
@@ -1803,11 +1837,11 @@ namespace SoukeyNetget
                     this.toolDelTask.Enabled = true;
                     this.toolBrowserData.Enabled = true;
 
-                    UpdateStatebarTaskState(cGlobalParas.TaskState.Completed );
+                    UpdateStatebarTaskState(cGlobalParas.TaskState.Completed);
 
-                    break ;
+                    break;
 
-                default :
+                default:
 
                     //只要有内容就可以删除
                     this.toolDelTask.Enabled = true;
@@ -1820,7 +1854,7 @@ namespace SoukeyNetget
                     }
 
                     break;
-             }
+            }
         }
 
         #region 自动添加控件用于显示任务执行的结果
@@ -1928,10 +1962,11 @@ namespace SoukeyNetget
                         {
                             if (m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].TaskID.ToString() == this.dataTask.Rows[j].Cells[1].Value.ToString())
                             {
-                                this.dataTask.Rows[j].Cells[7].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredUrlCount;
-                                this.dataTask.Rows[j].Cells[8].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].UrlCount ;
-                                proI = (int)m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredUrlCount * 100 / m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].UrlCount;
-                                this.dataTask.Rows[j].Cells[9].Value = proI;
+                                this.dataTask.Rows[j].Cells[7].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueUrlCount;
+                                this.dataTask.Rows[j].Cells[8].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueErrUrlCount;
+                                this.dataTask.Rows[j].Cells[9].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].TrueUrlCount;
+                                proI = ((int)m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueUrlCount + (int)m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueErrUrlCount) * 100 / m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].TrueUrlCount;
+                                this.dataTask.Rows[j].Cells[10].Value = proI;
                             }
                         }
                     }
@@ -2079,8 +2114,6 @@ namespace SoukeyNetget
             EditTask();
         }
 
-       
-
         private void EditTask()
         {
             if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
@@ -2106,7 +2139,16 @@ namespace SoukeyNetget
             }
             else if (this.treeMenu.SelectedNode.Name == "nodRunning")
             {
-                MessageBox.Show("当前任务已经加载到运行区无法进行修改操作！", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (MessageBox.Show("当前任务已经加载到运行区无法进行修改操作，继续查看？", "soukey询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+
+                string Filename = "Task" + this.dataTask.SelectedCells[1].Value.ToString() + ".xml";
+                string tPath = Program.getPrjPath() + "Tasks\\run\\";
+
+                LoadTaskInfo(tPath, Filename, cGlobalParas.FormState.Browser);
+                
             }
         }
 
@@ -2271,6 +2313,9 @@ namespace SoukeyNetget
                         break;
                     }
                 }
+
+                //设置按钮状态
+                SetToolbarState();
             }
 
         }
@@ -2516,9 +2561,11 @@ namespace SoukeyNetget
                         }
                     }
 
+                    this.dataTask.SelectedRows[0].Cells[0].Value = imageList1.Images["stop"];
                     this.dataTask.SelectedRows[0].Cells[7].Value = "0";
-                    this.dataTask.SelectedRows[0].Cells[8].Value = t.UrlCount.ToString();
-                    this.dataTask.SelectedRows[0].Cells[9].Value = "0";
+                    this.dataTask.SelectedRows[0].Cells[8].Value = "0";
+                    this.dataTask.SelectedRows[0].Cells[9].Value = t.UrlCount.ToString();
+                    this.dataTask.SelectedRows[0].Cells[10].Value = "0";
 
                     t = null;
 
@@ -2623,22 +2670,22 @@ namespace SoukeyNetget
         //如果网络状态发生改变需要网络连接状态
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (cTool.IsLinkInternet ()==false )
-            {
-                this.staIsInternet.Image =Bitmap.FromFile(Program.getPrjPath () +  "img\\a08.gif");
-;
-                this.staIsInternet.Text ="离线";
+//            if (cTool.IsLinkInternet ()==false )
+//            {
+//                this.staIsInternet.Image =Bitmap.FromFile(Program.getPrjPath () +  "img\\a08.gif");
+//;
+//                this.staIsInternet.Text ="离线";
 
-                //如果检测到离线则停止当前正在运行的任务
+//                //如果检测到离线则停止当前正在运行的任务
 
-            }
-            else
-            {
-                this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a07.gif");
-                this.staIsInternet.Text ="在线";
+//            }
+//            else
+//            {
+//                this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a07.gif");
+//                this.staIsInternet.Text ="在线";
 
-                //如果检测到在线，则启动已经停止的需要采集的任务
-            }
+//                //如果检测到在线，则启动已经停止的需要采集的任务
+//            }
         }
 
 
@@ -2677,6 +2724,11 @@ namespace SoukeyNetget
             InvokeMethod(this, "ShowInfo", new object[] { e.TaskName,"任务发布失败，已经转到已完成区域" });
 
             InvokeMethod(this, "UpdateStatebarTask", null);
+        }
+
+        private void Publish_TempDataCompleted(object sender, PublishTempDataCompletedEventArgs e)
+        {
+
         }
 
         #endregion
@@ -2720,13 +2772,6 @@ namespace SoukeyNetget
             }
         }
 
-        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmAbout f = new frmAbout();
-            f.ShowDialog();
-            f.Dispose();
-        }
-
         private void toolMenuVisityijie_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.yijie.net"); 
@@ -2758,34 +2803,64 @@ namespace SoukeyNetget
             System.Diagnostics.Process.Start("http://www.soukey.com/so.aspx?wd=" + HttpUtility.UrlEncode (this.txtSotxt.Text,Encoding.GetEncoding ("gb2312"))); 
         }
 
-
-        private void BrowserData()
+        private void BrowserData(Int64 TaskID)
         {
             if (this.dataTask.Rows.Count != 0)
             {
-                Int64 TaskID = Int64.Parse (this.dataTask.SelectedCells[1].Value.ToString ());
+                //Int64 TaskID = Int64.Parse (this.dataTask.SelectedCells[1].Value.ToString ());
                 DataTable tmp = new DataTable();
-                string FileName = Program.getPrjPath () + "data\\" + this.dataTask.SelectedCells[4].Value.ToString () + "-" + TaskID + ".xml";
+                string dFile = "";
+
+                //判断是浏览的那些数据：正在运行还是采集完成
+
+                if (this.treeMenu.SelectedNode.Name == "nodRunning")
+                {
+                    cTaskRun tr = new cTaskRun();
+                    tr.LoadSingleTask(TaskID);
+                    dFile=tr.GetTempFile(0);
+                    tr = null;
+                }
+                else if (this.treeMenu.SelectedNode.Name == "nodComplete")
+                {
+                    cTaskComplete tc = new cTaskComplete();
+                    tc.LoadSingleTask(TaskID);
+
+                    dFile = tc.GetTempFile(0);
+                    tc = null;
+                }
+
                 string conName = "sCon" + TaskID;
                 string pageName = "page" + TaskID;
 
-                AddTab(TaskID, this.dataTask.SelectedCells[4].Value.ToString ());
-                tmp.ReadXml(FileName);
+                AddTab(TaskID, this.dataTask.SelectedCells[4].Value.ToString());
 
-                ((DataGridView)(this.tabControl1.TabPages[pageName].Controls[conName].Controls[0].Controls[0])).DataSource = tmp;
+                if (File.Exists(dFile))
+                {
+                    tmp.ReadXml(dFile);
+                }
+
+                ((cMyDataGridView)(this.tabControl1.TabPages[pageName].Controls[conName].Controls[0].Controls[0])).gData = tmp;
+
+                if (tmp.Rows.Count == 0)
+                {
+                    this.toolExportData.Enabled = false;
+                }
+                else
+                {
+                    this.toolExportData.Enabled = true;
+                }
                 tmp = null;
-                
             }
         }
 
         private void toolBrowserData_Click(object sender, EventArgs e)
         {
-            BrowserData();
+            BrowserData(Int64.Parse (this.dataTask.SelectedCells[1].Value.ToString()));
         }
 
         private void rmenuBrowserData_Click(object sender, EventArgs e)
         {
-            BrowserData();
+            BrowserData(Int64.Parse (this.dataTask.SelectedCells[1].Value.ToString()));
         }
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
@@ -2951,6 +3026,10 @@ namespace SoukeyNetget
 
         private void dataTask_MouseMove(object sender, MouseEventArgs e)
         {
+            if (this.dataTask.SelectedRows.Count == 0)
+            {
+                return;
+            }
 
             //判断是否为左键点击，如果是则需要启动拖放操作
             if (((e.Button & MouseButtons.Left) == MouseButtons.Left && this.treeMenu.SelectedNode.Name == "nodTaskClass") ||
@@ -2969,8 +3048,41 @@ namespace SoukeyNetget
             System.Diagnostics.Process.Start("http://www.yijie.net/downloadTask.html"); 
         }
 
+        private void toolMenuAbout_Click(object sender, EventArgs e)
+        {
+            frmAbout f = new frmAbout();
+            f.ShowDialog();
+            f.Dispose();
+        }
 
-   
+        private void sToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.yijie.net"); 
+        }
+
+        private void menuMailto_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("mailto:feiw@163.com"); 
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.tabControl1.SelectedIndex == 0)
+            {
+                this.toolExportData.Enabled = false;
+                return;
+            }
+
+            DataGridView tmp = (DataGridView)this.tabControl1.SelectedTab.Controls[0].Controls[0].Controls[0];
+            if (tmp.Rows.Count > 0)
+                this.toolExportData.Enabled = true;
+            else
+                this.toolExportData.Enabled = false;
+
+
+        }
+
+     
     }
 
 }

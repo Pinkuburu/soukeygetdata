@@ -46,6 +46,9 @@
             this.comWebCode = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cmdBrowser = new System.Windows.Forms.Button();
+            this.raExportExcel = new System.Windows.Forms.RadioButton();
+            this.raExportTxt = new System.Windows.Forms.RadioButton();
             this.label29 = new System.Windows.Forms.Label();
             this.txtTableName = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
@@ -56,26 +59,25 @@
             this.DataSource = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.cmdBrowser = new System.Windows.Forms.Button();
             this.raExportAccess = new System.Windows.Forms.RadioButton();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label28 = new System.Windows.Forms.Label();
+            this.cmdOpenFolder = new System.Windows.Forms.Button();
+            this.txtSavePath = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtTaskDemo = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.udThread = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
-            this.cmdSelectTask = new System.Windows.Forms.Button();
-            this.txtTaskTemp = new System.Windows.Forms.TextBox();
             this.comTaskClass = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.comRunType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.TaskType = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.txtNag = new System.Windows.Forms.TextBox();
             this.comUrlEncode = new System.Windows.Forms.ComboBox();
             this.txtWebLink = new System.Windows.Forms.TextBox();
@@ -101,34 +103,40 @@
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.cmdAddWeblink = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.comGetType = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
             this.comLimit = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.txtGetEnd = new System.Windows.Forms.TextBox();
             this.txtGetStart = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtEndPos = new System.Windows.Forms.TextBox();
-            this.txtStartPos = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.cmdWebSource = new System.Windows.Forms.Button();
             this.cmdDelCutFlag = new System.Windows.Forms.Button();
-            this.txtWeblinkDemo = new System.Windows.Forms.TextBox();
             this.cmdAddCutFlag = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
             this.txtGetTitleName = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.listWebGetFlag = new System.Windows.Forms.ListView();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader10 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.label18 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtEndPos = new System.Windows.Forms.TextBox();
+            this.txtStartPos = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cmdWebSource = new System.Windows.Forms.Button();
+            this.txtWeblinkDemo = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labWaiting = new System.Windows.Forms.Label();
@@ -152,9 +160,8 @@
             this.menuOpenDict = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.raExportTxt = new System.Windows.Forms.RadioButton();
-            this.raExportExcel = new System.Windows.Forms.RadioButton();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -164,6 +171,7 @@
             this.tabPage2.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -175,11 +183,11 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(3, 515);
+            this.groupBox1.Location = new System.Drawing.Point(3, 510);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(650, 5);
+            this.groupBox1.Size = new System.Drawing.Size(746, 5);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -188,7 +196,7 @@
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdCancel.Image = ((System.Drawing.Image)(resources.GetObject("cmdCancel.Image")));
             this.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.cmdCancel.Location = new System.Drawing.Point(556, 532);
+            this.cmdCancel.Location = new System.Drawing.Point(593, 528);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(65, 24);
             this.cmdCancel.TabIndex = 3;
@@ -224,7 +232,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 36);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(619, 476);
+            this.tabControl1.Size = new System.Drawing.Size(658, 476);
             this.tabControl1.TabIndex = 6;
             // 
             // tabPage1
@@ -236,7 +244,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(611, 446);
+            this.tabPage1.Size = new System.Drawing.Size(650, 446);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "基本设置";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -254,7 +262,7 @@
             this.groupBox7.Controls.Add(this.label24);
             this.groupBox7.Location = new System.Drawing.Point(1, 141);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(604, 116);
+            this.groupBox7.Size = new System.Drawing.Size(641, 116);
             this.groupBox7.TabIndex = 12;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "采集设置";
@@ -262,9 +270,9 @@
             // label23
             // 
             this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label23.Location = new System.Drawing.Point(508, 78);
+            this.label23.Location = new System.Drawing.Point(525, 78);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(87, 28);
+            this.label23.Size = new System.Drawing.Size(106, 18);
             this.label23.TabIndex = 9;
             this.label23.Text = "暂不支持自动登录";
             // 
@@ -274,14 +282,14 @@
             this.txtLoginUrl.Enabled = false;
             this.txtLoginUrl.Location = new System.Drawing.Point(178, 77);
             this.txtLoginUrl.Name = "txtLoginUrl";
-            this.txtLoginUrl.Size = new System.Drawing.Size(328, 20);
+            this.txtLoginUrl.Size = new System.Drawing.Size(341, 20);
             this.txtLoginUrl.TabIndex = 8;
             // 
             // IsLogin
             // 
             this.IsLogin.AutoSize = true;
             this.IsLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IsLogin.Location = new System.Drawing.Point(11, 79);
+            this.IsLogin.Location = new System.Drawing.Point(14, 79);
             this.IsLogin.Name = "IsLogin";
             this.IsLogin.Size = new System.Drawing.Size(167, 17);
             this.IsLogin.TabIndex = 7;
@@ -292,9 +300,9 @@
             // button10
             // 
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(505, 44);
+            this.button10.Location = new System.Drawing.Point(538, 43);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(90, 23);
+            this.button10.Size = new System.Drawing.Size(81, 23);
             this.button10.TabIndex = 6;
             this.button10.Text = "获取Cookie";
             this.button10.UseVisualStyleBackColor = true;
@@ -307,7 +315,7 @@
             this.txtCookie.Location = new System.Drawing.Point(79, 44);
             this.txtCookie.Name = "txtCookie";
             this.txtCookie.ReadOnly = true;
-            this.txtCookie.Size = new System.Drawing.Size(427, 20);
+            this.txtCookie.Size = new System.Drawing.Size(461, 20);
             this.txtCookie.TabIndex = 5;
             // 
             // label30
@@ -324,7 +332,7 @@
             this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label25.Location = new System.Drawing.Point(192, 12);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(398, 28);
+            this.label25.Size = new System.Drawing.Size(427, 28);
             this.label25.TabIndex = 2;
             this.label25.Text = "通常情况下系统会自动判断网页编码，并根据编码格式采集内容，如果系统无法自动获取编码，或采集出现乱码则可通过修改指定网页编码格式。";
             // 
@@ -349,6 +357,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cmdBrowser);
             this.groupBox4.Controls.Add(this.raExportExcel);
             this.groupBox4.Controls.Add(this.raExportTxt);
             this.groupBox4.Controls.Add(this.label29);
@@ -361,15 +370,51 @@
             this.groupBox4.Controls.Add(this.DataSource);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.cmdBrowser);
             this.groupBox4.Controls.Add(this.raExportAccess);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Location = new System.Drawing.Point(1, 263);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(604, 176);
+            this.groupBox4.Size = new System.Drawing.Size(641, 176);
             this.groupBox4.TabIndex = 11;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "采集结果发布设置";
+            // 
+            // cmdBrowser
+            // 
+            this.cmdBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdBrowser.Location = new System.Drawing.Point(538, 48);
+            this.cmdBrowser.Name = "cmdBrowser";
+            this.cmdBrowser.Size = new System.Drawing.Size(80, 23);
+            this.cmdBrowser.TabIndex = 3;
+            this.cmdBrowser.Text = "浏览...";
+            this.cmdBrowser.UseVisualStyleBackColor = true;
+            this.cmdBrowser.Click += new System.EventHandler(this.cmdBrowser_Click);
+            // 
+            // raExportExcel
+            // 
+            this.raExportExcel.AutoSize = true;
+            this.raExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.raExportExcel.Location = new System.Drawing.Point(149, 19);
+            this.raExportExcel.Name = "raExportExcel";
+            this.raExportExcel.Size = new System.Drawing.Size(110, 17);
+            this.raExportExcel.TabIndex = 24;
+            this.raExportExcel.Text = "发布到Excel文件";
+            this.raExportExcel.UseVisualStyleBackColor = true;
+            this.raExportExcel.CheckedChanged += new System.EventHandler(this.raExportExcel_CheckedChanged);
+            // 
+            // raExportTxt
+            // 
+            this.raExportTxt.AutoSize = true;
+            this.raExportTxt.Checked = true;
+            this.raExportTxt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.raExportTxt.Location = new System.Drawing.Point(9, 19);
+            this.raExportTxt.Name = "raExportTxt";
+            this.raExportTxt.Size = new System.Drawing.Size(108, 17);
+            this.raExportTxt.TabIndex = 23;
+            this.raExportTxt.TabStop = true;
+            this.raExportTxt.Text = "发布到文本文件";
+            this.raExportTxt.UseVisualStyleBackColor = true;
+            this.raExportTxt.CheckedChanged += new System.EventHandler(this.raExportTxt_CheckedChanged);
             // 
             // label29
             // 
@@ -392,12 +437,11 @@
             // 
             // label27
             // 
-            this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label27.Location = new System.Drawing.Point(284, 104);
+            this.label27.Location = new System.Drawing.Point(284, 106);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(265, 12);
+            this.label27.Size = new System.Drawing.Size(293, 20);
             this.label27.TabIndex = 20;
             this.label27.Text = "数据库密码将以明文的方式保存在任务文件中";
             // 
@@ -447,7 +491,7 @@
             this.DataSource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DataSource.Location = new System.Drawing.Point(66, 49);
             this.DataSource.Name = "DataSource";
-            this.DataSource.Size = new System.Drawing.Size(377, 20);
+            this.DataSource.Size = new System.Drawing.Size(474, 20);
             this.DataSource.TabIndex = 15;
             // 
             // label8
@@ -469,17 +513,6 @@
             this.label7.Size = new System.Drawing.Size(55, 13);
             this.label7.TabIndex = 2;
             this.label7.Text = "用户名：";
-            // 
-            // cmdBrowser
-            // 
-            this.cmdBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdBrowser.Location = new System.Drawing.Point(449, 49);
-            this.cmdBrowser.Name = "cmdBrowser";
-            this.cmdBrowser.Size = new System.Drawing.Size(70, 23);
-            this.cmdBrowser.TabIndex = 3;
-            this.cmdBrowser.Text = "浏览...";
-            this.cmdBrowser.UseVisualStyleBackColor = true;
-            this.cmdBrowser.Click += new System.EventHandler(this.cmdBrowser_Click);
             // 
             // raExportAccess
             // 
@@ -504,42 +537,60 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label28);
+            this.groupBox3.Controls.Add(this.cmdOpenFolder);
+            this.groupBox3.Controls.Add(this.txtSavePath);
+            this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.txtTaskDemo);
             this.groupBox3.Controls.Add(this.label26);
             this.groupBox3.Controls.Add(this.udThread);
             this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.cmdSelectTask);
-            this.groupBox3.Controls.Add(this.txtTaskTemp);
             this.groupBox3.Controls.Add(this.comTaskClass);
             this.groupBox3.Controls.Add(this.label21);
             this.groupBox3.Controls.Add(this.comRunType);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.TaskType);
-            this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(1, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(604, 131);
+            this.groupBox3.Size = new System.Drawing.Size(641, 131);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "基本信息";
             // 
-            // label28
+            // cmdOpenFolder
             // 
-            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label28.Location = new System.Drawing.Point(313, 100);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(277, 29);
-            this.label28.TabIndex = 25;
-            this.label28.Text = "无论您是否选择了发布数据，采集任务在完成采集后都会保存采集数据，保存格式为XML。";
+            this.cmdOpenFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdOpenFolder.Location = new System.Drawing.Point(546, 100);
+            this.cmdOpenFolder.Name = "cmdOpenFolder";
+            this.cmdOpenFolder.Size = new System.Drawing.Size(72, 23);
+            this.cmdOpenFolder.TabIndex = 27;
+            this.cmdOpenFolder.Text = "浏览...";
+            this.cmdOpenFolder.UseVisualStyleBackColor = true;
+            this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
+            // 
+            // txtSavePath
+            // 
+            this.txtSavePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSavePath.Location = new System.Drawing.Point(115, 101);
+            this.txtSavePath.Name = "txtSavePath";
+            this.txtSavePath.Size = new System.Drawing.Size(435, 20);
+            this.txtSavePath.TabIndex = 26;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 104);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 13);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "采集数据保存地址：";
             // 
             // txtTaskDemo
             // 
             this.txtTaskDemo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTaskDemo.Location = new System.Drawing.Point(79, 15);
             this.txtTaskDemo.Name = "txtTaskDemo";
-            this.txtTaskDemo.Size = new System.Drawing.Size(518, 20);
+            this.txtTaskDemo.Size = new System.Drawing.Size(540, 20);
             this.txtTaskDemo.TabIndex = 24;
             // 
             // label26
@@ -554,7 +605,7 @@
             // udThread
             // 
             this.udThread.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.udThread.Location = new System.Drawing.Point(79, 100);
+            this.udThread.Location = new System.Drawing.Point(400, 71);
             this.udThread.Maximum = new decimal(new int[] {
             10,
             0,
@@ -577,49 +628,26 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 104);
+            this.label11.Location = new System.Drawing.Point(333, 75);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(61, 13);
             this.label11.TabIndex = 21;
             this.label11.Text = "线 程 数：";
-            // 
-            // cmdSelectTask
-            // 
-            this.cmdSelectTask.FlatAppearance.BorderSize = 0;
-            this.cmdSelectTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdSelectTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdSelectTask.Image")));
-            this.cmdSelectTask.Location = new System.Drawing.Point(581, 46);
-            this.cmdSelectTask.Name = "cmdSelectTask";
-            this.cmdSelectTask.Size = new System.Drawing.Size(15, 20);
-            this.cmdSelectTask.TabIndex = 18;
-            this.cmdSelectTask.UseVisualStyleBackColor = true;
-            this.cmdSelectTask.Click += new System.EventHandler(this.cmdSelectTask_Click);
-            // 
-            // txtTaskTemp
-            // 
-            this.txtTaskTemp.BackColor = System.Drawing.SystemColors.Window;
-            this.txtTaskTemp.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtTaskTemp.Location = new System.Drawing.Point(384, 44);
-            this.txtTaskTemp.Multiline = true;
-            this.txtTaskTemp.Name = "txtTaskTemp";
-            this.txtTaskTemp.ReadOnly = true;
-            this.txtTaskTemp.Size = new System.Drawing.Size(213, 22);
-            this.txtTaskTemp.TabIndex = 20;
             // 
             // comTaskClass
             // 
             this.comTaskClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comTaskClass.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comTaskClass.FormattingEnabled = true;
-            this.comTaskClass.Location = new System.Drawing.Point(79, 44);
+            this.comTaskClass.Location = new System.Drawing.Point(79, 42);
             this.comTaskClass.Name = "comTaskClass";
-            this.comTaskClass.Size = new System.Drawing.Size(213, 21);
+            this.comTaskClass.Size = new System.Drawing.Size(219, 21);
             this.comTaskClass.TabIndex = 19;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 49);
+            this.label21.Location = new System.Drawing.Point(6, 46);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(67, 13);
             this.label21.TabIndex = 18;
@@ -630,16 +658,16 @@
             this.comRunType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comRunType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comRunType.FormattingEnabled = true;
-            this.comRunType.Location = new System.Drawing.Point(384, 73);
+            this.comRunType.Location = new System.Drawing.Point(79, 71);
             this.comRunType.Name = "comRunType";
-            this.comRunType.Size = new System.Drawing.Size(213, 21);
+            this.comRunType.Size = new System.Drawing.Size(219, 21);
             this.comRunType.TabIndex = 15;
             this.comRunType.SelectedIndexChanged += new System.EventHandler(this.comRunType_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(314, 78);
+            this.label4.Location = new System.Drawing.Point(6, 75);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 13;
@@ -650,24 +678,15 @@
             this.TaskType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TaskType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.TaskType.FormattingEnabled = true;
-            this.TaskType.Location = new System.Drawing.Point(79, 73);
+            this.TaskType.Location = new System.Drawing.Point(399, 42);
             this.TaskType.Name = "TaskType";
-            this.TaskType.Size = new System.Drawing.Size(213, 21);
+            this.TaskType.Size = new System.Drawing.Size(219, 21);
             this.TaskType.TabIndex = 11;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(313, 49);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "采用模板：";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 78);
+            this.label2.Location = new System.Drawing.Point(330, 46);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 9;
@@ -680,13 +699,14 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(611, 446);
+            this.tabPage2.Size = new System.Drawing.Size(650, 446);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "采集网址";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.label31);
             this.groupBox6.Controls.Add(this.txtNag);
             this.groupBox6.Controls.Add(this.comUrlEncode);
             this.groupBox6.Controls.Add(this.txtWebLink);
@@ -707,20 +727,31 @@
             this.groupBox6.Controls.Add(this.cmdDelWeblink);
             this.groupBox6.Controls.Add(this.listWeblink);
             this.groupBox6.Controls.Add(this.cmdAddWeblink);
+            this.groupBox6.Controls.Add(this.label20);
             this.groupBox6.Location = new System.Drawing.Point(1, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(604, 433);
+            this.groupBox6.Size = new System.Drawing.Size(641, 433);
             this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "网址列表";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label31.Location = new System.Drawing.Point(327, 103);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(91, 13);
+            this.label31.TabIndex = 32;
+            this.label31.Text = "暂不支持JS跳转";
             // 
             // txtNag
             // 
             this.txtNag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNag.Enabled = false;
-            this.txtNag.Location = new System.Drawing.Point(83, 157);
+            this.txtNag.Location = new System.Drawing.Point(83, 185);
             this.txtNag.Name = "txtNag";
-            this.txtNag.Size = new System.Drawing.Size(421, 20);
+            this.txtNag.Size = new System.Drawing.Size(442, 20);
             this.txtNag.TabIndex = 19;
             this.txtNag.TextChanged += new System.EventHandler(this.txtNag_TextChanged);
             // 
@@ -742,14 +773,14 @@
             this.txtWebLink.Multiline = true;
             this.txtWebLink.Name = "txtWebLink";
             this.txtWebLink.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtWebLink.Size = new System.Drawing.Size(421, 61);
+            this.txtWebLink.Size = new System.Drawing.Size(454, 53);
             this.txtWebLink.TabIndex = 1;
             this.txtWebLink.Text = "http://";
             // 
             // cmdEditWeblink
             // 
             this.cmdEditWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdEditWeblink.Location = new System.Drawing.Point(461, 196);
+            this.cmdEditWeblink.Location = new System.Drawing.Point(498, 214);
             this.cmdEditWeblink.Name = "cmdEditWeblink";
             this.cmdEditWeblink.Size = new System.Drawing.Size(57, 23);
             this.cmdEditWeblink.TabIndex = 31;
@@ -772,7 +803,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(247, 116);
+            this.checkBox1.Location = new System.Drawing.Point(247, 148);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(158, 17);
             this.checkBox1.TabIndex = 28;
@@ -783,7 +814,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(83, 140);
+            this.label22.Location = new System.Drawing.Point(80, 168);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(301, 13);
             this.label22.TabIndex = 26;
@@ -793,7 +824,7 @@
             // button6
             // 
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(510, 157);
+            this.button6.Location = new System.Drawing.Point(543, 182);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(82, 23);
             this.button6.TabIndex = 25;
@@ -804,52 +835,50 @@
             // button4
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(277, 196);
+            this.button4.Location = new System.Drawing.Point(543, 120);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(63, 23);
+            this.button4.Size = new System.Drawing.Size(82, 23);
             this.button4.TabIndex = 24;
             this.button4.Text = "自动识别";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Visible = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // txtNextPage
             // 
             this.txtNextPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNextPage.Enabled = false;
-            this.txtNextPage.Location = new System.Drawing.Point(83, 196);
+            this.txtNextPage.Location = new System.Drawing.Point(83, 122);
             this.txtNextPage.Name = "txtNextPage";
-            this.txtNextPage.Size = new System.Drawing.Size(188, 20);
+            this.txtNextPage.Size = new System.Drawing.Size(442, 20);
             this.txtNextPage.TabIndex = 23;
-            this.txtNextPage.Visible = false;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Enabled = false;
-            this.label13.Location = new System.Drawing.Point(6, 200);
+            this.label13.Location = new System.Drawing.Point(6, 125);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(79, 13);
             this.label13.TabIndex = 22;
             this.label13.Text = "下一页标识：";
-            this.label13.Visible = false;
             // 
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(19, 180);
+            this.checkBox3.Location = new System.Drawing.Point(83, 102);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(144, 17);
+            this.checkBox3.Size = new System.Drawing.Size(238, 17);
             this.checkBox3.TabIndex = 21;
-            this.checkBox3.Text = "是否提取\"下一页\"标识";
+            this.checkBox3.Text = "如果存在“下一页”标识，则进行自动翻页";
             this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.Visible = false;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Enabled = false;
-            this.label10.Location = new System.Drawing.Point(17, 161);
+            this.label10.Location = new System.Drawing.Point(11, 189);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 13);
             this.label10.TabIndex = 20;
@@ -858,7 +887,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(83, 116);
+            this.checkBox2.Location = new System.Drawing.Point(83, 148);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(140, 17);
             this.checkBox2.TabIndex = 17;
@@ -869,7 +898,7 @@
             // button3
             // 
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(510, 73);
+            this.button3.Location = new System.Drawing.Point(543, 73);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(82, 23);
             this.button3.TabIndex = 16;
@@ -880,7 +909,7 @@
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(510, 43);
+            this.button2.Location = new System.Drawing.Point(543, 43);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(82, 23);
             this.button2.TabIndex = 15;
@@ -900,7 +929,7 @@
             // cmdDelWeblink
             // 
             this.cmdDelWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelWeblink.Location = new System.Drawing.Point(528, 196);
+            this.cmdDelWeblink.Location = new System.Drawing.Point(568, 214);
             this.cmdDelWeblink.Name = "cmdDelWeblink";
             this.cmdDelWeblink.Size = new System.Drawing.Size(57, 23);
             this.cmdDelWeblink.TabIndex = 14;
@@ -919,10 +948,10 @@
             this.columnHeader7});
             this.listWeblink.FullRowSelect = true;
             this.listWeblink.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listWeblink.Location = new System.Drawing.Point(14, 228);
+            this.listWeblink.Location = new System.Drawing.Point(14, 243);
             this.listWeblink.Name = "listWeblink";
             this.listWeblink.ShowItemToolTips = true;
-            this.listWeblink.Size = new System.Drawing.Size(578, 199);
+            this.listWeblink.Size = new System.Drawing.Size(611, 184);
             this.listWeblink.TabIndex = 7;
             this.listWeblink.UseCompatibleStateImageBehavior = false;
             this.listWeblink.View = System.Windows.Forms.View.Details;
@@ -933,7 +962,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "网址";
-            this.columnHeader1.Width = 336;
+            this.columnHeader1.Width = 286;
             // 
             // columnHeader2
             // 
@@ -947,8 +976,8 @@
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "下一页规则";
-            this.columnHeader6.Width = 0;
+            this.columnHeader6.Text = "下一页标识";
+            this.columnHeader6.Width = 80;
             // 
             // columnHeader7
             // 
@@ -957,7 +986,7 @@
             // cmdAddWeblink
             // 
             this.cmdAddWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddWeblink.Location = new System.Drawing.Point(389, 196);
+            this.cmdAddWeblink.Location = new System.Drawing.Point(426, 214);
             this.cmdAddWeblink.Name = "cmdAddWeblink";
             this.cmdAddWeblink.Size = new System.Drawing.Size(57, 23);
             this.cmdAddWeblink.TabIndex = 13;
@@ -965,240 +994,191 @@
             this.cmdAddWeblink.UseVisualStyleBackColor = true;
             this.cmdAddWeblink.Click += new System.EventHandler(this.cmdAddWeblink_Click);
             // 
+            // label20
+            // 
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label20.Location = new System.Drawing.Point(79, 211);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(350, 29);
+            this.label20.TabIndex = 48;
+            this.label20.Text = "采集内容仅针对非导航页进行采集，由导航规则打开内容页，并根据采集规则进行数据采集";
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox8);
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.ImageIndex = 2;
             this.tabPage3.Location = new System.Drawing.Point(4, 26);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(611, 446);
+            this.tabPage3.Size = new System.Drawing.Size(650, 446);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "采集规则";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
+            // groupBox8
             // 
-            this.groupBox5.Controls.Add(this.comLimit);
-            this.groupBox5.Controls.Add(this.label19);
-            this.groupBox5.Controls.Add(this.button8);
-            this.groupBox5.Controls.Add(this.button7);
-            this.groupBox5.Controls.Add(this.txtGetEnd);
-            this.groupBox5.Controls.Add(this.txtGetStart);
-            this.groupBox5.Controls.Add(this.label20);
-            this.groupBox5.Controls.Add(this.label15);
-            this.groupBox5.Controls.Add(this.txtEndPos);
-            this.groupBox5.Controls.Add(this.txtStartPos);
-            this.groupBox5.Controls.Add(this.label14);
-            this.groupBox5.Controls.Add(this.button1);
-            this.groupBox5.Controls.Add(this.cmdWebSource);
-            this.groupBox5.Controls.Add(this.cmdDelCutFlag);
-            this.groupBox5.Controls.Add(this.txtWeblinkDemo);
-            this.groupBox5.Controls.Add(this.cmdAddCutFlag);
-            this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Controls.Add(this.txtGetTitleName);
-            this.groupBox5.Controls.Add(this.label16);
-            this.groupBox5.Controls.Add(this.label17);
-            this.groupBox5.Controls.Add(this.listWebGetFlag);
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Location = new System.Drawing.Point(1, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(604, 433);
-            this.groupBox5.TabIndex = 14;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "采集规则";
+            this.groupBox8.Controls.Add(this.label28);
+            this.groupBox8.Controls.Add(this.comGetType);
+            this.groupBox8.Controls.Add(this.label32);
+            this.groupBox8.Controls.Add(this.comLimit);
+            this.groupBox8.Controls.Add(this.label19);
+            this.groupBox8.Controls.Add(this.button8);
+            this.groupBox8.Controls.Add(this.txtGetEnd);
+            this.groupBox8.Controls.Add(this.txtGetStart);
+            this.groupBox8.Controls.Add(this.button1);
+            this.groupBox8.Controls.Add(this.cmdDelCutFlag);
+            this.groupBox8.Controls.Add(this.cmdAddCutFlag);
+            this.groupBox8.Controls.Add(this.txtGetTitleName);
+            this.groupBox8.Controls.Add(this.label16);
+            this.groupBox8.Controls.Add(this.label17);
+            this.groupBox8.Controls.Add(this.listWebGetFlag);
+            this.groupBox8.Controls.Add(this.label18);
+            this.groupBox8.Location = new System.Drawing.Point(1, 106);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(641, 338);
+            this.groupBox8.TabIndex = 15;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "数据采集规则";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label28.Location = new System.Drawing.Point(102, 41);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(507, 13);
+            this.label28.TabIndex = 55;
+            this.label28.Text = "采集数据类型为非文本时，系统将进行文件下载操作，下载文件存储在您指定的“数据保存地址”";
+            // 
+            // comGetType
+            // 
+            this.comGetType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comGetType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comGetType.FormattingEnabled = true;
+            this.comGetType.Location = new System.Drawing.Point(406, 16);
+            this.comGetType.Name = "comGetType";
+            this.comGetType.Size = new System.Drawing.Size(229, 21);
+            this.comGetType.TabIndex = 54;
+            this.comGetType.SelectedIndexChanged += new System.EventHandler(this.comGetType_SelectedIndexChanged);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(321, 19);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(91, 13);
+            this.label32.TabIndex = 53;
+            this.label32.Text = "采集数据类型：";
             // 
             // comLimit
             // 
             this.comLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comLimit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comLimit.FormattingEnabled = true;
-            this.comLimit.Location = new System.Drawing.Point(101, 154);
+            this.comLimit.Location = new System.Drawing.Point(104, 111);
             this.comLimit.Name = "comLimit";
-            this.comLimit.Size = new System.Drawing.Size(497, 21);
-            this.comLimit.TabIndex = 36;
+            this.comLimit.Size = new System.Drawing.Size(531, 21);
+            this.comLimit.TabIndex = 52;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(29, 159);
+            this.label19.Location = new System.Drawing.Point(32, 116);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(67, 13);
-            this.label19.TabIndex = 35;
+            this.label19.TabIndex = 51;
             this.label19.Text = "限定条件：";
             // 
             // button8
             // 
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Location = new System.Drawing.Point(472, 198);
+            this.button8.Location = new System.Drawing.Point(509, 141);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(57, 23);
-            this.button8.TabIndex = 34;
+            this.button8.TabIndex = 50;
             this.button8.Text = "修 改";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // button7
-            // 
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(473, 17);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(63, 23);
-            this.button7.TabIndex = 33;
-            this.button7.Text = "获取地址";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // txtGetEnd
             // 
             this.txtGetEnd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGetEnd.Location = new System.Drawing.Point(368, 105);
+            this.txtGetEnd.Location = new System.Drawing.Point(406, 62);
             this.txtGetEnd.Multiline = true;
             this.txtGetEnd.Name = "txtGetEnd";
             this.txtGetEnd.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtGetEnd.Size = new System.Drawing.Size(230, 42);
-            this.txtGetEnd.TabIndex = 32;
+            this.txtGetEnd.Size = new System.Drawing.Size(229, 42);
+            this.txtGetEnd.TabIndex = 49;
             // 
             // txtGetStart
             // 
             this.txtGetStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGetStart.Location = new System.Drawing.Point(99, 105);
+            this.txtGetStart.Location = new System.Drawing.Point(104, 62);
             this.txtGetStart.Multiline = true;
             this.txtGetStart.Name = "txtGetStart";
             this.txtGetStart.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtGetStart.Size = new System.Drawing.Size(192, 42);
-            this.txtGetStart.TabIndex = 31;
-            // 
-            // label20
-            // 
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label20.Location = new System.Drawing.Point(13, 401);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(585, 29);
-            this.label20.TabIndex = 30;
-            this.label20.Text = "注：采集内容仅针对非导航页进行采集，及内容页采集，导航页由导航规则打开内容页，并根据采集规则进行数据采集";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(338, 52);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(19, 13);
-            this.label15.TabIndex = 29;
-            this.label15.Text = "到";
-            // 
-            // txtEndPos
-            // 
-            this.txtEndPos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEndPos.Location = new System.Drawing.Point(368, 49);
-            this.txtEndPos.Name = "txtEndPos";
-            this.txtEndPos.Size = new System.Drawing.Size(230, 20);
-            this.txtEndPos.TabIndex = 28;
-            // 
-            // txtStartPos
-            // 
-            this.txtStartPos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtStartPos.Location = new System.Drawing.Point(99, 49);
-            this.txtStartPos.Name = "txtStartPos";
-            this.txtStartPos.Size = new System.Drawing.Size(230, 20);
-            this.txtStartPos.TabIndex = 27;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 52);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(91, 13);
-            this.label14.TabIndex = 26;
-            this.label14.Text = "页面采集范围：";
+            this.txtGetStart.Size = new System.Drawing.Size(213, 42);
+            this.txtGetStart.TabIndex = 48;
             // 
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(15, 198);
+            this.button1.Location = new System.Drawing.Point(18, 141);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 23);
-            this.button1.TabIndex = 19;
+            this.button1.Size = new System.Drawing.Size(92, 23);
+            this.button1.TabIndex = 46;
             this.button1.Text = "测试采集数据";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // cmdWebSource
-            // 
-            this.cmdWebSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdWebSource.Location = new System.Drawing.Point(535, 17);
-            this.cmdWebSource.Name = "cmdWebSource";
-            this.cmdWebSource.Size = new System.Drawing.Size(63, 23);
-            this.cmdWebSource.TabIndex = 22;
-            this.cmdWebSource.Text = "查看源码";
-            this.cmdWebSource.UseVisualStyleBackColor = true;
-            this.cmdWebSource.Click += new System.EventHandler(this.cmdWebSource_Click);
-            // 
             // cmdDelCutFlag
             // 
             this.cmdDelCutFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelCutFlag.Location = new System.Drawing.Point(541, 198);
+            this.cmdDelCutFlag.Location = new System.Drawing.Point(578, 141);
             this.cmdDelCutFlag.Name = "cmdDelCutFlag";
             this.cmdDelCutFlag.Size = new System.Drawing.Size(57, 23);
-            this.cmdDelCutFlag.TabIndex = 18;
+            this.cmdDelCutFlag.TabIndex = 45;
             this.cmdDelCutFlag.Text = "删 除";
             this.cmdDelCutFlag.UseVisualStyleBackColor = true;
             this.cmdDelCutFlag.Click += new System.EventHandler(this.cmdDelCutFlag_Click);
             // 
-            // txtWeblinkDemo
-            // 
-            this.txtWeblinkDemo.BackColor = System.Drawing.Color.White;
-            this.txtWeblinkDemo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtWeblinkDemo.Location = new System.Drawing.Point(99, 17);
-            this.txtWeblinkDemo.Name = "txtWeblinkDemo";
-            this.txtWeblinkDemo.Size = new System.Drawing.Size(376, 20);
-            this.txtWeblinkDemo.TabIndex = 15;
-            // 
             // cmdAddCutFlag
             // 
             this.cmdAddCutFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddCutFlag.Location = new System.Drawing.Point(403, 198);
+            this.cmdAddCutFlag.Location = new System.Drawing.Point(440, 141);
             this.cmdAddCutFlag.Name = "cmdAddCutFlag";
             this.cmdAddCutFlag.Size = new System.Drawing.Size(57, 23);
-            this.cmdAddCutFlag.TabIndex = 17;
+            this.cmdAddCutFlag.TabIndex = 44;
             this.cmdAddCutFlag.Text = "增 加";
             this.cmdAddCutFlag.UseVisualStyleBackColor = true;
             this.cmdAddCutFlag.Click += new System.EventHandler(this.cmdAddCutFlag_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(30, 22);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(67, 13);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "示例网址：";
             // 
             // txtGetTitleName
             // 
             this.txtGetTitleName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.txtGetTitleName.FormattingEnabled = true;
-            this.txtGetTitleName.Location = new System.Drawing.Point(101, 78);
+            this.txtGetTitleName.Location = new System.Drawing.Point(104, 16);
             this.txtGetTitleName.Name = "txtGetTitleName";
-            this.txtGetTitleName.Size = new System.Drawing.Size(497, 21);
-            this.txtGetTitleName.TabIndex = 16;
+            this.txtGetTitleName.Size = new System.Drawing.Size(211, 21);
+            this.txtGetTitleName.TabIndex = 43;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(30, 111);
+            this.label16.Location = new System.Drawing.Point(33, 68);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(67, 13);
-            this.label16.TabIndex = 5;
+            this.label16.TabIndex = 39;
             this.label16.Text = "起始位置：";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(297, 111);
+            this.label17.Location = new System.Drawing.Point(333, 68);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(67, 13);
-            this.label17.TabIndex = 6;
+            this.label17.TabIndex = 40;
             this.label17.Text = "终止位置：";
             // 
             // listWebGetFlag
@@ -1206,17 +1186,18 @@
             this.listWebGetFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listWebGetFlag.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
+            this.columnHeader10,
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader9});
             this.listWebGetFlag.FullRowSelect = true;
             this.listWebGetFlag.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listWebGetFlag.Location = new System.Drawing.Point(15, 226);
+            this.listWebGetFlag.Location = new System.Drawing.Point(19, 170);
             this.listWebGetFlag.MultiSelect = false;
             this.listWebGetFlag.Name = "listWebGetFlag";
             this.listWebGetFlag.ShowItemToolTips = true;
-            this.listWebGetFlag.Size = new System.Drawing.Size(583, 171);
-            this.listWebGetFlag.TabIndex = 12;
+            this.listWebGetFlag.Size = new System.Drawing.Size(617, 162);
+            this.listWebGetFlag.TabIndex = 42;
             this.listWebGetFlag.UseCompatibleStateImageBehavior = false;
             this.listWebGetFlag.View = System.Windows.Forms.View.Details;
             this.listWebGetFlag.SelectedIndexChanged += new System.EventHandler(this.listWebGetFlag_SelectedIndexChanged);
@@ -1227,6 +1208,10 @@
             // 
             this.columnHeader3.Text = "采集数据名称";
             this.columnHeader3.Width = 149;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "类型";
             // 
             // columnHeader4
             // 
@@ -1246,11 +1231,113 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 81);
+            this.label18.Location = new System.Drawing.Point(9, 19);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(91, 13);
-            this.label18.TabIndex = 11;
+            this.label18.TabIndex = 41;
             this.label18.Text = "采集数据名称：";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.button7);
+            this.groupBox5.Controls.Add(this.label33);
+            this.groupBox5.Controls.Add(this.label15);
+            this.groupBox5.Controls.Add(this.txtEndPos);
+            this.groupBox5.Controls.Add(this.txtStartPos);
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.cmdWebSource);
+            this.groupBox5.Controls.Add(this.txtWeblinkDemo);
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Location = new System.Drawing.Point(1, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(641, 97);
+            this.groupBox5.TabIndex = 14;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "页面采集范围";
+            // 
+            // button7
+            // 
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Location = new System.Drawing.Point(485, 17);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(74, 23);
+            this.button7.TabIndex = 35;
+            this.button7.Text = "自动获取";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label33.Location = new System.Drawing.Point(101, 74);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(487, 13);
+            this.label33.TabIndex = 34;
+            this.label33.Text = "填写页面采集范围有利于数据精确采集，如果不填写将根据页面完整内容进行采集数据分析";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(356, 52);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(19, 13);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "到";
+            // 
+            // txtEndPos
+            // 
+            this.txtEndPos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEndPos.Location = new System.Drawing.Point(381, 49);
+            this.txtEndPos.Name = "txtEndPos";
+            this.txtEndPos.Size = new System.Drawing.Size(251, 20);
+            this.txtEndPos.TabIndex = 28;
+            // 
+            // txtStartPos
+            // 
+            this.txtStartPos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtStartPos.Location = new System.Drawing.Point(99, 49);
+            this.txtStartPos.Name = "txtStartPos";
+            this.txtStartPos.Size = new System.Drawing.Size(251, 20);
+            this.txtStartPos.TabIndex = 27;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 52);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(91, 13);
+            this.label14.TabIndex = 26;
+            this.label14.Text = "页面采集范围：";
+            // 
+            // cmdWebSource
+            // 
+            this.cmdWebSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdWebSource.Location = new System.Drawing.Point(558, 17);
+            this.cmdWebSource.Name = "cmdWebSource";
+            this.cmdWebSource.Size = new System.Drawing.Size(74, 23);
+            this.cmdWebSource.TabIndex = 22;
+            this.cmdWebSource.Text = "查看源码";
+            this.cmdWebSource.UseVisualStyleBackColor = true;
+            this.cmdWebSource.Click += new System.EventHandler(this.cmdWebSource_Click);
+            // 
+            // txtWeblinkDemo
+            // 
+            this.txtWeblinkDemo.BackColor = System.Drawing.Color.White;
+            this.txtWeblinkDemo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWeblinkDemo.Location = new System.Drawing.Point(99, 17);
+            this.txtWeblinkDemo.Name = "txtWeblinkDemo";
+            this.txtWeblinkDemo.Size = new System.Drawing.Size(385, 20);
+            this.txtWeblinkDemo.TabIndex = 15;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(30, 22);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(67, 13);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "示例网址：";
             // 
             // tabPage4
             // 
@@ -1259,7 +1346,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 26);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(611, 446);
+            this.tabPage4.Size = new System.Drawing.Size(650, 446);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "测试采集";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1271,7 +1358,7 @@
             this.groupBox2.Controls.Add(this.dataTestGather);
             this.groupBox2.Location = new System.Drawing.Point(6, 7);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(604, 430);
+            this.groupBox2.Size = new System.Drawing.Size(641, 430);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "测试采集数据内容";
@@ -1279,7 +1366,7 @@
             // labWaiting
             // 
             this.labWaiting.Image = ((System.Drawing.Image)(resources.GetObject("labWaiting.Image")));
-            this.labWaiting.Location = new System.Drawing.Point(224, 203);
+            this.labWaiting.Location = new System.Drawing.Point(237, 203);
             this.labWaiting.Name = "labWaiting";
             this.labWaiting.Size = new System.Drawing.Size(162, 50);
             this.labWaiting.TabIndex = 2;
@@ -1288,7 +1375,7 @@
             // button5
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(517, 22);
+            this.button5.Location = new System.Drawing.Point(554, 24);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(81, 23);
             this.button5.TabIndex = 1;
@@ -1306,7 +1393,7 @@
             this.dataTestGather.Name = "dataTestGather";
             this.dataTestGather.ReadOnly = true;
             this.dataTestGather.RowTemplate.Height = 23;
-            this.dataTestGather.Size = new System.Drawing.Size(592, 371);
+            this.dataTestGather.Size = new System.Drawing.Size(629, 371);
             this.dataTestGather.TabIndex = 0;
             // 
             // tTask
@@ -1314,7 +1401,7 @@
             this.tTask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tTask.Location = new System.Drawing.Point(83, 7);
             this.tTask.Name = "tTask";
-            this.tTask.Size = new System.Drawing.Size(538, 20);
+            this.tTask.Size = new System.Drawing.Size(553, 20);
             this.tTask.TabIndex = 10;
             // 
             // label1
@@ -1344,66 +1431,66 @@
             this.rmenuGetPostData,
             this.toolStripSeparator4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(202, 176);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(210, 176);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // menuNumAdd
             // 
             this.menuNumAdd.Name = "menuNumAdd";
-            this.menuNumAdd.Size = new System.Drawing.Size(201, 22);
+            this.menuNumAdd.Size = new System.Drawing.Size(209, 22);
             this.menuNumAdd.Text = "递增变量{Num:1,100,1}";
             // 
             // menuNumDec
             // 
             this.menuNumDec.Name = "menuNumDec";
-            this.menuNumDec.Size = new System.Drawing.Size(201, 22);
+            this.menuNumDec.Size = new System.Drawing.Size(209, 22);
             this.menuNumDec.Text = "递减变量{Num:100,1,-1}";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(198, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(206, 6);
             // 
             // menuLettAdd
             // 
             this.menuLettAdd.Name = "menuLettAdd";
-            this.menuLettAdd.Size = new System.Drawing.Size(201, 22);
+            this.menuLettAdd.Size = new System.Drawing.Size(209, 22);
             this.menuLettAdd.Text = "字母递增{Letter:a,z}";
             // 
             // menuLettDec
             // 
             this.menuLettDec.Name = "menuLettDec";
-            this.menuLettDec.Size = new System.Drawing.Size(201, 22);
+            this.menuLettDec.Size = new System.Drawing.Size(209, 22);
             this.menuLettDec.Text = "字母递减{Letter:z,a}";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(198, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(206, 6);
             // 
             // pOST前缀POSTToolStripMenuItem
             // 
             this.pOST前缀POSTToolStripMenuItem.Name = "pOST前缀POSTToolStripMenuItem";
-            this.pOST前缀POSTToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.pOST前缀POSTToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.pOST前缀POSTToolStripMenuItem.Text = "POST前缀<POST>";
             // 
             // pOST后缀ToolStripMenuItem
             // 
             this.pOST后缀ToolStripMenuItem.Name = "pOST后缀ToolStripMenuItem";
-            this.pOST后缀ToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.pOST后缀ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.pOST后缀ToolStripMenuItem.Text = "POST后缀</POST>";
             // 
             // rmenuGetPostData
             // 
             this.rmenuGetPostData.Name = "rmenuGetPostData";
-            this.rmenuGetPostData.Size = new System.Drawing.Size(201, 22);
+            this.rmenuGetPostData.Size = new System.Drawing.Size(209, 22);
             this.rmenuGetPostData.Text = "手工捕获POST数据";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(198, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(206, 6);
             // 
             // DictMenu
             // 
@@ -1411,26 +1498,26 @@
             this.menuOpenDict,
             this.toolStripSeparator3});
             this.DictMenu.Name = "DictMenu";
-            this.DictMenu.Size = new System.Drawing.Size(159, 32);
+            this.DictMenu.Size = new System.Drawing.Size(161, 32);
             // 
             // menuOpenDict
             // 
             this.menuOpenDict.Name = "menuOpenDict";
-            this.menuOpenDict.Size = new System.Drawing.Size(158, 22);
+            this.menuOpenDict.Size = new System.Drawing.Size(160, 22);
             this.menuOpenDict.Text = "自定义字典参数";
             this.menuOpenDict.Click += new System.EventHandler(this.menuOpenDict_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(155, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(157, 6);
             // 
             // cmdOK
             // 
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdOK.Image = ((System.Drawing.Image)(resources.GetObject("cmdOK.Image")));
             this.cmdOK.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.cmdOK.Location = new System.Drawing.Point(457, 532);
+            this.cmdOK.Location = new System.Drawing.Point(494, 528);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(87, 24);
             this.cmdOK.TabIndex = 2;
@@ -1439,43 +1526,17 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
-            // raExportTxt
-            // 
-            this.raExportTxt.AutoSize = true;
-            this.raExportTxt.Checked = true;
-            this.raExportTxt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raExportTxt.Location = new System.Drawing.Point(9, 19);
-            this.raExportTxt.Name = "raExportTxt";
-            this.raExportTxt.Size = new System.Drawing.Size(108, 17);
-            this.raExportTxt.TabIndex = 23;
-            this.raExportTxt.TabStop = true;
-            this.raExportTxt.Text = "发布到文本文件";
-            this.raExportTxt.UseVisualStyleBackColor = true;
-            this.raExportTxt.CheckedChanged += new System.EventHandler(this.raExportTxt_CheckedChanged);
-            // 
-            // raExportExcel
-            // 
-            this.raExportExcel.AutoSize = true;
-            this.raExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raExportExcel.Location = new System.Drawing.Point(149, 19);
-            this.raExportExcel.Name = "raExportExcel";
-            this.raExportExcel.Size = new System.Drawing.Size(110, 17);
-            this.raExportExcel.TabIndex = 24;
-            this.raExportExcel.Text = "发布到Excel文件";
-            this.raExportExcel.UseVisualStyleBackColor = true;
-            this.raExportExcel.CheckedChanged += new System.EventHandler(this.raExportExcel_CheckedChanged);
-            // 
             // frmTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 564);
+            this.ClientSize = new System.Drawing.Size(679, 564);
             this.Controls.Add(this.tTask);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
-            this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -1498,6 +1559,8 @@
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -1524,15 +1587,10 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TextBox tTask;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView listWebGetFlag;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox comRunType;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox TaskType;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label7;
@@ -1554,19 +1612,10 @@
         private System.Windows.Forms.Button cmdWebSource;
         private System.Windows.Forms.TextBox txtWeblinkDemo;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox txtGetTitleName;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button cmdDelCutFlag;
-        private System.Windows.Forms.Button cmdAddCutFlag;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.Button cmdSelectTask;
-        private System.Windows.Forms.TextBox txtTaskTemp;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menuNumAdd;
@@ -1589,7 +1638,6 @@
         private System.Windows.Forms.TextBox txtEndPos;
         private System.Windows.Forms.TextBox txtStartPos;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Button button6;
@@ -1603,13 +1651,6 @@
         private System.Windows.Forms.DataGridView dataTestGather;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.TextBox txtGetEnd;
-        private System.Windows.Forms.TextBox txtGetStart;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.ComboBox comLimit;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ComboBox comWebCode;
@@ -1632,12 +1673,41 @@
         private System.Windows.Forms.ComboBox comUrlEncode;
         private System.Windows.Forms.TextBox txtTaskDemo;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ToolStripMenuItem rmenuGetPostData;
         private System.Windows.Forms.Button cmdEditWeblink;
         private System.Windows.Forms.RadioButton raExportExcel;
         private System.Windows.Forms.RadioButton raExportTxt;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.ComboBox comGetType;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.ComboBox comLimit;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox txtGetEnd;
+        private System.Windows.Forms.TextBox txtGetStart;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cmdDelCutFlag;
+        private System.Windows.Forms.Button cmdAddCutFlag;
+        private System.Windows.Forms.ComboBox txtGetTitleName;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ListView listWebGetFlag;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button cmdOpenFolder;
+        private System.Windows.Forms.TextBox txtSavePath;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label28;
 
 
     }

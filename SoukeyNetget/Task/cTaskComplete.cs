@@ -51,7 +51,7 @@ namespace SoukeyNetget.Task
         }
 
         //根据完成任务ID加载任务信息
-        public void LoadSingleTask(int TaskID)
+        public void LoadSingleTask(Int64  TaskID)
         {
             try
             {

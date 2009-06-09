@@ -18,7 +18,7 @@ namespace SoukeyNetget.Task
         #region 构造 析构
         public cWebLink()
         {
-            m_IsGathered = false;
+            m_IsGathered = cGlobalParas.UrlGatherResult.UnGather ;
         }
 
         ~cWebLink()
@@ -82,9 +82,9 @@ namespace SoukeyNetget.Task
             set { m_NextPageRule = value; }
         }
 
-        //标识当前网页地址是否已经采集,默认false
-        private bool m_IsGathered;
-        public bool IsGathered
+        //标识当前网页地址是否已经采集,默认cGlobalParas.UrlGatherResult.UnGather
+        private cGlobalParas.UrlGatherResult m_IsGathered;
+        public cGlobalParas.UrlGatherResult IsGathered
         {
             get { return m_IsGathered; }
             set { m_IsGathered = value; }
@@ -96,9 +96,6 @@ namespace SoukeyNetget.Task
             get { return m_CurrentRunning; }
             set { m_CurrentRunning = value; }
         }
-
-   
-
 
         #endregion
 

@@ -63,5 +63,13 @@ namespace SoukeyNetget.Task
             get { return m_LimitSign; }
             set { m_LimitSign = value; }
         }
+
+        //采集数据的类型
+        private int m_DataType;
+        public int DataType
+        {
+            get { return m_DataType; }
+            set { m_DataType = value; }
+        }
     }
 }

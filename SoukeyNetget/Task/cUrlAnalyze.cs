@@ -202,16 +202,26 @@ namespace SoukeyNetget.Task
                 
                 case "Num":
 
-                    re = new Regex("(\\d+)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    re = new Regex("([\\-\\d]+)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
                     aa = re.Matches(dicPre);
 
                     startI = int.Parse(aa[0].Groups[0].Value.ToString());
                     endI = int.Parse(aa[1].Groups[0].Value.ToString());
                     step = int.Parse(aa[2].Groups[0].Value.ToString());
 
-                    for (i=startI; i<=endI; i=i+step)
+                    if (step > 0)
                     {
-                        list_Para.Add(i.ToString());
+                        for (i = startI; i <= endI; i = i + step)
+                        {
+                            list_Para.Add(i.ToString());
+                        }
+                    }
+                    else
+                    {
+                        for (i = startI; i >= endI; i = i + step)
+                        {
+                            list_Para.Add(i.ToString());
+                        }
                     }
 
                     

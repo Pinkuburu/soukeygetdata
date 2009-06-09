@@ -71,6 +71,7 @@ namespace SoukeyNetget.Gather
             set { m_TaskState = value; }
         }
 
+        //需要采集的网页数量
         private int m_UrlCount;
         public int UrlCount
         {
@@ -78,11 +79,44 @@ namespace SoukeyNetget.Gather
             set { m_UrlCount = value; }
         }
 
+        //实际需要采集的网址数量
+        private int m_TrueUrlCount;
+        public int TrueUrlCount
+        {
+            get { return m_TrueUrlCount; }
+            set { m_TrueUrlCount = value; }
+        }
+
+        //已经采集的数量
         private int m_GatheredUrlCount;
         public int GatheredUrlCount
         {
             get { return m_GatheredUrlCount; }
             set { m_GatheredUrlCount = value; }
+        }
+
+        //已采集真实的网址数量
+        private int m_GatheredTrueUrlCount;
+        public int GatheredTrueUrlCount
+        {
+            get { return m_GatheredTrueUrlCount; }
+            set { m_GatheredTrueUrlCount = value; }
+        }
+
+        /// 采集错误的url数量
+        private int m_GatherErrUrlCount;
+        public int GatherErrUrlCount
+        {
+            get { return m_GatherErrUrlCount; }
+            set { m_GatherErrUrlCount = value; }
+        }
+
+        //已经采集真实发生错误的数量
+        private int m_GatheredTrueErrUrlCount;
+        public int GatheredTrueErrUrlCount
+        {
+            get { return m_GatheredTrueErrUrlCount; }
+            set { m_GatheredTrueErrUrlCount = value; }
         }
 
         private string m_tempFileName;
@@ -153,6 +187,13 @@ namespace SoukeyNetget.Gather
         //此属性可用于扩展,即采集即存储,保存临时文件,
         //这样做可以支持任务中断,重启之后即可实现继续采集
         //但这样做可能会占用大量的资源,需要实际测试
+
+        private string m_SavePath;
+        public string SavePath
+        {
+            get { return m_SavePath; }
+            set { m_SavePath = value; }
+        }
 
         private int m_ThreadCount;
         public int ThreadCount

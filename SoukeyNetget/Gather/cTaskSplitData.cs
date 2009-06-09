@@ -22,6 +22,7 @@ namespace SoukeyNetget.Gather
         {
             m_CurIndex = 0;
             m_GatheredUrlCount = 0;
+            m_GatheredErrUrlCount = 0;
         }
 
         ~cTaskSplitData()
@@ -68,12 +69,44 @@ namespace SoukeyNetget.Gather
             get { return (EndIndex - BeginIndex+1); }
         }
 
+        //实际需要采集Url的数量，是根据任务执行情况实时计算出来的
+        private int m_TrueUrlCount;
+        public int TrueUrlCount
+        {
+            get { return m_TrueUrlCount; }
+            set { m_TrueUrlCount = value; }
+        }
+
         //已经采集Url数量
         private int m_GatheredUrlCount;
         public int GatheredUrlCount
         {
             get { return m_GatheredUrlCount; }
             set { m_GatheredUrlCount = value; }
+        }
+
+        //已采集真实的网址数量
+        private int m_GatheredTrueUrlCount;
+        public int GatheredTrueUrlCount
+        {
+            get { return m_GatheredTrueUrlCount; }
+            set { m_GatheredTrueUrlCount = value; }
+        }
+
+        //已经采集发生错误的数量
+        private int m_GatheredErrUrlCount;
+        public int GatheredErrUrlCount
+        {
+            get { return m_GatheredErrUrlCount; }
+            set { m_GatheredErrUrlCount = value; }
+        }
+
+        //已经采集真实发生错误的数量
+        private int m_GatheredTrueErrUrlCount;
+        public int GatheredTrueErrUrlCount
+        {
+            get { return m_GatheredTrueErrUrlCount; }
+            set { m_GatheredTrueErrUrlCount = value; }
         }
 
         //此分解任务需要采集的网页地址

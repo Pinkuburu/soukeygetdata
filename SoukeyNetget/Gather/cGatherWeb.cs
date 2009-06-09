@@ -4,6 +4,7 @@ using System.Text;
 using System.Net;
 using System.Data;
 using System.Text.RegularExpressions;
+using System.IO;
 
 ///功能：采集数据处理
 ///完成时间：2009-3-2
@@ -19,6 +20,7 @@ namespace SoukeyNetget.Gather
     class cGatherWeb
     {
         DataTable tempData ;
+        private static readonly int DEF_PACKET_LENGTH = 2048;
         
         public cGatherWeb()
         {
@@ -45,7 +47,7 @@ namespace SoukeyNetget.Gather
         }
 
         //get方式获取源代码
-        private void GetHtml(string url, cGlobalParas.WebCode webCode, string cookie, string startPos, string endPos)   
+        public string GetHtml(string url, cGlobalParas.WebCode webCode, string cookie, string startPos, string endPos)   
         {
             //判断网页编码
             Encoding wCode;
@@ -84,7 +86,7 @@ namespace SoukeyNetget.Gather
             }
             
 
-            wReq.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50215; CrazyCoder.cn;www.aub.org.cn)";
+            wReq.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50215;)";
 
             Match a = Regex.Match(url, @"(http://).[^/]*[?=/]", RegexOptions.IgnoreCase);
             string url1 = a.Groups[0].Value.ToString();
@@ -129,8 +131,12 @@ namespace SoukeyNetget.Gather
                 
             }
 
-            HttpWebResponse wResp= (HttpWebResponse)wReq.GetResponse();
+            //设置页面超时时间为8秒
+            wReq.Timeout = 8000;
+
+            HttpWebResponse wResp = (HttpWebResponse)wReq.GetResponse();
             System.IO.Stream respStream = wResp.GetResponseStream();
+            
             System.IO.StreamReader reader;
             reader = new System.IO.StreamReader(respStream, wCode);
             string strWebData = reader.ReadToEnd();
@@ -169,6 +175,8 @@ namespace SoukeyNetget.Gather
 
             this.m_WebpageSource = strWebData;
 
+            return strWebData;
+
          }
 
         /// <summary>
@@ -178,17 +186,23 @@ namespace SoukeyNetget.Gather
         /// <param name="StartPos">起始采集位置</param>
         /// <param name="EndPos">终止采集位置</param>
         /// <returns></returns>
-        public DataTable  GetGatherData(string Url,cGlobalParas.WebCode webCode, string cookie, string startPos,string endPos)
+        public DataTable  GetGatherData(string Url,cGlobalParas.WebCode webCode, string cookie, string startPos,string endPos,string sPath)
         {
             tempData = new DataTable("tempData");
             int i ;
             int j;
             string strCut="";
+            bool IsDownloadFile = false;
 
             //根据页面截取的标志构建表结构
             for (i = 0; i < this.CutFlag.Count; i++)
             {
                 tempData.Columns.Add(new DataColumn(this.CutFlag[i].Title, typeof(string)));
+                
+                if (this.CutFlag[i].DataType !=(int) cGlobalParas.GDataType.Txt && IsDownloadFile ==false)
+                {
+                    IsDownloadFile = true;
+                }
             }
             
             //根据用户指定的页面截取位置构造正则表达式
@@ -226,8 +240,15 @@ namespace SoukeyNetget.Gather
                 tempData = null;
                 return tempData;
             }
-            GetHtml(Url,webCode ,cookie, startPos ,endPos );
 
+            try
+            {
+                GetHtml(Url, webCode, cookie, startPos, endPos);
+            }
+            catch (System.Web.HttpException ex)
+            {
+                throw ex;
+            }
 
             //开始获取截取内容
             Regex re = new Regex(@strCut, RegexOptions.IgnoreCase | RegexOptions.Multiline );
@@ -244,7 +265,6 @@ namespace SoukeyNetget.Gather
             int m = 0;   //计数使用
             for (i = 0; i < rows; i++)
             {
-
                 drNew = tempData.NewRow();
 
                 for (j=0;j<rowCount ;j++)
@@ -266,7 +286,116 @@ namespace SoukeyNetget.Gather
                 drNew = null;                
             }
 
+            //判断是否存在有下载文件的任务，如果有，则开始下载，因为此功能设计最初是下载图片使用
+            //并非是专用的下载工具，所以对下载处理并没有单独进行线程处理
+            if (IsDownloadFile == true)
+            {
+                if (sPath == "")
+                {
+                    sPath = Program.getPrjPath() + "data\\tem_file";
+                }
+
+                if (!Directory.Exists(sPath))
+                {
+                    Directory.CreateDirectory(sPath);
+                }
+
+                string FileUrl="";
+                string DownloadFileName="";
+
+                for (i = 0; i < rows; i++)
+                {
+                    for (j = 0; j < this.CutFlag.Count; j++)
+                    {
+                        if (this.CutFlag[j].DataType != (int)cGlobalParas.GDataType.Txt)
+                        {
+                            FileUrl = tempData.Rows[i][j].ToString();
+
+                            //开始获取下载文件名称
+                            Regex s = new Regex(@"(?<=/)[^/]*", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                            MatchCollection urlstr = s.Matches(FileUrl);
+                            DownloadFileName = urlstr[urlstr.Count - 1].ToString();
+                            DownloadFileName = sPath + "\\" + DownloadFileName;
+
+                            if (FileUrl.Substring(0, 4) == "http")
+                            {
+                                DownloadFile(FileUrl, DownloadFileName);
+                            }
+                            else
+                            {
+                                if (FileUrl.Substring(0, 1) == "/")
+                                {
+                                    Url = Url.Substring(7, Url.Length - 7);
+                                    Url = FileUrl.Substring(0, Url.IndexOf("/"));
+                                    Url = "http://" + Url;
+                                    FileUrl = Url + FileUrl;
+                                }
+                                else
+                                {
+                                    FileUrl = Url + FileUrl;
+                                }
+
+                                DownloadFile(FileUrl, DownloadFileName);
+                            }
+                        }
+                    }
+                }
+
+            }
             return tempData;
+        }
+
+
+        //下载文件，是一个单线程的方法，适用于小文件下载，仅支持http方式
+        private cGlobalParas.DownloadResult DownloadFile(string url, string path)
+        {
+
+            HttpWebRequest wReq = null;
+            HttpWebResponse wRep = null;
+            FileStream SaveFileStream = null;
+
+            int startingPoint = 0;
+
+            try
+            {
+                //For using untrusted SSL Certificates
+
+                wReq = (HttpWebRequest)HttpWebRequest.Create(url);
+                wReq.AddRange(startingPoint);
+
+                wRep = (HttpWebResponse)wReq.GetResponse();
+                Stream responseSteam = wRep.GetResponseStream();
+
+                if (startingPoint == 0)
+                {
+                    SaveFileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                }
+                else
+                {
+                    SaveFileStream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite);
+                }
+
+                int bytesSize;
+                long fileSize = wRep.ContentLength;
+                byte[] downloadBuffer = new byte[DEF_PACKET_LENGTH];
+
+                while ((bytesSize = responseSteam.Read(downloadBuffer, 0, downloadBuffer.Length)) > 0)
+                {
+                    SaveFileStream.Write(downloadBuffer, 0, bytesSize);
+                }
+
+                SaveFileStream.Close();
+                SaveFileStream.Dispose();
+                return cGlobalParas.DownloadResult.Succeed;
+
+                wRep.Close();
+
+            }
+            catch (Exception ex)
+            {
+                return cGlobalParas.DownloadResult.Err;
+            }
+
         }
     }
 }

@@ -44,9 +44,15 @@ namespace SoukeyNetget.Gather
                 tData.RunType = t.GetTaskRunType(i);
                 tData.tempFileName = t.GetTempFile(i);
                 tData.TaskState = t.GetTaskState(i);
-                tData.UrlCount = t.GetUrlCount(i);
                 tData.ThreadCount = t.GetThreadCount(i);
-                tData.GatheredUrlCount = t.GetGatheredUrlCount(i);
+                tData.UrlCount = t.GetUrlCount(i);
+                tData.TrueUrlCount = t.GetTrueUrlCount(i);
+                tData.GatheredUrlCount = 0;
+                //tData.GatheredUrlCount = t.GetGatheredUrlCount(i);
+                tData.GatheredTrueUrlCount = t.GetGatheredTrueUrlCount(i);
+                tData.GatherErrUrlCount = 0;
+                //tData.GatherErrUrlCount = t.GetErrUrlCount(i);
+                tData.GatheredTrueErrUrlCount = t.GetTrueErrUrlCount(i);
                 m_TaskDataList.Add(tData);
                 tData = null;
             }

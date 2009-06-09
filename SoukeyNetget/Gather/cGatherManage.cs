@@ -36,9 +36,8 @@ namespace SoukeyNetget.Gather
 
         #region 静态变量
 
-        /// 线程最大错误次数
-        /// 线程出错允许其进行2次重试，即最大错误为3，当前改为1用于调试
-        private static int s_MaxErrorCount = 1;
+        /// 线程最大错误次数,系统中不进行使用
+        private static int s_MaxErrorCount = 10;
         public static int MaxErrorCount
         {
             get { return cGatherManage.s_MaxErrorCount; }
@@ -269,7 +268,7 @@ namespace SoukeyNetget.Gather
         internal void onTaskError(object sender, TaskErrorEventArgs e)
         {
             // 加入重试队列
-            m_GatherTaskList.AddWaitingWorkThread(e.ErrorThread);
+            //m_GatherTaskList.AddWaitingWorkThread(e.ErrorThread);
 
             if (e_TaskError != null)
             {

@@ -4,6 +4,8 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 using SoukeyNetget.Gather;
+using System.Xml;
+using System.Threading;
 
 ///功能：采集任务处理
 ///完成时间：2009-3-2
@@ -25,6 +27,8 @@ namespace SoukeyNetget.Gather
         private bool m_IsDataInitialized;
         private bool m_IsInitialized;
         private cGatherManage m_TaskManage;
+
+        private bool m_ThreadsRunning = false;
 
         #region 构造 析构 
 
@@ -69,6 +73,11 @@ namespace SoukeyNetget.Gather
             set { m_IsInitialized = value; }
         }
 
+        public bool ThreadsRunning
+        {
+            get { return m_ThreadsRunning; }
+        }
+
         /// <summary>
         /// 设置/获取 当前任务数据对象
         /// </summary>
@@ -83,6 +92,15 @@ namespace SoukeyNetget.Gather
         {
             get { return m_TaskData.UrlCount; }
         }
+
+        /// <summary>
+        /// 获取实际需要采集的网址数量
+        /// </summary>
+        public int TrueUrlCount
+        {
+            get { return m_TaskData.TrueUrlCount; }
+        }
+
         /// <summary>
         /// 设置/获取 单任务采集的线程数
         /// </summary>
@@ -97,6 +115,24 @@ namespace SoukeyNetget.Gather
         public int GatheredUrlCount
         {
             get { return m_TaskData.GatheredUrlCount; }
+        }
+
+        public int GatheredTrueUrlCount
+        {
+            get { return m_TaskData.GatheredTrueUrlCount; }
+        }
+
+        /// <summary>
+        /// 获取采集失败网址的数量
+        /// </summary>
+        public int GatherErrUrlCount
+        {
+            get { return m_TaskData.GatherErrUrlCount; }
+        }
+
+        public int GatheredTrueErrUrlCount
+        {
+            get { return m_TaskData.GatheredTrueErrUrlCount; }
         }
 
         /// <summary>
@@ -212,9 +248,11 @@ namespace SoukeyNetget.Gather
                 switch (m_State)
                 {
                     case cGlobalParas.TaskState.Aborted:
-                        // 触发 任务取消 事件
+                        // 触发 任务强制停止取消 事件
+                        //任务强制停止，不进行临时数据的保存
                         if (e_TaskAborted != null)
                         {
+                            //Save();
                             e_TaskAborted(this, new cTaskEventArgs(cancel));
                         }
                         break;
@@ -222,6 +260,9 @@ namespace SoukeyNetget.Gather
                         // 触发 任务完成 事件
                         if (e_TaskCompleted != null)
                         {
+                            //当任务停止后，开始保存任务的执行状态
+                            Save();
+
                             e_TaskCompleted(this, new cTaskEventArgs(cancel));
                         }
                         break;
@@ -229,6 +270,8 @@ namespace SoukeyNetget.Gather
                         // 触发 任务失败 事件
                         if (e_TaskFailed != null)
                         {
+                            //任务失败
+                            Save();
                             e_TaskFailed(this, new cTaskEventArgs(cancel));
                         }
                         break;
@@ -249,6 +292,9 @@ namespace SoukeyNetget.Gather
                             // 触发 任务停止 事件
                             if (e_TaskStopped != null)
                             {
+                                //当任务停止后，开始保存任务的执行状态
+                                Save();
+
                                 e_TaskStopped(this, new cTaskEventArgs(cancel));
                             }
                         });
@@ -321,6 +367,7 @@ namespace SoukeyNetget.Gather
             remove { lock (m_eventLock) {  e_TaskStateChanged -= value; } }
         }
 
+
         /// 采集任务分解初始化完成事件
         private event EventHandler<TaskInitializedEventArgs> e_TaskThreadInitialized;
         internal event EventHandler<TaskInitializedEventArgs> TaskThreadInitialized
@@ -359,6 +406,9 @@ namespace SoukeyNetget.Gather
             // 确保位初始化的任务先进行初始化（包括从文件读取的任务信息）
             if (m_State !=cGlobalParas.TaskState.Started && m_TaskManage != null)
             {
+
+                m_ThreadsRunning = true;
+
                 TaskInit();
                 StartAll();
             }
@@ -369,6 +419,9 @@ namespace SoukeyNetget.Gather
         {
             foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
             {
+                dtc.TaskSplitData.TrueUrlCount = dtc.TaskSplitData.UrlCount;
+                //dtc.TaskSplitData.GatheredUrlCount = 0;
+                //dtc.TaskSplitData.GatheredErrUrlCount = 0;
                 dtc.Start();
             }
             State = cGlobalParas.TaskState.Started;
@@ -386,22 +439,88 @@ namespace SoukeyNetget.Gather
         /// 停止任务
         public void Stop()
         {
+            m_ThreadsRunning = false;
+
             foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
             {
                 dtc.Stop();
             }
+
+            //开始检测是否所有线程都以完成或退出
+            bool isStop = false;
+
+            while (!isStop)
+            {
+                isStop = true;
+
+                foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
+                {
+                    //if (dtc.WorkThread.ThreadState == cGlobalParas.GatherThreadState.Started && dtc.WorkThread.IsAlive )
+                    
+                    if (dtc.IsStop ==false )
+                        isStop = false;
+                }
+               
+                Thread.Sleep(200);
+            }
+
             State = cGlobalParas.TaskState.Stopped;
         }
 
+        //停止任务，此停止任务与Stop不同的是，强制停止所有工作线程
+        //Stop是属于执行完一个完整工作后停止，而Abort不论是否执行到
+        //何种状态，必须强制停止，此种方式会导致数据丢失
         /// 取消任务（移除任务）
         public void Abort()
         {
+            m_ThreadsRunning = false;
+
             foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
             {
-                dtc.Stop();
+                dtc.Abort();
             }
             State = cGlobalParas.TaskState.Aborted;
         }
+
+        ///保存运行的任务，主要是保存当前运行的状态
+        ///任务保存需要同时保存taskrun.xml，主要是保存采集数量
+        ///注意，如果进行暂存后，任务的链接地址会发生变化，因为在任务新建时，任务链接地址有可能带有一定得参数
+        ///但人物一旦开始执行，带有参数的网址就会进行解析，同时是按照解析后的网址进行是否采集的标识，所以，再次
+        ///保存后，链接地址会很多
+        public void Save()
+        {
+            string FileName = Program.getPrjPath() + "tasks\\run\\task" + this.TaskID + ".xml"; 
+            string runFileindex= Program.getPrjPath() + "tasks\\taskrun.xml";
+
+            //开始保存文件
+            string tXml="";
+
+            for (int i = 0; i < m_TaskData.Weblink.Count ; i++)
+            {
+                tXml += "<WebLink>";
+                tXml += "<Url>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].Weblink.ToString ()) + "</Url>";
+                tXml += "<IsNag>" + m_TaskData.Weblink[i].IsNavigation + "</IsNag>";
+                tXml += "<IsOppPath>" + m_TaskData.Weblink[i].IsOppPath + "</IsOppPath>";
+                tXml += "<NagRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NagRule) + "</NagRule>";
+                tXml += "<IsNextPage>" + m_TaskData.Weblink[i].IsNextpage + "</IsNextPage>";
+                tXml += "<NextPageRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NextPageRule) + "</NextPageRule>";
+                tXml += "<IsGathered>" + m_TaskData.Weblink[i].IsGathered.ToString () + "</IsGathered>";
+                tXml += "</WebLink>";
+            }
+
+            cXmlIO cxml = new cXmlIO(FileName);
+            cxml.DeleteNode("WebLinks");
+            cxml.InsertElement("Task", "WebLinks", tXml);
+            cxml.Save();
+
+            cxml = null;
+
+            cxml = new cXmlIO(runFileindex);
+            cxml.EditTaskrunValue(this.TaskID.ToString(), cGlobalParas.TaskState.Stopped , this.GatheredUrlCount.ToString(),this.GatheredTrueUrlCount.ToString () , this.GatherErrUrlCount.ToString(),this.GatheredTrueErrUrlCount.ToString () ,this.TrueUrlCount.ToString () );
+            cxml = null;
+        }
+
+        
         #endregion
 
         #region  类方法 内部使用
@@ -432,6 +551,7 @@ namespace SoukeyNetget.Gather
             ///项值和采集页面的规则及网址。
             ///为什么从taskrun中加载，是因为在索引taskrun的时候可以显示界面
             ///信息，所以就共用了一个加载信息的内容
+            m_TaskData.SavePath = t.SavePath;
             m_TaskData.TaskDemo =t.TaskDemo ;
             m_TaskData.StartPos = t.StartPos;
             m_TaskData.EndPos = t.EndPos;
@@ -492,6 +612,8 @@ namespace SoukeyNetget.Gather
 
             m_TaskData.CutFlag = t.WebpageCutFlag;
 
+            string sPath = m_TaskData.SavePath + "\\" + m_TaskData.TaskName + "_file";
+
             //重新初始化UrlCount
             //m_TaskData.UrlCount = m_TaskData.Weblink.Count;
 
@@ -519,15 +641,17 @@ namespace SoukeyNetget.Gather
                         EndIndex = i * SplitUrlCount;
                     }
 
-                    dtc = new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID,m_TaskData.WebCode ,m_TaskData.IsUrlEncode ,m_TaskData.UrlEncode , m_TaskData.Cookie , m_TaskData.StartPos, m_TaskData.EndPos);
+                    dtc = new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, sPath);
 
                     tWeblink = new List<Task.cWebLink>();
 
                     for (j = StartIndex; j < EndIndex; j++)
                     {
                         tWeblink.Add(m_TaskData.Weblink[j]);
+
                     }
 
+                    //初始化分解的子任务数据
                     dtc.SetSplitData(StartIndex, EndIndex - 1, tWeblink, m_TaskData.CutFlag);
 
                     m_TaskData.TaskSplitData.Add(dtc.TaskSplitData);
@@ -540,7 +664,7 @@ namespace SoukeyNetget.Gather
             }
             else
             {
-                dtc = new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos);
+                dtc = new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, sPath);
                 dtc.SetSplitData(0, m_TaskData.UrlCount - 1, m_TaskData.Weblink, m_TaskData.CutFlag);
                 m_TaskData.TaskSplitData.Add(dtc.TaskSplitData);
                 //m_list_GatherTaskSplit.Add(dtc);
@@ -565,6 +689,12 @@ namespace SoukeyNetget.Gather
         /// 初始化采集任务线程
         private void TaskInit()
         {
+            string sPath = m_TaskData.SavePath + "\\" + m_TaskData.TaskName + "_file";
+
+            //m_TaskData.GatheredUrlCount = 0;
+            //m_TaskData.GatherErrUrlCount = 0;
+            m_TaskData.TrueUrlCount = m_TaskData.UrlCount;
+
             if (!m_IsDataInitialized)
             {
                 if (m_list_GatherTaskSplit.Count > 0)
@@ -585,18 +715,15 @@ namespace SoukeyNetget.Gather
                 {
                     if (m_TaskData.TaskSplitData.Count  > 0)
                     {   
-                        // 
-                        //
-                        //
                         foreach (cTaskSplitData configData in m_TaskData.TaskSplitData)
                         {
-                            m_list_GatherTaskSplit.Add(new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, configData));
+                            m_list_GatherTaskSplit.Add(new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, sPath, configData));
                         }
 
                     }
                     else
                     {   // 新任务，则新建子线程
-                        m_list_GatherTaskSplit.Add(new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos));
+                        m_list_GatherTaskSplit.Add(new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, sPath));
                     }
 
 
@@ -652,12 +779,52 @@ namespace SoukeyNetget.Gather
         internal void ResetTaskData()
         {
             // 停止任务
-            Stop();
-
-            // 清理子线程
-            //m_list_GatherTaskSplit.Clear();
+            //Stop();
 
             m_TaskData.GatheredUrlCount = 0;
+            m_TaskData.GatherErrUrlCount = 0;
+
+            //修改taskrun文件中，此文件索引的采集地址和出错地址为0
+            string runFileindex = Program.getPrjPath() + "tasks\\taskrun.xml";
+            cXmlIO cxml = new cXmlIO(runFileindex);
+            cxml = new cXmlIO(runFileindex);
+
+            //还原数据需要将实际需要采集的网址数量初始化为UrlCount
+            cxml.EditTaskrunValue(this.TaskID.ToString(),cGlobalParas.TaskState.UnStart , "0","0","0","0",m_TaskData.UrlCount.ToString () );
+            cxml = null;
+
+            string tXml = "";
+
+            for (int i = 0; i < m_TaskData.Weblink.Count; i++)
+            {
+                tXml += "<WebLink>";
+                tXml += "<Url>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].Weblink.ToString()) + "</Url>";
+                tXml += "<IsNag>" + m_TaskData.Weblink[i].IsNavigation + "</IsNag>";
+                tXml += "<IsOppPath>" + m_TaskData.Weblink[i].IsOppPath + "</IsOppPath>";
+                tXml += "<NagRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NagRule) + "</NagRule>";
+                tXml += "<IsNextPage>" + m_TaskData.Weblink[i].IsNextpage + "</IsNextPage>";
+                tXml += "<NextPageRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NextPageRule) + "</NextPageRule>";
+                tXml += "<IsGathered>False</IsGathered>";
+                tXml += "</WebLink>";
+
+                m_TaskData.Weblink[i].IsGathered = cGlobalParas.UrlGatherResult.UnGather ;
+ 
+            }
+
+            string FileName = Program.getPrjPath() + "tasks\\run\\task" + m_TaskData.TaskID + ".xml";
+            cXmlIO cxml1 = new cXmlIO(FileName);
+            cxml1.DeleteNode("WebLinks");
+            cxml1.InsertElement("Task", "WebLinks", tXml);
+            cxml1.Save();
+            cxml1 = null;
+
+            //删除临时存储的采集数据xml文件
+            string tmpFileName = m_TaskData.SavePath + "\\" + m_TaskData.TaskName + "-" + m_TaskData.TaskID + ".xml";
+            if (File.Exists(tmpFileName))
+            {
+                File.Delete(tmpFileName);
+            }
+
             Task.cTaskRun t = new Task.cTaskRun();
             t.LoadSingleTask(m_TaskData.TaskID);
             m_TaskData.UrlCount = t.GetUrlCount(0);
@@ -676,10 +843,7 @@ namespace SoukeyNetget.Gather
         //重置任务
         public void ResetTask()
         {
-            //ResetTaskState();
             ResetTaskData();
-            //SplitTask();
-            //TaskInit();
         }
 
         #endregion
@@ -714,27 +878,38 @@ namespace SoukeyNetget.Gather
             
         }
 
-        /// 分解采集任务 线程完成 事件处理
+        /// 分解采集任务 线程完成 事件处理 判断的是独立线程，每个线程完成后
+        /// 都需要触发任务完成事件，交由任务继续判断，如果完成则调用任务完成
+        /// 事件，告诉程序此任务已经完成
         private void TaskWorkThreadCompleted(object sender, cTaskEventArgs e)
         {
-            cGatherTaskSplit dtc = (cGatherTaskSplit)sender;
 
-            ///任务完成时，立即写入文件
-            
-            if (UrlCount  == m_TaskData.UrlCount )
+            cGatherTaskSplit dtc = (cGatherTaskSplit)sender;
+            if (dtc.UrlCount  == dtc.GatherErrUrlCount +dtc.GatheredUrlCount )
             {  
                 // 任务采集完成
                 onTaskCompleted();
             }
         }
 
+        /// 当某个线程采集完成后，会调用任务完成事件进行检测，如果任务完成则触发任务
+        /// 完成事件。但在此判断时需要注意，如果任务采集失败的数量和采集数量相等，则判断
+        /// 任务失败。且每次调用此事件时，都需要做一次检测，对每个子线程都检测一遍，看是否
+        /// 存在已经完成，但未触发完成事件的自线程。
         private void onTaskCompleted()
         {
-            if (m_TaskData.UrlCount  == m_TaskData.GatheredUrlCount  && m_State != cGlobalParas.TaskState.Completed )
-            {   
-               
-                // 设置为完成状态，触发任务完成事件
-                State = cGlobalParas.TaskState.Completed;
+            if (m_TaskData.UrlCount == (m_TaskData.GatheredUrlCount + m_TaskData.GatherErrUrlCount) && m_State != cGlobalParas.TaskState.Completed)
+            {
+                if (m_TaskData.TrueUrlCount == m_TaskData.GatherErrUrlCount)
+                {
+                    //如果全部采集都发生了错误，则此任务为失败
+                    State = cGlobalParas.TaskState.Failed ;
+                }
+                else
+                {
+                    // 设置为完成状态，触发任务完成事件
+                    State = cGlobalParas.TaskState.Completed;
+                }
             }
         }
 
@@ -745,34 +920,37 @@ namespace SoukeyNetget.Gather
             cGatherTaskSplit gt = (cGatherTaskSplit)sender;
 
             //如果出错调用此事件,也表示完成了一个网址的采集,但是出错了
-            m_TaskData.GatheredUrlCount++;
+            //m_TaskData.GatherErrUrl++;
 
-            if (gt.ErrorCount >= cGatherManage.MaxErrorCount)
-            {   
-                // 达到最大错误数，停止当前线程
-                bool failed = true;
+            //一个线程发生错误并不允许停止整个任务执行，即便所有线程都发生促务
+            //也需要保障任务执行，只是把任务出错信息写入日志
 
-                // 如果当前任务所有的线程都停止了，则判断为任务失败
-                foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
-                {
-                    if (!gt.Equals(dtc) && dtc.IsThreadAlive)
-                    {
-                        failed = false;
-                        break;
-                    }
-                }
-                if (failed)
-                {
-                    State = cGlobalParas.TaskState.Failed;
-                }
-            }
-            else
-            {
+            //if (gt.ErrorCount >= cGatherManage.MaxErrorCount)
+            //{   
+            //    // 达到最大错误数，停止当前线程
+            //    bool failed = true;
+
+            //    // 如果当前任务所有的线程都停止了，则判断为任务失败
+            //    foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
+            //    {
+            //        if (!gt.Equals(dtc) && dtc.IsThreadAlive)
+            //        {
+            //            failed = false;
+            //            break;
+            //        }
+            //    }
+            //    if (failed)
+            //    {
+            //        State = cGlobalParas.TaskState.Failed;
+            //    }
+            //}
+            //else
+            //{
                 if (e_TaskError != null)
                 {
                     e_TaskError(this, new TaskErrorEventArgs(gt, e.Error));
                 }
-            }
+            //}
         }
 
         //处理日志事件
@@ -794,15 +972,27 @@ namespace SoukeyNetget.Gather
         }
 
         //采集网址计数事件,每调用此事件一次,则加一,表示采集完成一个网址
-        public void onGUrlCount(object sender, cGatherUrlCountArgs e)
+        public void onGUrlCount(object sender,cGatherUrlCountArgs e)
         {
-            if (e.UrlCount == 0)
+
+            switch (e.UType)
             {
-                m_TaskData.GatheredUrlCount++;
-            }
-            else
-            {
-                m_TaskData.UrlCount += e.UrlCount - 1;
+                case cGlobalParas.UpdateUrlCountType .Gathered :
+                    m_TaskData.GatheredTrueUrlCount++;
+
+                    break;
+                case cGlobalParas.UpdateUrlCountType.Err :
+                    m_TaskData.GatheredTrueErrUrlCount++;
+                    break;
+                case cGlobalParas.UpdateUrlCountType.ReIni :
+                    m_TaskData.TrueUrlCount += e.TrueUrlCount - 1;
+                    break;
+                case cGlobalParas.UpdateUrlCountType.ErrUrlCountAdd :
+                    m_TaskData.GatherErrUrlCount++;
+                    break;
+                case cGlobalParas.UpdateUrlCountType.UrlCountAdd :
+                    m_TaskData.GatheredUrlCount++;
+                    break;
             }
         }
         #endregion

@@ -210,10 +210,18 @@ namespace SoukeyNetget.Gather
         //采集完成数量变更事件
         public class cGatherUrlCountArgs : cTaskEventArgs
         {
-            public cGatherUrlCountArgs(Int64 TaskID,int UrlCount)
+            public cGatherUrlCountArgs(Int64 TaskID, cGlobalParas.UpdateUrlCountType uType, int TrueUrlCount)
             {
                 m_TaskID = TaskID;
-                m_UrlCount = UrlCount;
+                m_TrueUrlCount = TrueUrlCount;
+                m_UType = uType;
+            }
+
+            private cGlobalParas.UpdateUrlCountType m_UType;
+            public cGlobalParas.UpdateUrlCountType UType
+            {
+                get { return m_UType; }
+                set { m_UType = value; }
             }
 
             private Int64 m_TaskID;
@@ -223,11 +231,11 @@ namespace SoukeyNetget.Gather
                 set { m_TaskID = value; }
             }
 
-            private int m_UrlCount;
-            public int UrlCount
+            private int m_TrueUrlCount;
+            public int TrueUrlCount
             {
-                get { return m_UrlCount; }
-                set { m_UrlCount = value; }
+                get { return m_TrueUrlCount; }
+                set { m_TrueUrlCount = value; }
             }
         }
 

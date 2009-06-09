@@ -25,6 +25,24 @@ namespace SoukeyNetget
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            cGlobalParas.ExitPara ePara = cGlobalParas.ExitPara.MinForm;
+
+            if (this.raMin.Checked ==true )
+            {
+                ePara = cGlobalParas.ExitPara.MinForm;
+            }
+            else if (this.raExit.Checked == true)
+            {
+                ePara = cGlobalParas.ExitPara.Exit;
+            }
+            RExitPara(ePara);
+            this.Close();
+        }
+
+        //保存配置信息
+        private void SaveConfigData()
+        {
             try
             {
                 cXmlSConfig Config = new cXmlSConfig();
@@ -42,22 +60,9 @@ namespace SoukeyNetget
             {
                 MessageBox.Show("系统配置文件加载失败，可从安装文件中拷贝文件：SoukeyConfig.xml 到Soukey采摘安装目录，配置文件损坏并不影响系统运行，但您做的系统配置可能无法保存！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
-            cGlobalParas.ExitPara ePara = cGlobalParas.ExitPara.MinForm;
-
-            if (this.raMin.Checked ==true )
-            {
-                ePara = cGlobalParas.ExitPara.MinForm;
-            }
-            else if (this.raExit.Checked == true)
-            {
-                ePara = cGlobalParas.ExitPara.Exit;
-            }
-            RExitPara(ePara);
-            this.Close();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void frmClose_Load(object sender, EventArgs e)
         {
             try
             {
@@ -66,6 +71,7 @@ namespace SoukeyNetget
                     this.raMin.Checked = true;
                 else
                     this.raExit.Checked = true;
+
                 if (Config.ExitIsShow == true)
                     this.checkBox1.Checked = false;
                 else
@@ -75,6 +81,28 @@ namespace SoukeyNetget
             }
             catch (System.Exception)
             {
+                MessageBox.Show("系统配置文件加载失败，可从安装文件中拷贝文件：SoukeyConfig.xml 到Soukey采摘安装目录，配置文件损坏并不影响系统运行，但您做的系统配置可能无法保存！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            SaveConfigData();
+        }
+
+        private void raExit_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.raExit.Checked == true)
+            {
+                SaveConfigData();
+            }
+        }
+
+        private void raMin_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.raMin.Checked == true)
+            {
+                SaveConfigData();
             }
         }
     }

@@ -54,7 +54,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(326, 140);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // groupBox1
             // 
@@ -97,6 +96,7 @@
             this.checkBox1.TabIndex = 3;
             this.checkBox1.Text = "不再提醒";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // raExit
             // 
@@ -107,6 +107,7 @@
             this.raExit.TabIndex = 2;
             this.raExit.Text = "退出Soukey采摘。";
             this.raExit.UseVisualStyleBackColor = true;
+            this.raExit.CheckedChanged += new System.EventHandler(this.raExit_CheckedChanged);
             // 
             // raMin
             // 
@@ -119,6 +120,7 @@
             this.raMin.TabStop = true;
             this.raMin.Text = "最小化到托盘图标，继续运行。";
             this.raMin.UseVisualStyleBackColor = true;
+            this.raMin.CheckedChanged += new System.EventHandler(this.raMin_CheckedChanged);
             // 
             // label1
             // 
@@ -143,6 +145,7 @@
             this.Name = "frmClose";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Soukey信息";
+            this.Load += new System.EventHandler(this.frmClose_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

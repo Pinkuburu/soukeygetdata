@@ -5,6 +5,9 @@ using System.Threading;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using Interop.Excel;
+using System.IO;
+
 
 ///功能：发布任务
 ///完成时间：2009-3-2
@@ -21,7 +24,7 @@ namespace SoukeyNetget.publish
         private cPublishTaskData m_pTaskData;
         private cPublishManage m_PublishManage;
 
-        public cPublishTask(cPublishManage taskManage,Int64 TaskID,DataTable dData)
+        public cPublishTask(cPublishManage taskManage,Int64 TaskID,System.Data.DataTable dData)
         {
             m_PublishManage = taskManage;
             m_pTaskData = new cPublishTaskData();
@@ -79,15 +82,15 @@ namespace SoukeyNetget.publish
 
         //根据提供的taskid加载任务信息
         //数据不应该是传进来,是读取文件的,但现在不支持事务处理,所以传进来
-        private void LoadTaskInfo(Int64 TaskID, DataTable dData)
+        private void LoadTaskInfo(Int64 TaskID, System.Data.DataTable dData)
         {
             //DataTable dt = new DataTable();
             Task.cTask t = new Task.cTask();
 
             t.LoadTask(Program.getPrjPath () + "tasks\\run\\task" + TaskID + ".xml");
 
-            string FileName = Program.getPrjPath() + "Data\\" + t.TaskName + "-" + t.TaskID + ".xml"; 
-
+            string FileName = t.SavePath  + "\\" + t.TaskName + "-" + t.TaskID + ".xml"; 
+         
             m_pTaskData.TaskID =t.TaskID ;
             m_pTaskData.TaskName =t.TaskName ;
             m_pTaskData.DataPwd =t.DataPwd ;
@@ -139,11 +142,53 @@ namespace SoukeyNetget.publish
             add { lock (m_eventLock) { e_PublishError += value; } }
             remove { lock (m_eventLock) { e_PublishError -= value; } }
         }
+
+        /// 临时数据发布完成时间
+        private event EventHandler<PublishTempDataCompletedEventArgs> e_PublishTempDataCompleted;
+        internal event EventHandler<PublishTempDataCompletedEventArgs> PublishTempDataCompleted
+        {
+            add { lock (m_eventLock) { e_PublishTempDataCompleted += value; } }
+            remove { lock (m_eventLock) { e_PublishTempDataCompleted -= value; } }
+        }
         #endregion
 
 
         private readonly Object m_threadLock = new Object();
 
+        //此方法用于临时发布数据使用，即如果用户终端了操作
+        //需调用此方法对已经采集的数据进行临时发布，当前
+        //仅临时进行保存
+        public void startSaveTempData()
+        {
+            lock (m_threadLock)
+            {
+                m_Thread = new Thread(this.SaveTempData);
+
+                //定义线程名称,用于调试使用
+                m_Thread.Name = FileName;
+
+                m_Thread.Start();
+            }
+        }
+
+        private void SaveTempData()
+        {
+            //无论数据是否发布，都需要保存采集下来的数据
+            //保存到本地磁盘
+            if (File.Exists(m_pTaskData.FileName))
+            {
+                File.Delete(m_pTaskData.FileName);
+            }
+
+            m_pTaskData.PublishData.WriteXml(m_pTaskData.FileName, XmlWriteMode.WriteSchema);
+
+            //触发临时数据发布成功事件
+            e_PublishTempDataCompleted (this,new PublishTempDataCompletedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName));
+
+        }
+
+
+        //此方法用于采集任务完成后，数据的发布操作
         public void startPublic()
         {
 
@@ -167,19 +212,25 @@ namespace SoukeyNetget.publish
            
         }
 
-        private bool ConnectData()
+        private bool ExportData()
         {
             //触发发布启动事件
             PublishStartedEventArgs evt = new PublishStartedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName);
             e_PublishStarted(this,evt);
 
-            if (this.PublishType == cGlobalParas.PublishType.PublishAccess)
+            switch (this.PublishType)
             {
-                ConnectAccess();
-            }
-            else if (this.PublishType == cGlobalParas.PublishType.PublishMSSql)
-            {
-                ConnectSqlServer();
+                case cGlobalParas.PublishType.PublishAccess :
+                    ExportAccess();
+                    break;
+                case cGlobalParas.PublishType.PublishExcel :
+                    ExportExcel();
+                    break;
+                case cGlobalParas.PublishType.PublishTxt :
+                    ExportTxt();
+                    break;
+                default :
+                    break;
             }
 
             PublishCompletedEventArgs evt1 = new PublishCompletedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName);
@@ -187,8 +238,58 @@ namespace SoukeyNetget.publish
 
             return true;
         }
+        private bool ConnectSqlServer()
+        {
+            try
+            {
+                string strDataBase = "Server=.;DataBase=Library;Uid=" + m_pTaskData.DataUser + ";pwd=" + m_pTaskData.DataPwd  + ";";
+                SqlConnection conn = new SqlConnection(strDataBase);
+                conn.Open();
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+                
+            }
+            return true;
+        }
 
-        private void ConnectAccess()
+        private string getCreateTablesql()
+        {
+            string strsql = "";
+
+            strsql = "create table " + this.m_pTaskData.DataTableName + "(";
+            for (int i=0;i<m_pTaskData.PublishData.Columns.Count ;i++)
+            {
+                strsql +=  m_pTaskData.PublishData.Columns[i].ColumnName + " " + "text" + "," ;
+            }
+            strsql = strsql.Substring(0, strsql.Length - 1);
+            strsql += ")";
+
+            return strsql;
+        }
+
+        private void ThreadWork()
+        {
+            //无论数据是否发布，都需要保存采集下来的数据
+            //保存到本地磁盘
+            if (File.Exists(m_pTaskData.FileName))
+            {
+                File.Delete(m_pTaskData.FileName);
+            }
+            m_pTaskData.PublishData.WriteXml(m_pTaskData.FileName, XmlWriteMode.WriteSchema);
+
+            try
+            {
+                ExportData();
+            }
+            catch (System.Exception ex)
+            {
+                e_PublishError(this, new PublishErrorEventArgs(this.TaskData.TaskID, this.TaskData.TaskName, ex));
+            }
+        }
+
+        private void ExportAccess()
         {
             OleDbConnection conn = new OleDbConnection();
             
@@ -248,52 +349,132 @@ namespace SoukeyNetget.publish
             conn.Close();
         }
 
-        private bool ConnectSqlServer()
+        private void ExportExcel()
         {
-            try
-            {
-                string strDataBase = "Server=.;DataBase=Library;Uid=" + m_pTaskData.DataUser + ";pwd=" + m_pTaskData.DataPwd  + ";";
-                SqlConnection conn = new SqlConnection(strDataBase);
-                conn.Open();
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-                
-            }
-            return true;
-        }
+            string TaskName=m_pTaskData.TaskName ;
+            string FileName=m_pTaskData.DataSource ;
+            System.Data.DataTable gData= m_pTaskData.PublishData;
+            
+            // 定义要使用的Excel 组件接口
+            // 定义Application 对象,此对象表示整个Excel 程序
 
-        private string getCreateTablesql()
-        {
-            string strsql = "";
-
-            strsql = "create table " + this.m_pTaskData.DataTableName + "(";
-            for (int i=0;i<m_pTaskData.PublishData.Columns.Count ;i++)
-            {
-                strsql +=  m_pTaskData.PublishData.Columns[i].ColumnName + " " + "text" + "," ;
-            }
-            strsql = strsql.Substring(0, strsql.Length - 1);
-            strsql += ")";
-
-            return strsql;
-        }
-
-        private void ThreadWork()
-        {
-            //无论数据是否发布，都需要保存采集下来的数据
-            //保存到本地磁盘
-
-            m_pTaskData.PublishData.WriteXml(m_pTaskData.FileName, XmlWriteMode.WriteSchema);
+            Interop.Excel.Application excelApp = null;
+            Interop.Excel.Workbook workBook = null;
+            Interop.Excel.Worksheet ws = null;
+            Interop.Excel.Range r;
+            int row = 1;
+            int cell = 1;
 
             try
             {
-                ConnectData();
+                //初始化 Application 对象 excelApp
+                excelApp = new Interop.Excel.Application();
+                workBook = excelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+                ws = (Worksheet)workBook.Worksheets[1];
+
+                // 命名工作表的名称为 "Task Management"
+                ws.Name = TaskName;
+
+
+                // 遍历数据表中的所有列
+                for (int i = 0; i < gData.Columns.Count; i++)
+                {
+
+                    ws.Cells[row, cell] = gData.Columns[i].ColumnName;
+                    r = (Range)ws.Cells[row, cell];
+                    ws.get_Range(r, r).HorizontalAlignment = Interop.Excel.XlVAlign.xlVAlignCenter;
+
+                    cell++;
+
+                }
+
+                // 创建行,把数据视图记录输出到对应的Excel 单元格
+                for (int i = 0; i < gData.Rows.Count; i++)
+                {
+                    for (int j = 0; j < gData.Columns.Count; j++)
+                    {
+                        ws.Cells[i + 2, j + 1] = gData.Rows[i][j];
+                        Range rg = (Range)ws.get_Range(ws.Cells[i + 2, j + 1], ws.Cells[i + 2, j + 1]);
+                        rg.EntireColumn.ColumnWidth = 20;
+                        rg.NumberFormatLocal = "@";
+                    }
+                }
+
+                workBook.SaveCopyAs(FileName);
+                workBook.Saved = true;
+
             }
-            catch (System.Exception ex)
+            catch (System.Exception )
             {
-                e_PublishError(this, new PublishErrorEventArgs(this.TaskData.TaskID, this.TaskData.TaskName, ex));
+                return ;
             }
+            finally
+            {
+                excelApp.UserControl = false;
+                excelApp.Quit();
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(ws);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(workBook);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+                GC.Collect();
+
+            }
+
+            return ;
+        }
+
+        private void ExportTxt()
+        {
+            string TaskName = m_pTaskData.TaskName;
+            string FileName = m_pTaskData.DataSource;
+            System.Data.DataTable gData = m_pTaskData.PublishData;
+
+            FileStream myStream = File.Open(FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
+            StreamWriter sw = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("gb2312"));
+            string str = "";
+            string tempStr = "";
+
+            try
+            {
+                //写标题 
+                for (int i = 0; i < gData.Columns.Count; i++)
+                {
+                    str += "\t";
+                    str += gData.Columns[i].ColumnName;
+                }
+
+                sw.WriteLine(str);
+
+                //写内容 
+                for (int i = 0; i < gData.Rows.Count; i++)
+                {
+                    for (int j = 0; j < gData.Columns.Count; j++)
+                    {
+
+                        tempStr += "\t";
+                        tempStr += gData.Rows[i][j];
+                    }
+                    sw.WriteLine(tempStr);
+                    tempStr = "";
+                }
+
+
+                sw.Close();
+                myStream.Close();
+
+            }
+            catch (Exception)
+            {
+                return ;
+            }
+            finally
+            {
+                sw.Close();
+                myStream.Close();
+            }
+
+
+            return ;
+
         }
 
     }

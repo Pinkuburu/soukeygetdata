@@ -36,10 +36,16 @@ namespace SoukeyNetget.publish
             get { return m_PublishManage; }
         }
         
-        //增加发布任务,并启动
+        //增加发布任务,用于发布数据，同时启动此任务
         public void startPublish(cPublishTask pT)
         {
             m_PublishManage.AddPublishTask(pT );
+        }
+
+        //增加发布任务,用于发布临时采集的数据，同时启动此任务
+        public void startSaveTempData(cPublishTask pT)
+        {
+            m_PublishManage.AddSaveTempDataTask(pT);
         }
 
     }
@@ -172,6 +178,30 @@ namespace SoukeyNetget.publish
         /// <param name="old_state">旧的状态</param>
         /// <param name="new_statue">新的状态</param>
         public PublishFailedEventArgs(Int64 TaskID, string TaskName)
+        {
+            m_TaskID = TaskID;
+            m_TaskName = TaskName;
+        }
+
+        private Int64 m_TaskID;
+        public Int64 TaskID
+        {
+            get { return m_TaskID; }
+            set { m_TaskID = value; }
+        }
+
+        private string m_TaskName;
+        public string TaskName
+        {
+            get { return m_TaskName; }
+            set { m_TaskName = value; }
+        }
+
+    }
+
+    public class PublishTempDataCompletedEventArgs : cPublishEventArgs
+    {
+        public PublishTempDataCompletedEventArgs(Int64 TaskID, string TaskName)
         {
             m_TaskID = TaskID;
             m_TaskName = TaskName;

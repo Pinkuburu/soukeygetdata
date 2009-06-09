@@ -40,7 +40,15 @@ namespace SoukeyNetget.publish
 
             //启动此任务
             pt.startPublic();
+        }
 
+        public void AddSaveTempDataTask(cPublishTask pt)
+        {
+            ListPublish.Add(pt);
+            TaskInit(pt);
+
+            //启动此任务
+            pt.startSaveTempData();
         }
 
         private void TaskInit(cPublishTask pTask)
@@ -52,6 +60,7 @@ namespace SoukeyNetget.publish
                 pTask.PublishFailed  += this.onPublishFailed;
                 pTask.PublishStarted  += this.onPublishStarted;
                 pTask.PublishError  += this.onPublishError;
+                pTask.PublishTempDataCompleted += this.onPublishTempDataCompleted;
             }
         }
 
@@ -67,7 +76,6 @@ namespace SoukeyNetget.publish
             {
                 e_PublishCompleted(sender, e);
             }
-
 
         }
 
@@ -107,6 +115,20 @@ namespace SoukeyNetget.publish
 
         }
 
+        private void onPublishTempDataCompleted(object sender, PublishTempDataCompletedEventArgs e)
+        {
+
+            //从当前列表中删除此记录，临时数据的保存也是作为一个发布任务来执行的
+            //所以，保存完毕后，需要删除此任务
+            cPublishTask pt = (cPublishTask)sender;
+            m_ListPublish.Remove(pt);
+            pt = null;
+
+            if (e_PublishTempDataCompleted != null && !e.Cancel)
+            {
+                e_PublishTempDataCompleted(sender, e);
+            }
+        }
 
         #region 事件
 
@@ -142,6 +164,13 @@ namespace SoukeyNetget.publish
             remove { e_PublishError -= value; }
         }
 
+        ///临时发布数据完成事件
+        private event EventHandler<PublishTempDataCompletedEventArgs> e_PublishTempDataCompleted;
+        public event EventHandler<PublishTempDataCompletedEventArgs> PublishTempDataCompleted
+        {
+            add { e_PublishTempDataCompleted += value; }
+            remove { e_PublishTempDataCompleted -= value; }
+        }
         #endregion
     }
 }

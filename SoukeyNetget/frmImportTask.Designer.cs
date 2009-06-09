@@ -101,14 +101,14 @@
             // 
             this.groupBox1.Location = new System.Drawing.Point(2, 230);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(450, 9);
+            this.groupBox1.Size = new System.Drawing.Size(425, 5);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
             // cmdOK
             // 
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(246, 251);
+            this.cmdOK.Location = new System.Drawing.Point(246, 241);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(76, 25);
             this.cmdOK.TabIndex = 6;
@@ -119,7 +119,7 @@
             // cmdCancel
             // 
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(339, 251);
+            this.cmdCancel.Location = new System.Drawing.Point(339, 241);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(76, 25);
             this.cmdCancel.TabIndex = 7;
@@ -135,7 +135,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(429, 288);
+            this.ClientSize = new System.Drawing.Size(429, 277);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.groupBox1);

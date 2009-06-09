@@ -44,7 +44,7 @@ namespace SoukeyNetget
             {
 
                 TaskClass = xmlTClass.GetTaskClassName(i);
-                TaskClass += "                                                                                        ";
+                TaskClass += "                                                                                                                         ";
                 TaskClass += "-" + xmlTClass.GetTaskClassID(i);
                 this.comTaskClass.Items.Add(TaskClass);
             }
@@ -88,7 +88,7 @@ namespace SoukeyNetget
                     litem = new ListViewItem();
                     litem.Name = "S" + xmlTasks.GetTaskID(i);
                     litem.Text = xmlTasks.GetTaskName(i);
-                    litem.SubItems.Add(xmlTasks.GetTaskType(i));
+                    litem.SubItems.Add(cGlobalParas.ConvertName(int.Parse (xmlTasks.GetTaskType(i))));
                     litem.ImageIndex = 0;
                     this.listTask.Items.Add(litem);
                     litem = null;

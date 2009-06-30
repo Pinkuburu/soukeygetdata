@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
+using System.IO;
 
 ///功能：运行任务索引文件管理
 ///完成时间：2009-3-2
@@ -9,7 +10,7 @@ using System.Data;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Task
 {
@@ -74,7 +75,6 @@ namespace SoukeyNetget.Task
             Tasks = xmlConfig.GetData("Tasks","TaskID",TaskID.ToString () );
         }
 
-
         //计算当前共有多少个任务处于运行区
         public int GetTaskClassCount()
         {
@@ -90,6 +90,8 @@ namespace SoukeyNetget.Task
             }
             return tCount;
         }
+
+        #region 根据制定的索引号获取运行任务的信息
 
         public Int64 GetTaskID(int index)
         {
@@ -170,6 +172,28 @@ namespace SoukeyNetget.Task
             return WebLinkCount;
         }
 
+        //返回此任务实际需要采集的网址数，此数值在任务未结束前都是不准确的
+        public int GetTrueUrlCount(int index)
+        {
+            int WebLinkCount;
+            try
+            {
+                WebLinkCount = int.Parse(Tasks[index].Row["TrueUrlCount"].ToString());
+            }
+            catch (System.Exception ex)
+            {
+                if (Tasks[index].Row["TrueUrlCount"].ToString() == "")
+                {
+                    WebLinkCount = 0;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+            return WebLinkCount;
+        }
+
         //返回此任务已经采集网页的地址数量
         public int GetGatheredUrlCount(int index)
         {
@@ -183,6 +207,48 @@ namespace SoukeyNetget.Task
                 WebLinkCount = 0;
             }
             return WebLinkCount;
+        }
+
+        public int GetGatheredTrueUrlCount(int index)
+        {
+            int WebLinkCount;
+            try
+            {
+                WebLinkCount = int.Parse(Tasks[index].Row["GatheredTrueUrlCount"].ToString());
+            }
+            catch
+            {
+                WebLinkCount = 0;
+            }
+            return WebLinkCount;
+        }
+
+        public int GetErrUrlCount(int index)
+        {
+            int ErrUrlCount;
+            try
+            {
+                ErrUrlCount = int.Parse(Tasks[index].Row["ErrUrlCount"].ToString());
+            }
+            catch
+            {
+                ErrUrlCount = 0;
+            }
+            return ErrUrlCount;
+        }
+
+        public int GetTrueErrUrlCount(int index)
+        {
+            int ErrUrlCount;
+            try
+            {
+                ErrUrlCount = int.Parse(Tasks[index].Row["TrueErrUrlCount"].ToString());
+            }
+            catch
+            {
+                ErrUrlCount = 0;
+            }
+            return ErrUrlCount;
         }
 
         public int GetThreadCount(int index)
@@ -221,14 +287,10 @@ namespace SoukeyNetget.Task
         ///此数据，这就已经不同步了，所以，如果再添加任务，就会导致数据
         ///发生冲突，任务无法执行，所以maxid需要按照内存中的数据进行增加
         ///同时，由于inserttaskrun和deltask有可能会由多个线程操作，也可能
-        ///造成不同步，这个问题也需要解决***********************************************************************
+        ///造成不同步，这个问题也需要解决。当前getnewid是采用了时间编号进行的，这样做是避免编号重复的问题。
+        ///***********************************************************************
 
-        public Int64 GetNewID()
-        {
-            Int64 id=Int64.Parse ( DateTime.Now.ToFileTime().ToString ());
 
-            return id;
-        }
 
         public cGlobalParas.TaskState GetTaskState(int index)
         {
@@ -236,7 +298,17 @@ namespace SoukeyNetget.Task
 
             try
             {
-                TaskState = (cGlobalParas.TaskState)int.Parse(Tasks[index].Row["TaskState"].ToString());
+                //在此判断一下这个运行文件的物理文件是否存在
+                //如果不存在，则进行失败状态的说明
+                string fName=Program.getPrjPath () + "tasks\\run\\task" + this.GetTaskID (index ) + ".xml";
+                if (File.Exists(fName))
+                {
+                    TaskState = (cGlobalParas.TaskState)int.Parse(Tasks[index].Row["TaskState"].ToString());
+                }
+                else
+                {
+                    TaskState = cGlobalParas.TaskState.Failed;
+                }
             }
             catch
             {
@@ -261,6 +333,15 @@ namespace SoukeyNetget.Task
             return RunTime;
         }
 
+        #endregion
+
+        public Int64 GetNewID()
+        {
+            Int64 id=Int64.Parse ( DateTime.Now.ToFileTime().ToString ());
+
+            return id;
+        }
+
         public void NewTaskRunFile()
         {
             xmlConfig = new cXmlIO();
@@ -270,7 +351,7 @@ namespace SoukeyNetget.Task
             xmlConfig.NewXmlFile(Program.getPrjPath()  + "tasks\\taskrun.xml", strXml);
         }
 
-        //private readonly Object m_taskFileLock = new Object();
+        private readonly Object m_taskFileLock = new Object();
 
         public Int64 InsertTaskRun(string Path, string File)
         {
@@ -296,21 +377,34 @@ namespace SoukeyNetget.Task
             string tRunxml = "";
             tRunxml = "<TaskID>" + maxID + "</TaskID>";
             tRunxml += "<TaskName>" + t.TaskName + "</TaskName>";
-            tRunxml += "<TaskState>" + cGlobalParas.TaskState.UnStart + "</TaskState>";
+            tRunxml += "<TaskState>" + (int)cGlobalParas.TaskState.UnStart + "</TaskState>";
             tRunxml += "<TaskType>" + t.TaskType + "</TaskType>";
             tRunxml += "<RunType>" + t.RunType + "</RunType>";
             tRunxml += "<ExportFile>" + t.ExportFile + "</ExportFile>";
-            tRunxml += "<tempFile>" + Program.getPrjPath() + "data\\" + t.TaskName + "-" + maxID + ".xml" + "</tempFile>";
-            tRunxml += "<StartDate></StartDate>";
+            tRunxml += "<tempFile>" + t.SavePath + "\\" + t.TaskName + "-" + maxID + ".xml" + "</tempFile>";
+            tRunxml += "<StartDate>" + DateTime.Now + "</StartDate>";
             tRunxml += "<EndDate></EndDate>";
-            tRunxml += "<UrlCount>" + t.UrlCount + "</UrlCount>";
             tRunxml += "<ThreadCount>" + t.ThreadCount + "</ThreadCount>";
+            tRunxml += "<UrlCount>" + t.UrlCount + "</UrlCount>";
+
+            ///TrueUrlCount表示如果采集的网址中存在导航网址，则需要采集的网址是无法根据公式极端出来的
+            ///需要采集任务不断执行，不断根据采集的规则进行计算采集网址的总数，所以需要再次记录此值
+            ///记录此值的目的是为了可以更好的跟踪采集的进度，但Urlcount不能修改，因为此值要进行任务分解
+            ///使用，如果改变了UrlCount则可能导致任务分解失败，在运营任务初始化的时候，此值同UrlCount，此值的
+            ///更改在任务运营时维护
+            tRunxml += "<TrueUrlCount>" + t.UrlCount + "</TrueUrlCount>";
+
             tRunxml += "<GatheredUrlCount>0</GatheredUrlCount>";
+            tRunxml += "<GatheredTrueUrlCount>0</GatheredTrueUrlCount>";
+            tRunxml += "<ErrUrlCount>0</ErrUrlCount>";
+            tRunxml += "<TrueErrUrlCount>0</TrueErrUrlCount>";
+
             tRunxml += "<IsLogin>" + t.IsLogin + "</IsLogin>";
             tRunxml += "<PublishType>" + t.ExportType + "</PublishType>";
 
             xmlConfig.InsertElement("Tasks", "Task", tRunxml);
             xmlConfig.Save();
+            xmlConfig = null;
 
             ///运行区的任务xml文件的格式与Task任务格式完全一眼个，但命名方式完全不同
             ///命名格式是按照Task＋当前文件在Taskrun中的id来命名，这样做的目的是支持同一个任务

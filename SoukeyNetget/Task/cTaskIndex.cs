@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
+using System.IO;
 
 ///功能：任务索引文件管理
 ///完成时间：2009-3-2
@@ -9,7 +10,7 @@ using System.Data;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Task
 {
@@ -69,12 +70,17 @@ namespace SoukeyNetget.Task
         #endregion
 
         #region 根据指定的任务分类,查找index.xml文件,并根据指定的index返回任务信息
+
+
         //获取任务分类根目录下的任务索引，此目录为应用程序路径\\tasks，
         //此分类为固定内容，不提供用户可操作的任何处理。
+
         public void GetTaskDataByClass()
         {
 
             string ClassPath = Program.getPrjPath() + "tasks";
+            m_TaskPath = ClassPath;
+
             xmlConfig = new cXmlIO(ClassPath + "\\index.xml");
 
             //获取TaskClass节点
@@ -86,7 +92,8 @@ namespace SoukeyNetget.Task
             Task.cTaskClass tClass = new Task.cTaskClass();
 
             string ClassPath = tClass.GetTaskClassPathByID(ClassID);
-            
+            m_TaskPath = ClassPath;
+
             tClass = null;
 
             xmlConfig = new cXmlIO(ClassPath + "\\index.xml");
@@ -95,6 +102,12 @@ namespace SoukeyNetget.Task
             Tasks = xmlConfig.GetData("TaskIndex");
 
 
+        }
+
+        private string m_TaskPath;
+        private string TaskPath
+        {
+            get { return m_TaskPath; }
         }
 
         public void GetTaskDataByClass(string ClassName)
@@ -113,6 +126,8 @@ namespace SoukeyNetget.Task
 
                 tClass = null;
             }
+
+            m_TaskPath = ClassPath;
 
             xmlConfig = new cXmlIO(ClassPath + "\\index.xml");
 
@@ -166,6 +181,19 @@ namespace SoukeyNetget.Task
         {
             string ExportFile = Tasks[index].Row["ExportFile"].ToString();
             return ExportFile;
+        }
+
+        public cGlobalParas.TaskState GetTaskState(int index)
+        {
+            string fName = TaskPath + "\\" + GetTaskName(index) + ".xml";
+            if (File.Exists(fName))
+            {
+                return cGlobalParas.TaskState.UnStart;
+            }
+            else
+            {
+                return cGlobalParas.TaskState.Failed;
+            }
         }
 
         public int  GetWebLinkCount(int index)

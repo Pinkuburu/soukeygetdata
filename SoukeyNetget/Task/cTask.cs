@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
+using System.IO;
 
 ///功能：采集任务类
 ///完成时间：2009-3-2
@@ -9,7 +10,7 @@ using System.Data;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Task
 {
@@ -87,6 +88,13 @@ namespace SoukeyNetget.Task
         {
             get { return m_TaskType; }
             set { m_TaskType = value; }
+        }
+
+        private string m_SavePath;
+        public string SavePath
+        {
+            get { return m_SavePath; }
+            set { m_SavePath = value; }
         }
 
         private string m_TaskTemplate;
@@ -258,7 +266,7 @@ namespace SoukeyNetget.Task
             string TClassName = this.TaskClass;
             string Path;
 
-            if (TClassName == null || TClassName == "")
+            if (TClassName == null || TClassName == "" || TClassName =="任务分类")
             {
                 Path = Program.getPrjPath() + "Tasks";
             }
@@ -310,6 +318,9 @@ namespace SoukeyNetget.Task
                 "<Class>" + this.TaskClass + "</Class>" +
                 "<Type>" +  this.TaskType + "</Type>" +
                 "<RunType>" + this.RunType + "</RunType>" +
+
+                //选哟转换成相对路径
+                "<SavePath>" + cTool.GetRelativePath ( this.SavePath) + "</SavePath>" +
                 "<ThreadCount>" + this.ThreadCount + "</ThreadCount>" +
                 "<UrlCount>" + this.UrlCount + "</UrlCount>" +
                 "<StartPos>" + cTool.ReplaceTrans(this.StartPos) + "</StartPos>" +
@@ -343,6 +354,9 @@ namespace SoukeyNetget.Task
                     tXml += "<NagRule>" + cTool.ReplaceTrans(this.WebpageLink[i].NagRule) + "</NagRule>";
                     tXml += "<IsNextPage>" + this.WebpageLink[i].IsNextpage + "</IsNextPage>";
                     tXml += "<NextPageRule>" + cTool.ReplaceTrans(this.WebpageLink[i].NextPageRule) + "</NextPageRule>";
+
+                    //默认插入一个节点，表示此链接地址还未进行采集，因为是系统添加任务，所以默认为UnGather
+                    tXml += "<IsGathered>" + (int)cGlobalParas.UrlGatherResult.UnGather + "</IsGathered>";
                     tXml += "</WebLink>";
                 }
             }
@@ -355,6 +369,7 @@ namespace SoukeyNetget.Task
                 {
                     tXml += "<Rule>";
                     tXml += "<Title>" + cTool.ReplaceTrans( this.WebpageCutFlag[i].Title) + "</Title>";
+                    tXml += "<DataType>" + this.WebpageCutFlag[i].DataType + "</DataType>";
                     tXml += "<StartFlag>" + cTool.ReplaceTrans (this.WebpageCutFlag[i].StartPos) + "</StartFlag>";
                     tXml += "<EndFlag>" + cTool.ReplaceTrans (this.WebpageCutFlag[i].EndPos) + "</EndFlag>";
                     tXml += "<LimitSign>" + this.WebpageCutFlag[i].LimitSign + "</LimitSign>";
@@ -374,14 +389,30 @@ namespace SoukeyNetget.Task
         public void ChangeTaskClass(string TaskName, string OldTaskClass, string NewTaskClass)
         {
             cTaskClass tc = new cTaskClass();
-            string oldPath = tc.GetTaskClassPathByName(OldTaskClass);
-            string NewPath = tc.GetTaskClassPathByName(NewTaskClass);
+            string oldPath="";
+            string NewPath="";
+
+            if (OldTaskClass == "任务分类")
+                oldPath = Program.getPrjPath() + "tasks";
+            else
+                oldPath = tc.GetTaskClassPathByName(OldTaskClass);
+
+            if (NewTaskClass =="任务分类")
+                NewPath = Program.getPrjPath() + "tasks";
+            else
+                NewPath = tc.GetTaskClassPathByName(NewTaskClass);
+
             string FileName = TaskName + ".xml";
 
             System.IO.File.Copy(oldPath + "\\" + FileName, NewPath + "\\" + FileName);
 
             LoadTask(NewPath + "\\" + FileName);
-            this.TaskClass = NewTaskClass;
+
+            if (NewTaskClass =="任务分类")
+                this.TaskClass ="";
+            else
+                this.TaskClass = NewTaskClass;
+
             Save();
 
             DeleTask(oldPath, TaskName);
@@ -475,6 +506,9 @@ namespace SoukeyNetget.Task
             this.TaskClass = xmlConfig.GetNodeValue("Task/BaseInfo/Class");
             this.TaskType=xmlConfig.GetNodeValue("Task/BaseInfo/Type");
             this.RunType = xmlConfig.GetNodeValue("Task/BaseInfo/RunType");
+
+            //因存的是相对路径，所以要加上系统路径
+            this.SavePath = Program.getPrjPath () + xmlConfig.GetNodeValue("Task/BaseInfo/SavePath");
             this.UrlCount =int.Parse (xmlConfig.GetNodeValue("Task/BaseInfo/UrlCount").ToString ());
             this.ThreadCount = int.Parse (xmlConfig.GetNodeValue("Task/BaseInfo/ThreadCount"));
             this.Cookie = xmlConfig.GetNodeValue("Task/BaseInfo/Cookie");
@@ -524,6 +558,7 @@ namespace SoukeyNetget.Task
                         w.IsNextpage = false;
 
                     w.NextPageRule = dw[i].Row["NextPageRule"].ToString();
+                    w.IsGathered = int.Parse((dw[i].Row["IsGathered"].ToString() == null || dw[i].Row["IsGathered"].ToString() == "") ? "2031" : dw[i].Row["IsGathered"].ToString());
                     this.WebpageLink.Add(w);
                     w = null;
                 }
@@ -539,6 +574,7 @@ namespace SoukeyNetget.Task
                 {
                     c = new Task.cWebpageCutFlag();
                     c.Title = dw[i].Row["Title"].ToString();
+                    c.DataType = int.Parse((dw[i].Row["DataType"].ToString() == null || dw[i].Row["DataType"].ToString() == "") ? "0" : dw[i].Row["DataType"].ToString());
                     c.StartPos = dw[i].Row["StartFlag"].ToString();
                     c.EndPos = dw[i].Row["EndFlag"].ToString();
                     c.LimitSign = int.Parse((dw[i].Row["LimitSign"].ToString() == null || dw[i].Row["LimitSign"].ToString() == "") ? "0" : dw[i].Row["LimitSign"].ToString());
@@ -576,11 +612,25 @@ namespace SoukeyNetget.Task
             //删除任务的物理文件
             string FileName =TaskPath   + "\\" + TaskName + ".xml" ;
             string tmpFileName=TaskPath   + "\\~" + TaskName + ".xml" ;
-            System.IO.File.Delete(tmpFileName);
-            System.IO.File.Move(FileName, tmpFileName);
+            
+            //删除物理临时文件
+            if (File.Exists(tmpFileName))
+            {
+                File.SetAttributes(tmpFileName, System.IO.FileAttributes.Normal);
+                System.IO.File.Delete(tmpFileName);
+            }
+            
+            //System.IO.File.Move(FileName, tmpFileName);
+
+            //删除物理任务文件
+            if (File.Exists(FileName))
+            {
+                File.SetAttributes(FileName, System.IO.FileAttributes.Normal);
+                System.IO.File.Delete(FileName);
+            }
 
             //将文件设置为隐藏
-            System.IO.File.SetAttributes(tmpFileName, System.IO.FileAttributes.Hidden);
+            //System.IO.File.SetAttributes(tmpFileName, System.IO.FileAttributes.Hidden);
             return true;
         }
 

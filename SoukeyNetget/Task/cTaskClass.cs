@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Xml;
+using System.IO;
 
 ///功能：采集任务类别 管理
 ///完成时间：2009-3-2
@@ -10,7 +11,7 @@ using System.Xml;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Task
 {
@@ -49,7 +50,12 @@ namespace SoukeyNetget.Task
         //计算当前共有多少个TaskClass
         public int GetTaskClassCount()
         {
-            int tCount = TaskClass.Count;
+            int tCount = 0;
+
+            if (TaskClass == null)
+                tCount = 0;
+            else
+                tCount = TaskClass.Count;
             return tCount;
         }
 
@@ -67,11 +73,11 @@ namespace SoukeyNetget.Task
             return TClassName;
         }
 
-        //根据指定的index返回TaskClassPath
-        public string GetTaskClassPathByIndex(int index)
-        {
-            return "";
-        }
+        ////根据指定的index返回TaskClassPath
+        //public string GetTaskClassPathByIndex(int index)
+        //{
+        //    return "";
+        //}
 
         //根据指定的ID返回TaskClassPath
         public string GetTaskClassPathByID(int id)
@@ -82,7 +88,8 @@ namespace SoukeyNetget.Task
             {
                 if (int.Parse (TaskClass[i].Row["id"].ToString()) == id)
                 {
-                    return TaskClass[i].Row["Path"].ToString();
+                    string tClassPath =Program.getPrjPath () + TaskClass[i].Row["Path"].ToString();
+                    return tClassPath;
                 }
             }
 
@@ -97,7 +104,9 @@ namespace SoukeyNetget.Task
             {
                 if (TaskClass[i].Row["Name"].ToString() == Name)
                 {
-                    return TaskClass[i].Row["Path"].ToString();
+                    string tClassPath = Program.getPrjPath() + TaskClass[i].Row["Path"].ToString();
+                    return tClassPath;
+
                 }
             }
             return "";
@@ -121,10 +130,18 @@ namespace SoukeyNetget.Task
         }
 
         //增加分类节点，如果添加成功，则返回添加成功后的分类节点ID
+        //系统中存储的路径全部都是相对路径，不允许存储绝对路径
+        //系统参数是绝对路径，绝对路径到相对路径的转换在方法在内部完成
+        //系统对外看都是绝对路径
         public int AddTaskClass(string TaskClassName,string TaskClassPath)
         {
+            //转换相对路径
+            TaskClassPath = cTool.GetRelativePath(TaskClassPath);
+ 
+            int tCount = GetTaskClassCount();
+
             //需要判断新建立的任务分类是否已经存在
-            for (int i = 0; i < TaskClass.Count; i++)
+            for (int i = 0; i < tCount; i++)
             {
                 if (TaskClass[i].Row["Name"].ToString() == TaskClassName)
                 {
@@ -134,8 +151,14 @@ namespace SoukeyNetget.Task
 
             string strTaskClass = "";
             int MaxID=0;
-            int index=TaskClass.Count-1;
-            MaxID = int.Parse(TaskClass[index].Row["id"].ToString()) + 1;
+            if (tCount > 0)
+            {
+                int index = TaskClass.Count - 1;
+                MaxID = int.Parse(TaskClass[index].Row["id"].ToString()) + 1;
+            }
+            else
+            {
+            }
 
             strTaskClass = "<id>" + MaxID + "</id>";
             strTaskClass += "<Name>" + TaskClassName + "</Name>";
@@ -166,8 +189,9 @@ namespace SoukeyNetget.Task
             xmlConfig.DeleteChildNodes("TaskClasses", "Name", TClassName);
             xmlConfig.Save();
 
-            string FileName =FilePath   + "\\index.xml";
-            System.IO.File.Delete(FileName);
+            System.IO.Directory.Delete (FilePath ,true );
+            //string FileName =FilePath   + "\\index.xml";
+            //System.IO.File.Delete(FileName);
             return true;
         }
     }

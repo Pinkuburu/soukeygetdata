@@ -8,7 +8,7 @@ using System.Text;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Task
 {
@@ -18,7 +18,7 @@ namespace SoukeyNetget.Task
         #region 构造 析构
         public cWebLink()
         {
-            m_IsGathered = cGlobalParas.UrlGatherResult.UnGather ;
+            m_IsGathered =(int) cGlobalParas.UrlGatherResult.UnGather;
         }
 
         ~cWebLink()
@@ -83,8 +83,8 @@ namespace SoukeyNetget.Task
         }
 
         //标识当前网页地址是否已经采集,默认cGlobalParas.UrlGatherResult.UnGather
-        private cGlobalParas.UrlGatherResult m_IsGathered;
-        public cGlobalParas.UrlGatherResult IsGathered
+        private int m_IsGathered;
+        public int IsGathered
         {
             get { return m_IsGathered; }
             set { m_IsGathered = value; }

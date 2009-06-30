@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -647,13 +647,15 @@ namespace SoukeyNetget.Gather
 
             gWeb.CutFlag =m_TaskSplitData.CutFlag ;
 
+            bool IsSucceed = false;
+
             for (int i = 0; i < m_TaskSplitData.Weblink.Count; i++)
             {
                 if (m_ThreadRunning == true)
                 {
                     switch (m_TaskSplitData.Weblink[i].IsGathered)
                     {
-                        case cGlobalParas.UrlGatherResult.UnGather:
+                        case (int) cGlobalParas.UrlGatherResult.UnGather:
 
                             e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + m_TaskSplitData.Weblink[i].Weblink + "\n"));
 
@@ -661,41 +663,54 @@ namespace SoukeyNetget.Gather
                             //然后进行具体网址的采集
                             if (m_TaskSplitData.Weblink[i].IsNavigation == true)
                             {
-                                GatherNavigationUrl(m_TaskSplitData.Weblink[i].Weblink, m_TaskSplitData.Weblink[i].NagRule, m_TaskSplitData.Weblink[i].IsOppPath, m_TaskSplitData.Weblink[i].IsNextpage, m_TaskSplitData.Weblink[i].NextPageRule);
+                                IsSucceed = GatherNavigationUrl(m_TaskSplitData.Weblink[i].Weblink, m_TaskSplitData.Weblink[i].NagRule, m_TaskSplitData.Weblink[i].IsOppPath, m_TaskSplitData.Weblink[i].IsNextpage, m_TaskSplitData.Weblink[i].NextPageRule);
                             }
                             else
                             {
-                                GatherSingleUrl(m_TaskSplitData.Weblink[i].Weblink, m_TaskSplitData.Weblink[i].IsNextpage, m_TaskSplitData.Weblink[i].NextPageRule);
+                                IsSucceed=GatherSingleUrl(m_TaskSplitData.Weblink[i].Weblink, m_TaskSplitData.Weblink[i].IsNextpage, m_TaskSplitData.Weblink[i].NextPageRule);
                             }
 
-                            //每采集完成一个Url，都需要修改当前CurIndex的值，表示系统正在运行，并
-                            //最终确定此分解任务是否已经完成,并且表示此网址已经采集完成
+                            //如果采集发生错误，则直接调用了onError进行错误处理
+                            //但对于带有导航的网址，一次采集是针对多个网址，如果系统
+                            //停止任务，对于多个网址的采集那就是采集事务未成功，既然不成功
+                            //则不需要增加GatheredUrlCount及其他处理
+                            if (IsSucceed == true)
+                            {
+                                //每采集完成一个Url，都需要修改当前CurIndex的值，表示系统正在运行，并
+                                //最终确定此分解任务是否已经完成,并且表示此网址已经采集完成
+                                m_TaskSplitData.CurIndex++;
+                                e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.UrlCountAdd, 0));
+
+                                m_TaskSplitData.Weblink[i].IsGathered = (int)cGlobalParas.UrlGatherResult.Succeed;
+
+                                m_TaskSplitData.GatheredUrlCount++;
+                            }
+
+                            break;
+
+                        case (int)cGlobalParas.UrlGatherResult.Succeed:
                             m_TaskSplitData.CurIndex++;
-                            e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.UrlCountAdd, 0));
-
-                            m_TaskSplitData.Weblink[i].IsGathered = cGlobalParas.UrlGatherResult.Succeed;
-                            
                             m_TaskSplitData.GatheredUrlCount++;
-                            
-                            break;
-
-                        case cGlobalParas.UrlGatherResult.Succeed:
-                            m_TaskSplitData.GatheredUrlCount++;
+                            m_TaskSplitData.GatheredTrueUrlCount++;
                             e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.UrlCountAdd, 0));
                             break;
-                        case cGlobalParas.UrlGatherResult.Error:
+                        case (int)cGlobalParas.UrlGatherResult.Error:
+                            m_TaskSplitData.CurIndex++;
                             m_TaskSplitData.GatheredErrUrlCount++;
+                            m_TaskSplitData.GatheredTrueErrUrlCount++;
                             e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.ErrUrlCountAdd, 0));
                             break;
-                        case cGlobalParas.UrlGatherResult.Gathered:
+                        case (int)cGlobalParas.UrlGatherResult.Gathered:
+                            m_TaskSplitData.CurIndex++;
                             m_TaskSplitData.GatheredUrlCount++;
+                            m_TaskSplitData.GatheredTrueUrlCount++;
                             e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.UrlCountAdd, 0));
                             break;
                     }
                 }
                 else if (m_ThreadRunning == false)
                 {
-                    //标识线程需要终止，退出for循环
+                    //标示线程需要终止，退出for循环
                     break;
                 }
 
@@ -716,6 +731,10 @@ namespace SoukeyNetget.Gather
                 //所以，在此还是返回线程任务完成时间，不是失败时间。
                 ThreadState = cGlobalParas.GatherThreadState.Completed;
             }
+            else if (UrlCount<GatheredUrlCount + GatherErrUrlCount)
+            {
+                ThreadState = cGlobalParas.GatherThreadState.Completed;
+            }
             else
             {
                 ThreadState = cGlobalParas.GatherThreadState.Stopped;
@@ -726,7 +745,7 @@ namespace SoukeyNetget.Gather
         }
 
         //用于采集一个网页的数据
-        private void GatherSingleUrl(string Url,bool IsNext,string NextRule)
+        private bool GatherSingleUrl(string Url,bool IsNext,string NextRule)
         {
             cGatherWeb gWeb = new cGatherWeb();
             DataTable tmpData;
@@ -814,23 +833,27 @@ namespace SoukeyNetget.Gather
             }
             catch (System.Exception ex)
             {
-                e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集发生错误：" + Url + "\n"));
+                e_Log(this, new cGatherTaskLogArgs(m_TaskID, Url + "采集发生错误：" + ex.Message  + "\n"));
                 e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.Err, 0));
                 m_TaskSplitData.GatheredTrueErrUrlCount++;
                 onError(ex);
+                return false;
             }
 
             gWeb = null;
             tmpData = null;
+
+            return true;
         }
 
         //用于采集需要导航的网页，在此处理下一页的规则
-        private void GatherNavigationUrl(string Url, string NagRule, bool IsOppPath,bool IsNext,string NextRule)
+        private bool GatherNavigationUrl(string Url, string NagRule, bool IsOppPath,bool IsNext,string NextRule)
         {
             cGatherWeb gWeb = new cGatherWeb();
             //gWeb.CutFlag = m_TaskSplitData.CutFlag;
             string NextUrl = Url;
             string Old_Url = NextUrl;
+            bool IsSucceed = false;
 
             if (IsNext)
             {
@@ -843,7 +866,7 @@ namespace SoukeyNetget.Gather
 
                         e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + Url + "\n"));
 
-                        ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
+                        IsSucceed=ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
 
                         e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集完成：" + Url + "\n"));
 
@@ -867,25 +890,36 @@ namespace SoukeyNetget.Gather
                     else if (m_ThreadRunning == false)
                     {
                         //标识要求终止线程，停止任务，退出do循环提前结束任务
+                        if (NextUrl == "" || Old_Url == NextUrl)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                         break;
                     }
 
                 }
-                while (NextUrl != "" || Old_Url ==NextUrl );
+                while (NextUrl != "" && Old_Url !=NextUrl );
             }
             else
             {
-                ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
+                IsSucceed=ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
             }
 
             gWeb = null;
+
+            return IsSucceed;
         }
 
         //用于采集需要导航的网页，在此处理导航页规则
-        private void ParseGatherNavigationUrl(string Url, string NagRule, bool IsOppPath)
+        private bool ParseGatherNavigationUrl(string Url, string NagRule, bool IsOppPath)
         {
             Task.cUrlAnalyze u = new Task.cUrlAnalyze();
             List<string> gUrls;
+            bool IsSucceed = false;
 
             if (m_IsUrlEncode == true)
             {
@@ -900,7 +934,7 @@ namespace SoukeyNetget.Gather
             if (gUrls == null || gUrls.Count == 0)
             {
                 onError(new System.Exception("网页地址解析失败！"));
-                return;
+                return false ;
             }
 
             //更新实际采集网址总数，因是导航页面，所以实际采集网址总数发生了变化
@@ -934,12 +968,13 @@ namespace SoukeyNetget.Gather
                                 PreUrl = aa.Groups[0].Value.ToString();
                             }
 
-                            GatherParsedUrl(PreUrl + gUrls[j].ToString());
+                           IsSucceed= GatherParsedUrl(PreUrl + gUrls[j].ToString());
                         }
                         else
                         {
-                            GatherParsedUrl(gUrls[j].ToString());
+                           IsSucceed= GatherParsedUrl(gUrls[j].ToString());
                         }
+
 
                         //触发采集网址计数事件
                         e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.Gathered, 0));
@@ -956,14 +991,25 @@ namespace SoukeyNetget.Gather
                 else if (m_ThreadRunning == false)
                 {
                     //标识要求终止线程，停止任务，退出for循环提前结束任务
+                    if (j == gUrls.Count)
+                    {
+                        //表示还是采集完成了
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                     break;
                 }
 
             }
+
+            return true;
         }
 
         //用于采集导航网页分解后的单独地址
-        private void GatherParsedUrl(string Url)
+        private bool GatherParsedUrl(string Url)
         {
             cGatherWeb gWeb = new cGatherWeb();
             DataTable tmpData=null;
@@ -1002,12 +1048,14 @@ namespace SoukeyNetget.Gather
             }
             catch (System.Exception ex)
             {
-                e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集发生错误：" + Url + "\n"));
+                e_Log(this, new cGatherTaskLogArgs(m_TaskID, Url + "采集发生错误：" + ex.Message + "\n"));
                 onError(ex);
-                return;
+                return false  ;
             }
 
             gWeb = null;
+
+            return true;
 
         }
 

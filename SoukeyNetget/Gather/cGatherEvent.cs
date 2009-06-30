@@ -9,7 +9,7 @@ using System.Data;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -142,9 +142,25 @@ namespace SoukeyNetget.Gather
             }
 
             /// <param name="cancel">是否取消事件</param>
-            public cTaskEventArgs(bool cancel)
+            public cTaskEventArgs(Int64 TaskID,string TaskName, bool cancel)
             {
+                m_TaskID = TaskID;
+                m_TaskName = TaskName;
                 m_Cancel = cancel;
+            }
+
+            private Int64 m_TaskID;
+            public Int64 TaskID
+            {
+                get { return m_TaskID; }
+                set { m_TaskID = value; }
+            }
+
+            private string m_TaskName;
+            public string TaskName
+            {
+                get { return m_TaskName; }
+                set { m_TaskName = value; }
             }
 
             private bool m_Cancel;

@@ -10,7 +10,7 @@ using System.Data ;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -48,10 +48,8 @@ namespace SoukeyNetget.Gather
                 tData.UrlCount = t.GetUrlCount(i);
                 tData.TrueUrlCount = t.GetTrueUrlCount(i);
                 tData.GatheredUrlCount = 0;
-                //tData.GatheredUrlCount = t.GetGatheredUrlCount(i);
                 tData.GatheredTrueUrlCount = t.GetGatheredTrueUrlCount(i);
                 tData.GatherErrUrlCount = 0;
-                //tData.GatherErrUrlCount = t.GetErrUrlCount(i);
                 tData.GatheredTrueErrUrlCount = t.GetTrueErrUrlCount(i);
                 m_TaskDataList.Add(tData);
                 tData = null;

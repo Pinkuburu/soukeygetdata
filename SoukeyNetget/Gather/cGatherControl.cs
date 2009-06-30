@@ -8,7 +8,7 @@ using System.Text;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -53,7 +53,7 @@ namespace SoukeyNetget.Gather
         private void timerInit()
         {
             m_LastTime = System.Environment.TickCount;
-            m_GatherEngine = new System.Threading.Timer(new System.Threading.TimerCallback(m_GatherEngine_CallBack), null, 0, 20);
+            m_GatherEngine = new System.Threading.Timer(new System.Threading.TimerCallback(m_GatherEngine_CallBack), null, 0, 50);
             m_IsInitialized = true;
             m_Isbusying = false;
         }
@@ -187,6 +187,22 @@ namespace SoukeyNetget.Gather
         {
             m_TaskManage.TaskListControl.RemoveTask(task);
         }
+
+        public void Abort()
+        {
+            while(m_TaskManage.TaskListControl.RunningTaskList.Count>0)
+            {
+                Abort(m_TaskManage.TaskListControl.RunningTaskList[0]);
+            }
+
+        }
+
+        public void Abort(cGatherTask task)
+        {
+            m_TaskManage.TaskListControl.Abort(task);
+            m_TaskManage.TaskListControl.AutoList(task);
+        }
+
         #endregion
 
         #region IDisposable 成员

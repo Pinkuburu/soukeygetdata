@@ -13,7 +13,7 @@ using System.Threading;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 
 
@@ -85,7 +85,7 @@ namespace SoukeyNetget.Gather
         }
 
         //导出Excel
-        public void ExportExcel()
+        private void ExportExcel1()
         {
             // 定义要使用的Excel 组件接口
             // 定义Application 对象,此对象表示整个Excel 程序
@@ -166,7 +166,7 @@ namespace SoukeyNetget.Gather
         }
 
         //导出文本文件
-        public  void ExportTxt()
+        private  void ExportTxt()
         {
             FileStream  myStream = File.Open(m_FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
             StreamWriter sw = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("gb2312"));
@@ -223,6 +223,65 @@ namespace SoukeyNetget.Gather
             }
 
             return ;
+        }
+
+        public void ExportExcel()
+        {
+            FileStream myStream = File.Open(m_FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
+            StreamWriter sw = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("gb2312"));
+            string str = "";
+            string tempStr = "";
+            int i = 0;
+            int Count = 0;
+
+            try
+            {
+                //写标题 
+                for (i = 0; i < m_pData.Columns.Count; i++)
+                {
+                    str += "\t";
+                    str += m_pData.Columns[i].ColumnName;
+                }
+
+                sw.WriteLine(str);
+
+                Count = m_pData.Rows.Count;
+                //写内容 
+                for (i = 0; i < m_pData.Rows.Count; i++)
+                {
+                    for (int j = 0; j < m_pData.Columns.Count; j++)
+                    {
+
+                        tempStr += "\t";
+                        tempStr += m_pData.Rows[i][j];
+                    }
+                    sw.WriteLine(tempStr);
+                    tempStr = "";
+
+                    //更新进度条信息
+                    m_sender.BeginInvoke(m_senderDelegate, new object[] { Count, i, false });
+                }
+
+
+                sw.Close();
+                myStream.Close();
+
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            finally
+            {
+                sw.Close();
+                myStream.Close();
+
+                //更新进度条为完成，并传递参数表示导出任务完成
+                m_sender.BeginInvoke(m_senderDelegate, new object[] { Count, i, true });
+
+            }
+
+            return;
         }
     }
 }

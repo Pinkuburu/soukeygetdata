@@ -12,7 +12,7 @@ using System.IO;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -208,7 +208,9 @@ namespace SoukeyNetget.Gather
             //根据用户指定的页面截取位置构造正则表达式
             for (i = 0; i < this.CutFlag.Count; i++)
             {
-                strCut += "(?<=" + cTool.RegexReplaceTrans(this.CutFlag[i].StartPos) + ")";
+                strCut += "(?<" + this.CutFlag[i].Title + ">" + cTool.RegexReplaceTrans(this.CutFlag[i].StartPos) + ")";
+
+                //strCut += "(?<=" + cTool.RegexReplaceTrans(this.CutFlag[i].StartPos) + ")";
 
                 switch (this.CutFlag[i].LimitSign )
                 {
@@ -220,6 +222,9 @@ namespace SoukeyNetget.Gather
                         break;
                     case 2003:
                         strCut += "[\\S\\s]*?";
+                        break;
+                    case 2004:
+                        strCut += "[u4e00-u9fa5]*?";
                         break;
                     default :
                         strCut += "[\\S\\s]*?";
@@ -254,40 +259,94 @@ namespace SoukeyNetget.Gather
             Regex re = new Regex(@strCut, RegexOptions.IgnoreCase | RegexOptions.Multiline );
             MatchCollection mc = re.Matches(this.WebpageSource);
 
+            if (mc.Count == 0)
+            {
+                tempData = null;
+                return tempData;
+            }
+
             DataRow drNew ;
 
             i = 0;
 
-            //根据采集数及列数计算共有多少行
-            int rows=(int)Math.Ceiling((decimal) mc.Count /(decimal)rowCount) ;
-
+            //开始根据采集的数据构造数据表进行输出
+            //在此需要处理采集数据有可能错行的问题
+            //下面被注释的代码是最初构建数据表的代码，但会出现错行现象
             Match ma;
+            
+            int rows = 0; //统计供采集了多少行
             int m = 0;   //计数使用
-            for (i = 0; i < rows; i++)
+            try
             {
-                drNew = tempData.NewRow();
+                ma = mc[m];
+                m++;         //已经取出一条记录，因此加1
 
-                for (j=0;j<rowCount ;j++)
+                while (m <= mc.Count)
                 {
-                    //从集合中读取一个数据集出来
+                    //新建新行
+                    drNew = tempData.NewRow();
+                    rows++;
+                    
 
-                    if (m>=mc.Count)
+                    for (i = 0; i < this.CutFlag.Count; i++)
                     {
-                        break;
+
+                        if (ma.Groups[0].Value.StartsWith(this.CutFlag[i].StartPos, StringComparison.CurrentCultureIgnoreCase) )
+                        {
+                            drNew[i] = ma.Groups[0].Value.Substring(this.CutFlag[i].StartPos.Length, ma.Groups[0].Value.Length - this.CutFlag[i].StartPos.Length);
+                            if (m < mc.Count)
+                            {
+                                ma = mc[m];
+                            }
+                            m++;
+                            
+                        }
+                        else
+                        {
+                            drNew[i] = "";
+                            continue;
+                        }
+
                     }
-                    ma = mc[m];
-
-                    drNew[j] = ma.Groups[0].Value.ToString();
-                    m++;
-
+                    tempData.Rows.Add(drNew);
+                    drNew = null;
                 }
-
-                tempData.Rows.Add(drNew);
-                drNew = null;                
             }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+            ////根据采集数及列数计算共有多少行
+            //int rows=(int)Math.Ceiling((decimal) mc.Count /(decimal)rowCount) ;
+
+            //Match ma;
+            //int m = 0;   //计数使用
+            //for (i = 0; i < rows; i++)
+            //{
+            //    drNew = tempData.NewRow();
+
+            //    for (j=0;j<rowCount ;j++)
+            //    {
+            //        //从集合中读取一个数据集出来
+
+            //        if (m>=mc.Count)
+            //        {
+            //            break;
+            //        }
+            //        ma = mc[m];
+
+            //        drNew[j] = ma.Groups[0].Value.ToString();
+            //        m++;
+
+            //    }
+
+            //    tempData.Rows.Add(drNew);
+            //    drNew = null; 
+            //}
 
             //判断是否存在有下载文件的任务，如果有，则开始下载，因为此功能设计最初是下载图片使用
             //并非是专用的下载工具，所以对下载处理并没有单独进行线程处理
+            #region 针对采集需要下载文件的字段进行文件下载处理
             if (IsDownloadFile == true)
             {
                 if (sPath == "")
@@ -314,7 +373,10 @@ namespace SoukeyNetget.Gather
                             //开始获取下载文件名称
                             Regex s = new Regex(@"(?<=/)[^/]*", RegexOptions.IgnoreCase | RegexOptions.Multiline);
                             MatchCollection urlstr = s.Matches(FileUrl);
-                            DownloadFileName = urlstr[urlstr.Count - 1].ToString();
+                            if (urlstr.Count == 0)
+                                DownloadFileName = FileUrl;
+                            else
+                                DownloadFileName = urlstr[urlstr.Count - 1].ToString();
                             DownloadFileName = sPath + "\\" + DownloadFileName;
 
                             if (FileUrl.Substring(0, 4) == "http")
@@ -330,6 +392,11 @@ namespace SoukeyNetget.Gather
                                     Url = "http://" + Url;
                                     FileUrl = Url + FileUrl;
                                 }
+                                else if (FileUrl.IndexOf ("/")<=0)
+                                {
+                                    Url = Url.Substring(0, Url.LastIndexOf("/")+1);
+                                    FileUrl = Url + FileUrl;
+                                }
                                 else
                                 {
                                     FileUrl = Url + FileUrl;
@@ -342,6 +409,8 @@ namespace SoukeyNetget.Gather
                 }
 
             }
+            #endregion
+
             return tempData;
         }
 

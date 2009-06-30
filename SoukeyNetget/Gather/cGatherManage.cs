@@ -11,7 +11,7 @@ using System.IO;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -36,7 +36,9 @@ namespace SoukeyNetget.Gather
 
         #region 静态变量
 
-        /// 线程最大错误次数,系统中不进行使用
+        /// 线程最大错误次数，当达到这个数量则自动停止任务，
+        /// 前提条件是系统必须检测是断网，如果没有断网，则引发错误事件
+        /// 但不停止任务执行
         private static int s_MaxErrorCount = 10;
         public static int MaxErrorCount
         {
@@ -118,6 +120,13 @@ namespace SoukeyNetget.Gather
 
             //根据添加的任务状态,自动维护队列的信息
             m_GatherTaskList.AutoList(gTask);
+
+            //如果任务增加后就是完成的任务，则需要出发完成的
+            //事件
+            if (gTask.TaskState == cGlobalParas.TaskState.Completed)
+            {
+                e_TaskCompleted  (gTask, new cTaskEventArgs(gTask.TaskID,gTask.TaskName, false));
+            }
         }
 
         private void TaskInit(cGatherTask gTask)
@@ -138,6 +147,27 @@ namespace SoukeyNetget.Gather
                     gTask.TaskThreadInitialized += this.onTaskThreadInitialized;
                     gTask.IsInitialized = true;
                 }
+            }
+        }
+
+        //任务强制终止，销毁事件关联，不让其返回任何信息
+        public void TaskEventDispose(cGatherTask gTask)
+        {
+            if (gTask.TaskManage.Equals(this))
+            {
+                
+                    gTask.TaskCompleted -= this.onTaskCompleted;
+                    gTask.TaskFailed -= this.onTaskFailed;
+                    gTask.TaskStopped -= this.onTaskStopped;
+                    gTask.TaskStarted -= this.onTaskStarted;
+                    gTask.TaskAborted -= this.onTaskAborted;
+                    gTask.Log -= this.onLog;
+                    gTask.GData -= this.onGData;
+                    gTask.TaskError -= this.onTaskError;
+                    gTask.TaskStateChanged -= this.onTaskStateChanged;
+                    gTask.TaskThreadInitialized -= this.onTaskThreadInitialized;
+
+               
             }
         }
 

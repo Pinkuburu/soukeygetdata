@@ -13,7 +13,7 @@ using System.Threading;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -249,11 +249,12 @@ namespace SoukeyNetget.Gather
                 {
                     case cGlobalParas.TaskState.Aborted:
                         // 触发 任务强制停止取消 事件
-                        //任务强制停止，不进行临时数据的保存
+                        //任务强制停止，任然保存数据，但有可能会丢失数据因为在此系统要推出，系统会忽略
+                        //所有错误
                         if (e_TaskAborted != null)
                         {
-                            //Save();
-                            e_TaskAborted(this, new cTaskEventArgs(cancel));
+                            Save();
+                            e_TaskAborted(this, new cTaskEventArgs(TaskID,TaskName,cancel));
                         }
                         break;
                     case cGlobalParas.TaskState.Completed:
@@ -263,7 +264,7 @@ namespace SoukeyNetget.Gather
                             //当任务停止后，开始保存任务的执行状态
                             Save();
 
-                            e_TaskCompleted(this, new cTaskEventArgs(cancel));
+                            e_TaskCompleted(this, new cTaskEventArgs(TaskID, TaskName, cancel));
                         }
                         break;
                     case cGlobalParas.TaskState.Failed:
@@ -272,7 +273,7 @@ namespace SoukeyNetget.Gather
                         {
                             //任务失败
                             Save();
-                            e_TaskFailed(this, new cTaskEventArgs(cancel));
+                            e_TaskFailed(this, new cTaskEventArgs(TaskID, TaskName, cancel));
                         }
                         break;
                     case cGlobalParas.TaskState.Started:
@@ -281,7 +282,7 @@ namespace SoukeyNetget.Gather
                         {
                             if (e_TaskStarted != null)
                             {
-                                e_TaskStarted(this, new cTaskEventArgs(cancel));
+                                e_TaskStarted(this, new cTaskEventArgs(TaskID, TaskName, cancel));
                             }
                         });
                         break;
@@ -295,7 +296,7 @@ namespace SoukeyNetget.Gather
                                 //当任务停止后，开始保存任务的执行状态
                                 Save();
 
-                                e_TaskStopped(this, new cTaskEventArgs(cancel));
+                                e_TaskStopped(this, new cTaskEventArgs(TaskID, TaskName, cancel));
                             }
                         });
                         break;
@@ -406,6 +407,11 @@ namespace SoukeyNetget.Gather
             // 确保位初始化的任务先进行初始化（包括从文件读取的任务信息）
             if (m_State !=cGlobalParas.TaskState.Started && m_TaskManage != null)
             {
+                m_TaskData.GatheredUrlCount = 0;
+                m_TaskData.GatherErrUrlCount = 0;
+
+                //m_TaskData.GatheredTrueUrlCount = 0;
+                //m_TaskData.GatheredTrueErrUrlCount = 0;
 
                 m_ThreadsRunning = true;
 
@@ -420,8 +426,11 @@ namespace SoukeyNetget.Gather
             foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
             {
                 dtc.TaskSplitData.TrueUrlCount = dtc.TaskSplitData.UrlCount;
-                //dtc.TaskSplitData.GatheredUrlCount = 0;
-                //dtc.TaskSplitData.GatheredErrUrlCount = 0;
+                dtc.TaskSplitData.GatheredUrlCount = 0;
+                dtc.TaskSplitData.GatheredTrueUrlCount = 0;
+                dtc.TaskSplitData.GatheredErrUrlCount = 0;
+                dtc.TaskSplitData.GatheredTrueErrUrlCount = 0;
+                
                 dtc.Start();
             }
             State = cGlobalParas.TaskState.Started;
@@ -504,7 +513,7 @@ namespace SoukeyNetget.Gather
                 tXml += "<NagRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NagRule) + "</NagRule>";
                 tXml += "<IsNextPage>" + m_TaskData.Weblink[i].IsNextpage + "</IsNextPage>";
                 tXml += "<NextPageRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NextPageRule) + "</NextPageRule>";
-                tXml += "<IsGathered>" + m_TaskData.Weblink[i].IsGathered.ToString () + "</IsGathered>";
+                tXml += "<IsGathered>" + (int)m_TaskData.Weblink[i].IsGathered + "</IsGathered>";
                 tXml += "</WebLink>";
             }
 
@@ -517,6 +526,7 @@ namespace SoukeyNetget.Gather
 
             cxml = new cXmlIO(runFileindex);
             cxml.EditTaskrunValue(this.TaskID.ToString(), cGlobalParas.TaskState.Stopped , this.GatheredUrlCount.ToString(),this.GatheredTrueUrlCount.ToString () , this.GatherErrUrlCount.ToString(),this.GatheredTrueErrUrlCount.ToString () ,this.TrueUrlCount.ToString () );
+            cxml.Save();
             cxml = null;
         }
 
@@ -542,7 +552,26 @@ namespace SoukeyNetget.Gather
             }
             catch (System.Exception ex)
             {
-                throw ex;
+                //调试实体文件加载失败，有可能是文件丢失所造成
+                //但还是需要加载一个空信息，以便界面可以显示此丢失的任务
+                //这样用户可以通过界面操作删除此任务内容，这是一个针对
+                //丢失文件的处理手段
+                m_TaskData.SavePath = "";
+                m_TaskData.TaskDemo = "";
+                m_TaskData.StartPos = "";
+                m_TaskData.EndPos = "";
+                m_TaskData.Cookie = "";
+                m_TaskData.WebCode =cGlobalParas.WebCode.auto ;
+                m_TaskData.IsLogin = false ;
+                m_TaskData.LoginUrl = "";
+                m_TaskData.PublishType = cGlobalParas.PublishType.NoPublish ;
+                m_TaskData.IsUrlEncode =false ;
+                m_TaskData.UrlEncode = "";
+                m_TaskData.Weblink = null;
+                m_TaskData.CutFlag = null;
+
+                return;
+
             }
 
             ////加载页面的采集起始位置和终止位置
@@ -691,9 +720,11 @@ namespace SoukeyNetget.Gather
         {
             string sPath = m_TaskData.SavePath + "\\" + m_TaskData.TaskName + "_file";
 
+            ///任务初始化分为两种情况，一种是未启动执行的任务，一种是已经启动但未执行完毕的任务
+            ///
             //m_TaskData.GatheredUrlCount = 0;
             //m_TaskData.GatherErrUrlCount = 0;
-            m_TaskData.TrueUrlCount = m_TaskData.UrlCount;
+            //m_TaskData.TrueUrlCount = m_TaskData.UrlCount;
 
             if (!m_IsDataInitialized)
             {
@@ -708,8 +739,12 @@ namespace SoukeyNetget.Gather
 
                 if (IsCompleted)
                 {   
-                    // 修改此采集任务的状态为已采集完成,设置为状态为已完成，不触发事件
+                    // 修改此采集任务的状态为已采集完成,设置为状态为已完成，需要出发事件
                     m_State = cGlobalParas.TaskState.Completed;
+
+                    //m_State = cGlobalParas.TaskState.Completed;
+
+                    //e_TaskCompleted(this, new cTaskEventArgs(m_TaskData.TaskID, false));
                 }
                 else
                 {
@@ -784,6 +819,9 @@ namespace SoukeyNetget.Gather
             m_TaskData.GatheredUrlCount = 0;
             m_TaskData.GatherErrUrlCount = 0;
 
+            m_TaskData.GatheredTrueUrlCount = 0;
+            m_TaskData.GatheredTrueErrUrlCount = 0;
+
             //修改taskrun文件中，此文件索引的采集地址和出错地址为0
             string runFileindex = Program.getPrjPath() + "tasks\\taskrun.xml";
             cXmlIO cxml = new cXmlIO(runFileindex);
@@ -791,6 +829,7 @@ namespace SoukeyNetget.Gather
 
             //还原数据需要将实际需要采集的网址数量初始化为UrlCount
             cxml.EditTaskrunValue(this.TaskID.ToString(),cGlobalParas.TaskState.UnStart , "0","0","0","0",m_TaskData.UrlCount.ToString () );
+            cxml.Save();
             cxml = null;
 
             string tXml = "";
@@ -804,10 +843,10 @@ namespace SoukeyNetget.Gather
                 tXml += "<NagRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NagRule) + "</NagRule>";
                 tXml += "<IsNextPage>" + m_TaskData.Weblink[i].IsNextpage + "</IsNextPage>";
                 tXml += "<NextPageRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NextPageRule) + "</NextPageRule>";
-                tXml += "<IsGathered>False</IsGathered>";
+                tXml += "<IsGathered>" + (int)cGlobalParas.UrlGatherResult.UnGather + "</IsGathered>";
                 tXml += "</WebLink>";
 
-                m_TaskData.Weblink[i].IsGathered = cGlobalParas.UrlGatherResult.UnGather ;
+                m_TaskData.Weblink[i].IsGathered = (int) cGlobalParas.UrlGatherResult.UnGather ;
  
             }
 
@@ -917,39 +956,60 @@ namespace SoukeyNetget.Gather
         /// 处理 分解采集任务 错误事件
         private void TaskThreadError(object sender, TaskThreadErrorEventArgs e)
         {
+            //当采集发生错误后，系统首先需要检测当前是否连接网络
+            //如果没有连接网络，即无Internet，则系统停止此任务执行
+            if (cTool.IsLinkInternet() == false)
+            {
+                Stop();
+
+                m_State = cGlobalParas.TaskState.Failed;
+
+                if (e_TaskFailed != null)
+                {
+                    e_TaskFailed(this, new cTaskEventArgs(TaskID, TaskName, false));
+                }
+
+                return;
+
+            }
+
+
             cGatherTaskSplit gt = (cGatherTaskSplit)sender;
 
             //如果出错调用此事件,也表示完成了一个网址的采集,但是出错了
-            //m_TaskData.GatherErrUrl++;
+
 
             //一个线程发生错误并不允许停止整个任务执行，即便所有线程都发生促务
             //也需要保障任务执行，只是把任务出错信息写入日志
 
             //if (gt.ErrorCount >= cGatherManage.MaxErrorCount)
             //{   
-            //    // 达到最大错误数，停止当前线程
-            //    bool failed = true;
+                // 达到最大错误数，停止当前线程
+                //bool failed = true;
 
-            //    // 如果当前任务所有的线程都停止了，则判断为任务失败
-            //    foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
-            //    {
-            //        if (!gt.Equals(dtc) && dtc.IsThreadAlive)
-            //        {
-            //            failed = false;
-            //            break;
-            //        }
-            //    }
-            //    if (failed)
-            //    {
-            //        State = cGlobalParas.TaskState.Failed;
-            //    }
+                // 如果当前任务所有的线程都停止了，则判断为任务失败
+                //foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
+                //{
+                //    if (!gt.Equals(dtc) && dtc.IsThreadAlive)
+                //    {
+                //        failed = false;
+                //        break;
+                //    }
+                //}
+                //if (failed)
+                //{
+                //    State = cGlobalParas.TaskState.Failed;
+                //    return;
+                //}
             //}
-            //else
-            //{
-                if (e_TaskError != null)
-                {
-                    e_TaskError(this, new TaskErrorEventArgs(gt, e.Error));
-                }
+            
+
+           
+
+            if (e_TaskError != null)
+            {
+                e_TaskError(this, new TaskErrorEventArgs(gt, e.Error));
+            }
             //}
         }
 

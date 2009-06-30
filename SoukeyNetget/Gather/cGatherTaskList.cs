@@ -8,7 +8,7 @@ using System.Text;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -134,12 +134,13 @@ namespace SoukeyNetget.Gather
                         m_WaitingTaskList.Remove(task);
                         break;
                     case cGlobalParas.TaskState.Completed:
+
                         //任务完成后直接进行数据导出,不在向任务完成队列
                         //中添加任务数据,任务导出后直接由taskcompleted列表
                         //接手完成完成任务的控制.
                         if (!m_CompletedTaskList.Contains(task))
                         {
-                            //m_CompletedTaskList.Add(task);
+                            m_CompletedTaskList.Add(task);
                         }
                         m_RunningTaskList.Remove(task);
                         break;
@@ -277,11 +278,13 @@ namespace SoukeyNetget.Gather
                 }
             }
         }
+
         internal void ReStartTask(cGatherTask task)
         {
             task.ResetTaskData();
             StartTask(task);
         }
+
         internal void StopTask(cGatherTask task)
         {
             if (task.TaskState == cGlobalParas.TaskState.Started || task.TaskState == cGlobalParas.TaskState.Waiting)
@@ -298,5 +301,31 @@ namespace SoukeyNetget.Gather
 
             task.Remove();
         }
+
+        ///由系统自动触发结束任务操作，并不是用户触发了任务停止操作，
+        ///而是由系统触发，譬如：系统强制退出
+        internal void Abort()
+        {
+            m_WaitingWorkThread.Clear();
+            while (m_WaitingTaskList.Count > 0)
+            {
+                if (m_WaitingTaskList[0].TaskState == cGlobalParas.TaskState.Waiting)
+                    m_WaitingTaskList[0].Abort();
+            }
+            while (m_RunningTaskList.Count > 0)
+            {
+                if (m_RunningTaskList[0].TaskState == cGlobalParas.TaskState.Started)
+                    m_RunningTaskList[0].Abort ();
+            }
+
+      
+        }
+
+        //强制结束某个任务
+        internal void Abort(cGatherTask task)
+        {
+            task.Abort();
+        }
+
     }
 }

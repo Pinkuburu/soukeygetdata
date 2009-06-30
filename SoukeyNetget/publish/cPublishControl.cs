@@ -8,11 +8,11 @@ using System.Text;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.publish
 {
-    class cPublishControl
+    class cPublishControl : IDisposable 
     {
 
         //发布做的简单了，实际应该按照采集的模式来进行，可以进行各种监控
@@ -47,6 +47,35 @@ namespace SoukeyNetget.publish
         {
             m_PublishManage.AddSaveTempDataTask(pT);
         }
+
+        #region IDisposable 成员
+        private bool m_disposed;
+        /// <summary>
+        /// 释放由 Download 的当前实例使用的所有资源
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!m_disposed)
+            {
+                if (disposing)
+                {
+                 
+                  
+                }
+
+                // 在此释放非托管资源
+
+                m_disposed = true;
+            }
+        }
+
+
+        #endregion
 
     }
 

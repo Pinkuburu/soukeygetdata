@@ -15,7 +15,7 @@ using System.IO;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.publish
 {
@@ -272,12 +272,13 @@ namespace SoukeyNetget.publish
         private void ThreadWork()
         {
             //无论数据是否发布，都需要保存采集下来的数据
-            //保存到本地磁盘
-            if (File.Exists(m_pTaskData.FileName))
-            {
-                File.Delete(m_pTaskData.FileName);
-            }
-            m_pTaskData.PublishData.WriteXml(m_pTaskData.FileName, XmlWriteMode.WriteSchema);
+            //保存到本地磁盘，此项工作由SaveTempData（）替代
+            //这样做的目的是不触发消息事件，放到后台执行
+            //if (File.Exists(m_pTaskData.FileName))
+            //{
+            //    File.Delete(m_pTaskData.FileName);
+            //}
+            //m_pTaskData.PublishData.WriteXml(m_pTaskData.FileName, XmlWriteMode.WriteSchema);
 
             try
             {

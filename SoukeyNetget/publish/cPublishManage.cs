@@ -8,7 +8,7 @@ using System.Text;
 ///遗留问题：无
 ///开发计划：下一步需要完善发布功能模块，势必此功能要继续完善
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.publish
 {
@@ -45,12 +45,22 @@ namespace SoukeyNetget.publish
         public void AddSaveTempDataTask(cPublishTask pt)
         {
             ListPublish.Add(pt);
-            TaskInit(pt);
+            TaskTempSaveInit(pt);
 
             //启动此任务
             pt.startSaveTempData();
         }
 
+        //注册临时存储任务的事件，系统自动执行，无需用户干预
+        private void TaskTempSaveInit(cPublishTask pTask)
+        {
+            if (pTask.PublishManage.Equals(this))
+            {
+                pTask.PublishTempDataCompleted += this.onPublishTempDataCompleted;
+            }
+        }
+
+        //注册发布任务的事件
         private void TaskInit(cPublishTask pTask)
         {
 

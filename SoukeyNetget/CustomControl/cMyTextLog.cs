@@ -9,7 +9,7 @@ using System.Windows.Forms ;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.CustomControl
 {

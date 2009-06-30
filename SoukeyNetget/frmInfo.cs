@@ -13,7 +13,7 @@ using System.Windows.Forms;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -21,8 +21,8 @@ namespace SoukeyNetget
     {
         //窗体停滞时间为3秒
         public int StayTime = 3000;
-        public int m_widthMax;
-        public int m_heightMax;
+        public int m_widthMax=221;
+        public int m_heightMax=92;
         public  bool IsShow = true;
         public int m_startForm = 0;
 
@@ -116,10 +116,12 @@ namespace SoukeyNetget
 
         private void frmInfo_Load(object sender, EventArgs e)
         {
-            Screen[] screens = Screen.AllScreens;
-            Screen screen = screens[0];//获取屏幕变量
 
-            this.Location = new Point(screen.WorkingArea.Width - m_widthMax - 5, screen.WorkingArea.Height - 30 - (m_heightMax*m_startForm  ));
+            this.Height = 0;
+            Rectangle rScreen = Screen.GetWorkingArea(Screen.PrimaryScreen.Bounds);
+
+
+            this.Location = new Point(rScreen.Width - m_widthMax - 5, rScreen.Height - (m_heightMax * m_startForm));
 
             //WorkingArea为Windows桌面的工作区
             this.timer2.Interval = StayTime;

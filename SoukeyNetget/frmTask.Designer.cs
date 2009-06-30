@@ -62,6 +62,7 @@
             this.raExportAccess = new System.Windows.Forms.RadioButton();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.cmdOpenFolder = new System.Windows.Forms.Button();
             this.txtSavePath = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -233,7 +234,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(658, 476);
-            this.tabControl1.TabIndex = 6;
+            this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
@@ -263,7 +264,7 @@
             this.groupBox7.Location = new System.Drawing.Point(1, 141);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(641, 116);
-            this.groupBox7.TabIndex = 12;
+            this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "采集设置";
             // 
@@ -273,7 +274,7 @@
             this.label23.Location = new System.Drawing.Point(525, 78);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(106, 18);
-            this.label23.TabIndex = 9;
+            this.label23.TabIndex = 4;
             this.label23.Text = "暂不支持自动登录";
             // 
             // txtLoginUrl
@@ -283,7 +284,8 @@
             this.txtLoginUrl.Location = new System.Drawing.Point(178, 77);
             this.txtLoginUrl.Name = "txtLoginUrl";
             this.txtLoginUrl.Size = new System.Drawing.Size(341, 20);
-            this.txtLoginUrl.TabIndex = 8;
+            this.txtLoginUrl.TabIndex = 3;
+            this.txtLoginUrl.TextChanged += new System.EventHandler(this.txtLoginUrl_TextChanged);
             // 
             // IsLogin
             // 
@@ -303,7 +305,7 @@
             this.button10.Location = new System.Drawing.Point(538, 43);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(81, 23);
-            this.button10.TabIndex = 6;
+            this.button10.TabIndex = 2;
             this.button10.Text = "获取Cookie";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
@@ -316,7 +318,8 @@
             this.txtCookie.Name = "txtCookie";
             this.txtCookie.ReadOnly = true;
             this.txtCookie.Size = new System.Drawing.Size(461, 20);
-            this.txtCookie.TabIndex = 5;
+            this.txtCookie.TabIndex = 1;
+            this.txtCookie.TextChanged += new System.EventHandler(this.txtCookie_TextChanged);
             // 
             // label30
             // 
@@ -344,7 +347,8 @@
             this.comWebCode.Location = new System.Drawing.Point(79, 14);
             this.comWebCode.Name = "comWebCode";
             this.comWebCode.Size = new System.Drawing.Size(103, 21);
-            this.comWebCode.TabIndex = 1;
+            this.comWebCode.TabIndex = 0;
+            this.comWebCode.TextChanged += new System.EventHandler(this.comWebCode_TextChanged);
             // 
             // label24
             // 
@@ -375,7 +379,7 @@
             this.groupBox4.Location = new System.Drawing.Point(1, 263);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(641, 176);
-            this.groupBox4.TabIndex = 11;
+            this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "采集结果发布设置";
             // 
@@ -385,7 +389,7 @@
             this.cmdBrowser.Location = new System.Drawing.Point(538, 48);
             this.cmdBrowser.Name = "cmdBrowser";
             this.cmdBrowser.Size = new System.Drawing.Size(80, 23);
-            this.cmdBrowser.TabIndex = 3;
+            this.cmdBrowser.TabIndex = 4;
             this.cmdBrowser.Text = "浏览...";
             this.cmdBrowser.UseVisualStyleBackColor = true;
             this.cmdBrowser.Click += new System.EventHandler(this.cmdBrowser_Click);
@@ -397,7 +401,7 @@
             this.raExportExcel.Location = new System.Drawing.Point(149, 19);
             this.raExportExcel.Name = "raExportExcel";
             this.raExportExcel.Size = new System.Drawing.Size(110, 17);
-            this.raExportExcel.TabIndex = 24;
+            this.raExportExcel.TabIndex = 1;
             this.raExportExcel.Text = "发布到Excel文件";
             this.raExportExcel.UseVisualStyleBackColor = true;
             this.raExportExcel.CheckedChanged += new System.EventHandler(this.raExportExcel_CheckedChanged);
@@ -410,7 +414,7 @@
             this.raExportTxt.Location = new System.Drawing.Point(9, 19);
             this.raExportTxt.Name = "raExportTxt";
             this.raExportTxt.Size = new System.Drawing.Size(108, 17);
-            this.raExportTxt.TabIndex = 23;
+            this.raExportTxt.TabIndex = 0;
             this.raExportTxt.TabStop = true;
             this.raExportTxt.Text = "发布到文本文件";
             this.raExportTxt.UseVisualStyleBackColor = true;
@@ -433,7 +437,8 @@
             this.txtTableName.Location = new System.Drawing.Point(66, 106);
             this.txtTableName.Name = "txtTableName";
             this.txtTableName.Size = new System.Drawing.Size(157, 20);
-            this.txtTableName.TabIndex = 21;
+            this.txtTableName.TabIndex = 8;
+            this.txtTableName.TextChanged += new System.EventHandler(this.txtTableName_TextChanged);
             // 
             // label27
             // 
@@ -453,7 +458,8 @@
             this.txtDataPwd.Name = "txtDataPwd";
             this.txtDataPwd.PasswordChar = '*';
             this.txtDataPwd.Size = new System.Drawing.Size(157, 20);
-            this.txtDataPwd.TabIndex = 19;
+            this.txtDataPwd.TabIndex = 6;
+            this.txtDataPwd.TextChanged += new System.EventHandler(this.txtDataPwd_TextChanged);
             // 
             // txtDataUser
             // 
@@ -462,7 +468,8 @@
             this.txtDataUser.Location = new System.Drawing.Point(66, 78);
             this.txtDataUser.Name = "txtDataUser";
             this.txtDataUser.Size = new System.Drawing.Size(157, 20);
-            this.txtDataUser.TabIndex = 18;
+            this.txtDataUser.TabIndex = 5;
+            this.txtDataUser.TextChanged += new System.EventHandler(this.txtDataUser_TextChanged);
             // 
             // label5
             // 
@@ -481,7 +488,7 @@
             this.button9.Location = new System.Drawing.Point(449, 78);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(70, 23);
-            this.button9.TabIndex = 16;
+            this.button9.TabIndex = 7;
             this.button9.Text = "测试连接";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
@@ -492,7 +499,8 @@
             this.DataSource.Location = new System.Drawing.Point(66, 49);
             this.DataSource.Name = "DataSource";
             this.DataSource.Size = new System.Drawing.Size(474, 20);
-            this.DataSource.TabIndex = 15;
+            this.DataSource.TabIndex = 3;
+            this.DataSource.TextChanged += new System.EventHandler(this.DataSource_TextChanged);
             // 
             // label8
             // 
@@ -521,7 +529,7 @@
             this.raExportAccess.Location = new System.Drawing.Point(285, 19);
             this.raExportAccess.Name = "raExportAccess";
             this.raExportAccess.Size = new System.Drawing.Size(95, 17);
-            this.raExportAccess.TabIndex = 11;
+            this.raExportAccess.TabIndex = 2;
             this.raExportAccess.Text = "发布到Access";
             this.raExportAccess.UseVisualStyleBackColor = true;
             this.raExportAccess.CheckedChanged += new System.EventHandler(this.raExportAccess_CheckedChanged);
@@ -537,6 +545,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label34);
             this.groupBox3.Controls.Add(this.cmdOpenFolder);
             this.groupBox3.Controls.Add(this.txtSavePath);
             this.groupBox3.Controls.Add(this.label3);
@@ -553,17 +562,26 @@
             this.groupBox3.Location = new System.Drawing.Point(1, 3);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(641, 131);
-            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "基本信息";
+            // 
+            // label34
+            // 
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label34.Location = new System.Drawing.Point(541, 100);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(90, 27);
+            this.label34.TabIndex = 28;
+            this.label34.Text = "对于普通用户不建议修改";
             // 
             // cmdOpenFolder
             // 
             this.cmdOpenFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOpenFolder.Location = new System.Drawing.Point(546, 100);
+            this.cmdOpenFolder.Location = new System.Drawing.Point(463, 100);
             this.cmdOpenFolder.Name = "cmdOpenFolder";
             this.cmdOpenFolder.Size = new System.Drawing.Size(72, 23);
-            this.cmdOpenFolder.TabIndex = 27;
+            this.cmdOpenFolder.TabIndex = 6;
             this.cmdOpenFolder.Text = "浏览...";
             this.cmdOpenFolder.UseVisualStyleBackColor = true;
             this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
@@ -573,8 +591,9 @@
             this.txtSavePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSavePath.Location = new System.Drawing.Point(115, 101);
             this.txtSavePath.Name = "txtSavePath";
-            this.txtSavePath.Size = new System.Drawing.Size(435, 20);
-            this.txtSavePath.TabIndex = 26;
+            this.txtSavePath.Size = new System.Drawing.Size(351, 20);
+            this.txtSavePath.TabIndex = 5;
+            this.txtSavePath.TextChanged += new System.EventHandler(this.txtSavePath_TextChanged);
             // 
             // label3
             // 
@@ -591,7 +610,8 @@
             this.txtTaskDemo.Location = new System.Drawing.Point(79, 15);
             this.txtTaskDemo.Name = "txtTaskDemo";
             this.txtTaskDemo.Size = new System.Drawing.Size(540, 20);
-            this.txtTaskDemo.TabIndex = 24;
+            this.txtTaskDemo.TabIndex = 0;
+            this.txtTaskDemo.TextChanged += new System.EventHandler(this.txtTaskDemo_TextChanged);
             // 
             // label26
             // 
@@ -618,12 +638,13 @@
             0});
             this.udThread.Name = "udThread";
             this.udThread.Size = new System.Drawing.Size(43, 20);
-            this.udThread.TabIndex = 22;
+            this.udThread.TabIndex = 4;
             this.udThread.Value = new decimal(new int[] {
             3,
             0,
             0,
             0});
+            this.udThread.ValueChanged += new System.EventHandler(this.udThread_ValueChanged);
             // 
             // label11
             // 
@@ -642,7 +663,8 @@
             this.comTaskClass.Location = new System.Drawing.Point(79, 42);
             this.comTaskClass.Name = "comTaskClass";
             this.comTaskClass.Size = new System.Drawing.Size(219, 21);
-            this.comTaskClass.TabIndex = 19;
+            this.comTaskClass.TabIndex = 1;
+            this.comTaskClass.TextChanged += new System.EventHandler(this.comTaskClass_TextChanged);
             // 
             // label21
             // 
@@ -661,8 +683,9 @@
             this.comRunType.Location = new System.Drawing.Point(79, 71);
             this.comRunType.Name = "comRunType";
             this.comRunType.Size = new System.Drawing.Size(219, 21);
-            this.comRunType.TabIndex = 15;
+            this.comRunType.TabIndex = 3;
             this.comRunType.SelectedIndexChanged += new System.EventHandler(this.comRunType_SelectedIndexChanged);
+            this.comRunType.TextChanged += new System.EventHandler(this.comRunType_TextChanged);
             // 
             // label4
             // 
@@ -681,7 +704,8 @@
             this.TaskType.Location = new System.Drawing.Point(399, 42);
             this.TaskType.Name = "TaskType";
             this.TaskType.Size = new System.Drawing.Size(219, 21);
-            this.TaskType.TabIndex = 11;
+            this.TaskType.TabIndex = 2;
+            this.TaskType.TextChanged += new System.EventHandler(this.TaskType_TextChanged);
             // 
             // label2
             // 
@@ -731,7 +755,7 @@
             this.groupBox6.Location = new System.Drawing.Point(1, 3);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(641, 433);
-            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "网址列表";
             // 
@@ -764,7 +788,8 @@
             this.comUrlEncode.Location = new System.Drawing.Point(341, 16);
             this.comUrlEncode.Name = "comUrlEncode";
             this.comUrlEncode.Size = new System.Drawing.Size(144, 21);
-            this.comUrlEncode.TabIndex = 30;
+            this.comUrlEncode.TabIndex = 0;
+            this.comUrlEncode.TextChanged += new System.EventHandler(this.comUrlEncode_TextChanged);
             // 
             // txtWebLink
             // 
@@ -783,7 +808,7 @@
             this.cmdEditWeblink.Location = new System.Drawing.Point(498, 214);
             this.cmdEditWeblink.Name = "cmdEditWeblink";
             this.cmdEditWeblink.Size = new System.Drawing.Size(57, 23);
-            this.cmdEditWeblink.TabIndex = 31;
+            this.cmdEditWeblink.TabIndex = 11;
             this.cmdEditWeblink.Text = "修 改";
             this.cmdEditWeblink.UseVisualStyleBackColor = true;
             this.cmdEditWeblink.Click += new System.EventHandler(this.cmdEditWeblink_Click);
@@ -806,7 +831,7 @@
             this.checkBox1.Location = new System.Drawing.Point(247, 148);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(158, 17);
-            this.checkBox1.TabIndex = 28;
+            this.checkBox1.TabIndex = 8;
             this.checkBox1.Text = "导航网址使用了相对路径";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
@@ -827,7 +852,7 @@
             this.button6.Location = new System.Drawing.Point(543, 182);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(82, 23);
-            this.button6.TabIndex = 25;
+            this.button6.TabIndex = 9;
             this.button6.Text = "测试规则";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
@@ -838,7 +863,7 @@
             this.button4.Location = new System.Drawing.Point(543, 120);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(82, 23);
-            this.button4.TabIndex = 24;
+            this.button4.TabIndex = 6;
             this.button4.Text = "自动识别";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Visible = false;
@@ -851,7 +876,7 @@
             this.txtNextPage.Location = new System.Drawing.Point(83, 122);
             this.txtNextPage.Name = "txtNextPage";
             this.txtNextPage.Size = new System.Drawing.Size(442, 20);
-            this.txtNextPage.TabIndex = 23;
+            this.txtNextPage.TabIndex = 5;
             // 
             // label13
             // 
@@ -869,7 +894,7 @@
             this.checkBox3.Location = new System.Drawing.Point(83, 102);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(238, 17);
-            this.checkBox3.TabIndex = 21;
+            this.checkBox3.TabIndex = 4;
             this.checkBox3.Text = "如果存在“下一页”标识，则进行自动翻页";
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
@@ -890,7 +915,7 @@
             this.checkBox2.Location = new System.Drawing.Point(83, 148);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(140, 17);
-            this.checkBox2.TabIndex = 17;
+            this.checkBox2.TabIndex = 7;
             this.checkBox2.Text = "导航页(需要导航规则)";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
@@ -901,7 +926,7 @@
             this.button3.Location = new System.Drawing.Point(543, 73);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(82, 23);
-            this.button3.TabIndex = 16;
+            this.button3.TabIndex = 3;
             this.button3.Text = "字典表参数";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
@@ -912,7 +937,7 @@
             this.button2.Location = new System.Drawing.Point(543, 43);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(82, 23);
-            this.button2.TabIndex = 15;
+            this.button2.TabIndex = 2;
             this.button2.Text = "参数/变量";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -932,7 +957,7 @@
             this.cmdDelWeblink.Location = new System.Drawing.Point(568, 214);
             this.cmdDelWeblink.Name = "cmdDelWeblink";
             this.cmdDelWeblink.Size = new System.Drawing.Size(57, 23);
-            this.cmdDelWeblink.TabIndex = 14;
+            this.cmdDelWeblink.TabIndex = 12;
             this.cmdDelWeblink.Text = "删 除";
             this.cmdDelWeblink.UseVisualStyleBackColor = true;
             this.cmdDelWeblink.Click += new System.EventHandler(this.cmdDelWeblink_Click);
@@ -952,10 +977,9 @@
             this.listWeblink.Name = "listWeblink";
             this.listWeblink.ShowItemToolTips = true;
             this.listWeblink.Size = new System.Drawing.Size(611, 184);
-            this.listWeblink.TabIndex = 7;
+            this.listWeblink.TabIndex = 13;
             this.listWeblink.UseCompatibleStateImageBehavior = false;
             this.listWeblink.View = System.Windows.Forms.View.Details;
-            this.listWeblink.SelectedIndexChanged += new System.EventHandler(this.listWeblink_SelectedIndexChanged);
             this.listWeblink.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listWeblink_KeyDown);
             this.listWeblink.Click += new System.EventHandler(this.listWeblink_Click);
             // 
@@ -989,7 +1013,7 @@
             this.cmdAddWeblink.Location = new System.Drawing.Point(426, 214);
             this.cmdAddWeblink.Name = "cmdAddWeblink";
             this.cmdAddWeblink.Size = new System.Drawing.Size(57, 23);
-            this.cmdAddWeblink.TabIndex = 13;
+            this.cmdAddWeblink.TabIndex = 10;
             this.cmdAddWeblink.Text = "增 加";
             this.cmdAddWeblink.UseVisualStyleBackColor = true;
             this.cmdAddWeblink.Click += new System.EventHandler(this.cmdAddWeblink_Click);
@@ -1059,7 +1083,7 @@
             this.comGetType.Location = new System.Drawing.Point(406, 16);
             this.comGetType.Name = "comGetType";
             this.comGetType.Size = new System.Drawing.Size(229, 21);
-            this.comGetType.TabIndex = 54;
+            this.comGetType.TabIndex = 1;
             this.comGetType.SelectedIndexChanged += new System.EventHandler(this.comGetType_SelectedIndexChanged);
             // 
             // label32
@@ -1079,7 +1103,7 @@
             this.comLimit.Location = new System.Drawing.Point(104, 111);
             this.comLimit.Name = "comLimit";
             this.comLimit.Size = new System.Drawing.Size(531, 21);
-            this.comLimit.TabIndex = 52;
+            this.comLimit.TabIndex = 4;
             // 
             // label19
             // 
@@ -1096,7 +1120,7 @@
             this.button8.Location = new System.Drawing.Point(509, 141);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(57, 23);
-            this.button8.TabIndex = 50;
+            this.button8.TabIndex = 6;
             this.button8.Text = "修 改";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
@@ -1109,7 +1133,7 @@
             this.txtGetEnd.Name = "txtGetEnd";
             this.txtGetEnd.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtGetEnd.Size = new System.Drawing.Size(229, 42);
-            this.txtGetEnd.TabIndex = 49;
+            this.txtGetEnd.TabIndex = 3;
             // 
             // txtGetStart
             // 
@@ -1119,7 +1143,7 @@
             this.txtGetStart.Name = "txtGetStart";
             this.txtGetStart.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtGetStart.Size = new System.Drawing.Size(213, 42);
-            this.txtGetStart.TabIndex = 48;
+            this.txtGetStart.TabIndex = 2;
             // 
             // button1
             // 
@@ -1138,7 +1162,7 @@
             this.cmdDelCutFlag.Location = new System.Drawing.Point(578, 141);
             this.cmdDelCutFlag.Name = "cmdDelCutFlag";
             this.cmdDelCutFlag.Size = new System.Drawing.Size(57, 23);
-            this.cmdDelCutFlag.TabIndex = 45;
+            this.cmdDelCutFlag.TabIndex = 7;
             this.cmdDelCutFlag.Text = "删 除";
             this.cmdDelCutFlag.UseVisualStyleBackColor = true;
             this.cmdDelCutFlag.Click += new System.EventHandler(this.cmdDelCutFlag_Click);
@@ -1149,7 +1173,7 @@
             this.cmdAddCutFlag.Location = new System.Drawing.Point(440, 141);
             this.cmdAddCutFlag.Name = "cmdAddCutFlag";
             this.cmdAddCutFlag.Size = new System.Drawing.Size(57, 23);
-            this.cmdAddCutFlag.TabIndex = 44;
+            this.cmdAddCutFlag.TabIndex = 5;
             this.cmdAddCutFlag.Text = "增 加";
             this.cmdAddCutFlag.UseVisualStyleBackColor = true;
             this.cmdAddCutFlag.Click += new System.EventHandler(this.cmdAddCutFlag_Click);
@@ -1161,7 +1185,7 @@
             this.txtGetTitleName.Location = new System.Drawing.Point(104, 16);
             this.txtGetTitleName.Name = "txtGetTitleName";
             this.txtGetTitleName.Size = new System.Drawing.Size(211, 21);
-            this.txtGetTitleName.TabIndex = 43;
+            this.txtGetTitleName.TabIndex = 0;
             // 
             // label16
             // 
@@ -1192,12 +1216,13 @@
             this.columnHeader9});
             this.listWebGetFlag.FullRowSelect = true;
             this.listWebGetFlag.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listWebGetFlag.HideSelection = false;
             this.listWebGetFlag.Location = new System.Drawing.Point(19, 170);
             this.listWebGetFlag.MultiSelect = false;
             this.listWebGetFlag.Name = "listWebGetFlag";
             this.listWebGetFlag.ShowItemToolTips = true;
             this.listWebGetFlag.Size = new System.Drawing.Size(617, 162);
-            this.listWebGetFlag.TabIndex = 42;
+            this.listWebGetFlag.TabIndex = 8;
             this.listWebGetFlag.UseCompatibleStateImageBehavior = false;
             this.listWebGetFlag.View = System.Windows.Forms.View.Details;
             this.listWebGetFlag.SelectedIndexChanged += new System.EventHandler(this.listWebGetFlag_SelectedIndexChanged);
@@ -1261,7 +1286,7 @@
             this.button7.Location = new System.Drawing.Point(485, 17);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(74, 23);
-            this.button7.TabIndex = 35;
+            this.button7.TabIndex = 1;
             this.button7.Text = "自动获取";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
@@ -1291,7 +1316,8 @@
             this.txtEndPos.Location = new System.Drawing.Point(381, 49);
             this.txtEndPos.Name = "txtEndPos";
             this.txtEndPos.Size = new System.Drawing.Size(251, 20);
-            this.txtEndPos.TabIndex = 28;
+            this.txtEndPos.TabIndex = 4;
+            this.txtEndPos.TextChanged += new System.EventHandler(this.txtEndPos_TextChanged);
             // 
             // txtStartPos
             // 
@@ -1299,7 +1325,8 @@
             this.txtStartPos.Location = new System.Drawing.Point(99, 49);
             this.txtStartPos.Name = "txtStartPos";
             this.txtStartPos.Size = new System.Drawing.Size(251, 20);
-            this.txtStartPos.TabIndex = 27;
+            this.txtStartPos.TabIndex = 3;
+            this.txtStartPos.TextChanged += new System.EventHandler(this.txtStartPos_TextChanged);
             // 
             // label14
             // 
@@ -1316,7 +1343,7 @@
             this.cmdWebSource.Location = new System.Drawing.Point(558, 17);
             this.cmdWebSource.Name = "cmdWebSource";
             this.cmdWebSource.Size = new System.Drawing.Size(74, 23);
-            this.cmdWebSource.TabIndex = 22;
+            this.cmdWebSource.TabIndex = 2;
             this.cmdWebSource.Text = "查看源码";
             this.cmdWebSource.UseVisualStyleBackColor = true;
             this.cmdWebSource.Click += new System.EventHandler(this.cmdWebSource_Click);
@@ -1328,7 +1355,7 @@
             this.txtWeblinkDemo.Location = new System.Drawing.Point(99, 17);
             this.txtWeblinkDemo.Name = "txtWeblinkDemo";
             this.txtWeblinkDemo.Size = new System.Drawing.Size(385, 20);
-            this.txtWeblinkDemo.TabIndex = 15;
+            this.txtWeblinkDemo.TabIndex = 0;
             // 
             // label12
             // 
@@ -1378,7 +1405,7 @@
             this.button5.Location = new System.Drawing.Point(554, 24);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(81, 23);
-            this.button5.TabIndex = 1;
+            this.button5.TabIndex = 0;
             this.button5.Text = "启动";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click_1);
@@ -1389,7 +1416,6 @@
             this.dataTestGather.AllowUserToDeleteRows = false;
             this.dataTestGather.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataTestGather.Location = new System.Drawing.Point(6, 53);
-            this.dataTestGather.MultiSelect = false;
             this.dataTestGather.Name = "dataTestGather";
             this.dataTestGather.ReadOnly = true;
             this.dataTestGather.RowTemplate.Height = 23;
@@ -1402,7 +1428,8 @@
             this.tTask.Location = new System.Drawing.Point(83, 7);
             this.tTask.Name = "tTask";
             this.tTask.Size = new System.Drawing.Size(553, 20);
-            this.tTask.TabIndex = 10;
+            this.tTask.TabIndex = 0;
+            this.tTask.TextChanged += new System.EventHandler(this.tTask_TextChanged);
             // 
             // label1
             // 
@@ -1410,7 +1437,7 @@
             this.label1.Location = new System.Drawing.Point(12, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 9;
+            this.label1.TabIndex = 3;
             this.label1.Text = "任务名称：";
             // 
             // errorProvider1
@@ -1544,8 +1571,9 @@
             this.Name = "frmTask";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "任务信息 [版本：0.8 自有任务]";
+            this.Text = "任务信息 [版本：数据采集任务 1.0]";
             this.Load += new System.EventHandler(this.frmTask_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTask_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
@@ -1708,6 +1736,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label34;
 
 
     }

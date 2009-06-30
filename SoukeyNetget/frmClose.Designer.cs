@@ -133,6 +133,7 @@
             // 
             // frmClose
             // 
+            this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
@@ -143,8 +144,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmClose";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Soukey信息";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Soukey采摘 退出操作询问";
             this.Load += new System.EventHandler(this.frmClose_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 ///遗留问题：无
 ///开发计划：待定
 ///说明：功能作废，代码保留
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {

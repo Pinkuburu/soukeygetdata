@@ -9,7 +9,7 @@ using System.Data;
 ///遗留问题：无
 ///开发计划：待定
 ///说明：与cSystem会有功能重复，下一步待定，所以保留
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -46,6 +46,7 @@ namespace SoukeyNetget
                     s = "0";
             
                 xmlConfig.EditNodeValue("Config/Exit/IsShow", s);
+                xmlConfig.Save();
             }
         }
 
@@ -56,6 +57,7 @@ namespace SoukeyNetget
             {
                 int i = value;
                 xmlConfig.EditNodeValue("Config/Exit/Selected", i.ToString ());
+                xmlConfig.Save();
             }
         }
 

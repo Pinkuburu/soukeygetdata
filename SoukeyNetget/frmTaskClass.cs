@@ -14,7 +14,7 @@ using System.IO;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -54,17 +54,18 @@ namespace SoukeyNetget
             try
             {
                 Task.cTaskClass cTClass = new Task.cTaskClass();
-                TaskClassID = cTClass.AddTaskClass(this.textBox1.Text, this.textBox2.Text);
+
+                TaskClassID = cTClass.AddTaskClass(this.textBox1.Text.Trim (), this.textBox2.Text);
                 cTClass = null;
             }
             catch (cSoukeyException ex)
             {
-                MessageBox.Show (ex.Message, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show (ex.Message, "Soukey采摘 错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             catch (System.Exception  ex)
             {
-                MessageBox.Show (ex.Message, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Soukey采摘 错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -74,18 +75,18 @@ namespace SoukeyNetget
             this.Dispose();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            folderBrowserDialog1.SelectedPath = Program.getPrjPath();
-            folderBrowserDialog1.ShowNewFolderButton = true;
-            folderBrowserDialog1.Description = "请选择任务分类存储的目录";
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-            {
-                this.textBox2.Text= folderBrowserDialog1.SelectedPath + "\\";
-                DefaultPath = this.textBox2.Text;
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    folderBrowserDialog1.SelectedPath = Program.getPrjPath();
+        //    folderBrowserDialog1.ShowNewFolderButton = true;
+        //    folderBrowserDialog1.Description = "请选择任务分类存储的目录";
+        //    if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+        //    {
+        //        this.textBox2.Text= folderBrowserDialog1.SelectedPath + "\\";
+        //        DefaultPath = this.textBox2.Text;
 
-            }
-        }
+        //    }
+        //}
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {

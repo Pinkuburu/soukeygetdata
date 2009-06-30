@@ -12,15 +12,20 @@ using System.IO;
 ///遗留问题：随着系统完善补充
 ///开发计划：待定
 ///说明：无
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
     static class cTool
     {
+        private const int INTERNET_CONNECTION_MODEM =1;
+        private const int INTERNET_CONNECTION_LAN= 2;
+        private const int INTERNET_CONNECTION_PROXY=4;
+        private const int INTERNET_CONNECTION_MODEM_BUSY = 8;
            
          //定义（引用）API函数  
-        [DllImport("wininet.dll")]  
+        [DllImport("wininet.dll")]
+
         private static   extern   bool   InternetGetConnectedState   (out int lpdwFlags ,int dwReserved );  
            
         //判断当前是否连接Internet
@@ -321,6 +326,39 @@ namespace SoukeyNetget
             }
         }
 
-    
+        //返回相对于Soukey采摘的相对路径
+        static public string GetRelativePath(string absPath)
+        {
+            string mainDir = Program.getPrjPath();
+
+            //if (!mainDir.EndsWith("\\"))
+            //{
+            //    mainDir += "\\";
+            //}
+
+            int intIndex = -1, intPos = mainDir.IndexOf('\\');
+
+            while (intPos >= 0)
+            {
+                intPos++;
+                if (string.Compare(mainDir, 0, absPath, 0, intPos, true) != 0) break;
+                intIndex = intPos;
+                intPos = mainDir.IndexOf('\\', intPos);
+            }
+
+            if (intIndex >= 0)
+            {
+                absPath = absPath.Substring(intIndex);
+                intPos = mainDir.IndexOf("\\", intIndex);
+                while (intPos >= 0)
+                {
+                    absPath = "..\\" + absPath;
+                    intPos = mainDir.IndexOf("\\", intPos + 1);
+                }
+            }
+
+            return absPath;
+        }
+
     }
 }

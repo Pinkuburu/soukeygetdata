@@ -36,6 +36,7 @@ namespace SoukeyNetget
             {
                 ePara = cGlobalParas.ExitPara.Exit;
             }
+
             RExitPara(ePara);
             this.Close();
         }

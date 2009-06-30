@@ -8,7 +8,7 @@ using System.Text;
 ///遗留问题：无
 ///开发计划：无
 ///说明：转换函数实际无意义，直接可用中文进行定义，但个人变成习惯不喜欢这样做，所以提供了转换函数。
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -37,6 +37,22 @@ namespace SoukeyNetget
             PublishSuccees=1073,
             PublishFailed=1074,
         }
+
+        public enum DownloadResult
+        {
+            Succeed=1081,
+            Failed=1082,
+            Err=1083,
+        }
+
+        public enum GDataType
+        {
+            Txt=1091,
+            Picture=1092,
+            Flash=1093,
+            File=1094,
+        }
+
 
         public enum GatherThreadState
         {
@@ -83,6 +99,7 @@ namespace SoukeyNetget
            NoLimit=2001,
            NoWebSign = 2002,
            ShowNoWebSign=2003,
+           NoCN=2004,
         }
 
         public enum WebCode
@@ -97,6 +114,23 @@ namespace SoukeyNetget
         {
             Exit=2010,
             MinForm=2012,
+        }
+
+        public enum UpdateUrlCountType
+        {
+            Gathered=2020,
+            Err=2021,
+            ReIni=2022,
+            UrlCountAdd=2023,
+            ErrUrlCountAdd=2024,
+        }
+
+        public enum UrlGatherResult
+        {
+            UnGather=2031,
+            Succeed=2032,
+            Error=2033,
+            Gathered=2034,
         }
 
         #endregion
@@ -128,6 +162,16 @@ namespace SoukeyNetget
                     return (int)LimitSign.NoWebSign;
                 case "允许匹配但显示时删除":
                     return (int)LimitSign.ShowNoWebSign;
+                case "不允许出现中文":
+                    return (int)LimitSign.NoCN;
+                case "文件":
+                    return (int)GDataType.File;
+                case "Flash":
+                    return (int)GDataType.Flash;
+                case "图片":
+                    return (int)GDataType.Picture;
+                case "文本":
+                    return (int)GDataType.Txt;
                 default:
                     return 0;
             }
@@ -159,12 +203,22 @@ namespace SoukeyNetget
                     return "不允许出现网页标识符";
                 case (int)LimitSign.ShowNoWebSign:
                     return "允许匹配但显示时删除";
+                case (int)LimitSign.NoCN :
+                    return "不允许出现中文";
                 case (int)PublishType.NoPublish :
                     return "不发布数据";
                 case (int)PublishType.PublishAccess :
                     return "发布到Access数据库";
                 case (int)PublishType.PublishMSSql :
                     return "发布到MS Sql Server";
+                case (int)GDataType.File :
+                    return "文件";
+                case (int)GDataType.Flash  :
+                    return "Flash";
+                case (int)GDataType.Picture  :
+                    return "图片";
+                case (int)GDataType.Txt :
+                    return "文本";
                 default:
                     return "";
             }

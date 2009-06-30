@@ -86,10 +86,10 @@
             // 
             this.label3.Location = new System.Drawing.Point(8, 97);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(337, 63);
+            this.label3.Size = new System.Drawing.Size(337, 58);
             this.label3.TabIndex = 8;
-            this.label3.Text = "      本软件以免费授权的形式授权给您，您可自由使用此软件。同时如果您获取了此软件源码，您也可自由使用，但如果您在此基础上进行了修改并发布了您的产品，请著名原" +
-                "有部分版权。";
+            this.label3.Text = "      本软件将以免费的形式授权给您，您可自由使用此软件。同时如果您获取了此软件源码，您也可自由使用，但如果您在此基础上进行了修改并发布了您的产品，请著名原有" +
+                "部分版权。";
             // 
             // label2
             // 
@@ -136,7 +136,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(76, 13);
             this.label10.TabIndex = 2;
-            this.label10.Text = "版 本 号：0.8";
+            this.label10.Text = "版 本 号：1.0";
             // 
             // label11
             // 
@@ -173,6 +173,7 @@
             this.Name = "frmAbout";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "关于Soukey采摘";
+            this.Load += new System.EventHandler(this.frmAbout_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

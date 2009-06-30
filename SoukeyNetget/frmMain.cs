@@ -22,7 +22,7 @@ using System.IO;
 ///遗留问题：代码还未整理，可能看起来比较乱
 ///开发计划：无
 ///说明：
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -35,6 +35,16 @@ namespace SoukeyNetget
         private bool IsTimer = true;
         private string DelName="";
         private cGlobalParas.ExitPara m_ePara = cGlobalParas.ExitPara.Exit;
+
+        private DataGridViewCellStyle m_RowStyleErr;
+
+        private ToolTip tTip;
+
+        private TreeNode Old_SelectedNode;
+
+        //判断是否正在进行退出操作
+        private bool IsExitting = false;
+
 
         #region 窗体初始化操作
         
@@ -57,6 +67,15 @@ namespace SoukeyNetget
             this.treeMenu.ExpandAll();
             TreeNode newNode;
             int i = 0;
+
+            //写日志启动的时间
+            ExportLog("Soukey采摘于" + DateTime.Now + "启动");
+
+            //设置datagridview加载错误信息的现实样式
+            SetRowErrStyle();
+
+            //设置Tooltip信息
+            SetToolTip();
 
             //初始化网页，固定地址，具体跳转由此页面来控制
             this.webBrowser.Navigate("http://www.yijie.net/softini.html");
@@ -89,6 +108,7 @@ namespace SoukeyNetget
             this.treeMenu.SelectedNode = SelectNode;
             SelectNode = null;
 
+
             //设置删除项为树形结构
             DelName = this.treeMenu.Name;
 
@@ -104,6 +124,20 @@ namespace SoukeyNetget
             //管理
             m_GatherControl = new cGatherControl();
 
+            //采集控制器事件绑定,绑定后,页面可以响应采集任务的相关事件
+            m_GatherControl.TaskManage.TaskCompleted += tManage_Completed;
+            m_GatherControl.TaskManage.TaskStarted += tManage_TaskStart;
+            m_GatherControl.TaskManage.TaskInitialized += tManage_TaskInitialized;
+            m_GatherControl.TaskManage.TaskStateChanged += tManage_TaskStateChanged;
+            m_GatherControl.TaskManage.TaskStopped += tManage_TaskStop;
+            m_GatherControl.TaskManage.TaskError += tManage_TaskError;
+            m_GatherControl.TaskManage.TaskFailed += tManage_TaskFailed;
+            m_GatherControl.TaskManage.TaskAborted += tManage_TaskAbort;
+            m_GatherControl.TaskManage.Log += tManage_Log;
+            m_GatherControl.TaskManage.GData += tManage_GData;
+
+            m_GatherControl.Completed += m_Gather_Completed;
+
             //加载运行区的数据,运行区的数据主要是根据taskrun.xml(默认在Tasks\\TaskRun.xml)文件中
             //的内容进行加载,
 
@@ -114,31 +148,20 @@ namespace SoukeyNetget
             }
 
             cTaskDataList gList = new cTaskDataList();
-            gList.LoadTaskRunData ();
+            
             
             //根据加载的运行区的任务信息,开始初始化采集任务
             try
             {
+                gList.LoadTaskRunData ();
                 m_GatherControl.AddGatherTask(gList);
+                
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show ("加载运行任务出错，有可能存在正在运行的任务，但数据已经遭到破坏无法加载！" + "\n\r" + "错误信息为：" + ex.Message , "Soukey错误提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show ("加载运行任务出错，有可能存在正在运行的任务，但数据已经遭到破坏无法加载！" + "\n\r" + "错误信息为：" + ex.Message + "\n\r" + "建议的解决方案：首先删除正在运行的任务，退出系统后，进入系统所在目录中的Tasks下，删除taskrun.xml，重启即可！" , "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
-
-            //采集控制器事件绑定,绑定后,页面可以响应采集任务的相关事件
-            m_GatherControl.TaskManage.TaskCompleted += tManage_Completed;
-            m_GatherControl.TaskManage.TaskStarted += tManage_TaskStart;
-            m_GatherControl.TaskManage.TaskInitialized += tManage_TaskInitialized;
-            m_GatherControl.TaskManage.TaskStateChanged += tManage_TaskStateChanged;
-            m_GatherControl.TaskManage.TaskStopped += tManage_TaskStop;
-            m_GatherControl.TaskManage.TaskError += tManage_TaskError;
-            m_GatherControl.TaskManage.TaskFailed += tManage_TaskFailed;
-            m_GatherControl.TaskManage.Log += tManage_Log;
-            m_GatherControl.TaskManage.GData += tManage_GData;
-
-            m_GatherControl.Completed += m_Gather_Completed;
 
             //开始加载正在导出的任务信息
             m_PublishControl = new cPublishControl();
@@ -150,9 +173,32 @@ namespace SoukeyNetget
             m_PublishControl.PublishManage.PublishStarted  += this.Publish_Started;
             m_PublishControl.PublishManage.PublishTempDataCompleted += this.Publish_TempDataCompleted;
 
+
+            //根据选择的“正在运行”树形节点，加载相应的信息
+            try
+            {
+                LoadRunTask();
+            }
+            catch (System.IO.IOException)
+            {
+                if (MessageBox.Show("任务运行监控文件丢失，请问是否根据正在运行的任务情况自动创建？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    CreateTaskRun();
+                }
+            }
+            catch (System.Exception)
+            {
+                MessageBox.Show("加载的任务运行监控文件非法，请检查此文件“" + Program.getPrjPath() + "tasks\\taskrun.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+
+            SetDataShow();
+
+            //启动时间器用于更新任务显示的进度
+            this.timer1.Enabled = true;
+
+
             //更新状态条信息
             UpdateStatebarTask();
-
 
         }
 
@@ -174,34 +220,56 @@ namespace SoukeyNetget
         //启动任务，当前设计是只能启动一个任务，不支持启动多个任务
         private void toolStartTask_Click(object sender, EventArgs e)
         {
-            
-            StartTask();
+
+            StartMultiTask();
             
         }
 
-        private void StartTask()
+        private void StartMultiTask()
+        {
+            if (this.dataTask.SelectedRows.Count == 0)
+                return;
+
+            for (int index=0; index < this.dataTask.SelectedRows.Count; index++)
+            {
+                if ((cGlobalParas.TaskState)this.dataTask.SelectedRows[index].Cells[2].Value == cGlobalParas.TaskState.Failed)
+                {
+                    continue;
+                }
+                else
+                {
+                    StartTask(Int64.Parse(this.dataTask.SelectedRows[index].Cells[1].Value.ToString()), this.dataTask.SelectedRows[index].Cells[4].Value.ToString(), index);
+                }
+            }
+        }
+
+        private void StartTask(Int64 TaskID,string TaskName,int SelectedIndex)
         {
             cGatherTask t = null;
 
-            if (this.dataTask.Rows.Count == 0)
-                return;
 
             //判断当前选择的树节点
             if (this.treeMenu.SelectedNode.Name == "nodRunning" && this.dataTask.SelectedCells.Count != 0)
             {
                 //执行正在执行的任务
-                t = m_GatherControl.TaskManage.FindTask(Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString()));
+                t = m_GatherControl.TaskManage.FindTask(TaskID);
             }
             else if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
             {
                 ///如果是选择的任务分类节点，点击此按钮首先先将此任务加载到运行区，然后调用
                 ///starttask方法，启动任务。
-                t = AddRunTask();
+                t = AddRunTask(TaskName);
+
+                //如果是新增的任务，则传进来的TaskID是任务的编号，并不是任务执行的编号（即不是由时间自动产生的任务）
+                //是一个递增的整数，所以，需要重新更新传入的TaskID
+                TaskID = t.TaskID;
+
                 if (t == null)
                 {
                     //表示启动任务被用户中断，也有可能是因为错误造成
                     return;
                 }
+               
             }
 
             //判断此任务是否需要登录，如果需要登录则需要用户干预
@@ -218,20 +286,23 @@ namespace SoukeyNetget
             }
 
             //任务成功启动后，需要建立TabPage用于显示此任务的日志及采集数据的信息
-            if (this.treeMenu.SelectedNode.Name.ToString() == "nodRunning" && (int.Parse(this.dataTask.SelectedCells[7].Value.ToString()) + int.Parse(this.dataTask.SelectedCells[8].Value.ToString())) > 0)
+            if (this.treeMenu.SelectedNode.Name.ToString() == "nodRunning" && (int.Parse(this.dataTask.SelectedRows[SelectedIndex].Cells[7].Value.ToString()) + int.Parse(this.dataTask.SelectedRows[SelectedIndex].Cells[8].Value.ToString())) > 0)
             {
-                BrowserData(t.TaskID);
+                BrowserData(TaskID,TaskName);
             }
             else
             {
-                AddTab(t.TaskID, t.TaskName);
+                AddTab(TaskID, TaskName);
             }
 
             //启动此任务
             m_GatherControl.Start(t);
 
+           
             //任务启动成功显示消息
-            ShowInfo("任务启动", t.TaskName);
+            ShowInfo("任务启动", TaskName);
+
+            t = null;
         }
 
         //通过用户登录获取cookie
@@ -249,110 +320,103 @@ namespace SoukeyNetget
 
         private void treeMenu_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            switch (e.Node.Name)
-            {
-                case "nodRunning":   //运行区的任务
-                    try
-                    {
-                        LoadRunTask(e.Node.Name);
-                    }
-                    catch (System.IO.IOException)
-                    {
-                        if (MessageBox.Show("任务运行监控文件丢失，请问是否根据正在运行的任务情况自动创建？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        {
-                            CreateTaskRun();
-                        }
-                    }
-                    catch (System.Exception)
-                    {
-                        MessageBox.Show("加载的任务运行监控文件非法，请检查此文件“" + Program.getPrjPath () + "tasks\\taskrun.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    }
 
-                    SetDataShow();
+            //switch (e.Node.Name)
+            //{
+            //    case "nodRunning":   //运行区的任务
+            //        try
+            //        {
+            //            LoadRunTask(e.Node.Name);
+            //        }
+            //        catch (System.IO.IOException)
+            //        {
+            //            if (MessageBox.Show("任务运行监控文件丢失，请问是否根据正在运行的任务情况自动创建？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //            {
+            //                CreateTaskRun();
+            //            }
+            //        }
+            //        catch (System.Exception)
+            //        {
+            //            MessageBox.Show("加载的任务运行监控文件非法，请检查此文件“" + Program.getPrjPath() + "tasks\\taskrun.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            //        }
 
-                    //启动时间器用于更新任务显示的进度
-                    this.timer1.Enabled = true;
+            //        SetDataShow();
 
-                    //置删除按钮为无效
-                    this.toolDelTask.Enabled = false;
+            //        //启动时间器用于更新任务显示的进度
+            //        this.timer1.Enabled = true;
 
-                    break;
+            //        break;
 
-                case "nodPublish":
+            //    case "nodPublish":
 
-                    LoadPublishTask();
+            //        LoadPublishTask();
 
-                    //启动时间器用于更新任务显示的进度
-                    this.timer1.Enabled = true;
+            //        //启动时间器用于更新任务显示的进度
+            //        this.timer1.Enabled = true;
 
-                    //置删除按钮为无效
-                    this.toolDelTask.Enabled = false;
+            //        SetDataShow();
 
-                    SetDataShow();
+            //        break;
 
-                    break;
+            //    case "nodComplete":    //已经完成采集的任务
 
-                case "nodComplete":    //已经完成采集的任务
+            //        try
+            //        {
+            //            LoadCompleteTask();
+            //        }
+            //        catch (System.IO.IOException)
+            //        {
+            //            if (MessageBox.Show("已完成任务索引文件丢失，需要重新建立，但已经完成的任务信息将会丢失，数据内容不会丢失，默认存储在：" + Program.getPrjPath() + "Data" + "目录下，是否建立？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //            {
+            //                CreateTaskComplete();
+            //            }
+            //        }
+            //        catch (System.Exception)
+            //        {
+            //            MessageBox.Show("加载的已完成任务索引文件非法，请检查此文件“" + Program.getPrjPath() + "data\\index.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            //        };
 
-                    try
-                    {
-                        LoadCompleteTask();
-                    }
-                    catch (System.IO.IOException)
-                    {
-                        if (MessageBox.Show("已完成任务索引文件丢失，需要重新建立，但已经完成的任务信息将会丢失，数据内容不会丢失，默认存储在：" + Program.getPrjPath () + "Data" + "目录下，是否建立？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        {
-                            CreateTaskComplete ();
-                        }
-                    }
-                    catch (System.Exception)
-                    {
-                        MessageBox.Show("加载的已完成任务索引文件非法，请检查此文件“" + Program.getPrjPath () + "data\\index.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    };
+            //        SetDataShow();
 
-                    SetDataShow();
+            //        this.timer1.Enabled = false;
 
-                    this.timer1.Enabled = false;
+            //        break;
 
-                    //置删除按钮为无效
-                    this.toolDelTask.Enabled = false;
+            //    default:
+            //        try
+            //        {
+            //            LoadOther(e.Node);
+            //        }
+            //        catch (System.IO.IOException)
+            //        {
+            //            if (MessageBox.Show(this.treeMenu.SelectedNode.Text + "分类下的索引文件丢失，请问是否自动创建？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //            {
+            //                CreateTaskIndex(this.treeMenu.SelectedNode.Tag.ToString());
+            //            }
+            //        }
+            //        catch (System.Exception)
+            //        {
+            //            MessageBox.Show("加载的任务分类索引文件非法，请检查此文件“" + e.Node.Tag.ToString() + "\\index.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            //        }
 
-                    break;
+            //        SetDataHide();
 
-                default:
-                    try
-                    {
-                        LoadOther(e.Node);
-                    }
-                    catch (System.IO.IOException)
-                    {
-                        if (MessageBox.Show(this.treeMenu.SelectedNode.Text + "分类下的索引文件丢失，请问是否自动创建？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                        {
-                            CreateTaskIndex(this.treeMenu.SelectedNode.Tag.ToString());
-                        }
-                    }
-                    catch (System.Exception)
-                    {
-                        MessageBox.Show("加载的任务分类索引文件非法，请检查此文件“" + e.Node.Tag.ToString() + "\\index.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    }
+            //        this.timer1.Enabled = false;
+            //        break;
+            //}
 
-                    SetDataHide();
+            ////无论点击树形结构的菜单都将按钮置为不可用
+            //this.toolStartTask.Enabled = false;
+            //this.toolRestartTask.Enabled = false;
+            //this.toolStopTask.Enabled = false;
+            //this.toolExportData.Enabled = false;
+            //this.toolBrowserData.Enabled = false;
 
-                    //置删除按钮为无效
-                    this.toolDelTask.Enabled = false ;
+            ////置删除按钮为有效
+            //DelName = this.treeMenu.Name;
+            //this.toolDelTask.Enabled = true;
 
-                    this.timer1.Enabled = false;
-                    break;
-            }
-
-           //无论点击树形结构的菜单都将按钮置为不可用
-            this.toolStartTask.Enabled = false;
-            this.toolRestartTask.Enabled = false;
-            this.toolStopTask.Enabled = false;
-            this.toolExportData.Enabled = false;
-            this.toolBrowserData.Enabled = false;
-
-            UpdateStatebarTaskState("当前显示： " + e.Node.Text );
+            //UpdateStatebarTaskState("当前显示： " + e.Node.Text);
 
         }
 
@@ -387,16 +451,44 @@ namespace SoukeyNetget
 
         private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
         {
+            if (this.dataTask.SelectedRows.Count  == 0)
+            {
+                this.rmmenuStartTask.Enabled = false;
+                this.rmmenuStopTask.Enabled = false;
+                this.rmmenuRestartTask.Enabled = false;
+                this.rmmenuNewTask.Enabled = true;
+                this.rmmenuEditTask.Enabled = false;
+                this.rmmenuDelTask.Enabled = false;
+                this.rmenuBrowserData.Enabled = false;
+                return;
+            }
+
+            cGlobalParas.TaskState tState = (cGlobalParas.TaskState)this.dataTask.SelectedCells[2].Value;
+
             switch (this.treeMenu.SelectedNode.Name)
             {
                 case "nodRunning":
-                   
-                    cGatherTask t = m_GatherControl.TaskManage.FindTask((Int64)this.dataTask.SelectedCells[1].Value);
-                    if (t.TaskState == cGlobalParas.TaskState.Started)
+
+                    
+
+                    if (int.Parse(dataTask.SelectedCells[7].Value.ToString()) > 0)
+                        this.rmenuBrowserData.Enabled = true;
+                    else
+                        this.rmenuBrowserData.Enabled = false;
+
+
+                    if (tState == cGlobalParas.TaskState.Started)
                     {
                         this.rmmenuStartTask.Enabled = false;
                         this.rmmenuStopTask.Enabled = true;
                         this.rmmenuRestartTask.Enabled = true;
+                    }
+                    else if (tState == cGlobalParas.TaskState.Failed)
+                    {
+                        this.rmmenuStartTask.Enabled = false;
+                        this.rmmenuStopTask.Enabled = false;
+                        this.rmmenuRestartTask.Enabled = false;
+                        this.rmenuBrowserData.Enabled = false;
                     }
                     else
                     {
@@ -404,16 +496,12 @@ namespace SoukeyNetget
                         this.rmmenuStopTask.Enabled = false;
                         this.rmmenuRestartTask.Enabled = false;
                     }
-                    t = null;
 
-                    if (int.Parse(dataTask.SelectedCells[7].Value.ToString()) > 0)
-                        this.rmenuBrowserData.Enabled = true;
-                    else
-                        this.rmenuBrowserData.Enabled = false;
                     this.rmmenuNewTask.Enabled = false;
                     this.rmmenuEditTask.Enabled = false;
                     this.rmmenuDelTask.Enabled = true;
                     break;
+
                 case "nodComplete":
                     this.rmmenuStartTask.Enabled = false;
                     this.rmmenuStopTask.Enabled = false;
@@ -442,11 +530,20 @@ namespace SoukeyNetget
                     this.rmenuBrowserData.Enabled = true;
                     break;
                 default :
-                    this.rmmenuStartTask.Enabled = true;
+                    if (tState == cGlobalParas.TaskState.Failed)
+                    {
+                        this.rmmenuStartTask.Enabled = false;
+                        this.rmmenuEditTask.Enabled = false;
+                    }
+                    else
+                    {
+                        this.rmmenuStartTask.Enabled = true;
+                        this.rmmenuEditTask.Enabled = true;
+                    }
+
                     this.rmmenuStopTask.Enabled = false;
                     this.rmmenuRestartTask.Enabled = false;
                     this.rmmenuNewTask.Enabled = true;
-                    this.rmmenuEditTask.Enabled = true;
                     this.rmmenuDelTask.Enabled = true;
                     this.rmenuBrowserData.Enabled = false;
                     break;
@@ -455,7 +552,9 @@ namespace SoukeyNetget
 
         private void rmenuDelTaskClass_Click(object sender, EventArgs e)
         {
-            DelTaskClass();
+            
+                DelTaskClass();
+            
         }
 
         private void treeMenu_KeyDown(object sender, KeyEventArgs e)
@@ -468,7 +567,7 @@ namespace SoukeyNetget
                 }
                 catch (System.Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    MessageBox.Show(ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
                 }
 
@@ -487,25 +586,25 @@ namespace SoukeyNetget
 
         private void rmmenuDelTask_Click(object sender, EventArgs e)
         {
-            //首先判断当前焦点的控件
-            //然后再确定删除的是分类还是任务
 
+            this.dataTask.Focus();
+            SendKeys.Send("{Del}");
 
             //删除的是任务，但需要判断删除的是何种任务
-            switch (this.treeMenu.SelectedNode.Name)
-            {
-                case "nodRunning":
-                    DelRunTask();
-                    break;
-                case "nodComplete":
-                    DelCompletedTask();
-                    break;
-                case "nodPublish":
-                    break;
-                default:
-                    DelTask();
-                    break;
-            }
+            //switch (this.treeMenu.SelectedNode.Name)
+            //{
+            //    case "nodRunning":
+            //        DelRunTask();
+            //        break;
+            //    case "nodComplete":
+            //        DelCompletedTask();
+            //        break;
+            //    case "nodPublish":
+            //        break;
+            //    default:
+            //        DelTask();
+            //        break;
+            //}
            
         }
 
@@ -542,7 +641,10 @@ namespace SoukeyNetget
             newNode.ImageIndex = 0;
             newNode.SelectedImageIndex = 0;
             this.treeMenu.Nodes["nodTaskClass"].Nodes.Add(newNode);
+            
             this.treeMenu.SelectedNode = newNode;
+
+            treeMenu_NodeMouseClick(this.treeMenu, new TreeNodeMouseClickEventArgs(this.treeMenu.SelectedNode, MouseButtons.Left, 0, 0, 0));
 
         }
 
@@ -569,6 +671,10 @@ namespace SoukeyNetget
         {
             if (TClass == "")
             {
+                TreeNode SelectNode = new TreeNode();
+                SelectNode = this.treeMenu.Nodes[1];
+                this.treeMenu.SelectedNode = SelectNode;
+
                 LoadTask(this.treeMenu.Nodes["nodTaskClass"]);
                 return;
             }
@@ -577,6 +683,8 @@ namespace SoukeyNetget
             {
                 if (a.Text ==TClass)
                 {
+                    this.treeMenu.SelectedNode = a;
+
                     LoadTask (a);
                     break ;
                 }
@@ -650,7 +758,7 @@ namespace SoukeyNetget
         }
 
         //加载正在执行的任务，正在执行的任务记录在应用程序目录下的RunningTask.xml文件中
-        private void LoadRunTask(string nodKey)
+        private void LoadRunTask()
         {
 
             ShowRunTask();
@@ -662,57 +770,67 @@ namespace SoukeyNetget
             taskList.AddRange(m_GatherControl.TaskManage.TaskListControl.RunningTaskList);
             taskList.AddRange(m_GatherControl.TaskManage.TaskListControl.StoppedTaskList);
             taskList.AddRange(m_GatherControl.TaskManage.TaskListControl.WaitingTaskList);
+            //taskList.AddRange(m_GatherControl.TaskManage.TaskListControl.CompletedTaskList);
 
             for (int i = 0; i < taskList.Count ; i++)
             {
-                switch (taskList[i].State)
+                try
                 {
-                    case cGlobalParas.TaskState.Started:
-                        dataTask.Rows.Add(imageList1.Images["started"],taskList[i].TaskID , taskList[i].State , this.treeMenu.SelectedNode.Name,
-                            taskList[i].TaskName,cGlobalParas.ConvertName ((int) taskList[i].TaskType),(taskList[i].IsLogin ==true ? "登录":"不登录"),
-                            taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
-                            cGlobalParas.ConvertName((int)taskList[i].PublishType));
-                        break ;
-
-                    case cGlobalParas.TaskState.Stopped :
-                        if ((taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) > 0)
-                        {
-                            dataTask.Rows.Add(imageList1.Images["pause"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
+                    switch (taskList[i].State)
+                    {
+                        case cGlobalParas.TaskState.Started:
+                            dataTask.Rows.Add(imageList1.Images["started"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
                                 taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
                                 taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
-                                cGlobalParas.ConvertName((int)taskList[i].PublishType ));
-                        }
-                        else
-                        {
+                                cGlobalParas.ConvertName((int)taskList[i].PublishType));
+                            break;
+
+                        case cGlobalParas.TaskState.Stopped:
+                            if ((taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) > 0)
+                            {
+                                dataTask.Rows.Add(imageList1.Images["pause"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
+                                    taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
+                                    taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
+                                    cGlobalParas.ConvertName((int)taskList[i].PublishType));
+                            }
+                            else
+                            {
+                                dataTask.Rows.Add(imageList1.Images["stop"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
+                                    taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
+                                    taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
+                                    cGlobalParas.ConvertName((int)taskList[i].PublishType));
+                            }
+                            break;
+                        case cGlobalParas.TaskState.UnStart:
                             dataTask.Rows.Add(imageList1.Images["stop"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
                                 taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
                                 taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
                                 cGlobalParas.ConvertName((int)taskList[i].PublishType));
-                        }
-                        break;
-                    case cGlobalParas.TaskState.UnStart :
-                        dataTask.Rows.Add(imageList1.Images["stop"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
-                            taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
-                            taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
-                            cGlobalParas.ConvertName((int)taskList[i].PublishType));
-                        break;
-                    case cGlobalParas.TaskState.Failed:
-                        dataTask.Rows.Add(imageList1.Images["error"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
-                            taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
-                            taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
-                            cGlobalParas.ConvertName((int)taskList[i].PublishType));
-                        break;
-                    default:
-                        dataTask.Rows.Add(imageList1.Images["stop"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
-                            taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
-                            taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / taskList[i].TrueUrlCount, cGlobalParas.ConvertName((int)taskList[i].RunType),
-                            cGlobalParas.ConvertName((int)taskList[i].PublishType));
-                        break;
+                            break;
+                        case cGlobalParas.TaskState.Failed:
+                            dataTask.Rows.Add(imageList1.Images["error"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
+                                taskList[i].TaskName, "", "",
+                                "0", "0", "0", "0", "",
+                               "加载失败，文件可能受到破坏，请删除后重新建立！");
+                            dataTask.Rows[dataTask.Rows.Count - 1].DefaultCellStyle = this.m_RowStyleErr;
+                            break;
+                        default:
+                            dataTask.Rows.Add(imageList1.Images["stop"], taskList[i].TaskID, taskList[i].State, this.treeMenu.SelectedNode.Name,
+                                taskList[i].TaskName, cGlobalParas.ConvertName((int)taskList[i].TaskType), (taskList[i].IsLogin == true ? "登录" : "不登录"),
+                                taskList[i].GatheredTrueUrlCount, taskList[i].GatheredTrueErrUrlCount, taskList[i].TrueUrlCount, (taskList[i].GatheredTrueUrlCount + taskList[i].GatheredTrueErrUrlCount) * 100 / (taskList[i].TrueUrlCount==0 ? 1:taskList[i].TrueUrlCount), cGlobalParas.ConvertName((int)taskList[i].RunType),
+                                cGlobalParas.ConvertName((int)taskList[i].PublishType));
+                            break;
+                    }
                 }
-
+                catch (System.Exception)
+                {
+                    //捕获错误，不做处理，让信息继续加载
+                }
             }
 
             this.dataTask.ClearSelection();
+
+            taskList = null;
 
         }
 
@@ -738,6 +856,12 @@ namespace SoukeyNetget
             }
         }
 
+        ///加载系统默认的任务，此任务无法删除，是Soukey采摘 最新版本软件下载
+        private void LoadSoukeyTask()
+        {
+            
+        }
+
         private void LoadTask(TreeNode  mNode)
         {
             ShowTaskInfo();
@@ -761,10 +885,24 @@ namespace SoukeyNetget
 
             for (int i = 0; i < count; i++)
             {
-                dataTask.Rows.Add(imageList1.Images["task"], xmlTasks.GetTaskID(i), cGlobalParas.TaskState.UnStart, this.treeMenu.SelectedNode.Name, xmlTasks.GetTaskName(i),
-                    cGlobalParas.ConvertName(int.Parse(xmlTasks.GetTaskType(i).ToString())), (xmlTasks.GetIsLogin(i) == true ? "登录" : "不登录"),
-                   xmlTasks.GetWebLinkCount(i).ToString(), cGlobalParas.ConvertName(int.Parse(xmlTasks.GetTaskRunType(i).ToString())), 
-                   cGlobalParas.ConvertName((int)xmlTasks.GetPublishType (i)));
+                if (xmlTasks.GetTaskState(i) == cGlobalParas.TaskState.Failed)
+                {
+                    
+                    dataTask.Rows.Add(imageList1.Images["error"], xmlTasks.GetTaskID(i), xmlTasks.GetTaskState(i), this.treeMenu.SelectedNode.Name, xmlTasks.GetTaskName(i),
+                        "", "",
+                       "","",
+                       "任务加载失败，请删除后重建！");
+                    dataTask.Rows[dataTask.Rows.Count - 1].DefaultCellStyle = this.m_RowStyleErr;
+
+                    
+                }
+                else
+                {
+                    dataTask.Rows.Add(imageList1.Images["task"], xmlTasks.GetTaskID(i), xmlTasks.GetTaskState(i), this.treeMenu.SelectedNode.Name, xmlTasks.GetTaskName(i),
+                        cGlobalParas.ConvertName(int.Parse(xmlTasks.GetTaskType(i).ToString())), (xmlTasks.GetIsLogin(i) == true ? "登录" : "不登录"),
+                       xmlTasks.GetWebLinkCount(i).ToString(), cGlobalParas.ConvertName(int.Parse(xmlTasks.GetTaskRunType(i).ToString())),
+                       cGlobalParas.ConvertName((int)xmlTasks.GetPublishType(i)));
+                }
             }
             xmlTasks = null;
 
@@ -786,9 +924,16 @@ namespace SoukeyNetget
 
         private void DelTaskClass()
         {
-            if (MessageBox.Show("您选择删除分类：" + this.treeMenu.SelectedNode.Text   + "，删除分类只是将此分类下的索引（index.xml）文件删除，" +
-               "任务的信息予以保留，您可以备份这些任务，或者导入到其他分类下，此分类的目录地址为：" + this.treeMenu.SelectedNode.Tag.ToString() + "，您是否继续执行删除操作？",
-               "系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (this.treeMenu.SelectedNode.Name.Substring(0, 1) != "C")
+            {
+                MessageBox.Show("无法删除系统分类：" + this.treeMenu.SelectedNode.Text, "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
+
+            if (MessageBox.Show("您选择删除分类：" + this.treeMenu.SelectedNode.Text   + "，删除分类将同时删除此分类下的所有任务，" +
+               "您是否继续执行删除操作？",
+               "Soukey采摘 系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try
                 {
@@ -802,11 +947,12 @@ namespace SoukeyNetget
                 }
                 catch (System.Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    return;
+                    MessageBox.Show("删除分类发生错误，有可能是由于任务分类的路径不存在导致！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
 
                 this.treeMenu.Nodes.Remove(this.treeMenu.SelectedNode);
+
+                treeMenu_NodeMouseClick(this.treeMenu, new TreeNodeMouseClickEventArgs(this.treeMenu.SelectedNode, MouseButtons.Left, 0, 0, 0));
             }
 
 
@@ -815,125 +961,156 @@ namespace SoukeyNetget
 
         private bool DelTask()
         {
-            if (this.dataTask.Rows.Count ==0)
+            if (this.dataTask.SelectedRows.Count ==0)
             {
                 return false;
             }
 
-            if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
+     
+            if (this.dataTask.SelectedRows.Count ==1)
             {
-                //表示选择的是任务节点
-                try
+                if (MessageBox.Show("您选择删除任务：" + this.dataTask.SelectedCells[4].Value + "，如果此任务正在运行，删除操作不会造成影响，但删除后此任务不可恢复，继续？", "系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
-                    if (MessageBox.Show("您选择删除任务：" + this.dataTask.SelectedCells[4].Value + "，如果此任务正在运行，删除操作不会造成影响，但删除后此任务不可恢复，继续？", "系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        Task.cTask t = new Task.cTask();
-                        t.DeleTask(this.treeMenu.SelectedNode.Tag.ToString(), this.dataTask.SelectedCells[4].Value.ToString ());
-                        t = null;
-
-                        this.dataTask.Rows.Remove(this.dataTask.SelectedRows[0]);
-
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-                catch (System.Exception ex)
+            }
+            else
+            {
+                 if (MessageBox.Show("您选择删除多个任务，删除操作不会造成影响，但删除后此任务不可恢复，继续？", "系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
-                    MessageBox.Show(ex.Message, "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    return false ;
+                    return false;
                 }
             }
 
-            return false;
+            //表示选择的是任务节点
+            try
+            {
+                for (int index=0; index < this.dataTask.SelectedRows.Count; index++)
+                {
+                    Task.cTask t = new Task.cTask();
+                    t.DeleTask(this.treeMenu.SelectedNode.Tag.ToString(), this.dataTask.SelectedRows[index].Cells[4].Value.ToString());
+                    t = null;
+
+                }
+                    return true;
+                
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return false ;
+            }
+           
 
         }
         
         /// <summary>
         /// 删除正在运行的任务
         /// </summary>
-        private void DelRunTask()
+        private bool DelRunTask()
         {
-            if (this.dataTask.Rows.Count == 0)
-                return;
+            if (this.dataTask.SelectedRows.Count == 0)
+                return false ;
 
-            if(MessageBox.Show ("您确认删除任务：" + this.dataTask.SelectedCells[4].Value.ToString () + "，删除运行区的任务不会影响此任务已经采集完成的数据，是否继续？","系统询问",
-                MessageBoxButtons.YesNo ,MessageBoxIcon.Question )==DialogResult.No )
+            if (this.dataTask.SelectedRows.Count == 1)
             {
-                return ;
-            }
-
-            cGatherTask t = m_GatherControl.TaskManage.FindTask(Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString()));
-
-            m_GatherControl.Remove(t);
-
-            Int64 TaskID = Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString());
-
-
-            //删除taskrun节点
-            cTaskRun tr = new cTaskRun();
-            tr.LoadTaskRunData();
-            tr.DelTask(TaskID);
-            tr=null;
-
-            //删除run中的任务实例文件
-            string FileName = Program.getPrjPath() + "Tasks\\run\\" + "Task" + TaskID + ".xml";
-            System.IO.File.Delete(FileName);
-
-            if (this.treeMenu.SelectedNode.Name == "nodRunning")
-            {
-                for (int i = 0; i < this.dataTask.Rows.Count; i++)
+                if (MessageBox.Show("您确认删除任务：" + this.dataTask.SelectedCells[4].Value.ToString() + "，删除运行区的任务不会影响此任务已经采集完成的数据，是否继续？", "Soukey采摘 系统询问",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
-                    if (this.dataTask.Rows[i].Cells[1].Value.ToString() == TaskID.ToString())
-                    {
-                        this.dataTask.Rows.Remove(this.dataTask.Rows[i]);
-                        break;
-                    }
+                    return false;
                 }
             }
-            
+            else
+            {
+                if (MessageBox.Show("您选择了删除多个运行区的任务，删除运行区的任务不会影响此任务已经采集完成的数据，是否继续？", "Soukey采摘 系统询问",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return false;
+                }
+            }
 
+            for (int index = 0; index < this.dataTask.SelectedRows.Count; index++)
+            {
+                
+                cGatherTask t = m_GatherControl.TaskManage.FindTask(Int64.Parse(this.dataTask.SelectedRows[index].Cells[1].Value.ToString()));
+
+                m_GatherControl.Remove(t);
+
+                Int64 TaskID = Int64.Parse(this.dataTask.SelectedRows[index].Cells[1].Value.ToString());
+
+                t = null;
+
+                //删除taskrun节点
+                cTaskRun tr = new cTaskRun();
+                tr.LoadTaskRunData();
+                tr.DelTask(TaskID);
+                tr = null;
+
+                //删除run中的任务实例文件
+                string FileName = Program.getPrjPath() + "Tasks\\run\\" + "Task" + TaskID + ".xml";
+                System.IO.File.Delete(FileName);
+                
+                tr = null;
+
+            }
+
+            return true;
+
+            //删除Datagridview中选中的数据
+
+            //while(this.dataTask.SelectedRows.Count>0)
+            //{
+            //    this.dataTask.Rows.Remove(this.dataTask.SelectedRows[0]);
+            //}
+
+          
         }
 
         //删除已经完成的任务
-        private void DelCompletedTask()
+        private bool DelCompletedTask()
         {
-            if (this.dataTask.Rows.Count == 0)
-                return;
-
-            if (MessageBox.Show("您确认删除任务：" + this.dataTask.SelectedCells[4].Value.ToString() + "，删除已经完成的任务将会删除已经采集的数据，您可在删除任务前导出数据，是否继续？", "系统询问",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (this.dataTask.SelectedRows.Count == 0)
+                return false;
+            if (this.dataTask.SelectedRows.Count == 1)
             {
-                return;
-            }
-
-
-            Int64 TaskID = Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString());
-            string TaskName = this.dataTask.SelectedCells[4].Value.ToString();
-
-            //删除taskcomplete节点
-            cTaskComplete tc = new cTaskComplete();
-            tc.LoadTaskData();
-            tc.DelTask (TaskID );
-            tc = null; 
-
-            //删除run中的任务实例文件
-            string FileName = Program.getPrjPath() + "data\\" + TaskName + "-" + TaskID + ".xml";
-            System.IO.File.Delete(FileName);
-
-            if (this.treeMenu.SelectedNode.Name == "nodComplete")
-            {
-                for (int i = 0; i < this.dataTask.Rows.Count; i++)
+                if (MessageBox.Show("您确认删除任务：" + this.dataTask.SelectedCells[4].Value.ToString() + "，删除已经完成的任务将会删除已经采集的数据，您可在删除任务前导出数据，是否继续？", "Soukey采摘 系统询问",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
-                    if (this.dataTask.Rows[i].Cells[1].Value.ToString() == TaskID.ToString())
-                    {
-                        this.dataTask.Rows.Remove(this.dataTask.Rows[i]);
-                        break;
-                    }
+                    return false;
                 }
             }
+            else
+            {
+                if (MessageBox.Show("您选择了删除多个已完成的任务，删除已经完成的任务将会删除已经采集的数据，您可在删除任务前导出数据，是否继续？", "Soukey采摘 系统询问",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return false;
+                }
+            }
+
+            for (int index = 0; index < this.dataTask.SelectedRows.Count; index++)
+            {
+                Int64 TaskID = Int64.Parse(this.dataTask.SelectedRows [index].Cells[1].Value.ToString());
+                string TaskName = this.dataTask.SelectedRows[index].Cells[4].Value.ToString();
+
+                //删除taskcomplete节点
+                cTaskComplete tc = new cTaskComplete();
+                tc.LoadTaskData();
+                tc.DelTask(TaskID);
+                tc = null;
+
+                //删除run中的任务实例文件
+                string FileName = Program.getPrjPath() + "data\\" + TaskName + "-" + TaskID + ".xml";
+                System.IO.File.Delete(FileName);
+            }
+
+            return true;
+
+            //while (this.dataTask.SelectedRows.Count > 0)
+            //{
+            //    this.dataTask.Rows.Remove(this.dataTask.SelectedRows[0]);
+            //}
+           
         }
 
         #endregion
@@ -943,8 +1120,8 @@ namespace SoukeyNetget
         private void frmMain_Resize(object sender, EventArgs e)
         {
             //根据窗体变化来调整控件布局
-            this.toolStrip2.Width = 300;
-            this.toolStrip2.Left = this.Width - this.toolStrip2.Width;
+            //this.toolStrip2.Width = 300;
+            //this.toolStrip2.Left = this.Width - this.toolStrip2.Width;
         }
 
          #endregion
@@ -976,17 +1153,17 @@ namespace SoukeyNetget
             }
         }
 
-        private void tManage_Completed(object sender, EventArgs e)
+        private void tManage_Completed(object sender, cTaskEventArgs e)
         {
             //任务执行完毕后，需要将任务移至已经完成的节点中，
             //在此如果选择的是nodRunning则删除datagridview的内容
             //然后添加到完成队列中
-            cGatherTask t = (cGatherTask)sender;
-            InvokeMethod(this, "ShowInfo", new object[] { "任务采集完成", t.TaskName });
+            //cGatherTask t = (cGatherTask)sender;
+            InvokeMethod(this, "ShowInfo", new object[] { "任务采集完成", e.TaskName });
 
-            InvokeMethod(this, "UpdateTaskPublish", new object[] { t.TaskID });
+            InvokeMethod(this, "UpdateTaskPublish", new object[] { e.TaskID });
 
-            t = null;
+            //t = null;
 
             InvokeMethod(this, "UpdateStatebarTask", null);
 
@@ -1006,6 +1183,11 @@ namespace SoukeyNetget
             string conName = "sCon" + TaskID;
             string pageName = "page" + TaskID;
 
+            if (this.tabControl1.TabPages[pageName] == null)
+            {
+                return;
+            }
+
             DataTable d = (DataTable)((DataGridView)this.tabControl1.TabPages[pageName].Controls[conName].Controls[0].Controls[0]).DataSource;
 
             cPublishTask pt = new cPublishTask(m_PublishControl.PublishManage, TaskID, d);
@@ -1021,11 +1203,34 @@ namespace SoukeyNetget
             string conName = "sCon" + TaskID;
             string pageName = "page" + TaskID;
 
-            DataTable d = (DataTable)((DataGridView)this.tabControl1.TabPages[pageName].Controls[conName].Controls[0].Controls[0]).DataSource;
+            if (this.tabControl1.TabPages[pageName]== null)
+            {
+                //表示采集任务是没有定义采集规则的，
+                //所以，会导致任务直接完成，并未建立
+                //任务输出的tab页
+                UpdateTaskComplete(TaskID);
+            }
+            else
+            {
+                //表示采集有数据
+                DataTable d = (DataTable)((DataGridView)this.tabControl1.TabPages[pageName].Controls[conName].Controls[0].Controls[0]).DataSource;
 
-            cPublishTask pt = new cPublishTask(m_PublishControl.PublishManage, TaskID,d);
-            m_PublishControl.startPublish(pt);
 
+                cPublishTask pt = new cPublishTask(m_PublishControl.PublishManage, TaskID, d);
+                m_PublishControl.startSaveTempData(pt);
+
+                if (pt.PublishType == cGlobalParas.PublishType.NoPublish)
+                {
+                    //如果是不发布数据，则需要通过此方法完成任务采集后的处理工作
+                    //删除taskrun中的数据等等，此部分如果是实现了任务数据发布，则
+                    //由任务发布结束后触发事件完成，但在此需要手工完成
+                    UpdateTaskComplete(TaskID);
+                }
+                else
+                {
+                    m_PublishControl.startPublish(pt);
+                }
+            }
 
             if (this.treeMenu.SelectedNode.Name == "nodRunning")
             {
@@ -1043,6 +1248,11 @@ namespace SoukeyNetget
                 //重新加载已完成任务的信息
                 LoadPublishTask();
             }
+            else if (this.treeMenu.SelectedNode.Name == "nodComplete")
+            {
+                //重新加载已完成任务的信息
+                LoadCompleteTask();
+            }
 
 
         }
@@ -1050,7 +1260,7 @@ namespace SoukeyNetget
 
         //处理任务采集完成后的工作，首先如果选择的正在运行的节点，则
         //删除此节点,然后从taskrun数据中删除,然后在删除实际的文件
-        public void UpdateTaskComplete(int TaskID)
+        public void UpdateTaskComplete(Int64 TaskID)
         {
             //将已经完成的任务添加到完成任务的索引文件中
             Task.cTaskComplete t = new Task.cTaskComplete();
@@ -1066,38 +1276,54 @@ namespace SoukeyNetget
             string FileName = Program.getPrjPath() + "Tasks\\run\\" + "Task" + TaskID + ".xml";
             System.IO.File.Delete(FileName);
 
+        }
+
+        public void UpdateRunTaskState(Int64 TaskID, cGlobalParas.TaskState tState)
+        {
+
             if (this.treeMenu.SelectedNode.Name == "nodRunning")
             {
                 for (int i = 0; i < this.dataTask.Rows.Count; i++)
                 {
                     if (this.dataTask.Rows[i].Cells[1].Value.ToString() == TaskID.ToString())
                     {
-                        this.dataTask.Rows.Remove(this.dataTask.Rows[i]);
+                        switch (tState)
+                        {
+                            case cGlobalParas.TaskState.Running:
+                                this.dataTask.Rows[i].Cells[0].Value = imageList1.Images["started"];
+                                break;
+                            case cGlobalParas.TaskState.Stopped:
+                                if ((int.Parse(dataTask.Rows[i].Cells[7].Value.ToString()) + int.Parse(dataTask.Rows[i].Cells[8].Value.ToString())) > 0)
+                                {
+                                    this.dataTask.Rows[i].Cells[0].Value= imageList1.Images["pause"];
+                                }
+                                else
+                                {
+                                    this.dataTask.Rows[i].Cells[0].Value = imageList1.Images["stop"];
+                                }
+                                break;
+                            default:
+                                this.dataTask.Rows[i].Cells[0].Value = imageList1.Images["stop"];
+                                break;
+                        }
+                        this.dataTask.Rows[i].Cells[2].Value = tState;
                         break;
                     }
                 }
-            }
-            else if (this.treeMenu.SelectedNode.Name == "nodComplete")
-            {
-                //重新加载已完成任务的信息
-                LoadCompleteTask();
+               
             }
 
         }
 
-        private void tManage_TaskStart(object sender, EventArgs e)
+        private void tManage_TaskStart(object sender, cTaskEventArgs e)
         {
             //如果任务启动，则修改任务的图标，此事件是由点击按钮后任务
             //启动进行触发
-            if (this.dataTask.SelectedCells[3].Value.ToString() == "nodRunning")
-            {
-                //cGatherTask gt = (cGatherTask)sender;
-                this.dataTask.SelectedCells[0].Value = imageList1.Images["started"];
-                SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", false);
-                SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", false);
-                SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", true);
-                //gt = null;
-            }
+            InvokeMethod(this, "UpdateRunTaskState", new object[] { e.TaskID,cGlobalParas.TaskState.Running  });
+
+            SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", false);
+            SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", false);
+            SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", true);
 
             UpdateStatebarTask();
         }
@@ -1112,7 +1338,7 @@ namespace SoukeyNetget
 
         private void tManage_TaskStateChanged(object sender, TaskStateChangedEventArgs e)
         {
-            SetTaskShowState(e.TaskID, e.NewState);
+            InvokeMethod(this, "SetTaskShowState", new object[] { e.TaskID, e.NewState });
 
             UpdateStatebarTask();
  
@@ -1123,33 +1349,24 @@ namespace SoukeyNetget
 
            //如果任务启动，则修改任务的图标，此事件是由点击按钮后任务
             //启动进行触发
-            if (this.dataTask.SelectedCells[3].Value.ToString() == "nodRunning")
-            {
-                //cGatherTask gt = (cGatherTask)sender;
-                if ((int.Parse(dataTask.SelectedCells[7].Value.ToString()) + int.Parse(dataTask.SelectedCells[8].Value.ToString())) > 0)
-                {
-                    this.dataTask.SelectedCells[0].Value = imageList1.Images["pause"];
-                }
-                else
-                {
-                    this.dataTask.SelectedCells[0].Value = imageList1.Images["stop"];
-                }
-                SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", true);
-                SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", true);
-                SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", false);
-                //gt = null;
-            }
+
+            InvokeMethod(this, "UpdateRunTaskState", new object[] { e.TaskID, cGlobalParas.TaskState.Stopped  });
+
+            SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", false);
+            SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", false);
+            SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", false);
+           
 
             //在此处处理任务由于用户中断，需要进行的必要保存工作
             //任务中断后，系统需保存已经采集完成的数据，保存已经采集的网址记录，
             //确保下次运行任务时，可以直接进行，即类似下载的断点功能操作
-            cGatherTask t = (cGatherTask)sender;
 
-            SaveGatherTempData(t.TaskID);
+            SaveGatherTempData(e.TaskID);
+            
 
             UpdateStatebarTask();
 
-            t = null;
+            
            
         }
 
@@ -1170,15 +1387,29 @@ namespace SoukeyNetget
             //t = null;
         }
 
-        private void tManage_TaskFailed(object sender, EventArgs e)
+        private void tManage_TaskFailed(object sender, cTaskEventArgs e)
         {
-            cGatherTask t = (cGatherTask)sender;
-            InvokeMethod(this, "ShowInfo", new object[] { "任务采集失败", t.TaskName });
-            t = null;
+            InvokeMethod(this, "ShowInfo", new object[] { "任务采集失败,已停止", e.TaskName });
 
-            InvokeMethod(this, "SaveGatherTempData", new object[] { t.TaskID });
+            InvokeMethod(this, "SaveGatherTempData", new object[] { e.TaskID });
 
             InvokeMethod(this, "UpdateStatebarTask", null);
+        }
+
+        private void tManage_TaskAbort(object sender, cTaskEventArgs e)
+        {
+
+            //InvokeMethod(this, "SaveGatherTempData", new object[] { e.TaskID });
+
+            //if (m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count > 0)
+            //{
+            //    IsExitting = true ;
+            //}
+            //else
+            //{
+            //    IsExitting = false;
+            //}
+
         }
 
         private void m_Gather_Completed(object sender, EventArgs e)
@@ -1366,13 +1597,12 @@ namespace SoukeyNetget
 
         #region 任务管理 启动 停止 
         //启动采集任务
-        private cGatherTask AddRunTask()
+        private cGatherTask AddRunTask(string tName)
         {
 
             //将选择的任务添加到运行区
             //首先判断此任务是否已经添加到运行区,
             //如果已经添加到运行区则需要询问是否再起一个运行实例
-            string tName = this.dataTask.SelectedCells[4].Value.ToString();
             bool IsExist = false;
 
             //开始初始化正在运行的任务
@@ -1386,6 +1616,7 @@ namespace SoukeyNetget
                     break;
                 }
             }
+            xmlTasks = null;
 
             if (IsExist == true)
             {
@@ -1400,11 +1631,20 @@ namespace SoukeyNetget
             cTaskRun tr = new cTaskRun();
             cTaskClass tc = new cTaskClass();
             cTaskData tData=new cTaskData ();
+            
+            string tPath="";
 
-            string tPath=tc.GetTaskClassPathByName(this.treeMenu.SelectedNode.Text );
+            if (this.treeMenu.SelectedNode.Text == "任务分类")
+            {
+                tPath = Program.getPrjPath() + "tasks";
+            }
+            else
+            {
+                tPath = tc.GetTaskClassPathByName(this.treeMenu.SelectedNode.Text);
+            }
             tc=null;
 
-            string tFileName = this.dataTask.SelectedCells[4].Value.ToString() + ".xml";
+            string tFileName = tName + ".xml";
 
             //获取最大的执行ID
             Int64 NewID = tr.InsertTaskRun(tPath, tFileName);
@@ -1436,15 +1676,33 @@ namespace SoukeyNetget
 
         }
 
-        private void StopTask()
+        private void StopMultiTask()
+        {
+            if (this.dataTask.SelectedRows.Count == 0)
+                return;
+
+            for (int index = 0; index < this.dataTask.SelectedRows.Count; index++)
+            {
+                if ((cGlobalParas.TaskState)this.dataTask.SelectedRows[index].Cells[2].Value == cGlobalParas.TaskState.Failed)
+                {
+                    continue;
+                }
+                else
+                {
+                    StopTask(Int64.Parse(this.dataTask.SelectedRows[index].Cells[1].Value.ToString()));
+                }
+            }
+        }
+
+        private void StopTask(Int64 TaskID)
         {
             cGatherTask t = null;
 
             //判断当前选择的树节点
-            if (this.treeMenu.SelectedNode.Name == "nodRunning" && this.dataTask.SelectedCells.Count != 0)
+            if (this.treeMenu.SelectedNode.Name == "nodRunning" )
             {
                 //执行正在执行的任务
-                t = m_GatherControl.TaskManage.FindTask(Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString()));
+                t = m_GatherControl.TaskManage.FindTask(TaskID);
 
                 //停止此任务
                 m_GatherControl.Stop(t);
@@ -1461,11 +1719,18 @@ namespace SoukeyNetget
         private void notifyIcon1_MouseMove(object sender, MouseEventArgs e)
         {
             //显示当前任务队列内容
-            string s;
+            string s="";
 
-            s = "soukey采摘 [免费版]     " + "\n";
-            s += "正在运行的任务: " + m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count + "\n";
-            s += "正在发布的任务: " + m_PublishControl.PublishManage.ListPublish.Count;
+            try
+            {
+                s = "soukey采摘 [免费版]     " + "\n";
+                s += "正在运行的任务: " + m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count + "\n";
+                s += "正在发布的任务: " + m_PublishControl.PublishManage.ListPublish.Count;
+            }
+            catch (System.Exception)
+            {
+                //捕获错误但不处理，让其继续显示信息
+            }
 
             this.notifyIcon1.Text = s;
 
@@ -1477,8 +1742,15 @@ namespace SoukeyNetget
         //设置显示任务数据Datalistview的列表头
         private void ShowRunTask()
         {
-            this.dataTask.Columns.Clear();
-            this.dataTask.Rows.Clear();
+            try
+            {
+                this.dataTask.Columns.Clear();
+                this.dataTask.Rows.Clear();
+            }
+            catch (System.Exception)
+            {
+            }
+
 
             #region 此部分为固定显示 任务类型的任务都必须固定显示此列
             DataGridViewImageColumn tStateImg = new DataGridViewImageColumn();
@@ -1564,8 +1836,15 @@ namespace SoukeyNetget
 
         private void ShowPublishTask()
         {
-            this.dataTask.Columns.Clear();
-            this.dataTask.Rows.Clear();
+            try
+            {
+                this.dataTask.Columns.Clear();
+                this.dataTask.Rows.Clear();
+            }
+            catch (System.Exception )
+            {
+            }
+          
 
             #region 此部分为固定显示 任务类型的任务都必须固定显示此列
             DataGridViewImageColumn tStateImg = new DataGridViewImageColumn();
@@ -1630,13 +1909,21 @@ namespace SoukeyNetget
 
         private void ShowCompletedTask()
         {
-            this.dataTask.Columns.Clear();
-            this.dataTask.Rows.Clear();
+            try
+            {
+                this.dataTask.Columns.Clear();
+                this.dataTask.Rows.Clear();
+            }
+            catch (System.Exception)
+            {
+            }
 
             #region 此部分为固定显示
             DataGridViewImageColumn tStateImg = new DataGridViewImageColumn();
             tStateImg.HeaderText = "状态";
             tStateImg.Width = 40;
+            tStateImg.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            tStateImg.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.dataTask.Columns.Insert(0, tStateImg);
 
             //任务编号,不显示此列
@@ -1703,8 +1990,14 @@ namespace SoukeyNetget
 
         private void ShowTaskInfo()
         {
-            this.dataTask.Columns.Clear();
-            this.dataTask.Rows.Clear();
+            try
+            {
+                this.dataTask.Columns.Clear();
+                this.dataTask.Rows.Clear();
+            }
+            catch (System.Exception)
+            {
+            }
 
             #region 比部分为固定显示
             DataGridViewImageColumn tStateImg = new DataGridViewImageColumn();
@@ -1775,49 +2068,75 @@ namespace SoukeyNetget
 
         #endregion
 
+        #region 界面操作控制
+
         private void dataTask_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.dataTask.SelectedCells.Count == 0)
-            {
-                return;
-            }
-
             SetToolbarState();
            
         }
 
-        //根据菜单选择及点击的数据内容，自动控制工具栏的按钮状态
+        ///根据菜单选择及点击的数据内容，自动控制工具栏的按钮状态
+        ///因为DataGridView支持多选，所以可能存在多种按钮状态的情况
+        ///针对这种情况，系统按照最后选择的内容进行按钮状态设置
+
         private void SetToolbarState()
         {
+            if (this.dataTask.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            cGlobalParas.TaskState tState = (cGlobalParas.TaskState)this.dataTask.SelectedCells[2].Value;
+
             switch (this.treeMenu.SelectedNode.Name)
             {
                 case "nodRunning":
-                    cGatherTask t = m_GatherControl.TaskManage.FindTask((Int64)this.dataTask.SelectedCells[1].Value);
-                    if (t.TaskState == cGlobalParas.TaskState.Started)
+
+                    switch (tState )
                     {
-                        this.toolStartTask.Enabled = false;
-                        this.toolStopTask.Enabled = true;
-                        this.toolRestartTask.Enabled = false;
-                    }
-                    else
-                    {
-                        this.toolStartTask.Enabled = true;
-                        this.toolStopTask.Enabled = false;
-                        this.toolRestartTask.Enabled = true;
+                        case  cGlobalParas.TaskState.Started:
+                    
+                            this.toolStartTask.Enabled = false;
+                            this.toolStopTask.Enabled = true;
+                            this.toolRestartTask.Enabled = false;
+                            break ;
+
+                        case cGlobalParas.TaskState.Running :
+
+                            this.toolStartTask.Enabled = false;
+                            this.toolStopTask.Enabled = true;
+                            this.toolRestartTask.Enabled = false;
+                            break;
+
+                        case cGlobalParas.TaskState.Failed :
+
+                            this.toolStartTask.Enabled = false;
+                            this.toolStopTask.Enabled = false;
+                            this.toolRestartTask.Enabled = false;
+                            break;
+
+                        default :
+                   
+                            this.toolStartTask.Enabled = true;
+                            this.toolStopTask.Enabled = false;
+                            this.toolRestartTask.Enabled = true;
+                            break;
+                    
                     }
 
-                    UpdateStatebarTaskState(t.TaskState);
+                    UpdateStatebarTaskState(tState);
 
 
                     //只要有内容就可以删除
                     this.toolDelTask.Enabled = true;
 
-                    if (t.GatheredUrlCount > 0)
+                    if (int.Parse (this.dataTask.SelectedCells[9].Value.ToString ()) > 0)
                         this.toolBrowserData.Enabled = true;
                     else
                         this.toolBrowserData.Enabled = false;
 
-                    t = null;
+                    //t = null;
 
                     break;
                 case "nodPublish":
@@ -1841,6 +2160,22 @@ namespace SoukeyNetget
 
                     break;
 
+                case "nodTaskClass":
+
+                    //只要有内容就可以删除
+                    this.toolDelTask.Enabled = true;
+
+                    if (tState == cGlobalParas.TaskState.Failed)
+                        this.toolStartTask.Enabled = false;
+                    else
+                        this.toolStartTask.Enabled = true;
+
+                    this.toolRestartTask.Enabled = false;
+                    this.toolStopTask.Enabled = false;
+                    
+
+                    break;
+
                 default:
 
                     //只要有内容就可以删除
@@ -1848,7 +2183,11 @@ namespace SoukeyNetget
 
                     if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C")
                     {
-                        this.toolStartTask.Enabled = true;
+                        if (tState == cGlobalParas.TaskState.Failed)
+                            this.toolStartTask.Enabled = false;
+                        else
+                            this.toolStartTask.Enabled = true;
+
                         this.toolRestartTask.Enabled = false;
                         this.toolStopTask.Enabled = false;
                     }
@@ -1856,6 +2195,366 @@ namespace SoukeyNetget
                     break;
             }
         }
+
+        private void dataTask_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                switch (this.treeMenu.SelectedNode.Name)
+                {
+                    case "nodRunning":
+                        if (DelRunTask() == false)
+                        {
+                            e.SuppressKeyPress = true;
+                            return ;
+                        }
+                        break;
+                    case "nodPublish":
+                        break;
+                    case "nodComplete":
+                        if (DelCompletedTask() == false)
+                        {
+                            e.SuppressKeyPress = true;
+                            return;
+                        }
+                        break;
+                    default:
+                        if (DelTask() == false)
+                        {
+                            e.SuppressKeyPress = true;
+                            return;
+                        }
+                        break;
+                }
+            }
+        }
+
+        private void SetDataShow()
+        {
+            splitContainer2.SplitterDistance = 150;
+
+        }
+
+        //private void SetDataHide()
+        //{
+        //    splitContainer2.SplitterDistance = 700;
+        //}
+
+        private void SetInfoShow()
+        {
+            splitContainer3.SplitterDistance = 200;
+        }
+
+        private void SetInfoHide()
+        {
+            splitContainer3.SplitterDistance = 0;
+        }
+
+        public void SetTaskShowState(Int64 TaskID, cGlobalParas.TaskState tState)
+        {
+           
+
+            //查找当前的列表显示的任务
+            //首先判断当前选中的树形节点是否是运行区的节点
+            if (this.dataTask.Rows.Count > 0 && this.dataTask.Rows[0].Cells[3].Value.ToString() == "nodRunning")
+            {
+                for (int i = 0; i < this.dataTask.Rows.Count; i++)
+                {
+                    bool IsSetToolbutState = false;
+
+                    if (this.dataTask.Rows[i].Cells[1].Value.ToString() == TaskID.ToString())
+                    {
+                        if (i == this.dataTask.CurrentRow.Index)
+                        {
+                            IsSetToolbutState = true;
+                        }
+
+                        switch (tState)
+                        {
+                            case cGlobalParas.TaskState.Started:
+
+                                break;
+                            case cGlobalParas.TaskState.Failed:
+                                this.dataTask.Rows[i].Cells[0].Value = imageList1.Images["error"];
+                                if (IsSetToolbutState == true)
+                                {
+                                    SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", true);
+                                    SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", false);
+                                    SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", false);
+
+                                }
+
+                                break;
+                            case cGlobalParas.TaskState.Completed:
+                                this.dataTask.Rows[i].Cells[0].Value = imageList1.Images["stop"];
+                                if (IsSetToolbutState == true)
+                                {
+                                    SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", true);
+                                    SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", false);
+                                    SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", false);
+                                }
+                                
+                                break;
+                            case cGlobalParas.TaskState.UnStart:
+
+                                break;
+                            case cGlobalParas.TaskState.Pause:
+
+                                break;
+                            default:
+
+                                break;
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        private void toolStopTask_Click(object sender, EventArgs e)
+        {
+            StopMultiTask();
+        }
+
+        private void dataTask_DoubleClick(object sender, EventArgs e)
+        {
+            EditTask();
+        }
+
+        private void EditTask()
+        {
+
+            if (this.dataTask.SelectedRows.Count == 0)
+                return;
+
+            if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
+            {
+                //表示选择的是任务节点
+                try
+                {
+                    string Filename = this.dataTask.SelectedCells[4].Value.ToString() + ".xml";
+                    string tPath = this.treeMenu.SelectedNode.Tag.ToString();
+
+                    LoadTaskInfo(tPath, Filename, cGlobalParas.FormState.Edit);
+                }
+                catch (System.IO.IOException)
+                {
+                    MessageBox.Show("您指定打开的任务不存在，可能已被删除！通常情况下，系统会建立此任务的备份，您可通过导入功能导入此任务。", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    return;
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show("您加载的任务出错，错误信息为：" + ex.Message + "。通常情况下，系统会建立此任务的备份，您可通过导入功能导入此任务。", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    return;
+                }
+            }
+            else if (this.treeMenu.SelectedNode.Name == "nodRunning")
+            {
+                if (MessageBox.Show("当前任务已经加载到运行区无法进行修改操作，继续查看？", "soukey询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+
+                string Filename = "Task" + this.dataTask.SelectedCells[1].Value.ToString() + ".xml";
+                string tPath = Program.getPrjPath() + "Tasks\\run\\";
+
+                LoadTaskInfo(tPath, Filename, cGlobalParas.FormState.Browser);
+                
+            }
+        }
+
+        private void toolExportData_ButtonClick(object sender, EventArgs e)
+        {
+            ExportTxt();
+        }
+
+        private void toolExportTxt_Click(object sender, EventArgs e)
+        {
+            ExportTxt();
+        }
+
+        private void toolExportExcel_Click(object sender, EventArgs e)
+        {
+            ExportExcel();
+        }
+
+        private void toolAbout_Click(object sender, EventArgs e)
+        {
+            frmAbout f = new frmAbout();
+            f.ShowDialog();
+            f.Dispose();
+        }
+
+        private void toolmenuNewTask_Click(object sender, EventArgs e)
+        {
+            NewTask();
+        }
+
+        private void toolmenuNewTaskClass_Click(object sender, EventArgs e)
+        {
+            NewTaskClass();
+        }
+
+        private void dataTask_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.dataTask.Rows.Count != 0 && this.dataTask.SelectedCells.Count != 0)
+            {
+                Int64 TaskID = Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString());
+                string pageName = "page" + TaskID;
+
+                for (int i = 0; i < this.tabControl1.TabPages.Count; i++)
+                {
+                    if (this.tabControl1.TabPages[i].Name == pageName)
+                    {
+                        this.tabControl1.SelectedIndex = i;
+                        break;
+                    }
+                }
+
+                //设置按钮状态
+                SetToolbarState();
+            }
+
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void toolDelTask_Click(object sender, EventArgs e)
+        {
+            //首先判断当前焦点的控件
+            //然后再确定删除的是分类还是任务
+            if (DelName == "treeMenu")
+            {
+                //删除的是分类
+               DelTaskClass();
+                
+            }
+            else if (DelName == "dataTask")
+            {
+                //删除的是任务，但需要判断删除的是何种任务
+                this.dataTask.Focus();
+                SendKeys.Send("{Del}");
+            }
+
+        }
+
+        private void rMenuExportTxt_Click(object sender, EventArgs e)
+        {
+            //首先判断当前需要导出数据的Tab及datagridview
+            ExportTxt();
+
+        }
+
+        private void rMenuExportExcel_Click(object sender, EventArgs e)
+        {
+            ExportExcel();
+        }
+
+        private void rMenuCloseTabPage_Click(object sender, EventArgs e)
+        {
+            string TaskID = this.tabControl1.SelectedTab.Name.Substring(4, this.tabControl1.SelectedTab.Name.Length - 4);
+            for (int index=0; index < this.dataTask.Rows.Count; index++)
+            {
+                if (this.dataTask.Rows [index].Cells [1].Value.ToString () ==TaskID )
+                {
+                    if ((cGlobalParas.TaskState)this.dataTask.Rows[index].Cells[2].Value == cGlobalParas.TaskState.Running)
+                    {
+                        MessageBox.Show("当前任务正在运行，无法关闭此任务的数据输出窗口！", "Soukey采摘 信息提示", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                        return;
+                        
+                    }
+                    break;
+                }
+            }
+            this.tabControl1.TabPages.Remove(this.tabControl1.SelectedTab);
+        }
+
+        private void rMenuCopy_Click(object sender, EventArgs e)
+        {
+            DataGridView tmp = (DataGridView)this.tabControl1.SelectedTab.Controls[0].Controls[0].Controls[0];
+            Clipboard.SetDataObject(tmp.GetClipboardContent());
+            tmp = null;
+        }
+
+        private void dataTask_MouseDown(object sender, MouseEventArgs e)
+        {
+            //if (e.Button == MouseButtons.Right)
+            //{
+
+            //    if (this.dataTask.Rows.Count == 0)
+            //    {
+            //        return;
+            //    }
+
+            //    DataGridView.HitTestInfo hittest = this.dataTask.HitTest(e.X, e.Y);
+
+            //    this.dataTask.ClearSelection();
+            //    if (hittest.Type == DataGridViewHitTestType.Cell)  // && e.Button == MouseButtons.Right)
+            //    {
+            //        this.dataTask.Rows[hittest.RowIndex].Selected = true;
+            //    }
+            //    else
+            //    {
+            //        this.dataTask.Rows[this.dataTask.Rows.Count - 1].Selected = true;
+            //    }
+
+               
+            //}
+
+        }
+
+        private void Tab_MouseDown(object sender, MouseEventArgs e)
+        {
+            //先取消选择
+            DataGridView d = (DataGridView)sender;
+            d.ClearSelection();
+
+            if (d.Rows.Count == 0)
+            {
+                return;
+            }
+
+            DataGridView.HitTestInfo hittest = d.HitTest(e.X, e.Y);
+            if (hittest.Type == DataGridViewHitTestType.Cell && e.Button == MouseButtons.Right)
+            {
+                d.Rows[hittest.RowIndex].Selected = true;
+            }
+            else
+            {
+                d.Rows[d.Rows.Count - 1].Selected = true;
+            }
+        }
+
+        private void contextMenuStrip4_Opening(object sender, CancelEventArgs e)
+        {
+            if (this.tabControl1.SelectedIndex == 0)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            DataGridView tmp = (DataGridView)this.tabControl1.SelectedTab.Controls[0].Controls[0].Controls[0];
+
+            if (tmp.Rows.Count == 0)
+            {
+                this.rMenuExportTxt.Enabled = false;
+                this.rMenuExportExcel.Enabled = false;
+            }
+            else
+            {
+                this.rMenuExportTxt.Enabled = true;
+                this.rMenuExportExcel.Enabled = true;
+            }
+
+            tmp = null;
+        }
+
+        #endregion
 
         #region 自动添加控件用于显示任务执行的结果
 
@@ -1921,27 +2620,8 @@ namespace SoukeyNetget
 
         #endregion
 
-        private void dataTask_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                switch (this.treeMenu.SelectedNode.Name)
-                {
-                    case "nodRunning":
-                        DelRunTask();
-                        break;
-                    case "nodPublish":
-                        break;
-                    case "nodComplete":
-                        DelCompletedTask();
-                        break;
-                    default:
-                        DelTask();
-                        break;
-                }
-            }
-        }
 
+        #region 时间控制器
         ///定时刷新界面显示的信息，主要显示各个正在执行的任务的进度
         ///任务启动(完成)后状态的刷新,状态栏的信息刷新
         private void timer1_Tick(object sender, EventArgs e)
@@ -1962,11 +2642,18 @@ namespace SoukeyNetget
                         {
                             if (m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].TaskID.ToString() == this.dataTask.Rows[j].Cells[1].Value.ToString())
                             {
-                                this.dataTask.Rows[j].Cells[7].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueUrlCount;
-                                this.dataTask.Rows[j].Cells[8].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueErrUrlCount;
-                                this.dataTask.Rows[j].Cells[9].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].TrueUrlCount;
-                                proI = ((int)m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueUrlCount + (int)m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueErrUrlCount) * 100 / m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].TrueUrlCount;
-                                this.dataTask.Rows[j].Cells[10].Value = proI;
+                                try
+                                {
+                                    this.dataTask.Rows[j].Cells[7].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueUrlCount;
+                                    this.dataTask.Rows[j].Cells[8].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueErrUrlCount;
+                                    this.dataTask.Rows[j].Cells[9].Value = m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].TrueUrlCount;
+                                    proI = ((int)m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueUrlCount + (int)m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].GatheredTrueErrUrlCount) * 100 / m_GatherControl.TaskManage.TaskListControl.RunningTaskList[i].TrueUrlCount;
+                                    this.dataTask.Rows[j].Cells[10].Value = proI;
+                                }
+                                catch (System.Exception)
+                                {
+                                    //捕获错误不处理
+                                }
                             }
                         }
                     }
@@ -1981,12 +2668,19 @@ namespace SoukeyNetget
                         {
                             if (m_PublishControl.PublishManage.ListPublish[i].TaskID.ToString() == this.dataTask.Rows[j].Cells[1].Value.ToString())
                             {
-                                this.dataTask.Rows[j].Cells[5].Value = m_PublishControl.PublishManage.ListPublish[i].PublishedCount;
-                                if (m_PublishControl.PublishManage.ListPublish[i].Count == 0)
-                                    proI = 0;
-                                else
-                                    proI = (int)m_PublishControl.PublishManage.ListPublish[i].PublishedCount * 100 / m_PublishControl.PublishManage.ListPublish[i].Count ;
-                                this.dataTask.Rows[j].Cells[7].Value = proI;
+                                try
+                                {
+                                    this.dataTask.Rows[j].Cells[5].Value = m_PublishControl.PublishManage.ListPublish[i].PublishedCount;
+                                    if (m_PublishControl.PublishManage.ListPublish[i].Count == 0)
+                                        proI = 0;
+                                    else
+                                        proI = (int)m_PublishControl.PublishManage.ListPublish[i].PublishedCount * 100 / m_PublishControl.PublishManage.ListPublish[i].Count;
+                                    this.dataTask.Rows[j].Cells[7].Value = proI;
+                                }
+                                catch (System.Exception)
+                                {
+                                    //捕获错误不处理
+                                }
                             }
                         }
                     }
@@ -1995,10 +2689,10 @@ namespace SoukeyNetget
                 
                 IsTimer = true;
             }
-            
-        }
 
-      
+        }
+        #endregion
+
         #region MSN 通知模式 动态消息提示框操作
         //定义一个集合来控制如果有多个消息窗口同时显示的情况
 
@@ -2006,6 +2700,10 @@ namespace SoukeyNetget
 
         public void ShowInfo(string Title,string Info)
         {
+
+            ExportLog(Info + "于" + DateTime.Now  + Title);
+
+
             //如果集合中存在窗口，则需要判断窗口是否已经
             //自动显示完成，如果完成，则从集合中删除
             //这个集合的概念应该是先进先出，但没有用Queue
@@ -2015,11 +2713,10 @@ namespace SoukeyNetget
             }
 
             frmInfo fInfo = new frmInfo();
-            fInfo.HeightMax = 85;//窗体滚动的高度
-            fInfo.WidthMax = 221;//窗体滚动的宽度
             fInfo.startFrom = frmInfos.Count;
             fInfo.txtContent.Text = Info;
             fInfo.txtTitle.Text = Title;
+
             fInfo.ScrollShow();
 
             this.frmInfos.Add(fInfo);
@@ -2030,142 +2727,6 @@ namespace SoukeyNetget
 
         #endregion
 
-        private void SetDataShow()
-        {
-            splitContainer2.SplitterDistance = 250;
-
-        }
-
-        private void SetDataHide()
-        {
-            splitContainer2.SplitterDistance = 700;
-        }
-
-        private void SetTaskShowState(Int64 TaskID, cGlobalParas.TaskState tState)
-        {
-           
-
-            //查找当前的列表显示的任务
-            //首先判断当前选中的树形节点是否是运行区的节点
-            if (this.dataTask.Rows.Count > 0 && this.dataTask.Rows[0].Cells[3].Value.ToString() == "nodRunning")
-            {
-                for (int i = 0; i < this.dataTask.Rows.Count; i++)
-                {
-                    bool IsSetToolbutState = false;
-
-                    if (this.dataTask.Rows[i].Cells[1].Value.ToString() == TaskID.ToString())
-                    {
-                        if (i == this.dataTask.CurrentRow.Index)
-                        {
-                            IsSetToolbutState = true;
-                        }
-
-                        switch (tState)
-                        {
-                            case cGlobalParas.TaskState.Started:
-
-                                break;
-                            case cGlobalParas.TaskState.Failed:
-                                this.dataTask.Rows[i].Cells[0].Value = imageList1.Images["error"];
-                                if (IsSetToolbutState == true)
-                                {
-                                    SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", true);
-                                    SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", false);
-                                    SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", false);
-
-                                }
-
-                                break;
-                            case cGlobalParas.TaskState.Completed:
-                                this.dataTask.Rows[i].Cells[0].Value = imageList1.Images["stop"];
-                                if (IsSetToolbutState == true)
-                                {
-                                    SetValue(this.toolStrip1.Items["toolStartTask"], "Enabled", true);
-                                    SetValue(this.toolStrip1.Items["toolRestartTask"], "Enabled", false);
-                                    SetValue(this.toolStrip1.Items["toolStopTask"], "Enabled", false);
-                                }
-                                
-                                break;
-                            case cGlobalParas.TaskState.UnStart:
-
-                                break;
-                            case cGlobalParas.TaskState.Pause:
-
-                                break;
-                            default:
-
-                                break;
-                        }
-
-                        break;
-                    }
-                }
-            }
-
-        }
-
-        private void toolStopTask_Click(object sender, EventArgs e)
-        {
-            StopTask();
-        }
-
-        private void dataTask_DoubleClick(object sender, EventArgs e)
-        {
-            EditTask();
-        }
-
-        private void EditTask()
-        {
-            if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
-            {
-                //表示选择的是任务节点
-                try
-                {
-                    string Filename = this.dataTask.SelectedCells[4].Value.ToString() + ".xml";
-                    string tPath = this.treeMenu.SelectedNode.Tag.ToString();
-
-                    LoadTaskInfo(tPath, Filename, cGlobalParas.FormState.Edit);
-                }
-                catch (System.IO.IOException)
-                {
-                    MessageBox.Show("您指定打开的任务不存在，可能已被删除！通常情况下，系统会建立此任务的备份，您可通过导入功能导入此任务。", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    return;
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show("您加载的任务出错，错误信息为：" + ex.Message + "。通常情况下，系统会建立此任务的备份，您可通过导入功能导入此任务。", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    return;
-                }
-            }
-            else if (this.treeMenu.SelectedNode.Name == "nodRunning")
-            {
-                if (MessageBox.Show("当前任务已经加载到运行区无法进行修改操作，继续查看？", "soukey询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                {
-                    return;
-                }
-
-                string Filename = "Task" + this.dataTask.SelectedCells[1].Value.ToString() + ".xml";
-                string tPath = Program.getPrjPath() + "Tasks\\run\\";
-
-                LoadTaskInfo(tPath, Filename, cGlobalParas.FormState.Browser);
-                
-            }
-        }
-
-        private void toolExportData_ButtonClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolExportTxt_Click(object sender, EventArgs e)
-        {
-            ExportTxt();
-        }
-
-        private void toolExportExcel_Click(object sender, EventArgs e)
-        {
-            ExportExcel();
-        }
 
         #region 此部分代码用于手工导出数据（已经从网上采集下来的数据）
         //定义一个代理，用于在导出数据时进行进度条的刷新
@@ -2281,170 +2842,7 @@ namespace SoukeyNetget
 
         #endregion
 
-        private void toolAbout_Click(object sender, EventArgs e)
-        {
-            frmAbout f = new frmAbout();
-            f.ShowDialog();
-            f.Dispose();
-        }
 
-        private void toolmenuNewTask_Click(object sender, EventArgs e)
-        {
-            NewTask();
-        }
-
-        private void toolmenuNewTaskClass_Click(object sender, EventArgs e)
-        {
-            NewTaskClass();
-        }
-
-        private void dataTask_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (this.dataTask.Rows.Count != 0 && this.dataTask.SelectedCells.Count !=0)
-            {
-                Int64 TaskID = Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString());
-                string pageName = "page" + TaskID;
-
-                for (int i = 0; i < this.tabControl1.TabPages.Count; i++)
-                {
-                    if (this.tabControl1.TabPages[i].Name == pageName)
-                    {
-                        this.tabControl1.SelectedIndex = i;
-                        break;
-                    }
-                }
-
-                //设置按钮状态
-                SetToolbarState();
-            }
-
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
-        private void toolDelTask_Click(object sender, EventArgs e)
-        {
-            //首先判断当前焦点的控件
-            //然后再确定删除的是分类还是任务
-            if (DelName == "treeMenu")
-            {
-                //删除的是分类
-                if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C")
-                {
-                    DelTaskClass();
-                }
-            }
-            else if (DelName == "dataTask")
-            {
-                //删除的是任务，但需要判断删除的是何种任务
-                switch (this.treeMenu.SelectedNode.Name)
-                {
-                    case "nodRunning":
-                        DelRunTask();
-                        break;
-                    case "nodComplete":
-                        DelCompletedTask();
-                        break;
-                    case "nodPublish":
-                        break;
-                    default :
-                        DelTask();
-                        break;
-                }
-            }
-
-        }
-
-        private void rMenuExportTxt_Click(object sender, EventArgs e)
-        {
-            //首先判断当前需要导出数据的Tab及datagridview
-            ExportTxt();
-
-        }
-
-        private void rMenuExportExcel_Click(object sender, EventArgs e)
-        {
-            ExportExcel();
-        }
-
-        private void rMenuCloseTabPage_Click(object sender, EventArgs e)
-        {
-            this.tabControl1.TabPages.Remove(this.tabControl1.SelectedTab);
-        }
-
-        private void rMenuCopy_Click(object sender, EventArgs e)
-        {
-            DataGridView tmp = (DataGridView)this.tabControl1.SelectedTab.Controls[0].Controls[0].Controls[0];
-            Clipboard.SetDataObject(tmp.GetClipboardContent());
-            tmp = null;
-        }
-
-        private void dataTask_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (this.dataTask.Rows.Count == 0)
-            {
-                return;
-            }
-
-            DataGridView.HitTestInfo hittest = this.dataTask .HitTest(e.X, e.Y);
-            if (hittest.Type == DataGridViewHitTestType.Cell)  // && e.Button == MouseButtons.Right)
-            {
-                this.dataTask.Rows[hittest.RowIndex].Selected = true;
-            }
-            else
-            {
-                this.dataTask.Rows[this.dataTask.Rows.Count -1].Selected = true;
-            }
-
-
-        }
-
-        private void Tab_MouseDown(object sender, MouseEventArgs e)
-        {
-            //先取消选择
-            DataGridView d = (DataGridView)sender;
-            d.ClearSelection();
-
-            if (d.Rows.Count == 0)
-            {
-                return;
-            }
-
-            DataGridView.HitTestInfo hittest = d.HitTest(e.X, e.Y);
-            if (hittest.Type == DataGridViewHitTestType.Cell && e.Button == MouseButtons.Right)
-            {
-                d.Rows[hittest.RowIndex].Selected = true;
-            }
-            else
-            {
-                d.Rows[d.Rows.Count - 1].Selected = true;
-            }
-        }
-
-        private void contextMenuStrip4_Opening(object sender, CancelEventArgs e)
-        {
-            DataGridView tmp = (DataGridView)this.tabControl1.SelectedTab.Controls[0].Controls[0].Controls[0];
-
-            if (tmp.Rows.Count == 0)
-            {
-                this.rMenuExportTxt.Enabled = false;
-                this.rMenuExportExcel.Enabled = false;
-                this.rMenuCopy.Enabled = false;
-                this.rMenuDelRow.Enabled = false;
-            }
-            else
-            {
-                this.rMenuExportTxt.Enabled = true;
-                this.rMenuExportExcel.Enabled = true;
-                this.rMenuCopy.Enabled = true;
-
-            }
-
-            tmp = null;
-        }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -2515,15 +2913,30 @@ namespace SoukeyNetget
             //判断是否存在运行的任务
             if (m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count != 0)
             {
-                if (MessageBox.Show("运行区有正在运行的任务，是否退出？", "Soukey询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("运行区有正在运行的任务，强行退出有可能会导致采集的数据丢失，是否真的退出Soukey采摘？", "Soukey询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     e.Cancel = true;
                     return;
                 }
-            }
+                else
+                {
+                    while (m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count > 0)
+                    {
+                        Int64 TaskID=m_GatherControl.TaskManage.TaskListControl.RunningTaskList[0].TaskID ;
 
-            //窗体关闭 首先先停止正在运行的任务
-            m_GatherControl.Stop();
+                        //销毁事件关联
+                        m_GatherControl.TaskManage.TaskEventDispose(m_GatherControl.TaskManage.TaskListControl.RunningTaskList[0]);
+
+                        m_GatherControl.Abort(m_GatherControl.TaskManage.TaskListControl.RunningTaskList[0]);
+
+                        SaveGatherTempData(TaskID);
+                    }
+                }
+            }
+            
+            //开始销毁关于采集任务及发布任务的所有资源
+            m_GatherControl.Dispose();
+            m_PublishControl.Dispose();
 
         }
 
@@ -2535,43 +2948,67 @@ namespace SoukeyNetget
 
         private void toolRestartTask_Click(object sender, EventArgs e)
         {
-            ResetTask();
+            ResetMultiTask();
         }
 
-        private void ResetTask()
+        private void ResetMultiTask()
         {
-            //重置任务 将指定的任务恢复成为默认的状态
-            if (this.treeMenu.SelectedNode.Name == "nodRunning")
+            if (this.dataTask.SelectedRows.Count == 0)
+                return;
+            if (this.dataTask.SelectedRows.Count == 1)
             {
                 if (MessageBox.Show("您选择了重置任务：" + this.dataTask.SelectedCells[4].Value.ToString() + "，重置任务将恢复任务的初始状态，并删除已经采集的数据，但如果您已经导出了数据或由系统自动导出了数据，则不会收到影响，是否继续？",
-                    "soukey询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    "soukey采摘 系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    return;
+            }
+            else
+            {
+                if (MessageBox.Show("您选择了重置多个已运行的任务，重置任务将恢复任务的初始状态，并删除已经采集的数据，但如果您已经导出了数据或由系统自动导出了数据，则不会收到影响，是否继续？",
+                    "soukey采摘 系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    return;
+            }
+
+            for (int index = 0; index < this.dataTask.SelectedRows.Count; index++)
+            {
+                if ((cGlobalParas.TaskState)this.dataTask.SelectedRows[index].Cells[2].Value == cGlobalParas.TaskState.Failed)
                 {
-                    cGatherTask t = m_GatherControl.TaskManage.FindTask(Int64.Parse(this.dataTask.SelectedCells[1].Value.ToString()));
-                    t.ResetTask();
-
-                    //删除Tabpage
-                    string pageName = "page" + t.TaskID;
-
-                    for (int i = 0; i < this.tabControl1.TabPages.Count; i++)
-                    {
-                        if (this.tabControl1.TabPages[i].Name == pageName)
-                        {
-                            this.tabControl1.TabPages.Remove(this.tabControl1.TabPages[i]);
-                            break;
-                        }
-                    }
-
-                    this.dataTask.SelectedRows[0].Cells[0].Value = imageList1.Images["stop"];
-                    this.dataTask.SelectedRows[0].Cells[7].Value = "0";
-                    this.dataTask.SelectedRows[0].Cells[8].Value = "0";
-                    this.dataTask.SelectedRows[0].Cells[9].Value = t.UrlCount.ToString();
-                    this.dataTask.SelectedRows[0].Cells[10].Value = "0";
-
-                    t = null;
-
+                    continue;
+                }
+                else
+                {
+                    ResetTask(Int64.Parse(this.dataTask.SelectedRows[index].Cells[1].Value.ToString()));
+                    this.dataTask.SelectedRows[index].Cells[0].Value = imageList1.Images["stop"];
+                    this.dataTask.SelectedRows[index].Cells[7].Value = "0";
+                    this.dataTask.SelectedRows[index].Cells[8].Value = "0";
+                    this.dataTask.SelectedRows[index].Cells[10].Value = "0";
                 }
 
             }
+
+        }
+
+        private void ResetTask(Int64 TaskID)
+        {
+            //重置任务 将指定的任务恢复成为默认的状态
+           
+            
+                cGatherTask t = m_GatherControl.TaskManage.FindTask(TaskID);
+                t.ResetTask();
+
+                //删除Tabpage
+                string pageName = "page" + TaskID;
+
+                for (int i = 0; i < this.tabControl1.TabPages.Count; i++)
+                {
+                    if (this.tabControl1.TabPages[i].Name == pageName)
+                    {
+                        this.tabControl1.TabPages.Remove(this.tabControl1.TabPages[i]);
+                        break;
+                    }
+                }
+
+                t = null;
+           
         }
 
         private void rMenuDelRow_Click(object sender, EventArgs e)
@@ -2583,12 +3020,12 @@ namespace SoukeyNetget
 
         private void rmmenuStartTask_Click(object sender, EventArgs e)
         {
-            StartTask();
+            StartMultiTask();
         }
 
         private void rmmenuStopTask_Click(object sender, EventArgs e)
         {
-            StopTask();
+            StopMultiTask();
         }
 
         private void treeMenu_Enter(object sender, EventArgs e)
@@ -2599,23 +3036,31 @@ namespace SoukeyNetget
         private void dataTask_Enter(object sender, EventArgs e)
         {
             DelName = this.dataTask.Name;
+
         }
 
         private void rmmenuRestartTask_Click(object sender, EventArgs e)
         {
-            ResetTask();
+            ResetMultiTask();
         }
 
         public void UpdateStatebarTask()
         {
             string s="任务队列：";
 
-            s +=m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count + m_GatherControl.TaskManage.TaskListControl.StoppedTaskList.Count +  m_PublishControl.PublishManage.ListPublish.Count + "-个任务  ";
-            s +=m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count + "-个运行  ";
-            s +=  m_GatherControl.TaskManage.TaskListControl.StoppedTaskList.Count + "-个停止  ";
-            s += m_PublishControl.PublishManage.ListPublish.Count + "-个导出";
+            try
+            {
+                //s += m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count + m_GatherControl.TaskManage.TaskListControl.StoppedTaskList.Count + m_PublishControl.PublishManage.ListPublish.Count + "-个任务  ";
+                s += m_GatherControl.TaskManage.TaskListControl.RunningTaskList.Count + "-个运行  ";
+                s += m_GatherControl.TaskManage.TaskListControl.StoppedTaskList.Count + "-个停止  ";
+                s += m_PublishControl.PublishManage.ListPublish.Count + "-个导出";
 
-            this.toolStripStatusLabel2.Text = s;
+                this.toolStripStatusLabel2.Text = s;
+            }
+            catch (System.Exception)
+            {
+                //捕获错误不处理
+            }
 
         }
 
@@ -2670,22 +3115,24 @@ namespace SoukeyNetget
         //如果网络状态发生改变需要网络连接状态
         private void timer2_Tick(object sender, EventArgs e)
         {
-//            if (cTool.IsLinkInternet ()==false )
-//            {
-//                this.staIsInternet.Image =Bitmap.FromFile(Program.getPrjPath () +  "img\\a08.gif");
-//;
-//                this.staIsInternet.Text ="离线";
+            if (cTool.IsLinkInternet() == false)
+            {
+                this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a08.gif");
+                ;
+                this.staIsInternet.Text = "离线";
 
-//                //如果检测到离线则停止当前正在运行的任务
+                //如果检测到离线则停止当前正在运行的任务
 
-//            }
-//            else
-//            {
-//                this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a07.gif");
-//                this.staIsInternet.Text ="在线";
 
-//                //如果检测到在线，则启动已经停止的需要采集的任务
-//            }
+
+            }
+            else
+            {
+                this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a07.gif");
+                this.staIsInternet.Text = "在线";
+
+                //如果检测到在线，则启动已经停止的需要采集的任务
+            }
         }
 
 
@@ -2777,13 +3224,6 @@ namespace SoukeyNetget
             System.Diagnostics.Process.Start("http://www.yijie.net"); 
         }
 
-        private void frmMain_SizeChanged(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Minimized )
-            {
-                //this.Hide();
-            }
-        }
 
         private void MenuOpenMainfrm_Click(object sender, EventArgs e)
         {
@@ -2795,15 +3235,28 @@ namespace SoukeyNetget
 
         private void MenuCloseSystem_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.Close();
         }
 
-        private void toolStripButton7_Click(object sender, EventArgs e)
+        private void BrowserMultiData()
         {
-            System.Diagnostics.Process.Start("http://www.soukey.com/so.aspx?wd=" + HttpUtility.UrlEncode (this.txtSotxt.Text,Encoding.GetEncoding ("gb2312"))); 
+            if (this.dataTask.SelectedRows.Count == 0)
+                return;
+
+            for (int index = 0; index < this.dataTask.SelectedRows.Count; index++)
+            {
+                if ((cGlobalParas.TaskState)this.dataTask.SelectedRows[index].Cells[2].Value == cGlobalParas.TaskState.Failed)
+                {
+                    continue;
+                }
+                else
+                {
+                    BrowserData(Int64.Parse(this.dataTask.SelectedRows[index].Cells[1].Value.ToString()), this.dataTask.SelectedRows[index].Cells[4].Value.ToString());
+                }
+            }
         }
 
-        private void BrowserData(Int64 TaskID)
+        private void BrowserData(Int64 TaskID,string TaskName)
         {
             if (this.dataTask.Rows.Count != 0)
             {
@@ -2832,11 +3285,20 @@ namespace SoukeyNetget
                 string conName = "sCon" + TaskID;
                 string pageName = "page" + TaskID;
 
-                AddTab(TaskID, this.dataTask.SelectedCells[4].Value.ToString());
+                AddTab(TaskID, TaskName);
 
                 if (File.Exists(dFile))
                 {
-                    tmp.ReadXml(dFile);
+                    try
+                    {
+                        tmp.ReadXml(dFile);
+                    }
+                    catch (System.Exception)
+                    {
+                        //有可能在保存数据时发生了错误，因此需要忽略错误，直接进行,但需要通过系统信息显示错误
+                        ExportLog("任务：" + TaskName + " 在加载临时采集数据时发生错误，有可能是由于权限受限或强制退出所导致！");
+
+                    }
                 }
 
                 ((cMyDataGridView)(this.tabControl1.TabPages[pageName].Controls[conName].Controls[0].Controls[0])).gData = tmp;
@@ -2853,14 +3315,16 @@ namespace SoukeyNetget
             }
         }
 
+
+
         private void toolBrowserData_Click(object sender, EventArgs e)
         {
-            BrowserData(Int64.Parse (this.dataTask.SelectedCells[1].Value.ToString()));
+            BrowserMultiData();
         }
 
         private void rmenuBrowserData_Click(object sender, EventArgs e)
         {
-            BrowserData(Int64.Parse (this.dataTask.SelectedCells[1].Value.ToString()));
+            BrowserMultiData();
         }
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
@@ -2878,19 +3342,25 @@ namespace SoukeyNetget
 
         private void toolMenuImportTask_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.Title = "请指定任务文件名";
+
+            ImportTask();
+        }
+
+        private void ImportTask()
+        {
+            this.openFileDialog1.Title = "请指定需要导入任务的文件名";
 
             openFileDialog1.InitialDirectory = Program.getPrjPath() + "tasks";
             openFileDialog1.Filter = "Soukey Task Files(*.xml)|*.xml";
 
 
-            if (this.openFileDialog1.ShowDialog() ==DialogResult.Cancel )
+            if (this.openFileDialog1.ShowDialog() == DialogResult.Cancel)
             {
                 return;
             }
 
             string FileName = this.openFileDialog1.FileName;
-            string TaskClass="";
+            string TaskClass = "";
             string NewFileName = "";
 
             //验证任务格式是否正确
@@ -2906,14 +3376,14 @@ namespace SoukeyNetget
 
                 if (t.TaskClass != "")
                 {
-                    TaskClass =t.TaskClass.ToString ();
+                    TaskClass = t.TaskClass.ToString();
                 }
 
-                 //根据任务的分类导入指定的目录
+                //根据任务的分类导入指定的目录
                 string TaskPath = Program.getPrjPath() + "tasks\\";
                 if (TaskClass != "")
                 {
-                    TaskPath +=TaskClass + "\\";
+                    TaskPath += TaskClass + "\\";
                 }
 
                 if (NewFileName == "")
@@ -2924,13 +3394,13 @@ namespace SoukeyNetget
 
                 if (FileName == TaskPath + NewFileName)
                 {
-                    MessageBox.Show("您导入的任务已经存在，请选择其他需要导入的任务！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("您导入的任务已经存在，请选择其他需要导入的任务！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 Task.cTaskClass cTClass = new Task.cTaskClass();
 
-                if (!cTClass.IsExist (TaskClass) && TaskClass !="")
+                if (!cTClass.IsExist(TaskClass) && TaskClass != "")
                 {
                     //表示是一个新任务分类
                     int TaskClassID = cTClass.AddTaskClass(TaskClass, TaskPath);
@@ -2939,7 +3409,7 @@ namespace SoukeyNetget
                     //建立树形结构的任务分类节点
                     TreeNode newNode = new TreeNode();
                     newNode.Tag = TaskPath;
-                    newNode.Name = "C" + TaskClassID ;
+                    newNode.Name = "C" + TaskClassID;
                     newNode.Text = TaskClass;
                     newNode.ImageIndex = 0;
                     newNode.SelectedImageIndex = 0;
@@ -2952,10 +3422,10 @@ namespace SoukeyNetget
                 {
                     System.IO.File.Copy(FileName, TaskPath + NewFileName);
                 }
-                catch (System.IO.IOException )
+                catch (System.IO.IOException)
                 {
                     t = null;
-                    MessageBox.Show("您指定的任务已经存在，但您可能无法通过Soukey采摘看到，是因为您曾经删除了此任务，但任务文件还存在，可通过修改此文件名后再进行任务导入操作！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("您指定的任务已经存在，但您可能无法通过Soukey采摘看到，是因为您曾经删除了此任务，但任务文件还存在，可通过修改此文件名后再进行任务导入操作！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -2964,7 +3434,7 @@ namespace SoukeyNetget
 
                 t = null;
 
-                MessageBox.Show("您指定的任务已成功导入“" + TaskClass + "”分类下！", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("您指定的任务已成功导入“" + TaskClass + "”分类下！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             catch (System.Exception ex)
@@ -2972,21 +3442,18 @@ namespace SoukeyNetget
                 MessageBox.Show("错误信息：" + ex.Message + "，导入失败！", "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-        }
-
-        private void dataTask_DragDrop(object sender, DragEventArgs e)
-        {
-           
         }
 
         private void treeMenu_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.Copy; 
+            Old_SelectedNode = this.treeMenu.SelectedNode;
+            this.treeMenu.Focus ();
+            e.Effect = DragDropEffects.Copy;
         }
 
         private void treeMenu_DragDrop(object sender, DragEventArgs e)
         {
+
             if (e.Data.GetDataPresent(typeof(DataGridViewRow)))
             {
                 Point p = this.treeMenu.PointToClient(new Point(e.X, e.Y));
@@ -2994,29 +3461,46 @@ namespace SoukeyNetget
 
                 if (index.Node != null)
                 {
-                    DataGridViewRow drv = (DataGridViewRow)e.Data.GetData(typeof(DataGridViewRow));
-                    cTask t = new cTask();
-
-                    string TaskName = drv.Cells[4].Value.ToString();
-                    string oldName = this.treeMenu.SelectedNode.Text;
-                    string NewName = index.Node.Text;
-
-                    try
+                    if (index.Node.Name.Substring(0, 1) == "C" || index.Node.Name == "nodTaskClass")
                     {
-                        t.ChangeTaskClass(TaskName, oldName, NewName);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        MessageBox.Show("修改任务分类发生错误，错误信息：" + ex.Message ,"系统错误",MessageBoxButtons.OK ,MessageBoxIcon .Error);
+                        DataGridViewRow drv = (DataGridViewRow)e.Data.GetData(typeof(DataGridViewRow));
+                        
+
+                        string TaskName = drv.Cells[4].Value.ToString();
+                        string oldName = Old_SelectedNode.Text;
+                        string NewName = index.Node.Text;
+
+                        if (oldName == NewName)
+                        {
+                            this.treeMenu.SelectedNode = Old_SelectedNode;
+                            return;
+                        }
+
+                        cTask t = new cTask();
+
+                        try
+                        {
+                            t.ChangeTaskClass(TaskName, oldName, NewName);
+                        }
+                        catch (System.Exception ex)
+                        {
+                            MessageBox.Show("修改任务分类发生错误，错误信息：" + ex.Message, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            t = null;
+                            this.treeMenu.SelectedNode = Old_SelectedNode;
+                            return;
+                        }
+
                         t = null;
-                        return;
+
+                        this.dataTask.Rows.Remove(drv);
                     }
-                    
-                    t = null;
-
-                    this.dataTask.Rows.Remove(drv);
-
+                    else
+                    {
+                        MessageBox.Show("不能把任务拖放到“" + index.Node.Text  + "”分类下","Soukey采摘 系统信息",MessageBoxButtons.OK ,MessageBoxIcon.Information);
+                    }
                 }
+
+                this.treeMenu.SelectedNode = Old_SelectedNode;
             }
         }
 
@@ -3031,6 +3515,8 @@ namespace SoukeyNetget
                 return;
             }
 
+            SetToolbarState();
+
             //判断是否为左键点击，如果是则需要启动拖放操作
             if (((e.Button & MouseButtons.Left) == MouseButtons.Left && this.treeMenu.SelectedNode.Name == "nodTaskClass") ||
                 ((e.Button & MouseButtons.Left) == MouseButtons.Left && this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C"))
@@ -3041,6 +3527,7 @@ namespace SoukeyNetget
                 //Rectangle dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
                 this.dataTask.DoDragDrop(dragData, DragDropEffects.Copy);
             }
+
         }
 
         private void toolMenuDownloadTask_Click(object sender, EventArgs e)
@@ -3082,7 +3569,238 @@ namespace SoukeyNetget
 
         }
 
+        //设置加载错误的gridrows的现实样式
+        private void SetRowErrStyle()
+        {
+            this.m_RowStyleErr = new DataGridViewCellStyle();
+            this.m_RowStyleErr.Font = new Font(DefaultFont,FontStyle.Italic);
+            this.m_RowStyleErr.ForeColor = Color.Red;
+        }
+
+        private void toolMenuProgram_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://sourceforge.net/projects/soukeygetdata"); 
+        }
+
+        private void toolImportTask_Click(object sender, EventArgs e)
+        {
+            ImportTask();
+        }
+
+        private void toolManageDict_Click(object sender, EventArgs e)
+        {
+            frmDict dfrm = new frmDict();
+            dfrm.ShowDialog();
+            dfrm.Dispose();
+        }
+
+        private void cmdCloseInfo_Click(object sender, EventArgs e)
+        {
+            this.splitContainer3.SplitterDistance = this.splitContainer3.Height ;
+            this.toolLookInfo.Checked = false;
+        }
+
+        private void toolLookInfo_Click(object sender, EventArgs e)
+        {
+            if (this.splitContainer3.Panel2.Height > 1)
+            {
+                this.splitContainer3.SplitterDistance = this.splitContainer3.Height;
+                this.toolLookInfo.Checked = false;
+            }
+            else
+            {
+                this.splitContainer3.SplitterDistance = 480;
+                this.toolLookInfo.Checked = true;
+            }
+        }
+
+        private void ExportLog(string str)
+        {
+            this.txtLog.Text = str + "\r\n" + this.txtLog.Text ;
+        }
      
+        //设置窗体现实的tooltip信息
+        private void SetToolTip()
+        {
+            tTip  = new ToolTip();
+            this.tTip.SetToolTip  (this.cmdCloseInfo ,"关闭“系统信息”");
+        }
+
+        private void tabControl1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point pt = new Point(e.X, e.Y);
+                Rectangle recTab = new Rectangle();
+                for (int i = 0; i < tabControl1.TabCount; i++)
+                {
+                    recTab = tabControl1.GetTabRect(i);
+                    if (recTab.Contains(pt))
+                        this.tabControl1.SelectedIndex = i;
+                }
+            }
+        }
+
+        private void treeMenu_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(DataGridViewRow)))
+            {
+                Point p = this.treeMenu.PointToClient(new Point(e.X, e.Y));
+                TreeViewHitTestInfo index = this.treeMenu.HitTest(p);
+
+                if (index.Node != null)
+                {
+                    if (index.Node.Name.Substring(0, 1) == "C" || index.Node.Name == "nodTaskClass")
+                    {
+                        e.Effect = DragDropEffects.Copy;
+                        this.treeMenu.SelectedNode = index.Node;
+                    }
+                    else
+                    {
+                        e.Effect = DragDropEffects.None;
+                    }
+                }
+            }
+        }
+
+        private void treeMenu_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                return;
+
+            this.treeMenu.SelectedNode = e.Node;
+
+            switch (e.Node.Name)
+            {
+                case "nodRunning":   //运行区的任务
+                    try
+                    {
+                        LoadRunTask();
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        if (MessageBox.Show("任务运行监控文件丢失，请问是否根据正在运行的任务情况自动创建？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            CreateTaskRun();
+                        }
+                    }
+                    catch (System.Exception)
+                    {
+                        MessageBox.Show("加载的任务运行监控文件非法，请检查此文件“" + Program.getPrjPath() + "tasks\\taskrun.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+
+                    //SetDataShow();
+
+                    //启动时间器用于更新任务显示的进度
+                    this.timer1.Enabled = true;
+
+                    break;
+
+                case "nodPublish":
+
+                    LoadPublishTask();
+
+                    //启动时间器用于更新任务显示的进度
+                    this.timer1.Enabled = true;
+
+                    //SetDataShow();
+
+                    break;
+
+                case "nodComplete":    //已经完成采集的任务
+
+                    try
+                    {
+                        LoadCompleteTask();
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        if (MessageBox.Show("已完成任务索引文件丢失，需要重新建立，但已经完成的任务信息将会丢失，数据内容不会丢失，默认存储在：" + Program.getPrjPath() + "Data" + "目录下，是否建立？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            CreateTaskComplete();
+                        }
+                    }
+                    catch (System.Exception)
+                    {
+                        MessageBox.Show("加载的已完成任务索引文件非法，请检查此文件“" + Program.getPrjPath() + "data\\index.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    };
+
+                    //SetDataShow();
+
+                    this.timer1.Enabled = false;
+
+                    break;
+
+                case "nodSnap":
+                    try
+                    {
+                        this.dataTask.Columns.Clear();
+                        this.dataTask.Rows.Clear();
+                    }
+                    catch (System.Exception)
+                    {
+                    }
+                    break;
+                case "nodSoukey":
+                    try
+                    {
+                        LoadSoukeyTask();
+                    }
+                    catch (System.Exception)
+                    {
+                        MessageBox.Show("加载系统任务出错，系统认为为：Soukey采摘 最新版本下载。", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    break;
+                default:
+                    try
+                    {
+                        LoadOther(e.Node);
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        if (MessageBox.Show(this.treeMenu.SelectedNode.Text + "分类下的索引文件丢失，请问是否自动创建？", "询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            CreateTaskIndex(this.treeMenu.SelectedNode.Tag.ToString());
+                        }
+                    }
+                    catch (System.Exception)
+                    {
+                        MessageBox.Show("加载的任务分类索引文件非法，请检查此文件“" + e.Node.Tag.ToString() + "\\index.xml" + "”，如果格式非法，请通过Windows文件浏览器删除，并重新点击此节点由系统自动建立！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+
+                    //SetDataHide();
+
+                    this.timer1.Enabled = false;
+                    break;
+            }
+
+            //无论点击树形结构的菜单都将按钮置为不可用
+            this.toolStartTask.Enabled = false;
+            this.toolRestartTask.Enabled = false;
+            this.toolStopTask.Enabled = false;
+            this.toolExportData.Enabled = false;
+            this.toolBrowserData.Enabled = false;
+
+            //置删除按钮为有效
+            DelName = this.treeMenu.Name;
+            this.toolDelTask.Enabled = true;
+
+            UpdateStatebarTaskState("当前显示： " + e.Node.Text);
+        }
+
+        private void treeMenu_DragLeave(object sender, EventArgs e)
+        {
+            this.treeMenu.SelectedNode = Old_SelectedNode;
+        }
+
+        private void toolMenuUpdate_Click(object sender, EventArgs e)
+        {
+            frmUpdate fu = new frmUpdate();
+            fu.ShowDialog();
+            fu.Dispose();
+        }
+
+        
     }
 
 }

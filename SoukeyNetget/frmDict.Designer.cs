@@ -43,6 +43,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.button3 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -55,31 +56,31 @@
             this.menuAddDict,
             this.menuDelDict});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(243, 76);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(245, 76);
             // 
             // menuDelDictClass
             // 
             this.menuDelDictClass.Name = "menuDelDictClass";
-            this.menuDelDictClass.Size = new System.Drawing.Size(242, 22);
+            this.menuDelDictClass.Size = new System.Drawing.Size(244, 22);
             this.menuDelDictClass.Text = "删除字典分类及此分类下的内容";
             this.menuDelDictClass.Click += new System.EventHandler(this.menuDelDictClass_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(239, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(241, 6);
             // 
             // menuAddDict
             // 
             this.menuAddDict.Name = "menuAddDict";
-            this.menuAddDict.Size = new System.Drawing.Size(242, 22);
+            this.menuAddDict.Size = new System.Drawing.Size(244, 22);
             this.menuAddDict.Text = "添加字典内容";
             this.menuAddDict.Click += new System.EventHandler(this.menuAddDict_Click);
             // 
             // menuDelDict
             // 
             this.menuDelDict.Name = "menuDelDict";
-            this.menuDelDict.Size = new System.Drawing.Size(242, 22);
+            this.menuDelDict.Size = new System.Drawing.Size(244, 22);
             this.menuDelDict.Text = "删除字典内容";
             this.menuDelDict.Click += new System.EventHandler(this.menuDelDict_Click);
             // 
@@ -88,16 +89,16 @@
             this.comDictClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comDictClass.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comDictClass.FormattingEnabled = true;
-            this.comDictClass.Location = new System.Drawing.Point(70, 23);
+            this.comDictClass.Location = new System.Drawing.Point(58, 11);
             this.comDictClass.Name = "comDictClass";
-            this.comDictClass.Size = new System.Drawing.Size(288, 21);
+            this.comDictClass.Size = new System.Drawing.Size(313, 21);
             this.comDictClass.TabIndex = 1;
             this.comDictClass.SelectedIndexChanged += new System.EventHandler(this.comDictClass_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 26);
+            this.label1.Location = new System.Drawing.Point(11, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 2;
@@ -106,9 +107,9 @@
             // txtDictClassName
             // 
             this.txtDictClassName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDictClassName.Location = new System.Drawing.Point(25, 51);
+            this.txtDictClassName.Location = new System.Drawing.Point(13, 39);
             this.txtDictClassName.Name = "txtDictClassName";
-            this.txtDictClassName.Size = new System.Drawing.Size(264, 20);
+            this.txtDictClassName.Size = new System.Drawing.Size(289, 20);
             this.txtDictClassName.TabIndex = 3;
             // 
             // listDict
@@ -116,10 +117,10 @@
             this.listDict.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listDict.HideSelection = false;
             this.listDict.LabelEdit = true;
-            this.listDict.Location = new System.Drawing.Point(25, 80);
+            this.listDict.Location = new System.Drawing.Point(13, 68);
             this.listDict.MultiSelect = false;
             this.listDict.Name = "listDict";
-            this.listDict.Size = new System.Drawing.Size(333, 210);
+            this.listDict.Size = new System.Drawing.Size(358, 210);
             this.listDict.TabIndex = 4;
             this.listDict.UseCompatibleStateImageBehavior = false;
             this.listDict.View = System.Windows.Forms.View.List;
@@ -130,9 +131,9 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(288, 51);
+            this.button1.Location = new System.Drawing.Point(298, 39);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(70, 23);
+            this.button1.Size = new System.Drawing.Size(73, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "添加分类";
             this.button1.UseVisualStyleBackColor = true;
@@ -140,7 +141,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(2, 297);
+            this.groupBox1.Location = new System.Drawing.Point(2, 286);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(374, 5);
             this.groupBox1.TabIndex = 6;
@@ -149,7 +150,7 @@
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(288, 315);
+            this.button2.Location = new System.Drawing.Point(301, 297);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(70, 23);
             this.button2.TabIndex = 7;
@@ -161,12 +162,24 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // button3
+            // 
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(213, 297);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(70, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "操 作";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // frmDict
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 351);
+            this.ClientSize = new System.Drawing.Size(383, 329);
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
@@ -205,5 +218,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button button3;
     }
 }

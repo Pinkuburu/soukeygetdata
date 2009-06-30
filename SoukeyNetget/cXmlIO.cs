@@ -9,10 +9,11 @@ using System.Text.RegularExpressions;
 ///功能：xml文件处理
 ///完成时间：2009－3－2
 ///作者：一孑
-///遗留问题：无
+///遗留问题：当前对xml操作还是很不方便，对xml文件格式支持的不够灵活，
+/// 此类需要再下一阶段重新进行修改
 ///开发计划：无
 ///说明：参见注释
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -192,12 +193,11 @@ namespace SoukeyNetget
             }
         }
 
-        //根据制定的节点修改器值
+        //根据指定的节点修改器值
         public void EditNodeValue(string nodPath,string NewValue)
         {
             XmlNode Nod= objXmlDoc.SelectSingleNode(nodPath);
             Nod.InnerText = NewValue;
-            Save();
         }
 
         //插入一个节点，带一个属性
@@ -219,18 +219,70 @@ namespace SoukeyNetget
            objNode.AppendChild(objElement);
         }
 
+        private readonly Object m_fileLock = new Object();
         //保存xml文件
         public void Save()
         {
            try
            {
-            objXmlDoc.Save(strXmlFile);
+               if (File.Exists(strXmlFile))
+               {
+                   File.SetAttributes(strXmlFile, System.IO.FileAttributes.Normal);
+               }
+               objXmlDoc.Save(strXmlFile);
+
            }
            catch (System.Exception ex)
            {
-            throw ex;
+                throw ex;
            }
            
+        }
+
+        //此方法专用于修改taskrun.xml中采集的数值使用，其他情况均不可使用
+        //此方法不通用，当前对xml操作类设计有问题，此类需要重新设计
+        //同时需要更新Urlcount，也许此数值不是很准确，但当采集任务更新是，会进行刷新
+        public void EditTaskrunValue(string TaskID,cGlobalParas.TaskState tState, string GUrlCount,string GTrueUrlCount, string GErrUrlCount,string GTrueErrUrlCount, string TrueUrlCount)
+        {
+            XmlNodeList fathernode = objXmlDoc.GetElementsByTagName("Tasks");
+            XmlNodeList nodes = fathernode[0].ChildNodes;
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                for (int j = 0; j < nodes[i].ChildNodes.Count; j++)
+                {
+                    //for (int m=0;
+                    if (nodes[i].ChildNodes[j].Name == "TaskID" && nodes[i].ChildNodes[j].InnerText == TaskID)
+                    {
+                        XmlNode nod = nodes[i].SelectSingleNode("TaskState");
+                        nod.InnerText = ((int)tState).ToString ();
+                        nod = null;
+
+                        nod = nodes[i].SelectSingleNode("TrueUrlCount");
+                        nod.InnerText = TrueUrlCount;
+                        nod=null;
+
+                        nod = nodes[i].SelectSingleNode("GatheredUrlCount");
+                        nod.InnerText = GUrlCount;
+                        nod = null;
+
+                        nod = nodes[i].SelectSingleNode("GatheredTrueUrlCount");
+                        nod.InnerText = GTrueUrlCount;
+                        nod=null;
+
+                        nod = nodes[i].SelectSingleNode("ErrUrlCount");
+                        nod.InnerText = GErrUrlCount;
+                        nod =null;
+
+                        nod = nodes[i].SelectSingleNode("TrueErrUrlCount");
+                        nod.InnerText = GTrueErrUrlCount;
+                        nod = null;
+
+                        return;
+                    }
+                }
+
+            }
         }
            
    }

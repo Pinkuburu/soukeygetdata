@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
 
 ///功能：关于窗体，此内容禁止修改，如果您再发布了您的产品，此部也要予以保留，进行相关版权说明
 ///完成时间：2009-3-2
@@ -12,7 +13,7 @@ using System.Windows.Forms;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -31,6 +32,14 @@ namespace SoukeyNetget
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.yijie.net"); 
+        }
+
+        private void frmAbout_Load(object sender, EventArgs e)
+        {
+            //Assembly aInfo=System.Reflection.Assembly.GetExecutingAssembly();
+            //AssemblyName vCopy= aInfo.GetReferencedAssemblies;
+
+            this.label10.Text = "版本号：" + Assembly.GetExecutingAssembly().GetName().Version;
         }
 
        

@@ -100,6 +100,12 @@
     <Compile Include="frmInfo.Designer.cs">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUpdate.Designer.cs">
+      <DependentUpon>frmUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gather\cEventProxy.cs" />
     <Compile Include="Gather\cExport.cs" />
     <Compile Include="Gather\cGatherControl.cs" />
@@ -208,6 +214,10 @@
     <EmbeddedResource Include="frmTaskClass.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmTaskClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdate.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWaiting.resx">
       <SubType>Designer</SubType>

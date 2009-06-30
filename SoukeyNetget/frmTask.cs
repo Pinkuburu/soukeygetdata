@@ -17,7 +17,7 @@ using System.IO;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -26,6 +26,8 @@ namespace SoukeyNetget
 
         public delegate void ReturnTaskClass(string tClass);
         public ReturnTaskClass rTClass;
+
+        private bool IsSave = false;
 
         //定义一个ToolTip
         ToolTip HelpTip = new ToolTip();
@@ -204,6 +206,7 @@ namespace SoukeyNetget
             this.comLimit.Items.Add("不做任意格式的限制");
             this.comLimit.Items.Add("不允许出现网页标识符");
             this.comLimit.Items.Add("允许匹配但显示时删除");
+            //this.comLimit.Items.Add("不允许出现中文");
 
             this.comWebCode.Items.Add("自动");
             this.comWebCode.Items.Add("gb2312");
@@ -284,7 +287,7 @@ namespace SoukeyNetget
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.Close();
         }
 
         private void cmdAddWeblink_Click(object sender, EventArgs e)
@@ -351,6 +354,8 @@ namespace SoukeyNetget
             this.checkBox3.Checked = false;
             this.txtNag.Text = "";
             this.txtNextPage.Text = "";
+
+            IsSave = true;
         }
 
         private string AddDemoUrl(string SourceUrl,bool IsNavPage,bool IsAPath,string APath)
@@ -411,6 +416,8 @@ namespace SoukeyNetget
                 this.txtWeblinkDemo.Text = "";
             }
 
+            IsSave = true;
+
         }
 
         private void comRunType_SelectedIndexChanged(object sender, EventArgs e)
@@ -456,10 +463,7 @@ namespace SoukeyNetget
             int i = 0;
             int UrlCount = 0;
 
-            if (!CheckInputvalidity())
-            {
-                return false ;
-            }
+            
 
             //保存任务
             
@@ -603,9 +607,14 @@ namespace SoukeyNetget
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
+            if (!CheckInputvalidity())
+            {
+                return ;
+            }
+
             if (this.listWeblink.Items.Count == 0 || this.listWebGetFlag.Items.Count == 0)
             {
-                if (MessageBox.Show("在此任务没有定义需要采集的网址或者采集网址的规则，是否继续保存任务？", "soukey询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("在此任务没有定义需要采集的网址或者采集网址的规则，是否继续保存任务？", "soukey采摘 系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     return;
             }
 
@@ -622,7 +631,9 @@ namespace SoukeyNetget
                 rTClass(this.comTaskClass.SelectedItem.ToString());
             }
 
-            this.Dispose();
+            IsSave = false;
+
+            this.Close();
 
         }
 
@@ -726,6 +737,7 @@ namespace SoukeyNetget
                     this.txtWeblinkDemo.Text = "";
                 }
 
+                IsSave = true;
             }
         }
 
@@ -760,7 +772,11 @@ namespace SoukeyNetget
                 case cGlobalParas.FormState.New :
                     break;
                 case cGlobalParas.FormState.Edit :
+                    //编辑状态进来不能修改分类
+
                     this.tTask.ReadOnly = true;
+                    this.comTaskClass.Enabled = false;
+
                     break;
                 case cGlobalParas.FormState.Browser :
                     SetFormBrowser();
@@ -768,8 +784,8 @@ namespace SoukeyNetget
                 default :
                     break ;
             }
-            
 
+            IsSave = false;
         }
 
         private void SetFormBrowser()
@@ -802,6 +818,22 @@ namespace SoukeyNetget
       
         private void GatherData()
         {
+
+
+            if (this.listWeblink.Items.Count == 0 )
+            {
+                MessageBox.Show("在此任务没有定义需要采集的网址，无法进行采集测试工作！", "soukey采摘 系统信息", MessageBoxButtons.OK , MessageBoxIcon.Information );
+                this.tabControl1.SelectedTab = this.tabControl1.TabPages[1];
+                return;
+            }
+
+            if (this.listWebGetFlag.Items.Count == 0)
+            {
+                MessageBox.Show("在此任务没有定义需要采集数据的采集规则，无法进行采集测试工作！", "soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.tabControl1.SelectedTab = this.tabControl1.TabPages[2];
+                return;
+            }
+
             //测试采集，根据用户定义的内容测试采集
             //验证数据是否正确
             //比部分内容有可能在下一版中单独一个页面来处理
@@ -1217,6 +1249,8 @@ namespace SoukeyNetget
             {
                 this.comUrlEncode.Enabled = false;
             }
+
+            IsSave = true;
         }
 
         private void listWebGetFlag_Click(object sender, EventArgs e)
@@ -1228,18 +1262,11 @@ namespace SoukeyNetget
                 this.txtGetStart.Text = this.listWebGetFlag.SelectedItems[0].SubItems[2].Text;
                 this.txtGetEnd.Text = this.listWebGetFlag.SelectedItems[0].SubItems[3].Text;
                 this.comLimit.SelectedItem = this.listWebGetFlag.SelectedItems[0].SubItems[4].Text;
+
+                IsSave = true;
             }
         }
 
-        private void listWebGetFlag_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listWeblink_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void listWeblink_Click(object sender, EventArgs e)
         {
@@ -1340,6 +1367,8 @@ namespace SoukeyNetget
             this.checkBox3.Checked = false;
             this.txtNag.Text = "";
             this.txtNextPage.Text = "";
+
+            IsSave = true;
         }
 
         private void raExportTxt_CheckedChanged(object sender, EventArgs e)
@@ -1458,6 +1487,9 @@ namespace SoukeyNetget
             this.txtGetStart.Text = "";
             this.txtGetEnd.Text = "";
             this.comLimit.SelectedIndex = -1;
+
+
+            IsSave = true;
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -1505,6 +1537,8 @@ namespace SoukeyNetget
             this.txtGetStart.Text = "";
             this.txtGetEnd.Text = "";
             this.comLimit.SelectedIndex = -1;
+
+            IsSave = true;
         }
 
         private void cmdDelCutFlag_Click(object sender, EventArgs e)
@@ -1512,6 +1546,8 @@ namespace SoukeyNetget
             if (this.listWebGetFlag.SelectedItems.Count != 0)
             {
                 this.listWebGetFlag.Items.Remove(this.listWebGetFlag.SelectedItems[0]);
+
+                IsSave = true;
             }
         }
 
@@ -1536,7 +1572,115 @@ namespace SoukeyNetget
             GetDemoUrl();
         }
 
-      
+        private void listWebGetFlag_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.listWebGetFlag.SelectedItems.Count != 0)
+            {
+                this.txtGetTitleName.Text = this.listWebGetFlag.SelectedItems[0].Text;
+                this.comGetType.Text = this.listWebGetFlag.SelectedItems[0].SubItems[1].Text;
+                this.txtGetStart.Text = this.listWebGetFlag.SelectedItems[0].SubItems[2].Text;
+                this.txtGetEnd.Text = this.listWebGetFlag.SelectedItems[0].SubItems[3].Text;
+                this.comLimit.SelectedItem = this.listWebGetFlag.SelectedItems[0].SubItems[4].Text;
+            }
+        }
+
+        private void frmTask_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (IsSave == true)
+            {
+                if (MessageBox.Show("任务信息已经发生了修改，不保存退出？", "Soukey采摘 信息提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    e.Cancel = true;
+                    return;
+            }
+        }
+
+        #region 设置修改保存标记
+        private void tTask_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtTaskDemo_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void comTaskClass_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void TaskType_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void comRunType_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void udThread_ValueChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtSavePath_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void comWebCode_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtCookie_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtLoginUrl_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void DataSource_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtDataUser_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtDataPwd_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtTableName_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void comUrlEncode_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtStartPos_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        private void txtEndPos_TextChanged(object sender, EventArgs e)
+        {
+            IsSave = true;
+        }
+
+        #endregion
 
     }
 }

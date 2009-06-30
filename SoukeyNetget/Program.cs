@@ -55,6 +55,7 @@ namespace SoukeyNetget
         public static string getPrjPath()
         {
             return Application.StartupPath + "\\";
+
         }
     }
 }

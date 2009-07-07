@@ -12,7 +12,7 @@ using System.Data ;
 ///遗留问题：无
 ///开发计划：无
 ///说明：主要用于采集数据的自动显示 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget.CustomControl
 {
@@ -26,11 +26,12 @@ namespace SoukeyNetget.CustomControl
             m_gData = new DataTable();
             base.ReadOnly = false;
             base.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            base.MultiSelect = true;
             base.DataSource = m_gData;
             m_gData.AcceptChanges();
 
             base.AllowUserToAddRows = false;
-            base.AllowUserToDeleteRows = false;
+            base.AllowUserToDeleteRows = true ;
         }
 
         public cMyDataGridView(string FileName)
@@ -85,13 +86,20 @@ namespace SoukeyNetget.CustomControl
             {
                 DataTable tmp = new DataTable();
                 tmp=value;
-                if (tmp != null)
+                try
                 {
-                    m_gData.Merge(tmp);
-                    m_gData.AcceptChanges();
+                    if (tmp != null)
+                    {
+                        m_gData.Merge(tmp);
+                        m_gData.AcceptChanges();
 
-                    base.FirstDisplayedScrollingRowIndex = base.Rows.Count - 1;
+                        base.FirstDisplayedScrollingRowIndex = base.Rows.Count - 1;
 
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    //仅捕获错误，不做任何处理，只要保障不跳出程序即可
                 }
             }
         }

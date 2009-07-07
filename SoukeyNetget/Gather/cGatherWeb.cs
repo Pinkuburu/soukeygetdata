@@ -224,7 +224,7 @@ namespace SoukeyNetget.Gather
                         strCut += "[\\S\\s]*?";
                         break;
                     case 2004:
-                        strCut += "[u4e00-u9fa5]*?";
+                        strCut += "[^u4e00-u9fa5]*?";
                         break;
                     default :
                         strCut += "[\\S\\s]*?";
@@ -265,149 +265,190 @@ namespace SoukeyNetget.Gather
                 return tempData;
             }
 
-            DataRow drNew ;
+            DataRow drNew=null ;
 
             i = 0;
 
             //开始根据采集的数据构造数据表进行输出
             //在此需要处理采集数据有可能错行的问题
             //下面被注释的代码是最初构建数据表的代码，但会出现错行现象
-            Match ma;
-            
-            int rows = 0; //统计供采集了多少行
-            int m = 0;   //计数使用
-            try
-            {
-                ma = mc[m];
-                m++;         //已经取出一条记录，因此加1
 
-                while (m <= mc.Count)
+            //Match ma;
+            
+            int rows = 0; //统计共采集了多少行
+            int m = 0;   //计数使用
+
+            try
+             {
+
+                while (m < mc.Count)
                 {
                     //新建新行
                     drNew = tempData.NewRow();
                     rows++;
-                    
 
                     for (i = 0; i < this.CutFlag.Count; i++)
                     {
 
-                        if (ma.Groups[0].Value.StartsWith(this.CutFlag[i].StartPos, StringComparison.CurrentCultureIgnoreCase) )
+                        if (m < mc.Count)
                         {
-                            drNew[i] = ma.Groups[0].Value.Substring(this.CutFlag[i].StartPos.Length, ma.Groups[0].Value.Length - this.CutFlag[i].StartPos.Length);
-                            if (m < mc.Count)
+                            if (i == 0)
                             {
-                                ma = mc[m];
-                            }
-                            m++;
-                            
-                        }
-                        else
-                        {
-                            drNew[i] = "";
-                            continue;
-                        }
+                                while (!mc[m].Value.StartsWith(this.CutFlag[i].StartPos, StringComparison.CurrentCultureIgnoreCase))
+                                {
+                                    m++;
+                                    if (m >= mc.Count)
+                                    {
+                                        //退出所有循环
+                                        goto ExitWhile;
+                                    }
+                                }
 
+                                drNew[i] = mc[m].Value.Substring(this.CutFlag[i].StartPos.Length, mc[m].Value.Length - this.CutFlag[i].StartPos.Length);
+
+                                m++;
+                            }
+                            else
+                            {
+                                if (mc[m].Value.StartsWith(this.CutFlag[i].StartPos, StringComparison.CurrentCultureIgnoreCase))
+                                {
+
+                                    drNew[i] = mc[m].Value.Substring(this.CutFlag[i].StartPos.Length, mc[m].Value.Length - this.CutFlag[i].StartPos.Length);
+
+                                    m++;
+                                }
+                                else
+                                {
+                                    if (mc[m].Value.StartsWith(this.CutFlag[i - 1].StartPos, StringComparison.CurrentCultureIgnoreCase))
+                                    {
+                                        m++;
+                                        i--;
+                                    }
+                                    else
+                                    {
+                                        if (i < this.CutFlag.Count - 1)
+                                        {
+                                            if (mc[m].Value.StartsWith(this.CutFlag[i + 1].StartPos, StringComparison.CurrentCultureIgnoreCase))
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                m++;
+                                                i--;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            m++;
+                                            i--;
+                                        }
+                                        //当采集时发生了缺少采集内容，采用此方法进行采集内容补空
+                                        //drNew[i] = "";
+                                        //continue;
+                                    }
+                                }
+                            }
+                        }
                     }
                     tempData.Rows.Add(drNew);
                     drNew = null;
+
                 }
             }
             catch (System.Exception ex)
             {
                 throw ex;
             }
-            ////根据采集数及列数计算共有多少行
-            //int rows=(int)Math.Ceiling((decimal) mc.Count /(decimal)rowCount) ;
 
-            //Match ma;
-            //int m = 0;   //计数使用
-            //for (i = 0; i < rows; i++)
-            //{
-            //    drNew = tempData.NewRow();
+        ExitWhile:
 
-            //    for (j=0;j<rowCount ;j++)
-            //    {
-            //        //从集合中读取一个数据集出来
+            //在此判断是否需要在输出时进行数据的限制,当前仅支持在数据输出时
+            //去掉网页符号
+            for (i = 0; i < this.CutFlag.Count; i++)
+            {
 
-            //        if (m>=mc.Count)
-            //        {
-            //            break;
-            //        }
-            //        ma = mc[m];
-
-            //        drNew[j] = ma.Groups[0].Value.ToString();
-            //        m++;
-
-            //    }
-
-            //    tempData.Rows.Add(drNew);
-            //    drNew = null; 
-            //}
+                if (this.CutFlag[i].LimitSign==(int)cGlobalParas.LimitSign.ShowNoWebSign )
+                {
+                    for (int index=0; index < tempData.Rows.Count; index++)
+                    {
+                        tempData.Rows[index][i] = getTxt(tempData.Rows[index][i].ToString());
+                    }
+                }
+                
+            }
 
             //判断是否存在有下载文件的任务，如果有，则开始下载，因为此功能设计最初是下载图片使用
             //并非是专用的下载工具，所以对下载处理并没有单独进行线程处理
             #region 针对采集需要下载文件的字段进行文件下载处理
-            if (IsDownloadFile == true)
+            try
             {
-                if (sPath == "")
+                if (IsDownloadFile == true)
                 {
-                    sPath = Program.getPrjPath() + "data\\tem_file";
-                }
-
-                if (!Directory.Exists(sPath))
-                {
-                    Directory.CreateDirectory(sPath);
-                }
-
-                string FileUrl="";
-                string DownloadFileName="";
-
-                for (i = 0; i < rows; i++)
-                {
-                    for (j = 0; j < this.CutFlag.Count; j++)
+                    if (sPath == "")
                     {
-                        if (this.CutFlag[j].DataType != (int)cGlobalParas.GDataType.Txt)
+                        sPath = Program.getPrjPath() + "data\\tem_file";
+                    }
+
+                    if (!Directory.Exists(sPath))
+                    {
+                        Directory.CreateDirectory(sPath);
+                    }
+
+                    string FileUrl = "";
+                    string DownloadFileName = "";
+
+                    for (i = 0; i < rows; i++)
+                    {
+                        for (j = 0; j < this.CutFlag.Count; j++)
                         {
-                            FileUrl = tempData.Rows[i][j].ToString();
-
-                            //开始获取下载文件名称
-                            Regex s = new Regex(@"(?<=/)[^/]*", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                            MatchCollection urlstr = s.Matches(FileUrl);
-                            if (urlstr.Count == 0)
-                                DownloadFileName = FileUrl;
-                            else
-                                DownloadFileName = urlstr[urlstr.Count - 1].ToString();
-                            DownloadFileName = sPath + "\\" + DownloadFileName;
-
-                            if (FileUrl.Substring(0, 4) == "http")
+                            if (this.CutFlag[j].DataType != (int)cGlobalParas.GDataType.Txt)
                             {
-                                DownloadFile(FileUrl, DownloadFileName);
-                            }
-                            else
-                            {
-                                if (FileUrl.Substring(0, 1) == "/")
+                                FileUrl = tempData.Rows[i][j].ToString();
+
+                                //开始获取下载文件名称
+                                Regex s = new Regex(@"(?<=/)[^/]*", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                                MatchCollection urlstr = s.Matches(FileUrl);
+                                if (urlstr.Count == 0)
+                                    DownloadFileName = FileUrl;
+                                else
+                                    DownloadFileName = urlstr[urlstr.Count - 1].ToString();
+                                DownloadFileName = sPath + "\\" + DownloadFileName;
+
+                                if (FileUrl.Substring(0, 4) == "http")
                                 {
-                                    Url = Url.Substring(7, Url.Length - 7);
-                                    Url = FileUrl.Substring(0, Url.IndexOf("/"));
-                                    Url = "http://" + Url;
-                                    FileUrl = Url + FileUrl;
-                                }
-                                else if (FileUrl.IndexOf ("/")<=0)
-                                {
-                                    Url = Url.Substring(0, Url.LastIndexOf("/")+1);
-                                    FileUrl = Url + FileUrl;
+                                    DownloadFile(FileUrl, DownloadFileName);
                                 }
                                 else
                                 {
-                                    FileUrl = Url + FileUrl;
-                                }
+                                    if (FileUrl.Substring(0, 1) == "/")
+                                    {
+                                        Url = Url.Substring(7, Url.Length - 7);
+                                        Url = FileUrl.Substring(0, Url.IndexOf("/"));
+                                        Url = "http://" + Url;
+                                        FileUrl = Url + FileUrl;
+                                    }
+                                    else if (FileUrl.IndexOf("/") <= 0)
+                                    {
+                                        Url = Url.Substring(0, Url.LastIndexOf("/") + 1);
+                                        FileUrl = Url + FileUrl;
+                                    }
+                                    else
+                                    {
+                                        FileUrl = Url + FileUrl;
+                                    }
 
-                                DownloadFile(FileUrl, DownloadFileName);
+                                    DownloadFile(FileUrl, DownloadFileName);
+                                }
                             }
                         }
                     }
-                }
 
+                }
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
             }
             #endregion
 
@@ -465,6 +506,26 @@ namespace SoukeyNetget.Gather
                 return cGlobalParas.DownloadResult.Err;
             }
 
+        }
+
+
+        //获取采集内容的纯文本
+        private string getTxt(string instr)
+        {
+            string m_outstr;
+
+            m_outstr = instr.Clone() as string;
+            //m_outstr = new System.Text.RegularExpressions.Regex(@"(?m)<script[^>]*>(\w|\W)*?</script[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(m_outstr, "");
+            //m_outstr = new System.Text.RegularExpressions.Regex(@"(?m)<style[^>]*>(\w|\W)*?</style[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(m_outstr, "");
+            //m_outstr = new System.Text.RegularExpressions.Regex(@"(?m)<select[^>]*>(\w|\W)*?</select[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(m_outstr, "");
+            ////if (!withLink)
+            ////    m_outstr = new Regex(@"(?m)<a[^>]*>(\w|\W)*?</a[^>]*>", RegexOptions.Multiline | RegexOptions.IgnoreCase).Replace(m_outstr, "");
+            System.Text.RegularExpressions.Regex objReg = new System.Text.RegularExpressions.Regex("(<[^>]+?>)|&nbsp;", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            m_outstr = objReg.Replace(m_outstr, "");
+            System.Text.RegularExpressions.Regex objReg2 = new System.Text.RegularExpressions.Regex("(\\s)+", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            m_outstr = objReg2.Replace(m_outstr, " ");
+
+            return m_outstr;
         }
     }
 }

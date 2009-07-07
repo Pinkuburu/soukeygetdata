@@ -685,6 +685,10 @@ namespace SoukeyNetget.Gather
 
                                 m_TaskSplitData.GatheredUrlCount++;
                             }
+                            else
+                            {
+                                e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.ErrUrlCountAdd, 0));
+                            }
 
                             break;
 
@@ -750,6 +754,7 @@ namespace SoukeyNetget.Gather
             cGatherWeb gWeb = new cGatherWeb();
             DataTable tmpData;
             string NextUrl=Url ;
+            string Old_Url = NextUrl;
 
             gWeb.CutFlag = m_TaskSplitData.CutFlag;
 
@@ -760,6 +765,7 @@ namespace SoukeyNetget.Gather
                     do
                     {
                         Url = NextUrl;
+                        Old_Url = NextUrl;
 
                         e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + Url + "\n"));
                         
@@ -796,12 +802,23 @@ namespace SoukeyNetget.Gather
                                 PreUrl = "http://" + PreUrl;
                                 strNext = PreUrl + strNext;
                             }
+                            else if (strNext.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                //NextUrl = strNext;
+                            }
+                            else
+                            {
+                                Match aa = Regex.Match(Url, ".*/");
+                                string PreUrl = aa.Groups[0].Value.ToString();
+                                strNext = PreUrl + strNext;
+                            }
                         }
 
                         NextUrl = strNext;
                         
+                        
                     }
-                    while (NextUrl!="");
+                    while (NextUrl != "" && Old_Url != NextUrl);
                 }
                 else
                 {
@@ -835,7 +852,9 @@ namespace SoukeyNetget.Gather
             {
                 e_Log(this, new cGatherTaskLogArgs(m_TaskID, Url + "采集发生错误：" + ex.Message  + "\n"));
                 e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.Err, 0));
+                e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.ErrUrlCountAdd, 0));
                 m_TaskSplitData.GatheredTrueErrUrlCount++;
+                m_TaskSplitData.GatheredErrUrlCount++;
                 onError(ex);
                 return false;
             }
@@ -855,58 +874,82 @@ namespace SoukeyNetget.Gather
             string Old_Url = NextUrl;
             bool IsSucceed = false;
 
-            if (IsNext)
+            try
             {
-                do
+
+                if (IsNext)
                 {
-                    if (m_ThreadRunning == true)
+                    do
                     {
-                        Url = NextUrl;
-                        Old_Url = NextUrl;
-
-                        e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + Url + "\n"));
-
-                        IsSucceed=ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
-
-                        e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集完成：" + Url + "\n"));
-
-                        string webSource = gWeb.GetHtml(Url, m_WebCode, m_Cookie, "", "");
-                        string NRule = "((?<=href=[\'|\"])\\S[^#+$<>\\s]*(?=[\'|\"]))[^<]*(?<=" + NextRule + ")";
-                        Match charSetMatch = Regex.Match(webSource, NRule, RegexOptions.IgnoreCase | RegexOptions.Multiline);
-                        string strNext = charSetMatch.Groups[1].Value;
-
-                        //判断获取的地址是否为相对地址
-                        if (strNext.Substring(0, 1) == "/")
+                        if (m_ThreadRunning == true)
                         {
-                            string PreUrl = Url;
-                            PreUrl = PreUrl.Substring(7, PreUrl.Length - 7);
-                            PreUrl = PreUrl.Substring(0, PreUrl.IndexOf("/"));
-                            PreUrl = "http://" + PreUrl;
-                            strNext = PreUrl + strNext;
+                            Url = NextUrl;
+                            Old_Url = NextUrl;
+
+                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + Url + "\n"));
+
+                            IsSucceed = ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
+
+                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集完成：" + Url + "\n"));
+
+                            string webSource = gWeb.GetHtml(Url, m_WebCode, m_Cookie, "", "");
+                            string NRule = "((?<=href=[\'|\"])\\S[^#+$<>\\s]*(?=[\'|\"]))[^<]*(?<=" + NextRule + ")";
+                            Match charSetMatch = Regex.Match(webSource, NRule, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                            string strNext = charSetMatch.Groups[1].Value;
+
+                            //判断获取的地址是否为相对地址
+                            if (strNext.Substring(0, 1) == "/")
+                            {
+                                string PreUrl = Url;
+                                PreUrl = PreUrl.Substring(7, PreUrl.Length - 7);
+                                PreUrl = PreUrl.Substring(0, PreUrl.IndexOf("/"));
+                                PreUrl = "http://" + PreUrl;
+                                strNext = PreUrl + strNext;
+                            }
+                            else if (strNext.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                NextUrl = strNext;
+                            }
+                            else
+                            {
+                                Match aa = Regex.Match(Url, ".*/");
+                                string PreUrl = aa.Groups[0].Value.ToString();
+                                strNext = PreUrl + strNext;
+                            }
+
+                            NextUrl = strNext;
+                        }
+                        else if (m_ThreadRunning == false)
+                        {
+                            //标识要求终止线程，停止任务，退出do循环提前结束任务
+                            if (NextUrl == "" || Old_Url == NextUrl)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
                         }
 
-                        NextUrl = strNext;
                     }
-                    else if (m_ThreadRunning == false)
-                    {
-                        //标识要求终止线程，停止任务，退出do循环提前结束任务
-                        if (NextUrl == "" || Old_Url == NextUrl)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                        break;
-                    }
-
+                    while (NextUrl != "" && Old_Url != NextUrl);
                 }
-                while (NextUrl != "" && Old_Url !=NextUrl );
+                else
+                {
+                    IsSucceed = ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                IsSucceed=ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
+                e_Log(this, new cGatherTaskLogArgs(m_TaskID, Url + "采集发生错误：" + ex.Message + "\n"));
+                e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.Err, 0));
+                e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.ErrUrlCountAdd, 0));
+                m_TaskSplitData.GatheredTrueErrUrlCount++;
+                m_TaskSplitData.GatheredErrUrlCount++;
+                onError(ex);
+                return false;
             }
 
             gWeb = null;

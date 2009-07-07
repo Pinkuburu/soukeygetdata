@@ -36,10 +36,6 @@ namespace SoukeyNetget
 
         private void frmAbout_Load(object sender, EventArgs e)
         {
-            //Assembly aInfo=System.Reflection.Assembly.GetExecutingAssembly();
-            //AssemblyName vCopy= aInfo.GetReferencedAssemblies;
-
-            this.label10.Text = "°æ±¾ºÅ£º" + Assembly.GetExecutingAssembly().GetName().Version;
         }
 
        

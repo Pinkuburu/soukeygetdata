@@ -316,7 +316,6 @@
             this.txtCookie.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCookie.Location = new System.Drawing.Point(79, 44);
             this.txtCookie.Name = "txtCookie";
-            this.txtCookie.ReadOnly = true;
             this.txtCookie.Size = new System.Drawing.Size(461, 20);
             this.txtCookie.TabIndex = 1;
             this.txtCookie.TextChanged += new System.EventHandler(this.txtCookie_TextChanged);
@@ -1112,12 +1111,12 @@
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(67, 13);
             this.label19.TabIndex = 51;
-            this.label19.Text = "限定条件：";
+            this.label19.Text = "限制条件：";
             // 
             // button8
             // 
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Location = new System.Drawing.Point(509, 141);
+            this.button8.Location = new System.Drawing.Point(509, 139);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(57, 23);
             this.button8.TabIndex = 6;
@@ -1148,7 +1147,7 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(18, 141);
+            this.button1.Location = new System.Drawing.Point(18, 139);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 23);
             this.button1.TabIndex = 46;
@@ -1159,7 +1158,7 @@
             // cmdDelCutFlag
             // 
             this.cmdDelCutFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelCutFlag.Location = new System.Drawing.Point(578, 141);
+            this.cmdDelCutFlag.Location = new System.Drawing.Point(578, 139);
             this.cmdDelCutFlag.Name = "cmdDelCutFlag";
             this.cmdDelCutFlag.Size = new System.Drawing.Size(57, 23);
             this.cmdDelCutFlag.TabIndex = 7;
@@ -1170,7 +1169,7 @@
             // cmdAddCutFlag
             // 
             this.cmdAddCutFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddCutFlag.Location = new System.Drawing.Point(440, 141);
+            this.cmdAddCutFlag.Location = new System.Drawing.Point(440, 139);
             this.cmdAddCutFlag.Name = "cmdAddCutFlag";
             this.cmdAddCutFlag.Size = new System.Drawing.Size(57, 23);
             this.cmdAddCutFlag.TabIndex = 5;
@@ -1217,11 +1216,11 @@
             this.listWebGetFlag.FullRowSelect = true;
             this.listWebGetFlag.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listWebGetFlag.HideSelection = false;
-            this.listWebGetFlag.Location = new System.Drawing.Point(19, 170);
+            this.listWebGetFlag.Location = new System.Drawing.Point(19, 168);
             this.listWebGetFlag.MultiSelect = false;
             this.listWebGetFlag.Name = "listWebGetFlag";
             this.listWebGetFlag.ShowItemToolTips = true;
-            this.listWebGetFlag.Size = new System.Drawing.Size(617, 162);
+            this.listWebGetFlag.Size = new System.Drawing.Size(617, 164);
             this.listWebGetFlag.TabIndex = 8;
             this.listWebGetFlag.UseCompatibleStateImageBehavior = false;
             this.listWebGetFlag.View = System.Windows.Forms.View.Details;

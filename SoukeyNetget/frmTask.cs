@@ -204,9 +204,9 @@ namespace SoukeyNetget
             this.comRunType.SelectedIndex = 1;
 
             this.comLimit.Items.Add("不做任意格式的限制");
-            this.comLimit.Items.Add("不允许出现网页标识符");
-            this.comLimit.Items.Add("允许匹配但显示时删除");
-            //this.comLimit.Items.Add("不允许出现中文");
+            this.comLimit.Items.Add("匹配时去掉网页符号");
+            this.comLimit.Items.Add("输出时去掉网页符号");
+            //this.comLimit.Items.Add("只能输出中文");
 
             this.comWebCode.Items.Add("自动");
             this.comWebCode.Items.Add("gb2312");
@@ -874,7 +874,7 @@ namespace SoukeyNetget
 
                 //绑定到显示的DataGrid中
                 this.dataTestGather.DataSource = dGather;
-                
+
             }
             catch (System.Exception ex)
             {
@@ -1586,6 +1586,9 @@ namespace SoukeyNetget
 
         private void frmTask_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (m_FormState == cGlobalParas.FormState.Browser)
+                return;
+
             if (IsSave == true)
             {
                 if (MessageBox.Show("任务信息已经发生了修改，不保存退出？", "Soukey采摘 信息提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)

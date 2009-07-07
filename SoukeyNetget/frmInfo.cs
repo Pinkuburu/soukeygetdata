@@ -121,7 +121,7 @@ namespace SoukeyNetget
             Rectangle rScreen = Screen.GetWorkingArea(Screen.PrimaryScreen.Bounds);
 
 
-            this.Location = new Point(rScreen.Width - m_widthMax - 5, rScreen.Height - (m_heightMax * m_startForm));
+            this.Location = new Point(rScreen.Width - m_widthMax - 3, rScreen.Height - (m_heightMax * m_startForm)-2);
 
             //WorkingArea为Windows桌面的工作区
             this.timer2.Interval = StayTime;

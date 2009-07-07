@@ -80,24 +80,34 @@ namespace SoukeyNetget
             //初始化网页，固定地址，具体跳转由此页面来控制
             this.webBrowser.Navigate("http://www.yijie.net/softini.html");
 
-            //开始初始化树形结构,取xml中的数据,读取任务分类
-            Task.cTaskClass xmlTClass = new Task.cTaskClass();
-
-            int TClassCount = xmlTClass.GetTaskClassCount();
-
-            for (i = 0; i < TClassCount; i++)
+            try
             {
-                newNode  =new TreeNode ();
-                newNode.Tag = xmlTClass.GetTaskClassPathByID(xmlTClass.GetTaskClassID(i));
-                newNode.Name = "C" + xmlTClass.GetTaskClassID(i);
-                newNode.Text = xmlTClass.GetTaskClassName(i);
-                newNode.ImageIndex = 0;
-                newNode.SelectedImageIndex = 0;
-                //this.treeMenu.SelectedNode = newNode;
-                this.treeMenu.Nodes["nodTaskClass"].Nodes.Add(newNode);
-                newNode=null;
+                //开始初始化树形结构,取xml中的数据,读取任务分类
+                Task.cTaskClass xmlTClass = new Task.cTaskClass();
+
+                int TClassCount = xmlTClass.GetTaskClassCount();
+
+                for (i = 0; i < TClassCount; i++)
+                {
+                    newNode = new TreeNode();
+                    newNode.Tag = xmlTClass.GetTaskClassPathByID(xmlTClass.GetTaskClassID(i));
+                    newNode.Name = "C" + xmlTClass.GetTaskClassID(i);
+                    newNode.Text = xmlTClass.GetTaskClassName(i);
+                    newNode.ImageIndex = 0;
+                    newNode.SelectedImageIndex = 0;
+                    //this.treeMenu.SelectedNode = newNode;
+                    this.treeMenu.Nodes["nodTaskClass"].Nodes.Add(newNode);
+                    newNode = null;
+                }
+                xmlTClass = null;
             }
-            xmlTClass = null;
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Soukey采摘分类文件遭到破坏，无法加载，请拷贝安装文件中“TaskClass.xml”文件到系统根目录修复此任务！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+            
 
             //将任务根节点赋路径值
             this.treeMenu.Nodes["nodTaskClass"].Tag = Program.getPrjPath() + "Tasks";
@@ -3115,23 +3125,30 @@ namespace SoukeyNetget
         //如果网络状态发生改变需要网络连接状态
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (cTool.IsLinkInternet() == false)
+            try
             {
-                this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a08.gif");
-                ;
-                this.staIsInternet.Text = "离线";
+                if (cTool.IsLinkInternet() == false)
+                {
+                    this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a08.gif");
 
-                //如果检测到离线则停止当前正在运行的任务
+                    this.staIsInternet.Text = "离线";
+
+                    //如果检测到离线则停止当前正在运行的任务
 
 
 
+                }
+                else
+                {
+                    this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a07.gif");
+                    this.staIsInternet.Text = "在线";
+
+                    //如果检测到在线，则启动已经停止的需要采集的任务
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                this.staIsInternet.Image = Bitmap.FromFile(Program.getPrjPath() + "img\\a07.gif");
-                this.staIsInternet.Text = "在线";
-
-                //如果检测到在线，则启动已经停止的需要采集的任务
+                //捕获错误不进行处理
             }
         }
 

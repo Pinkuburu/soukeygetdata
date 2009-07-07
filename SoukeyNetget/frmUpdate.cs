@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Threading;
 
 namespace SoukeyNetget
 {
@@ -15,6 +16,12 @@ namespace SoukeyNetget
         private string New_Copy;
         private string SCode = "";
         private bool OnLoad = false;
+
+        //定义一个代理，用于下载最新版本时可以不断刷新页面
+        //等待消息，以告诉用户正在下载软件，而并非系统死机
+        delegate void IsDownloadDelegate(bool Done);
+
+        private bool IsDownloading = false;
 
         public frmUpdate()
         {
@@ -61,9 +68,21 @@ namespace SoukeyNetget
             gData.CutFlag.Add(c);
             c = null;
 
+            //增加版本说明的标志
+            c = new Task.cWebpageCutFlag();
+            c.id = 1;
+            c.Title = "说明";
+            c.DataType = (int)cGlobalParas.GDataType.Txt;
+            c.StartPos = "说明：";
+            c.EndPos = "</p>";
+            c.LimitSign = (int)cGlobalParas.LimitSign.NoLimit;
+            gData.CutFlag.Add(c);
+            c = null;
+
+
             DataTable dGather = gData.GetGatherData("http://www.yijie.net/user/soft/updatesoukey.html", cGlobalParas.WebCode.utf8, "", "", "", Program.getPrjPath());
 
-            New_Copy =dGather.Rows [0].ItemArray[0].ToString ();
+            New_Copy = dGather.Rows[0][0].ToString();
             this.textBox1.Text += "\r\n" + "Soukey采摘最新版本号为：" + New_Copy ;
             Application.DoEvents();
 
@@ -72,6 +91,7 @@ namespace SoukeyNetget
 
             int Old_V;
             int New_V;
+
 
             for (int i = 0; i < 3; i++)
             {
@@ -83,20 +103,21 @@ namespace SoukeyNetget
 
                 if (New_V >Old_V )
                 {
-                    if (MessageBox.Show("发现新的版本，是否下载？", "Soukey采摘 系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    {
-                        this.textBox1.Text += "\r\n" + "发现了新的版本，但您取消了下载操作，如需下载请再次运行“检查更新”操作。";
-                        Application.DoEvents();
-                        gData = null;
+                    
+                    this.textBox1.Text += "\r\n" + "发现了新的版本，版本说明如下：";
+                    Application.DoEvents();
 
-                        this.button1.Enabled = true;
-                        return;
-                    }
-                    else
-                    {
-                        DownloadSoft();
-                        return;
-                    }   
+                    this.textBox1.Text += "\r\n" + dGather.Rows [0][1].ToString ();
+                    Application.DoEvents();
+
+                    gData = null;
+
+
+                    this.button2.Enabled = true;
+                    this.button1.Enabled = true;
+                    return;
+                    
+                    
                 }
             }
 
@@ -105,6 +126,22 @@ namespace SoukeyNetget
 
             this.button1.Enabled = true;
 
+        }
+
+        ContainerControl m_sender = null;
+        Delegate m_senderDelegate = null;
+
+        private void IsDownloadSoft( bool done)
+        {
+
+            if (done)
+            {
+                this.textBox1.Text += "\r\n" + "下载成功，请在Soukey采摘工作目录中检查Soukey.exe文件，此文件为最新版本，并且是rar自解压的免安装版本！";
+                Application.DoEvents();
+
+                this.button1.Enabled = true;
+
+            }
         }
 
         private void DownloadSoft()
@@ -124,13 +161,13 @@ namespace SoukeyNetget
             gData.CutFlag.Add(c);
             c = null;
 
-            this.textBox1.Text += "\r\n" + "开始下载最新版本，请等待......" ;
-            Application.DoEvents();
 
             DataTable dGather = gData.GetGatherData("http://www.yijie.net/user/soft/updatesoukey.html", cGlobalParas.WebCode.utf8, "", "", "", Program.getPrjPath());
-            
-            this.textBox1.Text += "\r\n" + "下载成功，请在Soukey采摘工作目录中检查Soukey.exe文件，此文件为最新版本，并且是rar自解压的免安装版本！" ;
-            Application.DoEvents();
+
+            dGather = null;
+            gData = null;
+
+            m_sender.BeginInvoke(m_senderDelegate, new object[] { true });
 
         }
 
@@ -150,13 +187,40 @@ namespace SoukeyNetget
                     Application.DoEvents();
                 }
 
-                this.button1.Enabled=true ;
+                if (IsDownloading == false)
+                {
+                    this.button1.Enabled = true;
+                }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.textBox1.Text += "\r\n" + "开始下载最新版本，请等待......";
+            Application.DoEvents();
+
+            this.button2.Enabled = false;
+            this.button1.Enabled = false;
+
+
+            //定义一个后台线程用于导出数据操作
+            IsDownloadDelegate IsDownload = new IsDownloadDelegate(IsDownloadSoft);
+            m_sender = this;
+            m_senderDelegate = IsDownload;
+
+            IsDownloading = true;
+
+            Thread t = new Thread(new ThreadStart(DownloadSoft));
+            t.IsBackground = true;
+            t.Start();
+
+
+            return;
         }
     }
 }

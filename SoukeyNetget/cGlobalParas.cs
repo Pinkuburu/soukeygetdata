@@ -97,9 +97,9 @@ namespace SoukeyNetget
         public enum LimitSign
         {
            NoLimit=2001,
-           NoWebSign = 2002,
-           ShowNoWebSign=2003,
-           NoCN=2004,
+           NoWebSign = 2002,        //匹配时去掉网页符号
+           ShowNoWebSign = 2003,    //输出时去掉网页符号
+           OnlyCN = 2004,             //只能输出中文
         }
 
         public enum WebCode
@@ -158,12 +158,12 @@ namespace SoukeyNetget
                     return (int)TaskType.ByWeb;
                 case "不做任意格式的限制":
                     return (int)LimitSign.NoLimit;
-                case "不允许出现网页标识符":
+                case "匹配时去掉网页符号":
                     return (int)LimitSign.NoWebSign;
-                case "允许匹配但显示时删除":
+                case "输出时去掉网页符号":
                     return (int)LimitSign.ShowNoWebSign;
-                case "不允许出现中文":
-                    return (int)LimitSign.NoCN;
+                case "只能输出中文":
+                    return (int)LimitSign.OnlyCN;
                 case "文件":
                     return (int)GDataType.File;
                 case "Flash":
@@ -200,17 +200,21 @@ namespace SoukeyNetget
                 case (int)LimitSign.NoLimit:
                     return "不做任意格式的限制";
                 case (int)LimitSign.NoWebSign:
-                    return "不允许出现网页标识符";
+                    return "匹配时去掉网页符号";
                 case (int)LimitSign.ShowNoWebSign:
-                    return "允许匹配但显示时删除";
-                case (int)LimitSign.NoCN :
-                    return "不允许出现中文";
+                    return "输出时去掉网页符号";
+                case (int)LimitSign.OnlyCN  :
+                    return "只能输出中文";
                 case (int)PublishType.NoPublish :
                     return "不发布数据";
                 case (int)PublishType.PublishAccess :
                     return "发布到Access数据库";
                 case (int)PublishType.PublishMSSql :
                     return "发布到MS Sql Server";
+                case (int)PublishType.PublishExcel :
+                    return "发布到Excel文件";
+                case (int)PublishType.PublishTxt :
+                    return "发布到文本文件";
                 case (int)GDataType.File :
                     return "文件";
                 case (int)GDataType.Flash  :

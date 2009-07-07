@@ -171,20 +171,34 @@ namespace SoukeyNetget.publish
             }
         }
 
+        private readonly Object m_fileLock = new Object();
+
         private void SaveTempData()
         {
             //无论数据是否发布，都需要保存采集下来的数据
             //保存到本地磁盘
-            if (File.Exists(m_pTaskData.FileName))
+            try
             {
-                File.Delete(m_pTaskData.FileName);
+                if (File.Exists(m_pTaskData.FileName))
+                {
+                    lock (m_fileLock)
+                    {
+                        File.Delete(m_pTaskData.FileName);
+                    }
+                }
+
+                m_pTaskData.PublishData.WriteXml(m_pTaskData.FileName, XmlWriteMode.WriteSchema);
+
+                //触发临时数据发布成功事件
+                e_PublishTempDataCompleted(this, new PublishTempDataCompletedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName));
             }
+            catch (System.Exception ex)
+            {
+                //存储临时数据时，有可能导致多个线程访问的失败操作，当前并没有
+                //加锁控制，加锁控制在下一版提供
+                e_PublishError(this, new PublishErrorEventArgs(this.TaskData.TaskID, this.TaskData.TaskName, ex));
 
-            m_pTaskData.PublishData.WriteXml(m_pTaskData.FileName, XmlWriteMode.WriteSchema);
-
-            //触发临时数据发布成功事件
-            e_PublishTempDataCompleted (this,new PublishTempDataCompletedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName));
-
+            }
         }
 
 

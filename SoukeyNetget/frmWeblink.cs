@@ -18,7 +18,7 @@ using SHDocVw;
 ///遗留问题：无
 ///开发计划：下一版可能会扩展很多功能，具体功能待定
 ///说明：无 
-///版本：00.90.00
+///版本：01.00.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -112,7 +112,8 @@ namespace SoukeyNetget
         {
             SHDocVw.WebBrowser wb = (SHDocVw.WebBrowser)webBrowser1.ActiveXInstance;
             wb.BeforeNavigate2 += new DWebBrowserEvents2_BeforeNavigate2EventHandler(WebBrowser_BeforeNavigate2);
-            
+
+            this.toolStripTextBox1.Focus();
 
         }
 

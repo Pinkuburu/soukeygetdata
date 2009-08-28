@@ -12,7 +12,7 @@ using System.Data ;
 ///遗留问题：无
 ///开发计划：无
 ///说明：主要用于采集数据的自动显示 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.CustomControl
 {
@@ -97,7 +97,7 @@ namespace SoukeyNetget.CustomControl
 
                     }
                 }
-                catch (System.Exception ex)
+                catch (System.Exception)
                 {
                     //仅捕获错误，不做任何处理，只要保障不跳出程序即可
                 }

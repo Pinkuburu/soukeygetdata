@@ -13,7 +13,7 @@ using System.Threading;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -550,7 +550,7 @@ namespace SoukeyNetget.Gather
             {
                 t.LoadTask(Int64.Parse (m_TaskData.TaskID.ToString ()));
             }
-            catch (System.Exception ex)
+            catch (System.Exception )
             {
                 //调试实体文件加载失败，有可能是文件丢失所造成
                 //但还是需要加载一个空信息，以便界面可以显示此丢失的任务
@@ -607,11 +607,11 @@ namespace SoukeyNetget.Gather
 
                     if (m_TaskData.IsUrlEncode == true)
                     {
-                        Urls = u.SplitWebUrl(t.WebpageLink[i].Weblink.ToString(), m_TaskData.IsUrlEncode, m_TaskData.UrlEncode);
+                        Urls = u.SplitWebUrl(t.WebpageLink[i].Weblink.ToString());
                     }
                     else
                     {
-                        Urls = u.SplitWebUrl(t.WebpageLink[i].Weblink.ToString(), m_TaskData.IsUrlEncode);
+                        Urls = u.SplitWebUrl(t.WebpageLink[i].Weblink.ToString());
                     }
                     
                     //开始添加m_TaskData.weblink数据
@@ -670,7 +670,17 @@ namespace SoukeyNetget.Gather
                         EndIndex = i * SplitUrlCount;
                     }
 
-                    dtc = new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, sPath);
+                    //初始化分解采集任务类
+                    dtc = new cGatherTaskSplit();
+                    dtc.TaskManage =m_TaskManage;
+                    dtc.TaskID =m_TaskData.TaskID;
+                    dtc.WebCode =m_TaskData.WebCode;
+                    dtc.IsUrlEncode =m_TaskData.IsUrlEncode;
+                    dtc.UrlEncode =m_TaskData.UrlEncode;
+                    dtc.Cookie = m_TaskData.Cookie;
+                    dtc.StartPos =m_TaskData.StartPos;
+                    dtc.EndPos =m_TaskData.EndPos;
+                    dtc.SavePath =sPath;
 
                     tWeblink = new List<Task.cWebLink>();
 
@@ -693,7 +703,18 @@ namespace SoukeyNetget.Gather
             }
             else
             {
-                dtc = new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, sPath);
+                //初始化分解采集任务类
+                dtc = new cGatherTaskSplit();
+                dtc.TaskManage = m_TaskManage;
+                dtc.TaskID = m_TaskData.TaskID;
+                dtc.WebCode = m_TaskData.WebCode;
+                dtc.IsUrlEncode = m_TaskData.IsUrlEncode;
+                dtc.UrlEncode = m_TaskData.UrlEncode;
+                dtc.Cookie = m_TaskData.Cookie;
+                dtc.StartPos = m_TaskData.StartPos;
+                dtc.EndPos = m_TaskData.EndPos;
+                dtc.SavePath = sPath;
+
                 dtc.SetSplitData(0, m_TaskData.UrlCount - 1, m_TaskData.Weblink, m_TaskData.CutFlag);
                 m_TaskData.TaskSplitData.Add(dtc.TaskSplitData);
                 //m_list_GatherTaskSplit.Add(dtc);
@@ -748,24 +769,55 @@ namespace SoukeyNetget.Gather
                 }
                 else
                 {
+                    cGatherTaskSplit dtc;
+
                     if (m_TaskData.TaskSplitData.Count  > 0)
                     {   
+
                         foreach (cTaskSplitData configData in m_TaskData.TaskSplitData)
                         {
-                            m_list_GatherTaskSplit.Add(new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, sPath, configData));
+                            dtc = new cGatherTaskSplit();
+                            dtc.TaskManage = m_TaskManage;
+                            dtc.TaskID = m_TaskData.TaskID;
+                            dtc.WebCode = m_TaskData.WebCode;
+                            dtc.IsUrlEncode = m_TaskData.IsUrlEncode;
+                            dtc.UrlEncode = m_TaskData.UrlEncode;
+                            dtc.Cookie = m_TaskData.Cookie;
+                            dtc.StartPos = m_TaskData.StartPos;
+                            dtc.EndPos = m_TaskData.EndPos;
+                            dtc.SavePath = sPath;
+                            dtc.TaskSplitData = configData;
+
+                            m_list_GatherTaskSplit.Add(dtc);
+
+                            dtc = null;
                         }
 
                     }
                     else
-                    {   // 新任务，则新建子线程
-                        m_list_GatherTaskSplit.Add(new cGatherTaskSplit(m_TaskManage, m_TaskData.TaskID, m_TaskData.WebCode, m_TaskData.IsUrlEncode, m_TaskData.UrlEncode, m_TaskData.Cookie, m_TaskData.StartPos, m_TaskData.EndPos, sPath));
+                    {
+                        dtc = new cGatherTaskSplit();
+                        dtc.TaskManage = m_TaskManage;
+                        dtc.TaskID = m_TaskData.TaskID;
+                        dtc.WebCode = m_TaskData.WebCode;
+                        dtc.IsUrlEncode = m_TaskData.IsUrlEncode;
+                        dtc.UrlEncode = m_TaskData.UrlEncode;
+                        dtc.Cookie = m_TaskData.Cookie;
+                        dtc.StartPos = m_TaskData.StartPos;
+                        dtc.EndPos = m_TaskData.EndPos;
+                        dtc.SavePath = sPath;
+
+                        // 新任务，则新建子线程
+                        m_list_GatherTaskSplit.Add(dtc);
+
+                        dtc = null;
                     }
 
 
-                    foreach (cGatherTaskSplit dtc in m_list_GatherTaskSplit)
+                    foreach (cGatherTaskSplit TaskSplit in m_list_GatherTaskSplit)
                     {   
                         // 初始化所有子线程
-                        TaskEventInit(dtc);
+                        TaskEventInit(TaskSplit);
                     }
                 }
 

@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -24,64 +24,54 @@ namespace SoukeyNetget.Gather
 
     public class cGatherTaskSplit : IDisposable 
     {
-        private Int64 m_TaskID;
-        private string m_gStartPos;
-        private string m_gEndPos;
-        private string m_Cookie;
-        private cTaskSplitData m_TaskSplitData;
+       
         private delegate void work();
-        private int m_ErrorCount;
+        
         private Thread m_Thread;
-        private cGatherManage m_TaskManage;
-        private bool m_IsInitialized;
-        private int m_Waittime;
-        private cGlobalParas.WebCode m_WebCode;
-        private bool m_IsUrlEncode;
-        private string m_UrlEncode;
-
         private bool m_ThreadRunning = false;
-
 
         #region 构造类，并初始化相关数据
 
-        ///构造函数传参的方式太恶心了，是最初设计考虑不周的问题，需要
-        ///下一版修改
-        internal cGatherTaskSplit(cGatherManage TaskManage, Int64 TaskID, cGlobalParas.WebCode webCode, bool IsUrlEncode, string UrlEncode, string strCookie, string StartPos, string EndPos,string sPath)
+        ///修改了构造函数
+        public cGatherTaskSplit()
         {
-            //m_mstream = new MemoryStream();
-            m_TaskManage = TaskManage;
-            m_TaskID = TaskID;
-            m_gStartPos = StartPos;
-            m_gEndPos = EndPos;
-            m_SavePath = sPath;
-            m_Cookie = strCookie;
-            m_WebCode = webCode;
-            m_IsUrlEncode = IsUrlEncode;
-            m_UrlEncode = UrlEncode;
+            //m_TaskManage = TaskManage;
+            //m_TaskID = TaskID;
+            //m_gStartPos = StartPos;
+            //m_gEndPos = EndPos;
+            //m_SavePath = sPath;
+            //m_Cookie = strCookie;
+            //m_WebCode = webCode;
+            //m_IsUrlEncode = IsUrlEncode;
+            //m_UrlEncode = UrlEncode;
             m_TaskSplitData = new cTaskSplitData ();
             m_ThreadState = cGlobalParas.GatherThreadState.Stopped;
 
-            m_GatherData = new DataTable();
-        }
-
-        //表示有分解的任务
-        internal cGatherTaskSplit(cGatherManage TaskManage, Int64 TaskID, cGlobalParas.WebCode webCode, bool IsUrlEncode, string UrlEncode, string strCookie, string StartPos, string EndPos, string sPath, cTaskSplitData TaskSplitData)
-        {
-            m_TaskManage = TaskManage;
-            m_TaskID = TaskID;
-            m_gStartPos = StartPos;
-            m_gEndPos = EndPos;
-            m_SavePath = sPath;
-            m_Cookie = strCookie;
-            m_WebCode = webCode;
-            m_IsUrlEncode = IsUrlEncode;
-            m_UrlEncode = UrlEncode;
-            m_TaskSplitData = TaskSplitData;
-            //m_IsDataInitialized = true;
-            m_ThreadState = cGlobalParas.GatherThreadState.Stopped;
+            //m_TaskType = TaskType;
 
             m_GatherData = new DataTable();
         }
+
+        ////表示有分解的任务
+        //internal cGatherTaskSplit(cGatherManage TaskManage, Int64 TaskID, cGlobalParas.WebCode webCode, bool IsUrlEncode, string UrlEncode, string strCookie, string StartPos, string EndPos, string sPath, cTaskSplitData TaskSplitData,cGlobalParas.TaskType TaskType)
+        //{
+        //    m_TaskManage = TaskManage;
+        //    m_TaskID = TaskID;
+        //    m_gStartPos = StartPos;
+        //    m_gEndPos = EndPos;
+        //    m_SavePath = sPath;
+        //    m_Cookie = strCookie;
+        //    m_WebCode = webCode;
+        //    m_IsUrlEncode = IsUrlEncode;
+        //    m_UrlEncode = UrlEncode;
+        //    m_TaskSplitData = TaskSplitData;
+        //    //m_IsDataInitialized = true;
+        //    m_ThreadState = cGlobalParas.GatherThreadState.Stopped;
+
+        //    m_TaskType = TaskType;
+
+        //    m_GatherData = new DataTable();
+        //}
 
         public void UpdateCookie(string cookie)
         {
@@ -108,38 +98,93 @@ namespace SoukeyNetget.Gather
         /// </summary>
         private readonly Object m_mstreamLock = new Object();
 
-        /// <summary>
-        /// 获取当前线程的错误次数
-        /// </summary>
+      
+        private int m_ErrorCount;
         public int ErrorCount
         {
             get { return m_ErrorCount; }
         }
 
-        /// <summary>
-        /// 获取/设置 分解任务初始化状态
-        /// </summary>
+        private bool m_IsInitialized;
         internal bool IsInitialized
         {
             get { return m_IsInitialized; }
             set { m_IsInitialized = value; }
         }
 
-        /// <summary>
-        /// 设置/获取 等待时间（毫秒）
-        /// </summary>
+        private int m_Waittime;
         internal int Waittime
         {
             get { return m_Waittime; }
             set { m_Waittime = value; }
         }
 
-        /// <summary>
-        /// 设置/获取采集任务管理器
-        /// </summary>
-        internal cGatherManage TaskManage
+        private Int64 m_TaskID;
+        public Int64 TaskID
+        {
+            get { return m_TaskID; }
+            set { m_TaskID = value; }
+        }
+
+        private string m_gStartPos;
+        public string StartPos
+        {
+            get { return m_gStartPos; }
+            set { m_gStartPos = value; }
+        }
+
+        private string m_gEndPos;
+        public string EndPos
+        {
+            get { return m_gEndPos; }
+            set { m_gEndPos = value; }
+        }
+        private string m_Cookie;
+        public string Cookie
+        {
+            get { return m_Cookie; }
+            set { m_Cookie = value; }
+        }
+        private cTaskSplitData m_TaskSplitData;
+        public cTaskSplitData TaskSplitData
+        {
+            get { return m_TaskSplitData; }
+            set { m_TaskSplitData = value; }
+        }
+
+        private cGlobalParas.TaskType m_TaskType;
+        public cGlobalParas.TaskType TaskType
+        {
+            get { return m_TaskType; }
+            set { m_TaskType = value; }
+        }
+
+        private cGlobalParas.WebCode m_WebCode;
+        public cGlobalParas.WebCode WebCode
+        {
+            get { return m_WebCode; }
+            set { m_WebCode = value; }
+        }
+
+        private bool m_IsUrlEncode;
+        public bool IsUrlEncode
+        {
+            get { return m_IsUrlEncode; }
+            set { m_IsUrlEncode = value; }
+        }
+
+        private string m_UrlEncode;
+        public string UrlEncode
+        {
+            get { return m_UrlEncode; }
+            set { m_UrlEncode = value; }
+        }
+
+        private cGatherManage m_TaskManage;
+        public cGatherManage TaskManage
         {
             get { return m_TaskManage; }
+            set { m_TaskManage = value; }
         }
 
         private DataTable m_GatherData;
@@ -206,10 +251,10 @@ namespace SoukeyNetget.Gather
             get { return m_Thread != null && m_Thread.IsAlive; }
         }
 
-        internal cTaskSplitData  TaskSplitData
-        {
-            get { return m_TaskSplitData; }
-        }
+        //public cTaskSplitData TaskSplitData
+        //{
+        //    get { return m_TaskSplitData; }
+        //}
         /// <summary>
         /// 分解任务数据是否已初始化
         /// </summary>
@@ -657,7 +702,7 @@ namespace SoukeyNetget.Gather
                     {
                         case (int) cGlobalParas.UrlGatherResult.UnGather:
 
-                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + m_TaskSplitData.Weblink[i].Weblink + "\n"));
+                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "正在采集：" + m_TaskSplitData.Weblink[i].Weblink + "\n"));
 
                             //判断此网址是否为导航网址，如果是导航网址则需要首先将需要采集的网址提取出来
                             //然后进行具体网址的采集
@@ -758,6 +803,12 @@ namespace SoukeyNetget.Gather
 
             gWeb.CutFlag = m_TaskSplitData.CutFlag;
 
+            bool IsAjax = false;
+
+            if (m_TaskType == cGlobalParas.TaskType.AjaxHtmlByUrl)
+                IsAjax = true;
+
+
             try
             {
                 if (IsNext)
@@ -767,9 +818,14 @@ namespace SoukeyNetget.Gather
                         Url = NextUrl;
                         Old_Url = NextUrl;
 
-                        e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + Url + "\n"));
-                        
-                        tmpData = gWeb.GetGatherData(Url, m_WebCode, m_Cookie, m_gStartPos, m_gEndPos,m_SavePath );
+                        e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString () + "正在采集：" + Url + "\n"));
+
+                        if (m_IsUrlEncode == true)
+                        {
+                            Url = cTool.UrlEncode(Url,(cGlobalParas.WebCode)int.Parse ( m_UrlEncode));
+                        }
+
+                        tmpData = gWeb.GetGatherData(Url, m_WebCode, m_Cookie, m_gStartPos, m_gEndPos,m_SavePath,IsAjax );
 
                         if (tmpData != null)
                         {
@@ -784,9 +840,10 @@ namespace SoukeyNetget.Gather
                         {
                             e_GData(this, new cGatherDataEventArgs(m_TaskID, tmpData));
                         }
-                        e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集完成：" + Url + "\n"));
+                        e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "采集完成：" + Url + "\n"));
 
-                        string webSource=gWeb.GetHtml (Url,m_WebCode,m_Cookie,"","");
+                       
+                        string webSource = gWeb.GetHtml(Url, m_WebCode, m_Cookie, "", "", true, IsAjax);
                         string NRule="((?<=href=[\'|\"])\\S[^#+$<>\\s]*(?=[\'|\"]))[^<]*(?<=" + NextRule + ")";
                         Match charSetMatch = Regex.Match(webSource, NRule, RegexOptions.IgnoreCase | RegexOptions.Multiline);
                         string strNext = charSetMatch.Groups[1].Value;
@@ -823,7 +880,12 @@ namespace SoukeyNetget.Gather
                 else
                 {
 
-                    tmpData = gWeb.GetGatherData(Url, m_WebCode, m_Cookie, m_gStartPos, m_gEndPos,m_SavePath );
+                    if (m_IsUrlEncode == true)
+                    {
+                        Url = cTool.UrlEncode(Url, (cGlobalParas.WebCode)int.Parse(m_UrlEncode));
+                    }
+
+                    tmpData = gWeb.GetGatherData(Url, m_WebCode, m_Cookie, m_gStartPos, m_gEndPos,m_SavePath,IsAjax );
 
                     if (tmpData != null)
                     {
@@ -838,7 +900,7 @@ namespace SoukeyNetget.Gather
                     {
                         e_GData(this, new cGatherDataEventArgs(m_TaskID, tmpData));
                     }
-                    e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集完成：" + Url + "\n"));
+                    e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "采集完成：" + Url + "\n"));
                 }
                 
 
@@ -850,7 +912,7 @@ namespace SoukeyNetget.Gather
             }
             catch (System.Exception ex)
             {
-                e_Log(this, new cGatherTaskLogArgs(m_TaskID, Url + "采集发生错误：" + ex.Message  + "\n"));
+                e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Error).ToString() +  Url + "采集发生错误：" + ex.Message + "\n"));
                 e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.Err, 0));
                 e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.ErrUrlCountAdd, 0));
                 m_TaskSplitData.GatheredTrueErrUrlCount++;
@@ -886,13 +948,19 @@ namespace SoukeyNetget.Gather
                             Url = NextUrl;
                             Old_Url = NextUrl;
 
-                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + Url + "\n"));
+                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "正在采集：" + Url + "\n"));
 
                             IsSucceed = ParseGatherNavigationUrl(Url, NagRule, IsOppPath);
 
-                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集完成：" + Url + "\n"));
+                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "采集完成：" + Url + "\n"));
 
-                            string webSource = gWeb.GetHtml(Url, m_WebCode, m_Cookie, "", "");
+                            bool IsAjax = false;
+
+                            if (m_TaskType == cGlobalParas.TaskType.AjaxHtmlByUrl)
+                                IsAjax = true;
+
+                            string webSource = gWeb.GetHtml(Url, m_WebCode, m_Cookie, "", "",true,IsAjax );
+
                             string NRule = "((?<=href=[\'|\"])\\S[^#+$<>\\s]*(?=[\'|\"]))[^<]*(?<=" + NextRule + ")";
                             Match charSetMatch = Regex.Match(webSource, NRule, RegexOptions.IgnoreCase | RegexOptions.Multiline);
                             string strNext = charSetMatch.Groups[1].Value;
@@ -930,7 +998,7 @@ namespace SoukeyNetget.Gather
                             {
                                 return false;
                             }
-                            break;
+                            //break;
                         }
 
                     }
@@ -943,7 +1011,7 @@ namespace SoukeyNetget.Gather
             }
             catch (System.Exception ex)
             {
-                e_Log(this, new cGatherTaskLogArgs(m_TaskID, Url + "采集发生错误：" + ex.Message + "\n"));
+                e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Error).ToString() + Url + "采集发生错误：" + ex.Message + "\n"));
                 e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.Err, 0));
                 e_GUrlCount(this, new cGatherUrlCountArgs(m_TaskID, cGlobalParas.UpdateUrlCountType.ErrUrlCountAdd, 0));
                 m_TaskSplitData.GatheredTrueErrUrlCount++;
@@ -964,14 +1032,7 @@ namespace SoukeyNetget.Gather
             List<string> gUrls;
             bool IsSucceed = false;
 
-            if (m_IsUrlEncode == true)
-            {
-                gUrls = u.ParseUrlRule(Url, NagRule, m_IsUrlEncode, m_UrlEncode);
-            }
-            else
-            {
-                gUrls = u.ParseUrlRule(Url, NagRule, m_IsUrlEncode);
-            }
+            gUrls = u.ParseUrlRule(Url, NagRule);
 
             u = null;
             if (gUrls == null || gUrls.Count == 0)
@@ -1043,7 +1104,7 @@ namespace SoukeyNetget.Gather
                     {
                         return false;
                     }
-                    break;
+                    //break;
                 }
 
             }
@@ -1059,11 +1120,21 @@ namespace SoukeyNetget.Gather
 
             gWeb.CutFlag = m_TaskSplitData.CutFlag;
 
+            bool IsAjax = false;
+
+            if (m_TaskType == cGlobalParas.TaskType.AjaxHtmlByUrl)
+                IsAjax = true;
+
             try
             {
-                e_Log(this, new cGatherTaskLogArgs(m_TaskID, "正在采集：" + Url + "\n"));
+                e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "正在采集：" + Url + "\n"));
 
-                tmpData = gWeb.GetGatherData(Url, m_WebCode, m_Cookie, m_gStartPos, m_gEndPos,m_SavePath );
+                if (m_IsUrlEncode == true)
+                {
+                    Url = cTool.UrlEncode(Url, (cGlobalParas.WebCode)int.Parse(m_UrlEncode));
+                }
+
+                tmpData = gWeb.GetGatherData(Url, m_WebCode, m_Cookie, m_gStartPos, m_gEndPos, m_SavePath, IsAjax);
 
                 if (tmpData != null)
                 {
@@ -1080,18 +1151,18 @@ namespace SoukeyNetget.Gather
                 }
                 if (tmpData == null)
                 {
-                    e_Log(this, new cGatherTaskLogArgs(m_TaskID, Url + " 此地址无数据！" + "\n"));
+                    e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Error).ToString() + Url + " 此地址无数据！" + "\n"));
                 }
                 else
                 {
-                    e_Log(this, new cGatherTaskLogArgs(m_TaskID, "采集完成：" + Url + "\n"));
+                    e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "采集完成：" + Url + "\n"));
                 }
                 tmpData = null;
 
             }
             catch (System.Exception ex)
             {
-                e_Log(this, new cGatherTaskLogArgs(m_TaskID, Url + "采集发生错误：" + ex.Message + "\n"));
+                e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Error).ToString() + Url + "采集发生错误：" + ex.Message + "\n"));
                 onError(ex);
                 return false  ;
             }

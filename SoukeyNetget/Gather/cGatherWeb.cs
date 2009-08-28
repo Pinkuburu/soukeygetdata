@@ -12,7 +12,7 @@ using System.IO;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -46,8 +46,18 @@ namespace SoukeyNetget.Gather
             set { this.m_WebpageSource = value; }
         }
 
-        //get方式获取源代码
-        public string GetHtml(string url, cGlobalParas.WebCode webCode, string cookie, string startPos, string endPos)   
+        /// <summary>
+        /// 获取指定网址源码
+        /// </summary>
+        /// <param name="url">网址</param>
+        /// <param name="webCode">网页编码</param>
+        /// <param name="cookie">网页cookie</param>
+        /// <param name="startPos">获取网页源码的起始位置</param>
+        /// <param name="endPos">获取网页源码的终止位置</param>
+        /// <param name="IsCutnr">是否截取回车换行符，默认为true，截取</param>
+        /// <returns></returns>
+
+        public string GetHtml(string url, cGlobalParas.WebCode webCode, string cookie, string startPos, string endPos,bool IsCutnr,bool IsAjax)   
         {
             //判断网页编码
             Encoding wCode;
@@ -87,6 +97,10 @@ namespace SoukeyNetget.Gather
             
 
             wReq.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50215;)";
+            //wReq.Headers.Add("Accept-Language", "zh-cn,en-us;q=0.5");
+            //wReq.Headers.Add("Accept-Encoding", "gzip, deflate");
+            //wReq.SendChunked = true;
+            //wReq.TransferEncoding = "utf-8";
 
             Match a = Regex.Match(url, @"(http://).[^/]*[?=/]", RegexOptions.IgnoreCase);
             string url1 = a.Groups[0].Value.ToString();
@@ -97,13 +111,34 @@ namespace SoukeyNetget.Gather
             {
                 CookieCollection cl = new CookieCollection();
 
+                //foreach (string sc in cookie.Split(';'))
+                //{
+                //    string ss = sc.Trim();
+                //    cl.Add(new Cookie(ss.Split('=')[0].Trim(), ss.Split('=')[1].Trim(), "/"));
+                //}
+
                 foreach (string sc in cookie.Split(';'))
                 {
                     string ss = sc.Trim();
-                    cl.Add(new Cookie(ss.Split('=')[0].Trim(), ss.Split('=')[1].Trim(), "/"));
+                    if (ss.IndexOf("&") > 0)
+                    {
+                        foreach (string s1 in ss.Split('&'))
+                        {
+                            string s2 = s1.Trim();
+                            string s4 = s2.Substring(s2.IndexOf("=")+1, s2.Length - s2.IndexOf("=")-1);
+
+                            cl.Add(new Cookie(s2.Split('=')[0].Trim(), s4, "/"));
+                        }
+                    }
+                    else
+                    {
+                        string s3 = sc.Trim();
+                        cl.Add(new Cookie(s3.Split('=')[0].Trim(), s3.Split('=')[1].Trim(), "/"));
+                    }
                 }
+
+
                 CookieCon.Add(new Uri(url), cl);
-                //CookieCon.Add(new Uri(url1 ), cl);
                 wReq.CookieContainer = CookieCon;
             }
 
@@ -131,8 +166,8 @@ namespace SoukeyNetget.Gather
                 
             }
 
-            //设置页面超时时间为8秒
-            wReq.Timeout = 8000;
+            //设置页面超时时间为12秒
+            wReq.Timeout = 12000;
 
             HttpWebResponse wResp = (HttpWebResponse)wReq.GetResponse();
             System.IO.Stream respStream = wResp.GetResponseStream();
@@ -144,10 +179,12 @@ namespace SoukeyNetget.Gather
             reader.Dispose();
 
             //去除回车换行符号
-            strWebData = Regex.Replace(strWebData, "([\\r\\n])[\\s]+", "", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            strWebData = Regex.Replace(strWebData, "\\n", "", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            strWebData.Replace("\\r\\n", "");
-
+            if (IsCutnr == true)
+            {
+                strWebData = Regex.Replace(strWebData, "([\\r\\n])[\\s]+", "", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                strWebData = Regex.Replace(strWebData, "\\n", "", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                strWebData.Replace("\\r\\n", "");
+            }
 
             //获取此页面的编码格式,并对源码进行一次判断,无论用户是否指定了网页代码
             Match charSetMatch = Regex.Match(strWebData, "<meta([^<]*)charset=([^<]*)\"", RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -173,8 +210,12 @@ namespace SoukeyNetget.Gather
                 strWebData = aa.Groups[0].ToString();
             }
 
-            this.m_WebpageSource = strWebData;
+            if (IsAjax == true)
+            {
+                strWebData = System.Web.HttpUtility.UrlDecode(strWebData, Encoding.UTF8);
+            }
 
+            this.m_WebpageSource = strWebData;
             return strWebData;
 
          }
@@ -186,13 +227,15 @@ namespace SoukeyNetget.Gather
         /// <param name="StartPos">起始采集位置</param>
         /// <param name="EndPos">终止采集位置</param>
         /// <returns></returns>
-        public DataTable  GetGatherData(string Url,cGlobalParas.WebCode webCode, string cookie, string startPos,string endPos,string sPath)
+        public DataTable  GetGatherData(string Url,cGlobalParas.WebCode webCode, string cookie, string startPos,string endPos,string sPath,bool IsAjax)
         {
             tempData = new DataTable("tempData");
             int i ;
             int j;
             string strCut="";
             bool IsDownloadFile = false;
+
+            #region 构建表结构，并构建截取正则
 
             //根据页面截取的标志构建表结构
             for (i = 0; i < this.CutFlag.Count; i++)
@@ -214,24 +257,37 @@ namespace SoukeyNetget.Gather
 
                 switch (this.CutFlag[i].LimitSign )
                 {
-                    case 2001:
+                    case (int)cGlobalParas.LimitSign.NoLimit : 
                         strCut += ".*?";
                         break;
-                    case 2002:
-                        strCut += "[^<>].*?";
+                    case (int)cGlobalParas.LimitSign.NoWebSign:
+                        strCut += "[^<>]*?";
                         break;
-                    case 2003:
-                        strCut += "[\\S\\s]*?";
+                    case (int)cGlobalParas.LimitSign.OnlyCN:
+                        strCut += "[\\u4e00-\\u9fa5]*?";
                         break;
-                    case 2004:
-                        strCut += "[^u4e00-u9fa5]*?";
+                    case (int)cGlobalParas.LimitSign.OnlyDoubleByte:
+                        strCut += "[^\\x00-\\xff]*?";
                         break;
-                    default :
+                    case (int)cGlobalParas.LimitSign.OnlyNumber:
+                        strCut += "[\\d]*?";
+                        break;
+                    case (int)cGlobalParas.LimitSign.OnlyChar:
+                        strCut += "[\\x00-\\xff]*?";
+                        break;
+                    case (int)cGlobalParas.LimitSign.Custom:
+                        strCut += cTool.RegexReplaceTrans(this.CutFlag[i].RegionExpression.ToString());
+                        break;
+                    default:
                         strCut += "[\\S\\s]*?";
                         break;
                 }
                 strCut += "(?=" +  cTool.RegexReplaceTrans(this.CutFlag[i].EndPos) + ")|";
             }
+
+            #endregion
+
+            #region 获取网页源码
 
             int rowCount = this.CutFlag.Count;
 
@@ -248,12 +304,14 @@ namespace SoukeyNetget.Gather
 
             try
             {
-                GetHtml(Url, webCode, cookie, startPos, endPos);
+                GetHtml(Url, webCode, cookie, startPos, endPos, true, IsAjax);
             }
             catch (System.Web.HttpException ex)
             {
                 throw ex;
             }
+
+            #endregion
 
             //开始获取截取内容
             Regex re = new Regex(@strCut, RegexOptions.IgnoreCase | RegexOptions.Multiline );
@@ -268,6 +326,8 @@ namespace SoukeyNetget.Gather
             DataRow drNew=null ;
 
             i = 0;
+
+            #region 开始输出截取字符，并拼成一个表
 
             //开始根据采集的数据构造数据表进行输出
             //在此需要处理采集数据有可能错行的问题
@@ -361,26 +421,96 @@ namespace SoukeyNetget.Gather
                 throw ex;
             }
 
+            #endregion
+
+            #region 开始进行输出控制，进行获取数据加工
+
         ExitWhile:
 
-            //在此判断是否需要在输出时进行数据的限制,当前仅支持在数据输出时
-            //去掉网页符号
+            //在此判断是否需要在输出时进行数据的限制,根据任务版本1.2增加了数据输出的限制
+
             for (i = 0; i < this.CutFlag.Count; i++)
             {
 
-                if (this.CutFlag[i].LimitSign==(int)cGlobalParas.LimitSign.ShowNoWebSign )
+                switch (this.CutFlag[i].ExportLimit)
                 {
-                    for (int index=0; index < tempData.Rows.Count; index++)
-                    {
-                        tempData.Rows[index][i] = getTxt(tempData.Rows[index][i].ToString());
-                    }
+                    case (int)cGlobalParas.ExportLimit.ExportNoLimit :
+
+                        break;
+                    case (int)cGlobalParas.ExportLimit.ExportNoWebSign:
+                        for (int index = 0; index < tempData.Rows.Count; index++)
+                        {
+                            tempData.Rows[index][i] = getTxt(tempData.Rows[index][i].ToString());
+                        }
+                        break;
+                    case (int)cGlobalParas.ExportLimit.ExportPrefix:
+                        for (int index = 0; index < tempData.Rows.Count; index++)
+                        {
+                            tempData.Rows[index][i] =this.CutFlag[i].ExportExpression + tempData.Rows[index][i].ToString();
+                        }
+                        break;
+                    case (int)cGlobalParas.ExportLimit.ExportReplace:
+                        for (int index = 0; index < tempData.Rows.Count; index++)
+                        {
+                            string oStr=this.CutFlag[i].ExportExpression .Substring (1,this.CutFlag[i].ExportExpression.IndexOf (",")-2);
+                            string nStr = this.CutFlag[i].ExportExpression.Substring(this.CutFlag[i].ExportExpression.IndexOf(",") + 2, this.CutFlag[i].ExportExpression.Length - this.CutFlag[i].ExportExpression.IndexOf(",") - 3);
+                            tempData.Rows[index][i] = tempData.Rows[index][i].ToString().Replace(oStr,nStr );
+                        }
+                        break;
+                    case (int)cGlobalParas.ExportLimit.ExportSuffix:
+                        for (int index = 0; index < tempData.Rows.Count; index++)
+                        {
+                            tempData.Rows[index][i] = tempData.Rows[index][i].ToString() + this.CutFlag[i].ExportExpression;
+                        }
+                        break;
+                    case (int)cGlobalParas.ExportLimit.ExportTrimLeft:
+                        for (int index = 0; index < tempData.Rows.Count; index++)
+                        {
+                            int len = tempData.Rows[index][i].ToString().Length;
+                            int lefti = int.Parse(this.CutFlag[i].ExportExpression.ToString());
+                            tempData.Rows[index][i] = tempData.Rows[index][i].ToString().Substring(lefti, len - lefti);
+                        }
+                        break;
+                    case (int)cGlobalParas.ExportLimit.ExportTrimRight:
+                        for (int index = 0; index < tempData.Rows.Count; index++)
+                        {
+                            int len = tempData.Rows[index][i].ToString().Length;
+                            int righti = int.Parse(this.CutFlag[i].ExportExpression.ToString());
+                            tempData.Rows[index][i] = tempData.Rows[index][i].ToString().Substring(0, len - righti);
+                        }
+                        break;
+                    case (int)cGlobalParas.ExportLimit.ExportTrim :
+                        for (int index = 0; index < tempData.Rows.Count; index++)
+                        {
+                            tempData.Rows[index][i] = tempData.Rows[index][i].ToString().Trim();
+                        }
+                        break;
+                    case (int)cGlobalParas.ExportLimit.ExportRegexReplace :
+                        for (int index = 0; index < tempData.Rows.Count; index++)
+                        {
+                            //string oStr=cTool.RegexReplaceTrans( this.CutFlag[i].ExportExpression .Substring (1,this.CutFlag[i].ExportExpression.IndexOf (",")-2));
+                            //string nStr = this.CutFlag[i].ExportExpression.Substring(this.CutFlag[i].ExportExpression.IndexOf(",") + 2, this.CutFlag[i].ExportExpression.Length - this.CutFlag[i].ExportExpression.IndexOf(",") - 3);
+                            //tempData.Rows[index][i] = Regex.Replace(tempData.Rows[index][i].ToString(), oStr, nStr, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                            
+                            string oStr = this.CutFlag[i].ExportExpression.Substring(1, this.CutFlag[i].ExportExpression.IndexOf(",") - 2);
+                            string nStr = this.CutFlag[i].ExportExpression.Substring(this.CutFlag[i].ExportExpression.IndexOf(",") + 2, this.CutFlag[i].ExportExpression.Length - this.CutFlag[i].ExportExpression.IndexOf(",") - 3);
+                            tempData.Rows[index][i] = Regex.Replace(tempData.Rows[index][i].ToString(), oStr, nStr, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+                        }
+                        break;
+                    default :
+                       
+                        break;
                 }
-                
+
             }
 
+            #endregion
+
+            #region 针对采集需要下载文件的字段进行文件下载处理
             //判断是否存在有下载文件的任务，如果有，则开始下载，因为此功能设计最初是下载图片使用
             //并非是专用的下载工具，所以对下载处理并没有单独进行线程处理
-            #region 针对采集需要下载文件的字段进行文件下载处理
+     
             try
             {
                 if (IsDownloadFile == true)
@@ -435,6 +565,7 @@ namespace SoukeyNetget.Gather
                                     }
                                     else
                                     {
+                                        Url = Url.Substring(0, Url.LastIndexOf("/") + 1);
                                         FileUrl = Url + FileUrl;
                                     }
 
@@ -496,12 +627,15 @@ namespace SoukeyNetget.Gather
 
                 SaveFileStream.Close();
                 SaveFileStream.Dispose();
-                return cGlobalParas.DownloadResult.Succeed;
 
                 wRep.Close();
 
+                return cGlobalParas.DownloadResult.Succeed;
+
+                
+
             }
-            catch (Exception ex)
+            catch (System.Exception )
             {
                 return cGlobalParas.DownloadResult.Err;
             }

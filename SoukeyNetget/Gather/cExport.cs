@@ -13,7 +13,7 @@ using System.Threading;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 
 
@@ -253,7 +253,8 @@ namespace SoukeyNetget.Gather
                     {
 
                         tempStr += "\t";
-                        tempStr += m_pData.Rows[i][j];
+                        tempStr += @m_pData.Rows[i][j].ToString();
+
                     }
                     sw.WriteLine(tempStr);
                     tempStr = "";

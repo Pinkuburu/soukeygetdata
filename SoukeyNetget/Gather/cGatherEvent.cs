@@ -9,7 +9,7 @@ using System.Data;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.Gather
 {
@@ -100,17 +100,18 @@ namespace SoukeyNetget.Gather
             /// <param name="new_statue">新的状态</param>
             public TaskStateChangedEventArgs(Int64 TaskID, cGlobalParas.TaskState oldState, cGlobalParas.TaskState newState)
             {
-                m_TaskID = TaskID;
+                //m_TaskID = TaskID;
+                base.TaskID = TaskID;
                 m_OldState = oldState;
                 m_NewState = newState;
             }
 
-            private Int64 m_TaskID;
-            public Int64 TaskID
-            {
-                get { return m_TaskID; }
-                set { m_TaskID = value; }
-            }
+            //private Int64 m_TaskID;
+            //public Int64 TaskID
+            //{
+            //    get { return m_TaskID; }
+            //    set { m_TaskID = value; }
+            //}
 
             private cGlobalParas.TaskState m_OldState;
             private cGlobalParas.TaskState m_NewState;
@@ -180,7 +181,8 @@ namespace SoukeyNetget.Gather
         {
             public cGatherDataEventArgs(Int64 TaskID, DataTable cData)
             {
-                m_TaskID = TaskID;
+                //m_TaskID = TaskID;
+                base.TaskID = TaskID;
                 m_gData = cData;
             }
 
@@ -191,12 +193,12 @@ namespace SoukeyNetget.Gather
                 set { m_gData = value; }
             }
 
-            private Int64 m_TaskID;
-            public Int64 TaskID
-            {
-                get { return m_TaskID; }
-                set { m_TaskID = value; }
-            }
+            //private Int64 m_TaskID;
+            //public Int64 TaskID
+            //{
+            //    get { return m_TaskID; }
+            //    set { m_TaskID = value; }
+            //}
         }
 
         //采集日志事件
@@ -204,7 +206,8 @@ namespace SoukeyNetget.Gather
         {
             public cGatherTaskLogArgs(Int64 TaskID, string strLog)
             {
-                m_TaskID = TaskID;
+                //m_TaskID = TaskID;
+                base.TaskID = TaskID;
                 m_strLog = strLog;
             }
 
@@ -215,12 +218,12 @@ namespace SoukeyNetget.Gather
                 set { m_strLog = value; }
             }
 
-            private Int64 m_TaskID;
-            public Int64 TaskID
-            {
-                get { return m_TaskID; }
-                set { m_TaskID = value; }
-            }
+            //private Int64 m_TaskID;
+            //public Int64 TaskID
+            //{
+            //    get { return m_TaskID; }
+            //    set { m_TaskID = value; }
+            //}
         }
 
         //采集完成数量变更事件
@@ -228,7 +231,8 @@ namespace SoukeyNetget.Gather
         {
             public cGatherUrlCountArgs(Int64 TaskID, cGlobalParas.UpdateUrlCountType uType, int TrueUrlCount)
             {
-                m_TaskID = TaskID;
+                //m_TaskID = TaskID;
+                base.TaskID = TaskID;
                 m_TrueUrlCount = TrueUrlCount;
                 m_UType = uType;
             }
@@ -240,12 +244,12 @@ namespace SoukeyNetget.Gather
                 set { m_UType = value; }
             }
 
-            private Int64 m_TaskID;
-            public Int64 TaskID
-            {
-                get { return m_TaskID; }
-                set { m_TaskID = value; }
-            }
+            //private Int64 m_TaskID;
+            //public Int64 TaskID
+            //{
+            //    get { return m_TaskID; }
+            //    set { m_TaskID = value; }
+            //}
 
             private int m_TrueUrlCount;
             public int TrueUrlCount

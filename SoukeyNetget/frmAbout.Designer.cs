@@ -134,9 +134,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(243, 17);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(76, 13);
+            this.label10.Size = new System.Drawing.Size(82, 13);
             this.label10.TabIndex = 2;
-            this.label10.Text = "版 本 号：1.0";
+            this.label10.Text = "版 本 号：1.10";
             // 
             // label11
             // 

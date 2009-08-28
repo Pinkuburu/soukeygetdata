@@ -5,6 +5,8 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Web;
+using System.Windows.Forms;
 
 ///功能：常用小功能 静态
 ///完成时间：2009-3-2
@@ -12,7 +14,7 @@ using System.IO;
 ///遗留问题：随着系统完善补充
 ///开发计划：待定
 ///说明：无
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -67,7 +69,7 @@ namespace SoukeyNetget
                 myDataBuffer = myWebClient.DownloadData(@url);
                 strWebData = Encoding.Default.GetString(myDataBuffer);
             }
-            catch (System.Net.WebException ex ) 
+            catch (System.Net.WebException  ) 
             {
                 return "";
             }
@@ -202,9 +204,13 @@ namespace SoukeyNetget
                 return "";
 
             string conStr = "";
-            if (Regex.IsMatch(str, @"[\.\*\[\]\?\\]"))
+            if (Regex.IsMatch(str, @"[\$\.\*\[\]\?\\]"))
             {
-                Regex re = new Regex(@"\.", RegexOptions.IgnoreCase);
+                Regex re = new Regex(@"\$", RegexOptions.IgnoreCase);
+                str = re.Replace(str, @"\$");
+                re = null;
+
+                re = new Regex(@"\.", RegexOptions.IgnoreCase);
                 str = re.Replace(str, @"\.");
                 re = null;
 
@@ -360,5 +366,77 @@ namespace SoukeyNetget
             return absPath;
         }
 
+        //对Url中文部分进行编码，返回编码后的Url，
+        //注意：只对中文进行编码
+        static public string UrlEncode(string Url, cGlobalParas.WebCode uEncoding)
+        {
+            string DemoUrl = Url;
+
+            Regex re = new Regex("[\\u4e00-\\u9fa5]", RegexOptions.None);
+            MatchCollection mc = re.Matches(DemoUrl);
+
+            switch (uEncoding)
+            {
+                case cGlobalParas.WebCode.utf8:
+                    foreach (Match ma in mc)
+                    {
+                        DemoUrl = DemoUrl.Replace(ma.Value.ToString(), HttpUtility.UrlEncode(ma.Value.ToString(), Encoding.UTF8));
+                    }
+                    break;
+                case cGlobalParas.WebCode.gb2312:
+                    foreach (Match ma in mc)
+                    {
+                        DemoUrl = DemoUrl.Replace(ma.Value.ToString(), HttpUtility.UrlEncode(ma.Value.ToString(), Encoding.GetEncoding("gb2312")));
+                    }
+                    break;
+                case cGlobalParas.WebCode.gbk:
+                    foreach (Match ma in mc)
+                    {
+                        DemoUrl = DemoUrl.Replace(ma.Value.ToString(), HttpUtility.UrlEncode(ma.Value.ToString(), Encoding.GetEncoding("gbk")));
+                    }
+                    break;
+                case cGlobalParas.WebCode.big5:
+                    foreach (Match ma in mc)
+                    {
+                        DemoUrl = DemoUrl.Replace(ma.Value.ToString(), HttpUtility.UrlEncode(ma.Value.ToString(), Encoding.GetEncoding("big5")));
+                    }
+                    break;
+                default:
+                    foreach (Match ma in mc)
+                    {
+                        DemoUrl = DemoUrl.Replace(ma.Value.ToString(), HttpUtility.UrlEncode(ma.Value.ToString(), Encoding.UTF8));
+                    }
+                    break;
+            }
+
+            return  DemoUrl;
+        }
+
+        //判断指定的文件所在的目录是否存在，如果不存在则建立
+        //传入的参数必须是文件，如果不是文件，则需以"\"结尾
+        static public void CreateDirectory(string strDir)
+        {
+
+            //需要提取文件目录
+            strDir = Path.GetDirectoryName(strDir);
+
+            if (!Directory.Exists(strDir))
+            {
+                //创建此目录
+                Directory.CreateDirectory(strDir);
+            }
+
+
+        }
+
+        static public DialogResult MyMessageBox(string Mess, string Title, MessageBoxButtons but, MessageBoxIcon icon)
+        {
+            frmMessageBox fm = new frmMessageBox();
+            fm.MessageBox(Mess, Title, but, icon);
+            DialogResult dr= fm.ShowDialog();
+            fm.Dispose();
+
+            return dr;
+        }
     }
 }

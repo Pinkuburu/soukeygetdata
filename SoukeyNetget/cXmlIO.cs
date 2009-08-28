@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 /// 此类需要再下一阶段重新进行修改
 ///开发计划：无
 ///说明：参见注释
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -63,6 +63,12 @@ namespace SoukeyNetget
 
             objXmlDoc = new XmlDocument();
             objXmlDoc.LoadXml(strXml);
+
+            if (File.Exists(FileName))
+            {
+                File.SetAttributes(FileName, System.IO.FileAttributes.Normal);
+            }
+
             objXmlDoc.Save(FileName);
 
             strXmlFile = FileName;
@@ -284,7 +290,29 @@ namespace SoukeyNetget
 
             }
         }
-           
+
+
+        public void EditNodeValue(string NodeCollection, string Node, string condition, string ValueName,string value)
+        {
+            XmlNodeList fathernode = objXmlDoc.GetElementsByTagName(NodeCollection);
+            XmlNodeList nodes = fathernode[0].ChildNodes;
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                for (int j = 0; j < nodes[i].ChildNodes.Count; j++)
+                {
+                    //for (int m=0;
+                    if (nodes[i].ChildNodes[j].Name == Node && nodes[i].ChildNodes[j].InnerText == condition)
+                    {
+                        XmlNode nod = nodes[i].SelectSingleNode(ValueName);
+                        nod.InnerText = value;
+                        return;
+                    }
+                }
+
+            }
+
+        }
    }
 
       

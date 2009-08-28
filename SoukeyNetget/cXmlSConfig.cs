@@ -9,7 +9,7 @@ using System.Data;
 ///遗留问题：无
 ///开发计划：待定
 ///说明：与cSystem会有功能重复，下一步待定，所以保留
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget
 {

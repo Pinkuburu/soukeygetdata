@@ -52,11 +52,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Interop.Excel.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="MySql.Data, Version=5.1.2.2, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -76,6 +81,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomControl\DataGridViewProgressBarColumn.cs" />
+    <Compile Include="frmAddPlanTask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddPlanTask.Designer.cs">
+      <DependentUpon>frmAddPlanTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmClose.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +111,24 @@
     <Compile Include="frmInfo.Designer.cs">
       <DependentUpon>frmInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMessageBox.Designer.cs">
+      <DependentUpon>frmMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSetData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSetData.Designer.cs">
+      <DependentUpon>frmSetData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTaskPlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTaskPlan.Designer.cs">
+      <DependentUpon>frmTaskPlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,7 +147,18 @@
     <Compile Include="Gather\cTaskData.cs" />
     <Compile Include="Gather\cTaskDataList.cs" />
     <Compile Include="Gather\cTaskSplitData.cs" />
+    <Compile Include="Listener\cCheckPlan.cs" />
+    <Compile Include="Listener\cFileMonitor.cs" />
+    <Compile Include="Listener\cListenControl.cs" />
+    <Compile Include="Listener\cListenEvent.cs" />
+    <Compile Include="Listener\cListenManage.cs" />
+    <Compile Include="Listener\cRunTask.cs" />
+    <Compile Include="Plan\cPlan.cs" />
+    <Compile Include="Plan\cPlanRunLog.cs" />
+    <Compile Include="Plan\cPlans.cs" />
+    <Compile Include="Plan\cTaskPlan.cs" />
     <Compile Include="publish\cPublishControl.cs" />
+    <Compile Include="publish\cPublishEvent.cs" />
     <Compile Include="publish\cPublishManage.cs" />
     <Compile Include="publish\cPublishTask.cs" />
     <Compile Include="publish\cPublishTaskData.cs" />
@@ -183,6 +223,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAddPlanTask.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddPlanTask.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmClose.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmClose.cs</DependentUpon>
@@ -203,6 +247,14 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMessageBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSetData.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSetData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmStart.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmStart.cs</DependentUpon>
@@ -214,6 +266,10 @@
     <EmbeddedResource Include="frmTaskClass.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmTaskClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTaskPlan.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmTaskPlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpdate.resx">
       <SubType>Designer</SubType>
@@ -232,6 +288,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="WebBrowser\frmAbourMyWebbrowser.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAbourMyWebbrowser.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -245,6 +305,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="WebBrowser\cMyWebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebBrowser\frmAbourMyWebbrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebBrowser\frmAbourMyWebbrowser.Designer.cs">
+      <DependentUpon>frmAbourMyWebbrowser.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

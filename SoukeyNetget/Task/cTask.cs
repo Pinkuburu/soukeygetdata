@@ -10,7 +10,7 @@ using System.IO;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.Task
 {
@@ -67,6 +67,19 @@ namespace SoukeyNetget.Task
         {
             get { return m_TaskName; }
             set { m_TaskName = value; }
+        }
+
+        /// <summary>
+        /// 任务版本信息，当软件升级时，任务的版本也会升级，所以需要对每一个任务
+        /// 版本进行识别，便于任务数据的迁移，理论上是兼容上一版本的任务数据信息，
+        /// 但如果版本跨度太大，则不会进行兼容，由专用工具实现任务数据迁移
+        /// 此版本任务版本号为：1.2，比较1.0版本，主要是增加了数数据加工及导出操作。
+        /// </summary>
+        private Single m_TaskVersion;
+        public Single TaskVersion
+        {
+            get { return m_TaskVersion; }
+            set { m_TaskVersion = value; }
         }
 
         private string m_TaskDemo;
@@ -189,6 +202,28 @@ namespace SoukeyNetget.Task
             set { m_DataSource = value; }
         }
 
+        private string m_ExportUrl;
+        public string ExportUrl
+        {
+            get { return m_ExportUrl; }
+            set { m_ExportUrl = value; }
+        }
+
+        private string m_ExportUrlCode;
+        public string ExportUrlCode
+        {
+            get { return m_ExportUrlCode; }
+            set { m_ExportUrlCode = value; }
+        }
+
+        private string m_ExportCookie;
+        public string ExportCookie
+        {
+            get { return m_ExportCookie; }
+            set { m_ExportCookie = value; }
+        }
+
+        #region 数据库的用户名和密码在任务1.2版本中已经去除 但为了兼容1.0版本所以保存
         private string m_DataUser;
         public string DataUser
         {
@@ -202,12 +237,20 @@ namespace SoukeyNetget.Task
             get { return m_DataPwd; }
             set { m_DataPwd = value; }
         }
+        #endregion
 
         private string m_DataTableName;
         public string DataTableName
         {
             get { return m_DataTableName; }
             set { m_DataTableName = value; }
+        }
+
+        private string m_InsertSql;
+        public string InsertSql
+        {
+            get { return m_InsertSql; }
+            set { m_InsertSql =value ;}
         }
 
         private int m_ThreadCount;
@@ -289,10 +332,19 @@ namespace SoukeyNetget.Task
         }
 
         //保存任务信息
-        public void Save()
+        public void Save(string TaskPath)
         {
             //获取需要保存任务的路径
-            string tPath = GetTaskClassPath() + "\\";
+            string tPath = "";
+
+            if (TaskPath == "" || TaskPath == null)
+            {
+                tPath = GetTaskClassPath() + "\\";
+            }
+            else
+            {
+                tPath = TaskPath;
+            }
             int i=0;
 
             //判断此路径下是否已经存在了此任务，如果存在则返回错误信息
@@ -312,21 +364,22 @@ namespace SoukeyNetget.Task
                 "<Task>" +
                 "<State></State>" +       ///此状态值当前无效,用于将来扩充使用
                 "<BaseInfo>" +
+                "<Version>1.2</Version>" +   //默认当前的任务版本号为：1.2
                 "<ID>" + TaskID + "</ID>" +
                 "<Name>" + this.TaskName + "</Name>" +
                 "<TaskDemo>" + this.TaskDemo + "</TaskDemo>" +
                 "<Class>" + this.TaskClass + "</Class>" +
-                "<Type>" +  this.TaskType + "</Type>" +
+                "<Type>" + this.TaskType + "</Type>" +
                 "<RunType>" + this.RunType + "</RunType>" +
 
                 //选哟转换成相对路径
-                "<SavePath>" + cTool.GetRelativePath ( this.SavePath) + "</SavePath>" +
+                "<SavePath>" + cTool.GetRelativePath(this.SavePath) + "</SavePath>" +
                 "<ThreadCount>" + this.ThreadCount + "</ThreadCount>" +
                 "<UrlCount>" + this.UrlCount + "</UrlCount>" +
                 "<StartPos>" + cTool.ReplaceTrans(this.StartPos) + "</StartPos>" +
                 "<EndPos>" + cTool.ReplaceTrans(this.EndPos) + "</EndPos>" +
                 "<DemoUrl>" + cTool.ReplaceTrans(this.DemoUrl) + "</DemoUrl>" +
-                "<Cookie>" + this.Cookie + "</Cookie>" +
+                "<Cookie>" + cTool.ReplaceTrans(this.Cookie) + "</Cookie>" +
                 "<WebCode>" + this.WebCode + "</WebCode>" +
                 "<IsLogin>" + this.IsLogin + "</IsLogin>" +
                 "<LoginUrl>" + this.LoginUrl + "</LoginUrl>" +
@@ -338,8 +391,16 @@ namespace SoukeyNetget.Task
                 "<ExportFileName>" + this.ExportFile + "</ExportFileName>" +
                 "<DataSource>" + this.DataSource + "</DataSource>" +
                 "<DataTableName>" + this.DataTableName + "</DataTableName>" +
-                "<DataUser>" + this.DataUser  + "</DataUser>" +
-                "<DataPwd>" + this.DataPwd + "</DataPwd>" +
+
+                //数据库用户名及密码在任务1.2版本中已经删除，所以不进行保存，但代码不进行删除，因为
+                //此版本需要兼容1.0，保证代码的可读性，故不删除
+                //"<DataUser>" + this.DataUser  + "</DataUser>" +
+                //"<DataPwd>" + this.DataPwd + "</DataPwd>" +
+
+                "<InsertSql>" + this.InsertSql + "</InsertSql>" +
+                "<ExportUrl>" + cTool.ReplaceTrans(this.ExportUrl) + "</ExportUrl>" +
+                "<ExportUrlCode>" + this.ExportUrlCode + "</ExportUrlCode>" +
+                "<ExportCookie>" + cTool.ReplaceTrans ( this.ExportCookie) + "</ExportCookie>" +
                 "</Result>" +
                 "<WebLinks>";
 
@@ -373,6 +434,9 @@ namespace SoukeyNetget.Task
                     tXml += "<StartFlag>" + cTool.ReplaceTrans (this.WebpageCutFlag[i].StartPos) + "</StartFlag>";
                     tXml += "<EndFlag>" + cTool.ReplaceTrans (this.WebpageCutFlag[i].EndPos) + "</EndFlag>";
                     tXml += "<LimitSign>" + this.WebpageCutFlag[i].LimitSign + "</LimitSign>";
+                    tXml += "<RegionExpression>" + cTool.ReplaceTrans(this.WebpageCutFlag[i].RegionExpression) + "</RegionExpression>";
+                    tXml += "<ExportLimit>" + this.WebpageCutFlag [i].ExportLimit + "</ExportLimit>";
+                    tXml += "<ExportExpression>" + cTool.ReplaceTrans(this.WebpageCutFlag[i].ExportExpression) + "</ExportExpression>";
                     tXml += "</Rule>";
                 }
             }
@@ -413,7 +477,7 @@ namespace SoukeyNetget.Task
             else
                 this.TaskClass = NewTaskClass;
 
-            Save();
+            Save("");
 
             DeleTask(oldPath, TaskName);
 
@@ -502,6 +566,19 @@ namespace SoukeyNetget.Task
             //加载任务信息
             this.TaskID =Int64.Parse ( xmlConfig.GetNodeValue("Task/BaseInfo/ID"));
             this.TaskName = xmlConfig.GetNodeValue("Task/BaseInfo/Name");
+
+            ///加载任务版本信息，注意：1.0中是不存在版本信息描述的，所以如果加载1.0的任务
+            ///会出错
+            try 
+            {
+                this.TaskVersion = Single.Parse(xmlConfig.GetNodeValue("Task/BaseInfo/Version"));
+            }
+            catch (System.Exception )
+            {
+                this.TaskVersion =Single.Parse ("1.0");
+            }
+
+
             this.TaskDemo = xmlConfig.GetNodeValue("Task/BaseInfo/TaskDemo");
             this.TaskClass = xmlConfig.GetNodeValue("Task/BaseInfo/Class");
             this.TaskType=xmlConfig.GetNodeValue("Task/BaseInfo/Type");
@@ -525,9 +602,35 @@ namespace SoukeyNetget.Task
             this.ExportFile = xmlConfig.GetNodeValue("Task/Result/ExportFileName");
             this.DataSource = xmlConfig.GetNodeValue("Task/Result/DataSource");
             this.DataTableName = xmlConfig.GetNodeValue("Task/Result/DataTableName");
-            this.DataUser = xmlConfig.GetNodeValue("Task/Result/DataUser");
-            this.DataPwd = xmlConfig.GetNodeValue("Task/Result/DataPwd");
 
+            //捕获错误，但不进行处理，这个是为了兼容任务1.0版本进行的处理
+            //datauser及datapwd在1.0版本存在，在1.2版本去除，但为了可以打开1.0
+            //版本的任务信息，所以去除了此内容，当1.0版本的内容保存时，为自动保存为
+            //1.2版本的格式，但如果打开1.0版本的任务，则InsertSql、ExportUrl、ExportCookie
+            //是不存在的，所以需要捕获错误，但不错处理
+
+            //兼容1.0
+            try
+            {
+                this.DataUser = xmlConfig.GetNodeValue("Task/Result/DataUser");
+                this.DataPwd = xmlConfig.GetNodeValue("Task/Result/DataPwd");
+            }
+            catch (System.Exception)
+            {
+            }
+
+            //兼容1.2
+            try
+            {
+                this.InsertSql = xmlConfig.GetNodeValue("Task/Result/InsertSql");
+                this.ExportUrl = xmlConfig.GetNodeValue("Task/Result/ExportUrl");
+                this.ExportUrlCode = xmlConfig.GetNodeValue("Task/Result/ExportUrlCode");
+                this.ExportCookie = xmlConfig.GetNodeValue("Task/Result/ExportCookie");
+            }
+            catch (System.Exception)
+            {
+            }
+           
             cWebLink w;
             DataView dw = new DataView();
             int i;
@@ -578,6 +681,18 @@ namespace SoukeyNetget.Task
                     c.StartPos = dw[i].Row["StartFlag"].ToString();
                     c.EndPos = dw[i].Row["EndFlag"].ToString();
                     c.LimitSign = int.Parse((dw[i].Row["LimitSign"].ToString() == null || dw[i].Row["LimitSign"].ToString() == "") ? "0" : dw[i].Row["LimitSign"].ToString());
+
+                    //处理版本不同时造成的错误，捕获不处理
+                    try
+                    {
+                        c.RegionExpression = dw[i].Row["RegionExpression"].ToString();
+                        c.ExportLimit = int.Parse((dw[i].Row["ExportLimit"].ToString() == null || dw[i].Row["ExportLimit"].ToString() == "") ? "0" : dw[i].Row["ExportLimit"].ToString());
+                        c.ExportExpression = dw[i].Row["ExportExpression"].ToString();
+                    }
+                    catch (System.Exception)
+                    {
+                    }
+
                     this.WebpageCutFlag.Add(c);
                     c = null;
                 }
@@ -587,6 +702,8 @@ namespace SoukeyNetget.Task
         }
 
         //删除一个任务
+        //删除任务的时候，系统会做一个处理，就是自动备份一个
+        //任务文件，已~
         public bool DeleTask(string TaskPath,string TaskName)
         {
             //首先删除此任务所在分类下的index.xml中的索引内容然后再删除具体的任务文件
@@ -612,15 +729,24 @@ namespace SoukeyNetget.Task
             //删除任务的物理文件
             string FileName =TaskPath   + "\\" + TaskName + ".xml" ;
             string tmpFileName=TaskPath   + "\\~" + TaskName + ".xml" ;
-            
-            //删除物理临时文件
-            if (File.Exists(tmpFileName))
+
+            try
             {
-                File.SetAttributes(tmpFileName, System.IO.FileAttributes.Normal);
-                System.IO.File.Delete(tmpFileName);
+                //删除物理临时文件
+                if (File.Exists(tmpFileName))
+                {
+                    File.SetAttributes(tmpFileName, System.IO.FileAttributes.Normal);
+                    System.IO.File.Delete(tmpFileName);
+                }
+           
+                System.IO.File.Move(FileName, tmpFileName);
+
             }
-            
-            //System.IO.File.Move(FileName, tmpFileName);
+            catch (System.Exception )
+            {
+                //如果出现临时文件备份操作失败，则继续进行，不能影响到最终的文件保存
+                //但如果文件保存也失败，那只能报错了
+            }
 
             //删除物理任务文件
             if (File.Exists(FileName))

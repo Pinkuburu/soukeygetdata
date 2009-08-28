@@ -8,7 +8,7 @@ using System.Text;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.Task
 {
@@ -62,6 +62,27 @@ namespace SoukeyNetget.Task
         {
             get { return m_LimitSign; }
             set { m_LimitSign = value; }
+        }
+
+        private string m_RegionExpression;
+        public string RegionExpression
+        {
+            get { return m_RegionExpression; }
+            set { m_RegionExpression = value; }
+        }
+
+        private int m_ExportLimit;
+        public int ExportLimit
+        {
+            get { return m_ExportLimit; }
+            set { m_ExportLimit = value; }
+        }
+
+        private string m_ExportExpression;
+        public string ExportExpression
+        {
+            get { return m_ExportExpression; }
+            set { m_ExportExpression = value; }
         }
 
         //采集数据的类型

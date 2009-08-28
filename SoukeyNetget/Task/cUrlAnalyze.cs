@@ -11,7 +11,7 @@ using System.Web;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.Task
 {
@@ -28,17 +28,17 @@ namespace SoukeyNetget.Task
         }
 
         //根据指定的导航规则进行页面导航
-        public List<string> ParseUrlRule(string Url, string UrlRule, bool IsUrlEncode)
+        public List<string> ParseUrlRule(string Url, string UrlRule)
         {
-            return  PUrlRule(Url, UrlRule, IsUrlEncode, "");
+            return  PUrlRule(Url, UrlRule);
         }
 
-        public List<string> ParseUrlRule(string Url, string UrlRule, bool IsUrlEncode, string UrlEncode)
-        {
-           return  PUrlRule(Url, UrlRule, IsUrlEncode, UrlEncode);
-        }
+        //public List<string> ParseUrlRule(string Url, string UrlRule)
+        //{
+        //   return  PUrlRule(Url, UrlRule);
+        //}
 
-        public List<string> PUrlRule(string Url, string UrlRule,bool IsUrlEncode,string UrlEncode)
+        public List<string> PUrlRule(string Url, string UrlRule)
         {
             string Url1;
             List<string> Urls=new List<string> ();
@@ -46,7 +46,7 @@ namespace SoukeyNetget.Task
             //判断网址是否存在参数，如果存在参数则取出第一个可用网址
             if (Regex.IsMatch(Url, "{.*}"))
             {
-                List<string> Urls1 = SplitWebUrl(Url,IsUrlEncode ,UrlEncode );
+                List<string> Urls1 = SplitWebUrl(Url );  //,IsUrlEncode ,UrlEncode
                 Url1 = Urls1[0].ToString();
             }
             else
@@ -76,17 +76,17 @@ namespace SoukeyNetget.Task
         }
 
         //拆分网址
-        public List<string> SplitWebUrl(string Url, bool IsUrlEncode)
+        public List<string> SplitWebUrl(string Url)//, bool IsUrlEncode
         {
-            return SplitUrl(Url, IsUrlEncode, "");
+            return SplitUrl(Url);//, IsUrlEncode, ""
         }
 
-        public List<string> SplitWebUrl(string Url, bool IsUrlEncode, string UrlEncode)
-        {
-            return SplitUrl(Url, IsUrlEncode, UrlEncode);
-        }
+        //public List<string> SplitWebUrl(string Url)//, bool IsUrlEncode, string UrlEncode
+        //{
+        //    return SplitUrl(Url);//, IsUrlEncode, UrlEncode
+        //}
 
-        private List<string> SplitUrl(string Url, bool IsUrlEncode, string UrlEncode)
+        private List<string> SplitUrl(string Url)   //, bool IsUrlEncode, string UrlEncode
         {
             List<string> tmp_list_Url=new List<string>() ;
             List<string> list_Url;
@@ -115,7 +115,7 @@ namespace SoukeyNetget.Task
                 Match s = Regex.Match(Url, strMatch,RegexOptions.IgnoreCase);
                 string UrlPara = s.Groups[0].Value;
 
-                g_Url = getListUrl(UrlPara,IsUrlEncode ,UrlEncode );
+                g_Url = getListUrl(UrlPara); //,IsUrlEncode ,UrlEncode 
 
                 list_Url = new List<string>();
                
@@ -173,7 +173,7 @@ namespace SoukeyNetget.Task
                 string UrlPara = s.Groups[0].Value;
 
                 //因为仅计算网址的数量，所以不需要对url进行编码转换，如果有需要转换的话，也不需要
-                g_Url = getListUrl(UrlPara,false,"");
+                g_Url = getListUrl(UrlPara); 
 
                 UrlCount = UrlCount * g_Url.Count;
                 Url = Url.Substring(Url.IndexOf("}") + 1, Url.Length - Url.IndexOf("}") - 1);
@@ -187,7 +187,7 @@ namespace SoukeyNetget.Task
             return UrlCount;
         }
 
-        private List<string> getListUrl(string dicPre,bool IsUrlEncode,string UrlEncode)
+        private List<string> getListUrl(string dicPre)//,bool IsUrlEncode,string UrlEncode
         {
             List<string> list_Para=new List<string>();
             Regex re;
@@ -254,28 +254,40 @@ namespace SoukeyNetget.Task
                     string tClass = dicPre.Substring(dicPre.IndexOf(":") + 1, dicPre.Length - dicPre.IndexOf(":") - 1);
                     DataView dName = d.GetDict(tClass);
                    
-                    if (IsUrlEncode == true)
-                    {
-                        for (i = 0; i < dName.Count; i++)
-                        {
-                            if ((cGlobalParas.WebCode)(int.Parse (UrlEncode)) == cGlobalParas.WebCode.utf8)
-                            {
-                                list_Para.Add(HttpUtility .UrlEncode (dName[i].Row["Name"].ToString(),Encoding.UTF8 ));
-                            }
-                            else
-                            {
-                                list_Para.Add(HttpUtility.UrlEncode(dName[i].Row["Name"].ToString(),Encoding.GetEncoding ("gb2312")));
-                            }
+                    //在此不进行url参数编码处理了
+                    //if (IsUrlEncode == true)
+                    //{
+                    //    for (i = 0; i < dName.Count; i++)
+                    //    {
+                    //        switch ((cGlobalParas.WebCode)(int.Parse(UrlEncode)))
+                    //        {
+                    //            case cGlobalParas.WebCode.utf8 :
+                    //                list_Para.Add(HttpUtility.UrlEncode(dName[i].Row["Name"].ToString(), Encoding.UTF8));
+                    //                break;
+                    //            case cGlobalParas.WebCode.gb2312 :
+                    //                list_Para.Add(HttpUtility.UrlEncode(dName[i].Row["Name"].ToString(), Encoding.GetEncoding("gb2312")));
+                    //                break;
+                    //            case cGlobalParas.WebCode.gbk :
+                    //                list_Para.Add(HttpUtility.UrlEncode(dName[i].Row["Name"].ToString(), Encoding.GetEncoding("gbk")));
+                    //                break;
+                    //            case cGlobalParas.WebCode .big5 :
+                    //                list_Para.Add(HttpUtility.UrlEncode(dName[i].Row["Name"].ToString(), Encoding.GetEncoding("big5")));
+                    //                break;
+                    //            default :
+                    //                list_Para.Add(HttpUtility.UrlEncode(dName[i].Row["Name"].ToString(), Encoding.UTF8));
+                    //                break;
+                    //        }
                             
-                        }
-                    }
-                    else
-                    { 
+                            
+                    //    }
+                    //}
+                    //else
+                    //{ 
                         for (i = 0; i < dName.Count; i++)
                         {
                             list_Para.Add(dName[i].Row["Name"].ToString());
                         }
-                    }
+                    //}
 
                     break;
                 default:

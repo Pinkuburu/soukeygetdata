@@ -13,16 +13,16 @@ using System.Windows.Forms;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget
 {
     public partial class frmImportTask : Form
     {
+        
+        public delegate void ReturnTaskItem(ListView.SelectedListViewItemCollection lItems);
 
-        public delegate void ReturnTaskID(int TaskID, string TaskName);
-
-        public ReturnTaskID RTaskID;
+        public ReturnTaskItem RTaskItem;
 
         public frmImportTask()
         {
@@ -53,7 +53,7 @@ namespace SoukeyNetget
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.Close();
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -88,7 +88,9 @@ namespace SoukeyNetget
                     litem = new ListViewItem();
                     litem.Name = "S" + xmlTasks.GetTaskID(i);
                     litem.Text = xmlTasks.GetTaskName(i);
+                    litem.SubItems.Add(this.comTaskClass.SelectedItem.ToString().Substring(0, this.comTaskClass.SelectedItem.ToString().IndexOf("-")).Trim());
                     litem.SubItems.Add(cGlobalParas.ConvertName(int.Parse (xmlTasks.GetTaskType(i))));
+                    litem.SubItems.Add(cGlobalParas.ConvertName(int.Parse(xmlTasks.GetTaskRunType(i))));
                     litem.ImageIndex = 0;
                     this.listTask.Items.Add(litem);
                     litem = null;
@@ -121,9 +123,9 @@ namespace SoukeyNetget
                 this.errorProvider1.SetError(this.listTask, "选择任务分类筛选任务，如果放弃操作，请点击“取消”");
                 return;
             }
-            int tClassID = int.Parse(this.listTask.SelectedItems[0].Name.Substring(1, this.listTask.SelectedItems[0].Name.Length - 1).ToString());
-            string tClassName = this.listTask.SelectedItems[0].Text.ToString();
-            RTaskID(tClassID,tClassName );
+            //int tClassID = int.Parse(this.listTask.SelectedItems[0].Name.Substring(1, this.listTask.SelectedItems[0].Name.Length - 1).ToString());
+            //string tClassName = this.listTask.SelectedItems[0].Text.ToString();
+            RTaskItem(this.listTask.SelectedItems);
         }
        
     }

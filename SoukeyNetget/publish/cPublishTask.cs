@@ -5,18 +5,22 @@ using System.Threading;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Interop.Excel;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Net;
+using System.Web;
 
 
 ///功能：发布任务
-///完成时间：2009-3-2
+///完成时间：2009-7-21
 ///作者：一孑
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
-///修订：无
+///版本：01.01.00
+///修订：增加了发布类别，支持数据库、web及文件发布
 namespace SoukeyNetget.publish
 {
     class cPublishTask
@@ -94,16 +98,26 @@ namespace SoukeyNetget.publish
             m_pTaskData.TaskID =t.TaskID ;
             m_pTaskData.TaskName =t.TaskName ;
             m_pTaskData.DataPwd =t.DataPwd ;
+            m_pTaskData.ExportFile = t.ExportFile;
             m_pTaskData.DataSource =t.DataSource ;
             m_pTaskData.DataUser =t.DataUser ;
             m_pTaskData.FileName = FileName;
             
             //dt.ReadXml(FileName);
+            //需要保存的或者导出的数据还是传入，因为需要临时数据的保存
+            //下一版需要将临时数据保存和发布数据进行分离
             m_pTaskData.PublishData = dData ;
             m_pTaskData.PublishData.TableName = t.TaskName + "-" + t.TaskID + ".xml"; 
 
             m_pTaskData.PublishType =(cGlobalParas.PublishType)(int.Parse (t.ExportType ));
             m_pTaskData.DataTableName =t.DataTableName ;
+
+            //以下内容为支持任务1.2的发布信息
+            m_pTaskData.InsertSql = t.InsertSql;
+            m_pTaskData.ExportUrl = t.ExportUrl;
+            m_pTaskData.ExportUrlCode = t.ExportUrlCode;
+            m_pTaskData.ExportCookie = t.ExportCookie;
+
             t=null;
         }
 
@@ -150,11 +164,21 @@ namespace SoukeyNetget.publish
             add { lock (m_eventLock) { e_PublishTempDataCompleted += value; } }
             remove { lock (m_eventLock) { e_PublishTempDataCompleted -= value; } }
         }
+
+        //发布日志事件
+        private event EventHandler<PublishLogEventArgs> e_PublishLog;
+        internal event EventHandler<PublishLogEventArgs> PublishLog
+        {
+            add { lock (m_eventLock) { e_PublishLog += value; } }
+            remove { lock (m_eventLock) { e_PublishLog -= value; } }
+        }
+
         #endregion
 
 
         private readonly Object m_threadLock = new Object();
 
+        #region 用于临时存储发布数据
         //此方法用于临时发布数据使用，即如果用户终端了操作
         //需调用此方法对已经采集的数据进行临时发布，当前
         //仅临时进行保存
@@ -196,11 +220,20 @@ namespace SoukeyNetget.publish
             {
                 //存储临时数据时，有可能导致多个线程访问的失败操作，当前并没有
                 //加锁控制，加锁控制在下一版提供
-                e_PublishError(this, new PublishErrorEventArgs(this.TaskData.TaskID, this.TaskData.TaskName, ex));
+                if (e_PublishLog != null)
+                {
+                    e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "临时存储失败，错误信息为：" + ex.Message + "\n"));
+                }
+                
+                if (e_PublishError != null)
+                {
+                    e_PublishError(this, new PublishErrorEventArgs(this.TaskData.TaskID, this.TaskData.TaskName, ex));
+                }
 
+                
             }
         }
-
+        #endregion
 
         //此方法用于采集任务完成后，数据的发布操作
         public void startPublic()
@@ -226,63 +259,6 @@ namespace SoukeyNetget.publish
            
         }
 
-        private bool ExportData()
-        {
-            //触发发布启动事件
-            PublishStartedEventArgs evt = new PublishStartedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName);
-            e_PublishStarted(this,evt);
-
-            switch (this.PublishType)
-            {
-                case cGlobalParas.PublishType.PublishAccess :
-                    ExportAccess();
-                    break;
-                case cGlobalParas.PublishType.PublishExcel :
-                    ExportExcel();
-                    break;
-                case cGlobalParas.PublishType.PublishTxt :
-                    ExportTxt();
-                    break;
-                default :
-                    break;
-            }
-
-            PublishCompletedEventArgs evt1 = new PublishCompletedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName);
-            e_PublishCompleted(this, evt1);
-
-            return true;
-        }
-        private bool ConnectSqlServer()
-        {
-            try
-            {
-                string strDataBase = "Server=.;DataBase=Library;Uid=" + m_pTaskData.DataUser + ";pwd=" + m_pTaskData.DataPwd  + ";";
-                SqlConnection conn = new SqlConnection(strDataBase);
-                conn.Open();
-            }
-            catch (System.Exception ex)
-            {
-                throw ex;
-                
-            }
-            return true;
-        }
-
-        private string getCreateTablesql()
-        {
-            string strsql = "";
-
-            strsql = "create table " + this.m_pTaskData.DataTableName + "(";
-            for (int i=0;i<m_pTaskData.PublishData.Columns.Count ;i++)
-            {
-                strsql +=  m_pTaskData.PublishData.Columns[i].ColumnName + " " + "text" + "," ;
-            }
-            strsql = strsql.Substring(0, strsql.Length - 1);
-            strsql += ")";
-
-            return strsql;
-        }
-
         private void ThreadWork()
         {
             //无论数据是否发布，都需要保存采集下来的数据
@@ -304,17 +280,110 @@ namespace SoukeyNetget.publish
             }
         }
 
+        #region 导出数据 支持文本 Excel Access
+        private bool ExportData()
+        {
+            //触发发布启动事件
+            PublishStartedEventArgs evt = new PublishStartedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName);
+            e_PublishStarted(this,evt);
+
+            switch (this.PublishType)
+            {
+                case cGlobalParas.PublishType.PublishAccess :
+                    ExportAccess();
+                    break;
+                case cGlobalParas.PublishType.PublishExcel :
+                    ExportExcel();
+                    break;
+                case cGlobalParas.PublishType.PublishTxt :
+                    ExportTxt();
+                    break;
+                case cGlobalParas.PublishType.PublishMSSql :
+                    ExportMSSql();
+                    break;
+                case cGlobalParas.PublishType.PublishMySql :
+                    ExportMySql();
+                    break;
+                case cGlobalParas.PublishType.PublishWeb :
+                    ExportWeb();
+                    break;
+                default :
+                    break;
+            }
+
+            PublishCompletedEventArgs evt1 = new PublishCompletedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName);
+            e_PublishCompleted(this, evt1);
+
+            return true;
+        }
+
+        private bool ConnectSqlServer()
+        {
+            try
+            {
+                string strDataBase = "Server=.;DataBase=Library;Uid=" + m_pTaskData.DataUser + ";pwd=" + m_pTaskData.DataPwd  + ";";
+                SqlConnection conn = new SqlConnection(strDataBase);
+                conn.Open();
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+                
+            }
+            return true;
+        }
+
+        private string getCreateTablesql(cGlobalParas.DatabaseType dType ,string Encoding)
+        {
+            string strsql = "";
+
+            strsql = "create table " + this.m_pTaskData.DataTableName + "(";
+            for (int i=0;i<m_pTaskData.PublishData.Columns.Count ;i++)
+            {
+                switch (dType)
+                {
+                    case cGlobalParas.DatabaseType.Access:
+                        strsql += m_pTaskData.PublishData.Columns[i].ColumnName + " " + "text" + ",";
+                        break;
+                    case cGlobalParas.DatabaseType.MSSqlServer:
+                        strsql += m_pTaskData.PublishData.Columns[i].ColumnName + " " + "text" + ",";
+                        break;
+                    case cGlobalParas.DatabaseType.MySql:
+                        strsql += m_pTaskData.PublishData.Columns[i].ColumnName + " " + "text" + ",";
+                        break;
+                    default:
+                        strsql += m_pTaskData.PublishData.Columns[i].ColumnName + " " + "text" + ",";
+                        break;
+                }
+            }
+            strsql = strsql.Substring(0, strsql.Length - 1);
+            strsql += ")";
+
+            //如果是mysql数据库，需要根据连接串的字符集进行数据表的建立
+            if (dType == cGlobalParas.DatabaseType.MySql)
+            {
+                if (Encoding == "" || Encoding == null)
+                    Encoding = "utf8";
+
+                strsql += " CHARACTER SET " + Encoding + " ";
+            }
+
+            return strsql;
+        }
+
+
+
         private void ExportAccess()
         {
-            OleDbConnection conn = new OleDbConnection();
-            
-            string connectionstring = "provider=microsoft.jet.oledb.4.0;data source=";
-            connectionstring += m_pTaskData.DataSource;
-            if (m_pTaskData.DataUser != "")
-            {
-                connectionstring += "UID=" + m_pTaskData.DataUser;
+            bool IsTable = false;
 
-            }
+            OleDbConnection conn = new OleDbConnection();
+
+            string connectionstring = m_pTaskData.DataSource;
+
+            //判断是否为新建表
+            string tName = m_pTaskData.DataTableName;
+
             conn.ConnectionString = connectionstring;
 
             try
@@ -323,43 +392,126 @@ namespace SoukeyNetget.publish
             }
             catch (System.Exception ex)
             {
-                throw ex;
-            }
-
-            string CreateTablesql = getCreateTablesql();
-
-            OleDbCommand com = new OleDbCommand();
-            com.Connection = conn;
-            com.CommandText = CreateTablesql;
-            com.CommandType = CommandType.Text;
-            try
-            {
-                int result = com.ExecuteNonQuery();
-            }
-            catch (System.Data.OleDb.OleDbException  ex)
-            {
-                if (ex.ErrorCode != -2147217900)
+                if (e_PublishLog != null)
                 {
-                    throw ex;
+                    e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布Access失败，错误信息为：" + ex.Message + "\n"));
                 }
+
+                return;
             }
 
-            System.Data.OleDb.OleDbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter("SELECT * FROM " + m_pTaskData.DataTableName , conn);
-            System.Data.OleDb.OleDbCommandBuilder builder = new System.Data.OleDb.OleDbCommandBuilder(da);
+            System.Data.DataTable tb = conn.GetSchema("Tables");
 
-            DataSet ds = new DataSet();
-            da.Fill(ds, m_pTaskData.DataTableName);
-
-            for (int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
+            foreach (DataRow r in tb.Rows)
             {
-                DataRow dr = ds.Tables[0].NewRow();
-                for (int j=0;j<m_pTaskData.PublishData.Columns.Count ;j++)
+                if (r[3].ToString() == "TABLE")
                 {
-                    dr[j] = m_pTaskData.PublishData.Rows [i][j].ToString();
+                    if (r[2].ToString() == tName)
+                    {
+                        IsTable = true;
+                        break;
+                    }
                 }
-                ds.Tables[0].Rows.Add(dr);
+
             }
-            int m = da.Update(ds.Tables[0]);
+
+            if (IsTable == false)
+            {
+                //需要建立新表，建立新表的时候采用ado.net新建行的方式进行数据增加
+                string CreateTablesql = getCreateTablesql(cGlobalParas.DatabaseType.Access,"" );
+
+                OleDbCommand com = new OleDbCommand();
+                com.Connection = conn;
+                com.CommandText = CreateTablesql;
+                com.CommandType = CommandType.Text;
+                try
+                {
+                    int result = com.ExecuteNonQuery();
+                }
+                catch (System.Data.OleDb.OleDbException ex)
+                {
+                    if (ex.ErrorCode != -2147217900)
+                    {
+                        if (e_PublishLog != null)
+                        {
+                            e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，错误信息为：" + ex.Message + "\n"));
+                        }
+
+                        throw ex;
+                    }
+                }
+
+                try
+                {
+
+                    System.Data.OleDb.OleDbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter("SELECT * FROM " + tName, conn);
+                    System.Data.OleDb.OleDbCommandBuilder builder = new System.Data.OleDb.OleDbCommandBuilder(da);
+
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, m_pTaskData.DataTableName);
+
+                    for (int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
+                    {
+                        DataRow dr = ds.Tables[0].NewRow();
+                        for (int j = 0; j < m_pTaskData.PublishData.Columns.Count; j++)
+                        {
+                            dr[j] = m_pTaskData.PublishData.Rows[i][j].ToString();
+                        }
+                        ds.Tables[0].Rows.Add(dr);
+                    }
+                    int m = da.Update(ds.Tables[0]);
+                }
+                catch (System.Exception ex)
+                {
+                    if (e_PublishLog != null)
+                    {
+                        e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布Access失败，错误信息为：" + ex.Message + "\n"));
+                    }
+
+                    return;
+                }
+
+            }
+            else
+            {
+                try
+                {
+                    //无需建立新表，需要采用sql语句的方式进行，但需要替换sql语句中的内容
+                    System.Data.OleDb.OleDbCommand cm = new System.Data.OleDb.OleDbCommand();
+                    cm.Connection = conn;
+                    cm.CommandType = CommandType.Text;
+
+                    //开始拼sql语句
+                    string sql = "";
+
+                    for (int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
+                    {
+                        sql = m_pTaskData.InsertSql;
+
+                        for (int j = 0; j < m_pTaskData.PublishData.Columns.Count; j++)
+                        {
+                            string strPara = "{" + m_pTaskData.PublishData.Columns[j].ColumnName + "}";
+                            //string strParaValue = m_pTaskData.PublishData.Rows[i][j].ToString();
+                            string strParaValue = m_pTaskData.PublishData.Rows[i][j].ToString().Replace("\"", "\"\"");
+                            sql = sql.Replace(strPara, strParaValue);
+                        }
+
+                        cm.CommandText = sql;
+                        cm.ExecuteNonQuery();
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    if (e_PublishLog != null)
+                    {
+                        e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布Access失败，错误信息为：" + ex.Message + "\n"));
+                    }
+
+                    return;
+                }
+
+            }
+           
 
             conn.Close();
         }
@@ -367,70 +519,66 @@ namespace SoukeyNetget.publish
         private void ExportExcel()
         {
             string TaskName=m_pTaskData.TaskName ;
-            string FileName=m_pTaskData.DataSource ;
+            string FileName = m_pTaskData.ExportFile;
             System.Data.DataTable gData= m_pTaskData.PublishData;
+
+            //判断目录根据结果并创建
+            cTool.CreateDirectory(FileName);
             
             // 定义要使用的Excel 组件接口
             // 定义Application 对象,此对象表示整个Excel 程序
 
-            Interop.Excel.Application excelApp = null;
-            Interop.Excel.Workbook workBook = null;
-            Interop.Excel.Worksheet ws = null;
-            Interop.Excel.Range r;
-            int row = 1;
-            int cell = 1;
+            FileStream myStream = File.Open(FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
+            StreamWriter sw = new StreamWriter(myStream, System.Text.UTF8Encoding .UTF8 );
+            string str = "";
+            string tempStr = "";
+            int i = 0;
+            int Count = 0;
 
             try
             {
-                //初始化 Application 对象 excelApp
-                excelApp = new Interop.Excel.Application();
-                workBook = excelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-                ws = (Worksheet)workBook.Worksheets[1];
-
-                // 命名工作表的名称为 "Task Management"
-                ws.Name = TaskName;
-
-
-                // 遍历数据表中的所有列
-                for (int i = 0; i < gData.Columns.Count; i++)
+                //写标题 
+                for (i = 0; i < gData.Columns.Count; i++)
                 {
-
-                    ws.Cells[row, cell] = gData.Columns[i].ColumnName;
-                    r = (Range)ws.Cells[row, cell];
-                    ws.get_Range(r, r).HorizontalAlignment = Interop.Excel.XlVAlign.xlVAlignCenter;
-
-                    cell++;
-
+                    str += "\t";
+                    str += gData.Columns[i].ColumnName;
                 }
 
-                // 创建行,把数据视图记录输出到对应的Excel 单元格
-                for (int i = 0; i < gData.Rows.Count; i++)
+                sw.WriteLine(str);
+
+                Count = gData.Rows.Count;
+                //写内容 
+                for (i = 0; i < gData.Rows.Count; i++)
                 {
                     for (int j = 0; j < gData.Columns.Count; j++)
                     {
-                        ws.Cells[i + 2, j + 1] = gData.Rows[i][j];
-                        Range rg = (Range)ws.get_Range(ws.Cells[i + 2, j + 1], ws.Cells[i + 2, j + 1]);
-                        rg.EntireColumn.ColumnWidth = 20;
-                        rg.NumberFormatLocal = "@";
+
+                        tempStr += "\t";
+                        tempStr += gData.Rows[i][j];
                     }
+                    sw.WriteLine(tempStr);
+                    tempStr = "";
+
                 }
 
-                workBook.SaveCopyAs(FileName);
-                workBook.Saved = true;
+
+                sw.Close();
+                myStream.Close();
 
             }
-            catch (System.Exception )
+            catch (Exception ex)
             {
-                return ;
+                if (e_PublishLog != null)
+                {
+                    e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布" + FileName + "失败，错误信息为：" + ex.Message + "\n"));
+                }
+
+                return;
             }
             finally
             {
-                excelApp.UserControl = false;
-                excelApp.Quit();
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(ws);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(workBook);
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
-                GC.Collect();
+                sw.Close();
+                myStream.Close();
 
             }
 
@@ -440,8 +588,12 @@ namespace SoukeyNetget.publish
         private void ExportTxt()
         {
             string TaskName = m_pTaskData.TaskName;
-            string FileName = m_pTaskData.DataSource;
+            string FileName = m_pTaskData.ExportFile;
             System.Data.DataTable gData = m_pTaskData.PublishData;
+
+            //判断目录根据结果并创建
+            cTool.CreateDirectory(FileName);
+
 
             FileStream myStream = File.Open(FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
             StreamWriter sw = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("gb2312"));
@@ -477,8 +629,13 @@ namespace SoukeyNetget.publish
                 myStream.Close();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                if (e_PublishLog != null)
+                {
+                    e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布" + FileName + "失败，错误信息为：" + ex.Message + "\n"));
+                }
+
                 return ;
             }
             finally
@@ -492,5 +649,425 @@ namespace SoukeyNetget.publish
 
         }
 
+        private void ExportMSSql()
+        {
+            bool IsTable = false;
+
+            SqlConnection conn = new SqlConnection();
+
+            string connectionstring = m_pTaskData.DataSource;
+
+            //判断是否为新建表
+            string tName = m_pTaskData.DataTableName;
+
+            conn.ConnectionString = connectionstring;
+
+            try
+            {
+                conn.Open();
+            }
+            catch (System.Exception ex)
+            {
+                if (e_PublishLog != null)
+                {
+                    e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MSSql失败，错误信息为：" + ex.Message + "\n"));
+                }
+
+                throw ex;
+            }
+
+            System.Data.DataTable tb = conn.GetSchema("Tables");
+
+            foreach (DataRow r in tb.Rows)
+            {
+                if (r[2].ToString()==tName )
+                {
+                    IsTable = true;
+                    break;
+                }
+            }
+
+            if (IsTable == false)
+            {
+                //需要建立新表，建立新表的时候采用ado.net新建行的方式进行数据增加
+                string CreateTablesql = getCreateTablesql(cGlobalParas.DatabaseType.MSSqlServer,"");
+
+                SqlCommand com = new SqlCommand();
+                com.Connection = conn;
+                com.CommandText = CreateTablesql;
+                com.CommandType = CommandType.Text;
+                try
+                {
+                    int result = com.ExecuteNonQuery();
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    if (ex.ErrorCode != -2147217900)
+                    {
+                        if (e_PublishLog != null)
+                        {
+                            e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MSSql失败，错误信息为：" + ex.Message + "\n"));
+                        }
+
+                        throw ex;
+                    }
+                }
+
+            //    try
+            //    {
+
+            //        System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter("SELECT * FROM " + tName, conn);
+            //        System.Data.SqlClient.SqlCommandBuilder builder = new System.Data.SqlClient.SqlCommandBuilder(da);
+
+            //        DataSet ds = new DataSet();
+            //        da.Fill(ds, m_pTaskData.DataTableName);
+
+            //        for (int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
+            //        {
+            //            DataRow dr = ds.Tables[0].NewRow();
+            //            for (int j = 0; j < m_pTaskData.PublishData.Columns.Count; j++)
+            //            {
+            //                dr[j] = m_pTaskData.PublishData.Rows[i][j].ToString();
+            //            }
+            //            ds.Tables[0].Rows.Add(dr);
+            //        }
+            //        int m = da.Update(ds.Tables[0]);
+            //    }
+            //    catch (System.Exception ex)
+            //    {
+            //        if (e_PublishLog != null)
+            //        {
+            //            e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MSSql失败，错误信息为：" + ex.Message + "\n"));
+            //        }
+
+            //        return;
+            //    }
+
+            }
+            //else
+            //{
+                //无需建立新表，需要采用sql语句的方式进行，但需要替换sql语句中的内容
+                SqlCommand cm = new SqlCommand();
+                cm.Connection = conn;
+                cm.CommandType = CommandType.Text;
+
+                //开始拼sql语句
+                string strInsertSql = m_pTaskData.InsertSql;
+
+                //需要将双引号替换成单引号
+                //strInsertSql = strInsertSql.Replace("\"", "'");
+
+                string sql = "";
+
+                for (int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
+                {
+                    sql = strInsertSql;
+
+                    for (int j = 0; j < m_pTaskData.PublishData.Columns.Count; j++)
+                    {
+                        string strPara = "{" + m_pTaskData.PublishData.Columns[j].ColumnName + "}";
+                        //string strParaValue = m_pTaskData.PublishData.Rows[i][j].ToString();
+                        string strParaValue = m_pTaskData.PublishData.Rows[i][j].ToString().Replace("\"", "\"\"");
+                        sql = sql.Replace(strPara, strParaValue);
+                    }
+                    try
+                    {
+                        cm.CommandText = sql;
+                        cm.ExecuteNonQuery();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        if (e_PublishLog != null)
+                        {
+                            e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MSSql失败，Sql语句为：" + sql.ToString() + " 错误信息为：" + ex.Message + "\n"));
+                        }
+
+                    }
+                }
+            //}
+            conn.Close();
+        }
+
+        private void ExportMySql()
+        {
+            bool IsTable = false;
+
+            MySqlConnection conn = new MySqlConnection();
+
+            string connectionstring = m_pTaskData.DataSource ;
+
+            //判断是否为新建表
+            string tName = m_pTaskData.DataTableName;
+
+            conn.ConnectionString = connectionstring;
+
+            try
+            {
+                conn.Open();
+            }
+            catch (System.Exception ex)
+            {
+                if (e_PublishLog != null)
+                {
+                    e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，错误信息为：" + ex.Message + "\n"));
+                }
+                throw ex;
+            }
+
+            System.Data.DataTable tb = conn.GetSchema("Tables");
+
+            foreach (DataRow r in tb.Rows)
+            {
+                if (string.Compare (r[2].ToString (),tName ,true )==0)
+                {
+                    IsTable = true;
+                    break;
+                }
+            }
+
+            if (IsTable == false)
+            {
+                //通过连接字符串把编码获取出来，根据编码进行数据表的建立
+                string strMatch = "(?<=character set=)[^\\s]*(?=[\\s;])";
+                Match s = Regex.Match(connectionstring, strMatch, RegexOptions.IgnoreCase);
+                string Encoding = s.Groups[0].Value;
+
+                //需要建立新表，建立新表的时候采用ado.net新建行的方式进行数据增加
+                string CreateTablesql = getCreateTablesql(cGlobalParas.DatabaseType.MySql,Encoding);
+
+                MySqlCommand com = new MySqlCommand();
+                com.Connection = conn;
+                com.CommandText = CreateTablesql;
+                com.CommandType = CommandType.Text;
+                try
+                {
+                    int result = com.ExecuteNonQuery();
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    if (ex.ErrorCode != -2147217900)
+                    {
+                        if (e_PublishLog != null)
+                        {
+                            e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，错误信息为：" + ex.Message + "\n"));
+                        }
+                        throw ex;
+                    }
+                }
+            }
+
+            //无论是否为新建表，都采用这种方式进行数据表的添加
+            
+
+                //MySql.Data.MySqlClient.MySqlDataAdapter da = new MySql.Data.MySqlClient.MySqlDataAdapter("SELECT * FROM " + tName, conn);
+                //MySql.Data.MySqlClient.MySqlCommandBuilder builder = new MySql.Data.MySqlClient.MySqlCommandBuilder(da);
+
+                //DataSet ds = new DataSet();
+
+                //da.Fill(ds, m_pTaskData.DataTableName);
+                //int m = 0;
+
+                //for ( int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
+                //{
+                //    try
+                //    {
+                //        DataRow dr = ds.Tables[0].NewRow();
+                //        for (int j = 0; j < m_pTaskData.PublishData.Columns.Count; j++)
+                //        {
+                //            dr[j] = m_pTaskData.PublishData.Rows[i][j].ToString();
+                //        }
+                //        ds.Tables[0].Rows.Add(dr);
+
+                //        m = da.Update(ds.Tables[0]);
+                //    }
+                //    catch (System.Exception ex)
+                //    {
+                //        if (e_PublishLog != null)
+                //        {
+            //            e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，错误信息为：" + ex.Message + "\n"));
+                //        }
+
+                //        //throw ex ;
+                //    }
+                //}
+
+
+
+
+
+            //无需建立新表，需要采用sql语句的方式进行，但需要替换sql语句中的内容
+            MySqlCommand cm = new MySqlCommand();
+            cm.Connection = conn;
+            cm.CommandType = CommandType.Text;
+
+            //开始拼sql语句
+            string strInsertSql = m_pTaskData.InsertSql;
+
+            //需要将双引号替换成单引号
+            //strInsertSql = strInsertSql.Replace("\"", "'");
+
+
+            string sql = "";
+
+            
+
+            for (int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
+            {
+                sql = strInsertSql;
+
+                for (int j = 0; j < m_pTaskData.PublishData.Columns.Count; j++)
+                {
+                    string strPara = "{" + m_pTaskData.PublishData.Columns[j].ColumnName + "}";
+                    string strParaValue = m_pTaskData.PublishData.Rows[i][j].ToString().Replace ("\"","\"\"");
+                    sql = sql.Replace(strPara, strParaValue);
+                }
+
+                try
+                {
+                    cm.CommandText = sql;
+                    cm.ExecuteNonQuery();
+                }
+                catch (System.Exception ex)
+                {
+                    if (e_PublishLog != null)
+                    {
+                        e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，Sql语句为：" + sql.ToString() + " 错误信息为：" + ex.Message + "\n"));
+                    }
+
+                }
+            }
+            
+            conn.Close();
+        }
+
+        //web在线发布数据
+        private void ExportWeb()
+        {
+            //判断网页编码
+
+            string PostPara = "";
+            string url = this.m_pTaskData.ExportUrl;
+
+            CookieContainer CookieCon = new CookieContainer();
+
+            HttpWebRequest wReq;
+
+            if (Regex.IsMatch(url, @"<POST>.*</POST>", RegexOptions.IgnoreCase))
+            {
+                wReq = (HttpWebRequest)WebRequest.Create(@url.Substring(0, url.IndexOf("<POST>")));
+            }
+            else
+            {
+                wReq = (HttpWebRequest)WebRequest.Create(@url);
+            }
+
+
+            wReq.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50215;)";
+
+            Match a = Regex.Match(url, @"(http://).[^/]*[?=/]", RegexOptions.IgnoreCase);
+            string url1 = a.Groups[0].Value.ToString();
+            wReq.Referer = url1;
+
+            //判断是否有cookie
+            string cookie = this.m_pTaskData.ExportCookie;
+            if (cookie != "")
+            {
+                CookieCollection cl = new CookieCollection();
+
+                foreach (string sc in cookie.Split(';'))
+                {
+                    string ss = sc.Trim();
+                    cl.Add(new Cookie(ss.Split('=')[0].Trim(), ss.Split('=')[1].Trim(), "/"));
+                }
+                CookieCon.Add(new Uri(url), cl);
+                wReq.CookieContainer = CookieCon;
+            }
+
+            //设置页面超时时间为8秒
+            wReq.Timeout = 8000;
+
+            //开始循环发布数据
+            for (int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
+            {
+                string ExportUrl=url;
+
+                //替换Url地址中的参数
+                for (int j = 0; j < m_pTaskData.PublishData.Columns.Count; j++)
+                {
+                    string strPara = "{" + m_pTaskData.PublishData.Columns[j].ColumnName + "}";
+                    string strParaValue = m_pTaskData.PublishData.Rows[i][j].ToString();
+                    ExportUrl = ExportUrl.Replace(strPara, strParaValue);
+                }
+
+                //判断是否需要进行Url编码
+                switch (int.Parse(this.m_pTaskData.ExportUrlCode))
+                {
+                    case (int)cGlobalParas.WebCode.NoCoding:
+                        
+                        break;
+                    case (int)cGlobalParas.WebCode.gb2312:
+                        ExportUrl =System.Web.HttpUtility.UrlEncode (ExportUrl,Encoding.GetEncoding ("gb2312"));
+                        break;
+                    case (int)cGlobalParas.WebCode.gbk:
+                        ExportUrl =System.Web.HttpUtility.UrlEncode (ExportUrl,Encoding.GetEncoding ("gbk"));
+                        break;
+                    case (int)cGlobalParas.WebCode.utf8:
+                        ExportUrl =System.Web.HttpUtility.UrlEncode (ExportUrl,Encoding.UTF8 );
+                        break;
+                    case (int)cGlobalParas.WebCode.big5:
+                        ExportUrl =System.Web.HttpUtility.UrlEncode (ExportUrl,Encoding.GetEncoding ("gib5"));
+                        break;
+                    default:
+                        ExportUrl = System.Web.HttpUtility.UrlEncode(ExportUrl, Encoding.UTF8);
+                        break;
+                }
+
+
+                //开始发布数据，首先判断是否为POST方式进行数据发布
+                //判断是否含有POST参数
+                if (Regex.IsMatch(url, @"(?<=<POST>)[\S\s]*(?=</POST>)", RegexOptions.IgnoreCase))
+                {
+
+                    Match s = Regex.Match(url, @"(?<=<POST>).*(?=</POST>)", RegexOptions.IgnoreCase);
+                    PostPara = s.Groups[0].Value.ToString();
+                    byte[] pPara = Encoding.ASCII.GetBytes(PostPara);
+
+                    wReq.ContentType = "application/x-www-form-urlencoded";
+                    wReq.ContentLength = pPara.Length;
+
+                    wReq.Method = "POST";
+
+                    System.IO.Stream reqStream = wReq.GetRequestStream();
+                    reqStream.Write(pPara, 0, pPara.Length);
+                    reqStream.Close();
+
+                }
+                else
+                {
+                    wReq.Method = "GET";
+
+                }
+
+                HttpWebResponse wResp = (HttpWebResponse)wReq.GetResponse();
+                System.IO.Stream respStream = wResp.GetResponseStream();
+
+                System.IO.StreamReader reader;
+                reader = new System.IO.StreamReader(respStream, Encoding.UTF8);
+                string strWebData = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+               
+            }
+
+            
+
+           
+
+
+        }
+
+        #endregion
+
+      
     }
 }

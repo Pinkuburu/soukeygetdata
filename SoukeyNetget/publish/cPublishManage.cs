@@ -8,7 +8,7 @@ using System.Text;
 ///遗留问题：无
 ///开发计划：下一步需要完善发布功能模块，势必此功能要继续完善
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.publish
 {
@@ -71,6 +71,15 @@ namespace SoukeyNetget.publish
                 pTask.PublishStarted  += this.onPublishStarted;
                 pTask.PublishError  += this.onPublishError;
                 pTask.PublishTempDataCompleted += this.onPublishTempDataCompleted;
+                pTask.PublishLog += this.onPublishLog;
+            }
+        }
+
+        private void onPublishLog(object sender, PublishLogEventArgs e)
+        {
+            if (e_PublishLog != null && !e.Cancel)
+            {
+                e_PublishLog(sender, e);
             }
         }
 
@@ -180,6 +189,14 @@ namespace SoukeyNetget.publish
         {
             add { e_PublishTempDataCompleted += value; }
             remove { e_PublishTempDataCompleted -= value; }
+        }
+
+        //任务发布日志事件
+        private event EventHandler<PublishLogEventArgs> e_PublishLog;
+        public event EventHandler<PublishLogEventArgs> PublishLog
+        {
+            add { e_PublishLog += value; }
+            remove { e_PublishLog -= value; }
         }
         #endregion
     }

@@ -9,7 +9,7 @@ using System.Data;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget.publish
 {
@@ -65,6 +65,13 @@ namespace SoukeyNetget.publish
             set { m_PublishType = value; }
         }
 
+        private string m_ExportFile;
+        public string ExportFile
+        {
+            get { return m_ExportFile; }
+            set { m_ExportFile = value; }
+        }
+
         private string m_DataSource;
         public string DataSource
         {
@@ -72,6 +79,7 @@ namespace SoukeyNetget.publish
             set { m_DataSource = value; }
         }
 
+        #region 任务1.2版本已经取消了数据库用户名和密码，继续保留是为了兼容老版本
         private string m_DataUser;
         public string DataUser
         {
@@ -85,12 +93,42 @@ namespace SoukeyNetget.publish
             get { return m_DataPwd; }
             set { m_DataPwd = value; }
         }
+        #endregion
 
         private string m_DataTableName;
         public string DataTableName
         {
             get { return m_DataTableName; }
             set { m_DataTableName = value; }
+        }
+
+        //以下内容是为了可以支持任务1.2版本添加的任务发布属性
+        private string m_InsertSql;
+        public string InsertSql
+        {
+            get { return m_InsertSql; }
+            set { m_InsertSql = value; }
+        }
+
+        private string m_ExportUrl;
+        public string ExportUrl
+        {
+            get { return m_ExportUrl; }
+            set { m_ExportUrl = value; }
+        }
+
+        private string m_ExportUrlCode;
+        public string ExportUrlCode
+        {
+            get { return m_ExportUrlCode; }
+            set { m_ExportUrlCode = value; }
+        }
+
+        private string m_ExportCookie;
+        public string ExportCookie
+        {
+            get { return m_ExportCookie; }
+            set { m_ExportCookie = value; }
         }
 
         

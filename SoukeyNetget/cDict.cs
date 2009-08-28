@@ -9,7 +9,7 @@ using System.Data ;
 ///遗留问题：无
 ///开发计划：下一版字典部分要强化
 ///说明：
-///版本：01.00.00
+///版本：01.10.00
 ///修订：无
 namespace SoukeyNetget
 {
@@ -93,13 +93,13 @@ namespace SoukeyNetget
             //添加分类的节点
             string strDictClass;
 
-            strDictClass = "<Name>" + DictClassName + "</Name>";
+            strDictClass = "<Name>" + cTool.ReplaceTrans( DictClassName) + "</Name>";
             xmlConfig.InsertElement("DictConfig/DictClasses", "DictClass", strDictClass);
 
             //同时还需要添加分类节点下的内容节点
             string DictPath;
-            DictPath = "<Dict" + DictClassName + "></Dict" + DictClassName + ">";
-            xmlConfig.InsertElement("DictConfig/Dict", "Dict" + DictClassName, "");
+            DictPath = "<Dict" + cTool.ReplaceTrans(DictClassName) + "></Dict" + cTool.ReplaceTrans(DictClassName) + ">";
+            xmlConfig.InsertElement("DictConfig/Dict", "Dict" + cTool.ReplaceTrans(DictClassName), "");
 
             xmlConfig.Save();
 
@@ -110,9 +110,9 @@ namespace SoukeyNetget
         {
             string strDictClass;
             string strDict;
-            strDictClass = "Dict" + DictClass;
+            strDictClass = "Dict" + cTool.ReplaceTrans(DictClass);
 
-            strDict = "<Name>" + DictName + "</Name>";
+            strDict = "<Name>" + cTool.ReplaceTrans(DictName) + "</Name>";
             xmlConfig.InsertElement("DictConfig/Dict/" + strDictClass, DictClass, strDict);
             xmlConfig.Save();
 

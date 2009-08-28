@@ -46,6 +46,10 @@ namespace SoukeyNetget
                 Application.DoEvents();
                 mf.UserIni();
 
+                sf.label3.Text = "正在启动自动运行任务监听器，请等待......";
+                Application.DoEvents();
+                mf.StartListen();
+
                 sf.Close();                                 //关闭启动窗体
                 sf.Dispose();
                 mf.Show();                                  //启动主程序窗体

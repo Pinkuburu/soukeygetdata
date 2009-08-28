@@ -9,7 +9,8 @@ using System.Text.RegularExpressions;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.IO;
-
+using MySql.Data.MySqlClient;
+using System.Web;
 
 ///功能：采集任务信息处理  
 ///完成时间：2009-3-2
@@ -17,8 +18,8 @@ using System.IO;
 ///遗留问题：无
 ///开发计划：无
 ///说明：无 
-///版本：01.00.00
-///修订：无
+///版本：01.10.00
+///修订：任务格式版本已经修改至1.2
 namespace SoukeyNetget
 {
     public partial class frmTask : Form
@@ -27,7 +28,10 @@ namespace SoukeyNetget
         public delegate void ReturnTaskClass(string tClass);
         public ReturnTaskClass rTClass;
 
-        private bool IsSave = false;
+        //是否已保存了任务，如果保存，即便在取消的时候，
+        //也需要将任务所述分类进行返回，主要是用在“应用”
+        //和“取消”按钮的判断上
+        private bool IsSaveTask = false;
 
         //定义一个ToolTip
         ToolTip HelpTip = new ToolTip();
@@ -89,7 +93,6 @@ namespace SoukeyNetget
             this.txtTaskDemo.Text = t.TaskDemo;
 
             if (t.TaskClass == "")
-                
             {
                 this.comTaskClass.SelectedIndex = 0;
             }
@@ -105,13 +108,8 @@ namespace SoukeyNetget
             if (this.comRunType.SelectedIndex == 0)
             {
                 //存在导出任务
-                this.groupBox4.Enabled = true;
-
                 switch ((cGlobalParas.PublishType)int.Parse(t.ExportType))
                 {
-                    case cGlobalParas.PublishType.PublishAccess:
-                        this.raExportAccess.Checked  = true;
-                        break;
                     case cGlobalParas.PublishType.PublishExcel :
                         this.raExportExcel.Checked = true;
                         break;
@@ -119,22 +117,38 @@ namespace SoukeyNetget
 
                         this.raExportTxt.Checked = true;
                         break;
+                    case cGlobalParas.PublishType.PublishAccess:
+                        this.raExportAccess.Checked = true;
+                        break;
+                    case cGlobalParas.PublishType.PublishMSSql :
+                        this.raExportMSSQL.Checked = true;
+                        break;
+                    case cGlobalParas.PublishType .PublishMySql :
+                        this.raExportMySql.Checked = true;
+                        break;
+                    case cGlobalParas.PublishType .PublishWeb :
+                        this.raExportWeb.Checked = true;
+                        break;
                     default :
                         break;
                 }
-                this.DataSource.Text = t.DataSource;
-                this.txtDataUser.Text  = t.DataUser;
-                this.txtDataPwd.Text = t.DataPwd;
-                this.txtTableName.Text = t.DataTableName;
+                this.txtFileName.Text = t.ExportFile;
+                this.txtDataSource.Text = t.DataSource;
+                this.comTableName.Text = t.DataTableName;
+                this.txtInsertSql.Text  = t.InsertSql;
+                this.txtExportUrl.Text  = t.ExportUrl;
+                if (t.ExportUrlCode == null || t.ExportUrlCode =="")
+                    this.comExportUrlCode.SelectedIndex = 0;
+                else
+                    this.comExportUrlCode.SelectedItem = cGlobalParas.ConvertName(int.Parse(t.ExportUrlCode));
+                this.txtExportCookie.Text  = t.ExportCookie;
             }
             else
             {
                 //仅采集数据
                 this.groupBox4.Enabled = false;
-                this.DataSource.Text = "";
-                this.txtDataUser.Text = "";
-                this.txtDataPwd.Text = "";
-                this.txtTableName.Text = "";
+                this.txtFileName.Text = "";
+                this.comTableName.Text = "";
 
             }
 
@@ -182,6 +196,15 @@ namespace SoukeyNetget
                 item.SubItems.Add (t.WebpageCutFlag[i].StartPos.ToString ());
                 item.SubItems.Add (t.WebpageCutFlag[i].EndPos .ToString ());
                 item.SubItems.Add(cGlobalParas.ConvertName (t.WebpageCutFlag[i].LimitSign));
+
+                item.SubItems.Add(t.WebpageCutFlag [i].RegionExpression );
+                if ((int)t.WebpageCutFlag[i].ExportLimit == 0)
+                    item.SubItems.Add("");
+                else
+                    item.SubItems.Add(cGlobalParas.ConvertName(t.WebpageCutFlag[i].ExportLimit));
+
+                item.SubItems.Add(t.WebpageCutFlag [i].ExportExpression );
+                
                 this.listWebGetFlag.Items.Add(item);
                 item=null;
             }
@@ -195,8 +218,9 @@ namespace SoukeyNetget
         private void IniData()
         {
             //初始化页面加载数据
-            
-            this.TaskType.Items.Add("根据指定的网址采集数据");
+
+            this.TaskType.Items.Add("根据网址采集网页数据");
+            this.TaskType.Items.Add("采集ajax网页数据");
             this.TaskType.SelectedIndex = 0;
 
             this.comRunType.Items.Add("采集并发布数据");
@@ -205,18 +229,43 @@ namespace SoukeyNetget
 
             this.comLimit.Items.Add("不做任意格式的限制");
             this.comLimit.Items.Add("匹配时去掉网页符号");
-            this.comLimit.Items.Add("输出时去掉网页符号");
-            //this.comLimit.Items.Add("只能输出中文");
+            this.comLimit.Items.Add("只匹配中文");
+            this.comLimit.Items.Add("只匹配双字节字符");
+            this.comLimit.Items.Add("只匹配数字");
+            this.comLimit.Items.Add("只匹配字母数字及常用字符");
+            this.comLimit.Items.Add("自定义正则匹配表达式");
+            this.comLimit.SelectedIndex = 0;
+
+            this.comExportLimit.Items.Add("不做输出控制");
+            this.comExportLimit.Items.Add("输出时去掉网页符号");
+            this.comExportLimit.Items.Add("输出时附加前缀");
+            this.comExportLimit.Items.Add("输出时附加后缀");
+            this.comExportLimit.Items.Add("左起去掉字符");
+            this.comExportLimit.Items.Add("右起去掉字符");
+            this.comExportLimit.Items.Add("替换其中符合条件的字符");
+            this.comExportLimit.Items.Add("去掉字符串首尾空格");
+            this.comExportLimit.Items.Add("输出时采用正则表达式进行替换");
+            this.comExportLimit.SelectedIndex = 0;
 
             this.comWebCode.Items.Add("自动");
             this.comWebCode.Items.Add("gb2312");
             this.comWebCode.Items.Add("UTF-8");
-            this.comWebCode.Items.Add("GBK");
+            this.comWebCode.Items.Add("gbk");
+            this.comWebCode.Items.Add("big5");
+
+            this.comExportUrlCode.Items.Add("不编码");
+            this.comExportUrlCode.Items.Add("gb2312");
+            this.comExportUrlCode.Items.Add("UTF-8");
+            this.comExportUrlCode.Items.Add("gbk");
+            this.comExportUrlCode.Items.Add("big5");
+            this.comExportUrlCode.SelectedIndex = 0;
+
             this.comWebCode.SelectedIndex = 0;
 
             this.comUrlEncode.Items.Add("UTF-8");
             this.comUrlEncode.Items.Add("gb2312");
             this.comUrlEncode.Items.Add("gbk");
+            this.comUrlEncode.Items.Add("big5");
 
             this.comGetType.Items.Add("文本");
             this.comGetType.Items.Add("图片");
@@ -255,38 +304,20 @@ namespace SoukeyNetget
 
         #region 按钮及界面控制操作
 
-       private void cmdBrowser_Click(object sender, EventArgs e)
-        {
-            if (this.raExportTxt.Checked == true)
-            {
-                this.saveFileDialog1.Title = "请指定导出的文本文件名";
-
-                saveFileDialog1.InitialDirectory = Program.getPrjPath();
-                saveFileDialog1.Filter = "txt Files(*.txt)|*.txt|All Files(*.*)|*.*";
-            }
-            else if (this.raExportExcel.Checked == true)
-            {
-                this.saveFileDialog1.Title = "请指定导出的Excel文件名";
-
-                saveFileDialog1.InitialDirectory = Program.getPrjPath();
-                saveFileDialog1.Filter = "Excel Files(*.xls)|*.xls|All Files(*.*)|*.*";
-            }
-            else if (this.raExportAccess.Checked == true)
-            {
-                this.saveFileDialog1.Title = "请指定导出的Access文件名";
-
-                saveFileDialog1.InitialDirectory = Program.getPrjPath();
-                saveFileDialog1.Filter = "Access Files(*.mdb)|*.mdb|All Files(*.*)|*.*";
-            }
-
-            if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                this.DataSource.Text = this.saveFileDialog1.FileName;
-            }
-        }
-
         private void cmdCancel_Click(object sender, EventArgs e)
         {
+            if (IsSaveTask == true)
+            {
+                if (this.comTaskClass.SelectedIndex == 0)
+                {
+                    rTClass("");
+                }
+                else
+                {
+                    rTClass(this.comTaskClass.SelectedItem.ToString());
+                }
+            }
+
             this.Close();
         }
 
@@ -355,7 +386,7 @@ namespace SoukeyNetget
             this.txtNag.Text = "";
             this.txtNextPage.Text = "";
 
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private string AddDemoUrl(string SourceUrl,bool IsNavPage,bool IsAPath,string APath)
@@ -363,14 +394,9 @@ namespace SoukeyNetget
                 string Url;
                 List<string> Urls;
 
-                if (this.IsUrlEncode.Checked == true)
-                {
-                    Urls = gUrl.SplitWebUrl(SourceUrl, this.IsUrlEncode.Checked, cGlobalParas.ConvertID(this.comUrlEncode.SelectedItem.ToString()).ToString());
-                }
-                else
-                {
-                    Urls = gUrl.SplitWebUrl(SourceUrl, this.IsUrlEncode.Checked);
-                }
+                
+                Urls = gUrl.SplitWebUrl(SourceUrl);
+               
                 if (IsNavPage ==true )
                 {
 
@@ -416,7 +442,7 @@ namespace SoukeyNetget
                 this.txtWeblinkDemo.Text = "";
             }
 
-            IsSave = true;
+            this.IsSave.Text = "true";
 
         }
 
@@ -426,9 +452,13 @@ namespace SoukeyNetget
             {
                 case 0:
                     this.groupBox4.Enabled = true;
+                    this.groupBox9.Enabled =true ;
+                    this.groupBox10.Enabled = true;
                     break;
                 case 1:
                     this.groupBox4.Enabled = false;
+                    this.groupBox9.Enabled = false;
+                    this.groupBox10.Enabled = false;
                     break;
                 default :
                     break;
@@ -437,7 +467,7 @@ namespace SoukeyNetget
 
         //任务保存，当任务保存的时候，不保存任务的模板信息任务的类别都是用户自定义
         //此功能只是用户在建立任务时的一种快速操作
-        private bool SaveTask()
+        private bool SaveTask(string TaskPath)
         {
 
             Task.cTask t = new Task.cTask();
@@ -449,14 +479,29 @@ namespace SoukeyNetget
 
                 if (this.comTaskClass.SelectedIndex == 0)
                 {
-                    t.DeleTask("", this.tTask.Text);
+                    try
+                    {
+                        //删除原有任务的主要目的是为了备份，但如果发生错误，则忽略
+                        t.DeleTask("", this.tTask.Text);
+                    }
+                    catch (System.Exception )
+                    {
+                    }
                 }
                 else
                 {
                     //获取此任务分类的路径
                     Task.cTaskClass tClass = new Task.cTaskClass();
                     string tPath=tClass.GetTaskClassPathByName(this.comTaskClass.SelectedItem.ToString());
-                    t.DeleTask(tPath, this.tTask.Text);
+                    try
+                    {
+                        //删除原有任务的主要目的是为了备份，但如果发生错误，则忽略
+                        t.DeleTask(tPath, this.tTask.Text);
+                    }
+                    catch (System.Exception )
+                    {
+
+                    }
                 }
             }
 
@@ -510,11 +555,8 @@ namespace SoukeyNetget
             //判断是否导出文件
             if (this.comRunType.SelectedIndex == 0)
             {
-                if (this.raExportAccess.Checked ==true )
-                {
-                    t.ExportType =((int) cGlobalParas.PublishType.PublishAccess).ToString () ;
-                }
-                else if (this.raExportTxt.Checked ==true )
+               
+                if (this.raExportTxt.Checked ==true )
                 {
                     t.ExportType = ((int)cGlobalParas.PublishType.PublishTxt).ToString ();
                 }
@@ -522,14 +564,43 @@ namespace SoukeyNetget
                 {
                     t.ExportType = ((int)cGlobalParas.PublishType.PublishExcel ).ToString();
                 }
+                else if (this.raExportAccess.Checked == true)
+                {
+                    t.ExportType =((int) cGlobalParas.PublishType.PublishAccess).ToString () ;
+                }
+                else if (this.raExportMSSQL.Checked == true)
+                {
+                    t.ExportType = ((int)cGlobalParas.PublishType.PublishMSSql).ToString();
+                }
+                else if (this.raExportMySql.Checked == true)
+                {
+                    t.ExportType = ((int)cGlobalParas.PublishType.PublishMySql ).ToString();
+                }
+                else if (this.raExportWeb.Checked == true)
+                {
+                    t.ExportType = ((int)cGlobalParas.PublishType.PublishWeb ).ToString();
+                }
 
-                t.DataSource  = this.DataSource.Text.ToString();
-                t.DataUser =this.txtDataUser.Text.ToString ();
-                t.DataPwd =this.txtDataPwd.Text .ToString () ;
-                t.DataTableName = this.txtTableName.Text.ToString();
+                t.ExportFile = this.txtFileName.Text.ToString();
+                t.DataSource = this.txtDataSource.Text.ToString();
+
+                //数据库用户名及密码在任务1.2版本中已经删除，所以不进行保存，但代码不进行删除，因为
+                //此版本需要兼容1.0，保证代码的可读性，故不删除
+                //t.DataUser =this.txtDataUser.Text.ToString ();
+                //t.DataPwd =this.txtDataPwd.Text .ToString () ;
+
+                t.DataTableName = this.comTableName.Text.ToString();
+                t.InsertSql = this.txtInsertSql.Text;
+                t.ExportUrl = this.txtExportUrl.Text;
+                t.ExportUrlCode =cGlobalParas.ConvertID( this.comExportUrlCode.SelectedItem.ToString()).ToString ();
+                t.ExportCookie = this.txtExportCookie.Text;
             }
             else
             {
+
+                t.ExportFile = "";
+                t.DataSource = "";
+
                 t.ExportType = ((int)cGlobalParas.PublishType.NoPublish).ToString();
                 t.DataSource = "";
                 t.DataUser = "";
@@ -593,12 +664,23 @@ namespace SoukeyNetget
                 c.EndPos = this.listWebGetFlag.Items[i].SubItems[3].Text;
                 c.LimitSign =cGlobalParas.ConvertID (this.listWebGetFlag.Items[i].SubItems[4].Text);
                 
+                try
+                {
+                    c.RegionExpression = this.listWebGetFlag.Items[i].SubItems[5].Text;
+                    c.ExportLimit = cGlobalParas.ConvertID(this.listWebGetFlag.Items[i].SubItems[6].Text);
+                    c.ExportExpression = this.listWebGetFlag.Items[i].SubItems[7].Text;
+                }
+                catch (System.Exception)
+                {
+                    //捕获错误不处理，兼容1.0版本
+                }
+                
                 t.WebpageCutFlag.Add(c);
                 c = null;
 
             }
 
-            t.Save();
+            t.Save(TaskPath);
             t=null;
 
             return true;
@@ -618,23 +700,34 @@ namespace SoukeyNetget
                     return;
             }
 
-            if (!SaveTask())
+            try
             {
+                if (this.IsSave.Text == "true")
+                {
+                    if (!SaveTask(""))
+                    {
+                        return;
+                    }
+                }
+
+                if (this.comTaskClass.SelectedIndex == 0)
+                {
+                    rTClass("");
+                }
+                else
+                {
+                    rTClass(this.comTaskClass.SelectedItem.ToString());
+                }
+
+                this.IsSave.Text = "false";
+
+                this.Close();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("任务保存时失败，出错原因是：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (this.comTaskClass.SelectedIndex == 0)
-            {
-                rTClass("");
-            }
-            else
-            {
-                rTClass(this.comTaskClass.SelectedItem.ToString());
-            }
-
-            IsSave = false;
-
-            this.Close();
-
         }
 
         #endregion
@@ -708,6 +801,11 @@ namespace SoukeyNetget
 
         //}
 
+        private void GetDataSource(string strDataConn)
+        {
+            this.txtDataSource.Text = strDataConn;
+        }
+
         private void GetUrl(string Url, int UrlCount)
         {
             this.txtWebLink.Text = Url;
@@ -719,10 +817,20 @@ namespace SoukeyNetget
             this.txtCookie.Text = strCookie;
         }
 
+        private void GetExportCookie(string strCookie)
+        {
+            this.txtExportCookie.Text = strCookie;
+        }
+
         private void GetPData(string strCookie, string pData)
         {
             this.txtCookie.Text = strCookie;
             this.txtWebLink.Text += "<POST>" + pData + "</POST>";
+        }
+
+        private void GetExportpData(string strCookie, string pData)
+        {
+            this.txtExportUrl.Text += "<POST>" + pData + "</POST>";
         }
 
         #endregion
@@ -737,7 +845,7 @@ namespace SoukeyNetget
                     this.txtWeblinkDemo.Text = "";
                 }
 
-                IsSave = true;
+                this.IsSave.Text = "true";
             }
         }
 
@@ -752,6 +860,8 @@ namespace SoukeyNetget
             if (e.KeyCode == Keys.Delete)
             {
                 this.listWebGetFlag.Items.Remove(this.listWebGetFlag.SelectedItems[0]);
+
+                this.IsSave.Text = "true";
             }
         }
 
@@ -766,6 +876,22 @@ namespace SoukeyNetget
             HelpTip.ToolTipTitle = "";
 
             SetTooltip();
+
+            //初始化导航规则的datagrid的表头
+            DataGridViewTextBoxColumn nRuleLevel = new DataGridViewTextBoxColumn();
+            nRuleLevel.HeaderText = "级别";
+            nRuleLevel.Width = 40;
+            this.dataNRule.Columns.Insert(0, nRuleLevel);
+
+            DataGridViewTextBoxColumn nRule = new DataGridViewTextBoxColumn();
+            nRule.HeaderText = "导航规则";
+            nRule.Width = 170;
+            this.dataNRule.Columns.Insert(1, nRule);
+
+            DataGridViewTextBoxColumn nOUrl = new DataGridViewTextBoxColumn();
+            nOUrl.HeaderText = "相对地址";
+            nOUrl.Width =70;
+            this.dataNRule.Columns.Insert(2, nOUrl);
 
             switch (this.FormState)
             {
@@ -785,7 +911,7 @@ namespace SoukeyNetget
                     break ;
             }
 
-            IsSave = false;
+            this.IsSave.Text = "false";
         }
 
         private void SetFormBrowser()
@@ -793,7 +919,6 @@ namespace SoukeyNetget
             this.cmdOpenFolder.Enabled = false;
             this.button10.Enabled = false;
             this.cmdBrowser.Enabled = false;
-            this.button9.Enabled = false;
             this.button2.Enabled = false;
             this.button3.Enabled = false;
             this.button4.Enabled = false;
@@ -813,6 +938,8 @@ namespace SoukeyNetget
             this.cmdCancel.Text = "返 回";
 
             this.cmdOK.Enabled =false ;
+
+            this.cmdApply.Enabled = false;
         }
 
       
@@ -844,7 +971,7 @@ namespace SoukeyNetget
                 GetDemoUrl();
             }
                        
-            this.tabControl1.SelectedTab = this.tabControl1.TabPages[3];
+            this.tabControl1.SelectedTab = this.tabControl1.TabPages[4];
             this.labWaiting.Visible = true;
 
             Application.DoEvents();
@@ -863,6 +990,9 @@ namespace SoukeyNetget
                 c.StartPos = this.listWebGetFlag.Items[i].SubItems[2].Text;
                 c.EndPos = this.listWebGetFlag.Items[i].SubItems[3].Text;
                 c.LimitSign =cGlobalParas.ConvertID ( this.listWebGetFlag.Items[i].SubItems[4].Text);
+                c.RegionExpression = this.listWebGetFlag.Items[i].SubItems[5].Text;
+                c.ExportLimit = cGlobalParas.ConvertID(this.listWebGetFlag.Items[i].SubItems[6].Text);
+                c.ExportExpression = this.listWebGetFlag.Items[i].SubItems[7].Text;
                 gData.CutFlag.Add(c);
                 c = null;
             }
@@ -870,7 +1000,13 @@ namespace SoukeyNetget
             try
             {
                 string tmpSavePath = this.txtSavePath.Text.ToString() + "\\" + this.tTask.Text.ToString() + "_file";
-                DataTable dGather = gData.GetGatherData(this.txtWeblinkDemo.Text.ToString(), (cGlobalParas.WebCode)cGlobalParas.ConvertID(this.comWebCode.SelectedItem.ToString()), this.txtCookie.Text.ToString(), this.txtStartPos.Text.ToString(), this.txtEndPos.Text.ToString(), tmpSavePath);
+
+                bool IsAjax = false;
+
+                if (cGlobalParas.ConvertID(this.TaskType.SelectedItem.ToString()) == (int)cGlobalParas.TaskType.AjaxHtmlByUrl)
+                    IsAjax = true;
+
+                DataTable dGather = gData.GetGatherData(this.txtWeblinkDemo.Text.ToString(), (cGlobalParas.WebCode)cGlobalParas.ConvertID(this.comWebCode.SelectedItem.ToString()), this.txtCookie.Text.ToString(), this.txtStartPos.Text.ToString(), this.txtEndPos.Text.ToString(), tmpSavePath,IsAjax );
 
                 //绑定到显示的DataGrid中
                 this.dataTestGather.DataSource = dGather;
@@ -935,23 +1071,34 @@ namespace SoukeyNetget
 
             this.txtWebLink.Text = this.txtWebLink.Text.Substring(0, startPos) + s.Groups[0].Value + this.txtWebLink.Text.Substring(startPos + l , this.txtWebLink.Text.Length - startPos - l);
 
+            this.txtWebLink.SelectionStart = startPos + s.Groups[0].Value.Length;
+            this.txtWebLink.ScrollToCaret();
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (this.checkBox2.Checked == true)
             {
-                this.label10.Enabled = true;
-                this.txtNag.Enabled = true;
-                this.checkBox1.Enabled = true;
+                //this.label10.Enabled = true;
+                //this.txtNag.Enabled = true;
+                //this.checkBox1.Enabled = true;
+                //this.cmdAddNRule.Enabled = true;
+                //this.cmdDelNRule.Enabled = true;
+                //this.dataNRule.Enabled = true;
+                this.groupBox14.Enabled = true;
             }
             else
             {
-                this.label10.Enabled = false;
-                this.txtNag.Enabled = false;
-                this.checkBox1.Enabled = false;
+                //this.label10.Enabled = false;
+                //this.txtNag.Enabled = false;
+                //this.checkBox1.Enabled = false;
+                //this.cmdAddNRule.Enabled = false;
+                //this.cmdDelNRule.Enabled = false;
+                //this.dataNRule.Enabled = false;
+                this.groupBox14.Enabled = false;
             }
 
+            this.IsSave.Text = "true";
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -1002,14 +1149,9 @@ namespace SoukeyNetget
         {
             List<string> Urls;
 
-            if (this.IsUrlEncode.Checked == true)
-            {
-                Urls = gUrl.ParseUrlRule(webLink, NavRule, this.IsUrlEncode.Checked, cGlobalParas.ConvertID(this.comUrlEncode.SelectedItem.ToString()).ToString());
-            }
-            else
-            {
-                Urls = gUrl.ParseUrlRule(webLink, NavRule, this.IsUrlEncode.Checked);
-            }
+
+            Urls = gUrl.ParseUrlRule(webLink, NavRule);
+           
 
             if (Urls == null || Urls.Count ==0)
                 return "";
@@ -1059,16 +1201,6 @@ namespace SoukeyNetget
 
         }
 
-        private void txtNag_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label22_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cmdWebSource_Click(object sender, EventArgs e)
         {
             if (this.txtWeblinkDemo.Text.Trim().ToString() == "")
@@ -1081,20 +1213,36 @@ namespace SoukeyNetget
             }
 
             string tmpPath = Path.GetTempPath();
-            string WebSource = cTool.GetHtmlSource(this.txtWeblinkDemo.Text, false);
 
+            try
+            {
+                //获取源码需要采用cGatherWeb中的方法进行，因为有可能Url中包含
+                //POST参数
+                Gather.cGatherWeb cg = new SoukeyNetget.Gather.cGatherWeb();
 
-            //创建临时文件
-            string m_FileName = "~" + DateTime.Now.ToFileTime().ToString() + ".txt";
-            m_FileName = tmpPath + "\\" + m_FileName;
-            FileStream myStream = File.Open(m_FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
-            StreamWriter sw = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("gb2312"));
-            sw.Write(WebSource);
-            sw.Close();
-            myStream.Close();
+                bool IsAjax = false;
 
-            System.Diagnostics.Process.Start(m_FileName); 
+                if (cGlobalParas.ConvertID (this.TaskType.SelectedItem.ToString ())==(int)cGlobalParas.TaskType.AjaxHtmlByUrl )
+                    IsAjax =true ;
 
+                string WebSource = cg.GetHtml(this.txtWeblinkDemo.Text, (cGlobalParas.WebCode)cGlobalParas.ConvertID(this.comWebCode.Text), this.txtCookie.Text, "", "", false,IsAjax);
+                cg = null;
+
+                //创建临时文件
+                string m_FileName = "~" + DateTime.Now.ToFileTime().ToString() + ".txt";
+                m_FileName = tmpPath + "\\" + m_FileName;
+                FileStream myStream = File.Open(m_FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
+                StreamWriter sw = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("gb2312"));
+                sw.Write(WebSource);
+                sw.Close();
+                myStream.Close();
+
+                System.Diagnostics.Process.Start(m_FileName);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("获取网页源代码出错，错误信息为：" + ex.Message, "Soukey采摘 错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cmdOKRun_Click(object sender, EventArgs e)
@@ -1109,6 +1257,7 @@ namespace SoukeyNetget
                 bool IsNav;
                 bool IsAPath;
                 string APath = "";
+                string DemoUrl = "";
 
                 if (this.listWeblink.Items[0].SubItems[1].Text == "")
                 {
@@ -1129,59 +1278,42 @@ namespace SoukeyNetget
                     IsAPath = false;
                 }
 
-                this.txtWeblinkDemo.Text = AddDemoUrl(this.listWeblink.Items[0].Text.ToString(), IsNav, IsAPath, APath);
-            }
-        }
+                DemoUrl = AddDemoUrl(this.listWeblink.Items[0].Text.ToString(), IsNav, IsAPath, APath);
 
-        private void raExportAccess_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.raExportAccess.Checked == true)
-            {
-                this.label6.Text = "数据库：";
-                this.label5.Enabled = true;
-                this.label7.Enabled = true;
-                this.label8.Enabled = true;
-                this.txtDataUser.Enabled = true;
-                this.txtDataPwd.Enabled = true;
-                this.txtTableName.Enabled = true;
-                this.button9.Enabled = true;
+                //根据判断当前是否需要Url进行编码
+                if (this.IsUrlEncode.Checked == true)
+                {
+                    this.txtWeblinkDemo.Text = cTool.UrlEncode(DemoUrl, (cGlobalParas.WebCode)(cGlobalParas.ConvertID(this.comUrlEncode.SelectedItem.ToString())));
+                }
+                else
+                {
+                    this.txtWeblinkDemo.Text = DemoUrl;
+                }
             }
         }
 
         private void ConnectAccess()
         {
             string connectionstring = "provider=microsoft.jet.oledb.4.0;data source=";
-            connectionstring += this.DataSource.Text;
-            if (this.txtDataUser.Text.Trim() != "")
-            {
-                connectionstring += "UID=" + this.txtDataUser.Text;
+            connectionstring += this.txtFileName.Text;
+            //if (this.txtDataUser.Text.Trim() != "")
+            //{
+            //    connectionstring += "UID=" + this.txtDataUser.Text;
 
-            }
-            OleDbConnection con = new OleDbConnection(connectionstring);
-            con.Open();
-            con.Close ();
-            MessageBox.Show("数据库连接成功！", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //OleDbConnection con = new OleDbConnection(connectionstring);
+            //con.Open();
+            //con.Close ();
+            //MessageBox.Show("数据库连接成功！", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ConnectSqlServer()
         {
-            string strDataBase = "Server=.;DataBase=Library;Uid=" + this.txtDataUser.Text.Trim() + ";pwd=" + this.txtDataPwd.Text + ";";
-            SqlConnection conn = new SqlConnection(strDataBase);
-            conn.Open();
-            conn.Close();
-            MessageBox.Show("数据库连接成功！", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ConnectAccess();
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show("数据库连接失败，请检查您输入的信息是否正确！", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error );
-            }
+            //string strDataBase = "Server=.;DataBase=Library;Uid=" + this.txtDataUser.Text.Trim() + ";pwd=" + this.txtDataPwd.Text + ";";
+            //SqlConnection conn = new SqlConnection(strDataBase);
+            //conn.Open();
+            //conn.Close();
+            //MessageBox.Show("数据库连接成功！", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -1209,6 +1341,8 @@ namespace SoukeyNetget
             {
                 this.txtLoginUrl.Enabled = false;
             }
+
+            this.IsSave.Text = "true";
 
         }
 
@@ -1244,13 +1378,15 @@ namespace SoukeyNetget
             if (this.IsUrlEncode.Checked == true)
             {
                 this.comUrlEncode.Enabled = true;
+                this.comUrlEncode.SelectedIndex = 0;
             }
             else
             {
                 this.comUrlEncode.Enabled = false;
+                this.comUrlEncode.SelectedIndex= - 1;
             }
 
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void listWebGetFlag_Click(object sender, EventArgs e)
@@ -1262,11 +1398,20 @@ namespace SoukeyNetget
                 this.txtGetStart.Text = this.listWebGetFlag.SelectedItems[0].SubItems[2].Text;
                 this.txtGetEnd.Text = this.listWebGetFlag.SelectedItems[0].SubItems[3].Text;
                 this.comLimit.SelectedItem = this.listWebGetFlag.SelectedItems[0].SubItems[4].Text;
+                try
+                {
+                    this.txtRegion.Text = this.listWebGetFlag.SelectedItems[0].SubItems[5].Text;
+                    this.comExportLimit.SelectedItem = this.listWebGetFlag.SelectedItems[0].SubItems[6].Text;
+                    this.txtExpression.Text = this.listWebGetFlag.SelectedItems[0].SubItems[7].Text;
+                }
+                catch (System.Exception)
+                {
+                    //捕获错误不做处理，为的是兼容1.0版本的任务信息
+                }
 
-                IsSave = true;
+                this.IsSave.Text = "true";
             }
         }
-
 
         private void listWeblink_Click(object sender, EventArgs e)
         {
@@ -1368,38 +1513,7 @@ namespace SoukeyNetget
             this.txtNag.Text = "";
             this.txtNextPage.Text = "";
 
-            IsSave = true;
-        }
-
-        private void raExportTxt_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.raExportTxt.Checked == true)
-            {
-                this.label6.Text = "文件名：";
-                this.label5.Enabled = false;
-                this.label7.Enabled = false;
-                this.label8.Enabled = false;
-                this.txtDataUser.Enabled = false;
-                this.txtDataPwd.Enabled = false;
-                this.txtTableName.Enabled = false;
-                this.button9.Enabled = false;
-            }
-                
-        }
-
-        private void raExportExcel_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.raExportExcel.Checked == true)
-            {
-                this.label6.Text = "文件名：";
-                this.label5.Enabled = false;
-                this.label7.Enabled = false;
-                this.label8.Enabled = false;
-                this.txtDataUser.Enabled = false;
-                this.txtDataPwd.Enabled = false;
-                this.txtTableName.Enabled = false;
-                this.button9.Enabled = false;
-            }
+            this.IsSave.Text = "true";
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -1427,11 +1541,21 @@ namespace SoukeyNetget
             if (this.comGetType.SelectedIndex == 0)
             {
                 this.comLimit.Enabled = true;
+                this.comLimit.SelectedIndex = 0;
+
+                this.comExportLimit.Enabled = true;
+                this.comExportLimit.SelectedIndex = 0;
             }
             else
             {
                 this.comLimit.SelectedIndex = -1;
                 this.comLimit.Enabled = false;
+
+                this.comExportLimit.SelectedIndex = -1;
+                this.comExportLimit.Enabled = false;
+
+                this.txtExpression.Text = "";
+                this.txtExpression.Enabled = false;
             }
         }
 
@@ -1480,16 +1604,21 @@ namespace SoukeyNetget
             item.SubItems.Add(cTool.ClearFlag(this.txtGetStart.Text.ToString()));
             item.SubItems.Add(cTool.ClearFlag(this.txtGetEnd.Text.ToString()));
             item.SubItems.Add(this.comLimit.SelectedItem.ToString());
+            item.SubItems.Add(this.txtRegion.Text.ToString());
+            item.SubItems.Add(this.comExportLimit.SelectedItem.ToString () );
+            item.SubItems.Add(this.txtExpression.Text .ToString ());
             this.listWebGetFlag.Items.Add(item);
             item = null;
 
             this.txtGetTitleName.Text = "";
             this.txtGetStart.Text = "";
             this.txtGetEnd.Text = "";
-            this.comLimit.SelectedIndex = -1;
+            this.comLimit.SelectedIndex =0;
+            this.txtRegion.Text = "";
+            this.comExportLimit.SelectedIndex =0;
+            this.txtExpression.Text = "";
 
-
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -1533,12 +1662,20 @@ namespace SoukeyNetget
                 this.listWebGetFlag.SelectedItems[0].SubItems[4].Text = this.comLimit.SelectedItem.ToString();
             }
 
+            this.listWebGetFlag.SelectedItems[0].SubItems[5].Text=this.txtRegion.Text.ToString();
+            this.listWebGetFlag.SelectedItems[0].SubItems[6].Text = this.comExportLimit.SelectedItem.ToString();
+            this.listWebGetFlag.SelectedItems[0].SubItems[7].Text = this.txtExpression.Text.ToString();
+
+
             this.txtGetTitleName.Text = "";
             this.txtGetStart.Text = "";
             this.txtGetEnd.Text = "";
-            this.comLimit.SelectedIndex = -1;
+            this.comLimit.SelectedIndex =0;
+            this.txtRegion.Text = "";
+            this.comExportLimit.SelectedIndex = 0;
+            this.txtExpression.Text = "";
 
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void cmdDelCutFlag_Click(object sender, EventArgs e)
@@ -1547,7 +1684,7 @@ namespace SoukeyNetget
             {
                 this.listWebGetFlag.Items.Remove(this.listWebGetFlag.SelectedItems[0]);
 
-                IsSave = true;
+                this.IsSave.Text = "true";
             }
         }
 
@@ -1581,6 +1718,18 @@ namespace SoukeyNetget
                 this.txtGetStart.Text = this.listWebGetFlag.SelectedItems[0].SubItems[2].Text;
                 this.txtGetEnd.Text = this.listWebGetFlag.SelectedItems[0].SubItems[3].Text;
                 this.comLimit.SelectedItem = this.listWebGetFlag.SelectedItems[0].SubItems[4].Text;
+                try
+                {
+                    this.txtRegion.Text = this.listWebGetFlag.SelectedItems[0].SubItems[5].Text;
+                    this.comExportLimit.SelectedItem = this.listWebGetFlag.SelectedItems[0].SubItems[6].Text;
+                    this.txtExpression.Text = this.listWebGetFlag.SelectedItems[0].SubItems[7].Text;
+                }
+                catch (System.Exception)
+                {
+                    //捕获错误不做处理，为的是兼容1.0版本的任务信息
+                }
+
+                this.IsSave.Text = "true";
             }
         }
 
@@ -1589,7 +1738,7 @@ namespace SoukeyNetget
             if (m_FormState == cGlobalParas.FormState.Browser)
                 return;
 
-            if (IsSave == true)
+            if (this.IsSave.Text == "true")
             {
                 if (MessageBox.Show("任务信息已经发生了修改，不保存退出？", "Soukey采摘 信息提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     e.Cancel = true;
@@ -1600,90 +1749,815 @@ namespace SoukeyNetget
         #region 设置修改保存标记
         private void tTask_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void txtTaskDemo_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void comTaskClass_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void TaskType_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void comRunType_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void udThread_ValueChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void txtSavePath_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void comWebCode_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void txtCookie_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void txtLoginUrl_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void DataSource_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
-        }
-
-        private void txtDataUser_TextChanged(object sender, EventArgs e)
-        {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void txtDataPwd_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void txtTableName_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void comUrlEncode_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void txtStartPos_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         private void txtEndPos_TextChanged(object sender, EventArgs e)
         {
-            IsSave = true;
+            this.IsSave.Text = "true";
         }
 
         #endregion
 
+        private void comLimit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.comLimit.SelectedIndex == 6)
+                this.txtRegion.Enabled = true;
+            else
+                this.txtRegion.Enabled = false;
+
+        }
+
+        private void comExportLimit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (this.comExportLimit.SelectedIndex)
+            {
+                case 0:
+                    this.label37.Text = "加工条件：";
+                    this.txtExpression.Text = "";
+                    this.txtExpression.Enabled = false;
+                    break;
+                case 1:
+                    this.label37.Text = "加工条件：";
+                    this.txtExpression.Text = "";
+                    this.txtExpression.Enabled = false;
+                    break;
+                case 2:
+                    this.label37.Text = "前缀：";
+                    this.txtExpression.Text = "";
+                    this.txtExpression.Enabled = true;
+                    break;
+                case 3:
+                    this.label37.Text = "后缀：";
+                    this.txtExpression.Text = "";
+                    this.txtExpression.Enabled = true;
+                    break;
+                case 4:
+                    this.label37.Text = "截取字符数：";
+                    this.txtExpression.Text = "0";
+                    this.txtExpression.Enabled = true;
+                    break;
+                case 5:
+                    this.label37.Text = "截取字符数：";
+                    this.txtExpression.Text = "0";
+                    this.txtExpression.Enabled = true;
+                    break;
+                case 6:
+                    this.label37.Text = "表达式：";
+                    this.txtExpression.Text = "\"\",\"\"";
+                    this.txtExpression.Enabled = true;
+                    break;
+                case 7:
+                    this.txtExpression.Enabled = false;
+                    break;
+                case 8:
+                    this.label37.Text = "正则表达式：";
+                    this.txtExpression.Text = "\"\",\"\"";
+                    this.txtExpression.Enabled = true;
+                    break;
+                default :
+                    this.txtExpression.Enabled = false;
+                    break;
+            }
+        }
+
+        private void raExportTxt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (raExportTxt.Checked == true)
+            {
+                this.raExportExcel.Checked = false;
+                this.raExportAccess.Checked = false;
+                this.raExportMSSQL.Checked = false;
+                this.raExportMySql.Checked = false;
+                this.raExportWeb.Checked = false;
+
+                SetExportFile();
+
+                if (this.txtFileName.Text.Trim() != "")
+                {
+                    if (this.txtFileName.Text.EndsWith("xls"))
+                        this.txtFileName.Text = this.txtFileName.Text.Substring(0, this.txtFileName.Text.Length - 3) + "txt";
+                }
+
+                this.IsSave.Text = "true";
+            }
+            
+        }
+
+        private void raExportExcel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (raExportExcel.Checked == true)
+            {
+                this.raExportTxt.Checked = false;
+                this.raExportAccess.Checked = false;
+                this.raExportMSSQL.Checked = false;
+                this.raExportMySql.Checked = false;
+                this.raExportWeb.Checked = false;
+
+                SetExportFile();
+
+                if (this.txtFileName.Text.Trim() != "")
+                {
+                    if (this.txtFileName.Text.EndsWith("txt"))
+                        this.txtFileName.Text = this.txtFileName.Text.Substring(0, this.txtFileName.Text.Length - 3) + "xls";
+                }
+
+                this.IsSave.Text = "true";
+            }
+        }
+
+        private void raExportAccess_CheckedChanged(object sender, EventArgs e)
+        {
+            if (raExportAccess.Checked == true)
+            {
+                this.raExportTxt.Checked = false;
+                this.raExportExcel.Checked = false;
+                this.raExportMSSQL.Checked = false;
+                this.raExportMySql.Checked = false;
+                this.raExportWeb.Checked = false;
+
+                SetExportDB();
+
+                this.txtDataSource.Text = "";
+                this.comTableName.Items.Clear();
+
+                this.IsSave.Text = "true";
+            }
+        }
+
+        private void raExportMSSQL_CheckedChanged(object sender, EventArgs e)
+        {
+            if (raExportMSSQL.Checked == true)
+            {
+                this.raExportTxt.Checked = false;
+                this.raExportExcel.Checked = false;
+                this.raExportAccess.Checked = false;
+                this.raExportMySql.Checked = false;
+                this.raExportWeb.Checked = false;
+
+                SetExportDB();
+
+                this.txtDataSource.Text = "";
+                this.comTableName.Items.Clear();
+
+                this.IsSave.Text = "true";
+            }
+        }
+
+        private void raExportMySql_CheckedChanged(object sender, EventArgs e)
+        {
+            if (raExportMySql.Checked == true)
+            {
+                this.raExportTxt.Checked = false;
+                this.raExportExcel.Checked = false;
+                this.raExportAccess.Checked = false;
+                this.raExportMSSQL.Checked = false;
+                this.raExportWeb.Checked = false;
+
+                SetExportDB();
+
+                this.txtDataSource.Text = "";
+                this.comTableName.Items.Clear();
+
+                this.IsSave.Text = "true";
+            }
+        }
+
+        private void raExportWeb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (raExportWeb.Checked == true)
+            {
+                this.raExportTxt.Checked = false;
+                this.raExportExcel.Checked = false;
+                this.raExportAccess.Checked = false;
+                this.raExportMSSQL.Checked = false;
+                this.raExportMySql.Checked = false;
+
+                SetExportWeb();
+
+                this.IsSave.Text = "true";
+            }
+        }
+
+        private void SetExportFile()
+        {
+            this.txtFileName.Enabled = true;
+            this.cmdBrowser.Enabled = true;
+
+            this.txtDataSource.Enabled = false;
+            this.comTableName.Enabled = false;
+            this.button12.Enabled = false;
+            this.txtInsertSql.Enabled = false;
+
+            this.txtExportUrl.Enabled = false;
+            this.txtExportCookie.Enabled = false;
+            this.button11.Enabled = false;
+            this.button9.Enabled = false;
+            this.comExportUrlCode.Enabled = false;
+        }
+
+        private void SetExportDB()
+        {
+            this.txtFileName.Enabled = false;
+            this.cmdBrowser.Enabled = false;
+
+            this.txtDataSource.Enabled = true;
+            this.comTableName.Enabled = true;
+            this.button12.Enabled = true;
+            this.txtInsertSql.Enabled = true;
+
+            this.txtExportUrl.Enabled = false;
+            this.txtExportCookie.Enabled = false;
+            this.button11.Enabled = false;
+            this.button9.Enabled = false;
+            this.comExportUrlCode.Enabled = false;
+        }
+
+        private void SetExportWeb()
+        {
+            this.txtFileName.Enabled = false;
+            this.cmdBrowser.Enabled = false;
+
+            this.txtDataSource.Enabled = false;
+            this.comTableName.Enabled = false;
+            this.button12.Enabled = false;
+            this.txtInsertSql.Enabled = false;
+
+            this.txtExportUrl.Enabled = true;
+            this.txtExportCookie.Enabled = true;
+            this.button11.Enabled = true;
+            this.button9.Enabled = true;
+            this.comExportUrlCode.Enabled = true ;
+        }
+
+        private void cmdBrowser_Click(object sender, EventArgs e)
+        {
+            if (this.raExportTxt.Checked == true)
+            {
+                this.saveFileDialog1.Title = "请指定导出的文本文件名";
+
+                saveFileDialog1.InitialDirectory = Program.getPrjPath();
+                saveFileDialog1.Filter = "txt Files(*.txt)|*.txt|All Files(*.*)|*.*";
+            }
+            else if (this.raExportExcel.Checked == true)
+            {
+                this.saveFileDialog1.Title = "请指定导出的Excel文件名";
+
+                saveFileDialog1.InitialDirectory = Program.getPrjPath();
+                saveFileDialog1.Filter = "Excel Files(*.xls)|*.xls|All Files(*.*)|*.*";
+            }
+
+            if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.txtFileName.Text = this.saveFileDialog1.FileName;
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            frmSetData fSD = new frmSetData();
+
+            if (this.raExportAccess.Checked == true)
+                fSD.FormState = 0;
+            else if (this.raExportMSSQL .Checked ==true )
+                fSD.FormState=1;
+            else if (this.raExportMySql.Checked ==true )
+                fSD.FormState =2;
+
+            fSD.rDataSource = new frmSetData.ReturnDataSource(GetDataSource);
+            fSD.ShowDialog();
+            fSD.Dispose();
+           
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            frmWeblink wftm = new frmWeblink();
+            wftm.getFlag = 2;
+            wftm.rExportCookie = new frmWeblink.ReturnExportCookie(GetExportCookie);
+            wftm.ShowDialog();
+            wftm.Dispose();
+
+        }
+
+        private void comTableName_DropDown(object sender, EventArgs e)
+        {
+            if (this.comTableName.Items.Count == 0)
+            {
+                if (this.raExportAccess.Checked == true)
+                {
+                    FillAccessTable();
+                }
+                else if (this.raExportMSSQL.Checked == true)
+                {
+                    FillMSSqlTable();
+                }
+                else if (this.raExportMySql.Checked == true)
+                {
+                    FillMySql();
+                }
+
+            }
+        }
+
+        private void FillAccessTable()
+        {
+            if (this.comTableName.Items.Count != 0)
+                return;
+
+            OleDbConnection conn = new OleDbConnection();
+            conn.ConnectionString = this.txtDataSource.Text; 
+
+            try
+            {
+                conn.Open();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DataTable tb = conn.GetSchema("Tables");
+
+            foreach (DataRow r in tb.Rows)
+            {
+                if (r[3].ToString() == "TABLE")
+                {
+                    this.comTableName.Items.Add(r[2].ToString());
+                }
+                
+            }
+           
+        }
+
+        private void FillMSSqlTable()
+        {
+            if (this.comTableName.Items.Count != 0)
+                return;
+
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = this.txtDataSource.Text;
+
+            try
+            {
+                conn.Open();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DataTable tb = conn.GetSchema("Tables");
+
+            foreach (DataRow r in tb.Rows)
+            {
+               
+                this.comTableName.Items.Add(r[2].ToString());
+                
+            }
+        }
+
+        private void FillMySql()
+        {
+            if (this.comTableName.Items.Count != 0)
+                return;
+
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = this.txtDataSource.Text;
+
+            try
+            {
+                conn.Open();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DataTable tb = conn.GetSchema("Tables");
+
+            foreach (DataRow r in tb.Rows)
+            {
+
+                this.comTableName.Items.Add(r[2].ToString());
+
+            }
+        }
+
+        private void comTableName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillInsertSql(this.comTableName.SelectedItem.ToString ());
+
+            this.IsSave.Text = "true";
+        }
+
+        private void txtDataSource_TextChanged(object sender, EventArgs e)
+        {
+            if (this.comTableName.Items.Count != 0)
+                this.comTableName.Items.Clear();
+
+            this.IsSave.Text = "true";
+        }
+
+        private DataTable GetTableColumns(string tName)
+        {
+            DataTable tc=new DataTable ();
+
+            try
+            {
+
+                if (this.raExportAccess.Checked == true)
+                {
+                    OleDbConnection conn = new OleDbConnection();
+                    conn.ConnectionString = this.txtDataSource.Text;
+
+                    conn.Open();
+
+                    string[] Restrictions = new string[4];
+                    Restrictions[2] = tName;
+
+                    tc = conn.GetSchema("Columns",Restrictions);
+
+                    return tc;
+
+                }
+                else if (this.raExportMSSQL.Checked == true)
+                {
+                    SqlConnection conn = new SqlConnection();
+                    conn.ConnectionString = this.txtDataSource.Text;
+
+                    conn.Open();
+
+                    string[] Restrictions = new string[4];
+                    Restrictions[2] = tName;
+
+                    tc = conn.GetSchema("Columns", Restrictions);
+
+                    return tc;
+                }
+                else if (this.raExportMySql.Checked == true)
+                {
+                    MySqlConnection conn = new MySqlConnection();
+                    conn.ConnectionString = this.txtDataSource.Text;
+
+                    conn.Open();
+
+                    string[] Restrictions = new string[4];
+                    Restrictions[2] = tName;
+
+                    tc = conn.GetSchema("Columns", Restrictions);
+
+                    return tc;
+                }
+
+                return tc;
+
+            }
+            catch (System.Exception )
+            {
+                return null;
+            }
+
+
+        }
+
+        private void FillInsertSql(string TableName)
+        {
+            string iSql = "";
+            string strColumns = "";
+
+            iSql = "insert into " + TableName + " (";
+
+            DataTable tc = GetTableColumns(TableName);
+
+            for (int i = 0; i < tc.Rows.Count; i++)
+            {
+                strColumns += tc.Rows[i][3].ToString() + ",";
+            }
+
+            strColumns = strColumns.Substring(0, strColumns.Length - 1);
+
+            iSql = iSql + strColumns + ") values ( ";
+
+            string strColumnsValue = "";
+
+            for (int j = 0; j < this.listWebGetFlag.Items.Count; j++)
+            {
+                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本")
+                    strColumnsValue += "\"{" + this.listWebGetFlag.Items[j].Text + "}\",";
+
+            }
+
+            if (strColumnsValue!="")
+                strColumnsValue = strColumnsValue.Substring(0, strColumnsValue.Length - 1);
+
+            iSql = iSql + strColumnsValue + ")";
+
+            this.txtInsertSql .Text = iSql;
+
+        }
+
+        private void comTableName_TextChanged(object sender, EventArgs e)
+        {
+            string iSql = "insert into " + this.comTableName.Text + "(";
+            string strColumns = "";
+            string strColumnsValue = "";
+
+            for (int j = 0; j < this.listWebGetFlag.Items.Count; j++)
+            {
+                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本")
+                    strColumns += this.listWebGetFlag.Items[j].Text + ",";
+                    strColumnsValue += "\"{" + this.listWebGetFlag.Items[j].Text + "}\",";
+
+            }
+
+            if (strColumns != "")
+            {
+                strColumns = strColumns.Substring(0, strColumns.Length - 1);
+                strColumnsValue = strColumnsValue.Substring(0, strColumnsValue.Length - 1);
+            }
+
+            
+            iSql = iSql + strColumns + ") values (" + strColumnsValue + ")";
+            this.txtInsertSql.Text = iSql;
+
+        }
+
+        private void rmenuGetFormat_Opening(object sender, CancelEventArgs e)
+        {
+           
+            this.rmenuGetFormat.Items.Clear();
+            this.rmenuGetFormat.Items.Add("POST前缀<POST>");
+            this.rmenuGetFormat.Items.Add("POST后缀</POST>");
+            this.rmenuGetFormat.Items.Add("手工捕获POST数据");
+            this.rmenuGetFormat.Items.Add(new ToolStripSeparator());
+
+            for (int i = 0; i < this.listWebGetFlag.Items.Count; i++)
+            {
+                this.rmenuGetFormat.Items.Add("{" + this.listWebGetFlag.Items[i].Text + "}") ;
+            }
+        }
+
+        private void rmenuGetFormat_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == "手工捕获POST数据")
+            {
+                frmWeblink wftm = new frmWeblink();
+                wftm.getFlag = 3;
+                wftm.rExportPData = new frmWeblink.ReturnExportPOST(GetExportpData);
+                wftm.ShowDialog();
+                wftm.Dispose();
+
+                return;
+            }
+
+            Match s;
+
+            if (Regex.IsMatch(e.ClickedItem.ToString(), "[{].*[}]"))
+            {
+                s = Regex.Match(e.ClickedItem.ToString(), "[{].*[}]");
+            }
+            else
+            {
+                s = Regex.Match(e.ClickedItem.ToString(), "[<].*[>]");
+            }
+
+            int startPos = this.txtExportUrl.SelectionStart;
+            int l = this.txtExportUrl.SelectionLength;
+
+            this.txtExportUrl.Text = this.txtExportUrl.Text.Substring(0, startPos) + s.Groups[0].Value + this.txtExportUrl.Text.Substring(startPos + l, this.txtExportUrl.Text.Length - startPos - l);
+
+            this.txtExportUrl.SelectionStart = startPos + s.Groups[0].Value.Length;
+            this.txtExportUrl.ScrollToCaret();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            this.rmenuGetFormat.Show(this.button9, 0, 21);
+        }
+
+        private void IsSave_TextChanged(object sender, EventArgs e)
+        {
+            if (this.IsSave.Text == "true" && this.FormState !=cGlobalParas.FormState .Browser )
+            {
+                this.cmdApply.Enabled = true;
+            }
+            else if (this.IsSave.Text == "false")
+            {
+                this.cmdApply.Enabled = false;
+            }
+        }
+
+        private void cmdApply_Click(object sender, EventArgs e)
+        {
+            if (!CheckInputvalidity())
+            {
+                return;
+            }
+
+            try
+            {
+
+                if (!SaveTask(""))
+                {
+                    return;
+                }
+                
+                this.IsSave.Text = "false";
+
+                IsSaveTask = true;
+
+                if (this.FormState == cGlobalParas.FormState.New)
+                {
+                    this.FormState = cGlobalParas.FormState.Edit;
+                }
+                
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("任务保存时失败，出错原因是：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void txtWeblinkDemo_TextChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void txtFileName_TextChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void txtInsertSql_TextChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void txtExportUrl_TextChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void txtExportCookie_TextChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void comExportUrlCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void TaskType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cGlobalParas.ConvertID(this.TaskType.SelectedItem.ToString()) == (int)cGlobalParas.TaskType.AjaxHtmlByUrl)
+                this.label42.Visible = true;
+            else
+                this.label42.Visible = false;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void txtNag_TextChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void cmdAddNRule_Click(object sender, EventArgs e)
+        {
+            if (this.txtNag.Text == "" || this.txtNag.Text == null)
+            {
+                this.txtNag.Focus();
+                MessageBox.Show("请填写导航规则后再添加", "Soukey采摘 信息信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+
+            for (int i = 0; i<this.dataNRule.Rows.Count; i++)
+            {
+                this.dataNRule.Rows[i].Cells[0].Value = i + 1;
+            }
+
+            int MaxLevel = 0;
+            if (this.dataNRule.Rows.Count == 0)
+                MaxLevel = 1;
+            else
+                MaxLevel = this.dataNRule.Rows.Count + 1;
+
+            if (this.checkBox1.Checked ==true )
+                this.dataNRule.Rows.Add(MaxLevel.ToString (),this.txtNag.Text ,"Y");
+            else
+                this.dataNRule.Rows.Add(MaxLevel.ToString (),this.txtNag.Text ,"N");
+            
+            this.IsSave.Text = "true";
+        }
+
+        private void cmdDelNRule_Click(object sender, EventArgs e)
+        {
+            this.dataNRule.Focus();
+            SendKeys.Send("{Del}");
+            this.IsSave.Text = "true";
+        }
+
+        private void IsGatherErrorAgain_CheckedChanged(object sender, EventArgs e)
+     
+      
     }
+
+        private void IsPublishErrLog_CheckedChanged()
+        {
+        
+        }
+
+        private void radioButton1_CheckedChanged()
+        {
+        
+        }
+
+        private void txtErrorLog_TextChanged()
+        {
+        
+        }
+
+        private void udAgainNumber_ValueChanged()
+        {
+        
+        }
 }

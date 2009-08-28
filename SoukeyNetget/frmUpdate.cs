@@ -15,7 +15,7 @@ namespace SoukeyNetget
         private  string Old_Copy;
         private string New_Copy;
         private string SCode = "";
-        private bool OnLoad = false;
+        private bool OnShow = false;
 
         //定义一个代理，用于下载最新版本时可以不断刷新页面
         //等待消息，以告诉用户正在下载软件，而并非系统死机
@@ -26,11 +26,6 @@ namespace SoukeyNetget
         public frmUpdate()
         {
             InitializeComponent();
-        }
-
-        private void frmUpdate_Load(object sender, EventArgs e)
-        {
-            
         }
 
         private void GetCopy()
@@ -80,7 +75,7 @@ namespace SoukeyNetget
             c = null;
 
 
-            DataTable dGather = gData.GetGatherData("http://www.yijie.net/user/soft/updatesoukey.html", cGlobalParas.WebCode.utf8, "", "", "", Program.getPrjPath());
+            DataTable dGather = gData.GetGatherData("http://www.yijie.net/user/soft/updatesoukey.html", cGlobalParas.WebCode.utf8, "", "", "", Program.getPrjPath(),false);
 
             New_Copy = dGather.Rows[0][0].ToString();
             this.textBox1.Text += "\r\n" + "Soukey采摘最新版本号为：" + New_Copy ;
@@ -162,7 +157,7 @@ namespace SoukeyNetget
             c = null;
 
 
-            DataTable dGather = gData.GetGatherData("http://www.yijie.net/user/soft/updatesoukey.html", cGlobalParas.WebCode.utf8, "", "", "", Program.getPrjPath());
+            DataTable dGather = gData.GetGatherData("http://www.yijie.net/user/soft/updatesoukey.html", cGlobalParas.WebCode.utf8, "", "", "", Program.getPrjPath(),false);
 
             dGather = null;
             gData = null;
@@ -173,9 +168,9 @@ namespace SoukeyNetget
 
         private void frmUpdate_Activated(object sender, EventArgs e)
         {
-            if (OnLoad == false)
+            if (OnShow == false)
             {
-                OnLoad = true;
+                OnShow = true;
 
                 try
                 {

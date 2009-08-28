@@ -105,7 +105,6 @@
             this.Name = "frmUpdate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Soukey采摘 检查最新版本";
-            this.Load += new System.EventHandler(this.frmUpdate_Load);
             this.Activated += new System.EventHandler(this.frmUpdate_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();

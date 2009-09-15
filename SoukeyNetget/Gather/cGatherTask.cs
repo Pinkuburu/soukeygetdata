@@ -6,6 +6,10 @@ using System.Text.RegularExpressions;
 using SoukeyNetget.Gather;
 using System.Xml;
 using System.Threading;
+using SoukeyNetget.Task;
+using SoukeyNetget.Log;
+using SoukeyNetget.Listener;
+using SoukeyNetget.Plan;
 
 ///功能：采集任务处理
 ///完成时间：2009-3-2
@@ -397,6 +401,17 @@ namespace SoukeyNetget.Gather
             remove { e_GData -= value; }
         }
 
+        /// <summary>
+        /// 定义一个执行Soukey采摘任务的事件，用于响应触发器执行Soukey采摘任务时
+        /// 的处理。
+        /// </summary>
+        private event EventHandler<cRunTaskEventArgs> e_RunTask;
+        internal event EventHandler<cRunTaskEventArgs> RunTask
+        {
+            add { lock (m_eventLock) { e_RunTask += value; } }
+            remove { lock (m_eventLock) { e_RunTask -= value; } }
+        }
+
         #endregion
 
         #region 任务控制 启动 停止 重启 取消
@@ -494,7 +509,7 @@ namespace SoukeyNetget.Gather
         ///保存运行的任务，主要是保存当前运行的状态
         ///任务保存需要同时保存taskrun.xml，主要是保存采集数量
         ///注意，如果进行暂存后，任务的链接地址会发生变化，因为在任务新建时，任务链接地址有可能带有一定得参数
-        ///但人物一旦开始执行，带有参数的网址就会进行解析，同时是按照解析后的网址进行是否采集的标识，所以，再次
+        ///但任务一旦开始执行，带有参数的网址就会进行解析，同时是按照解析后的网址进行是否采集的标识，所以，再次
         ///保存后，链接地址会很多
         public void Save()
         {
@@ -509,11 +524,28 @@ namespace SoukeyNetget.Gather
                 tXml += "<WebLink>";
                 tXml += "<Url>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].Weblink.ToString ()) + "</Url>";
                 tXml += "<IsNag>" + m_TaskData.Weblink[i].IsNavigation + "</IsNag>";
-                tXml += "<IsOppPath>" + m_TaskData.Weblink[i].IsOppPath + "</IsOppPath>";
-                tXml += "<NagRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NagRule) + "</NagRule>";
+                //tXml += "<IsOppPath>" + m_TaskData.Weblink[i].IsOppPath + "</IsOppPath>";
+                //tXml += "<NagRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NagRule) + "</NagRule>";
                 tXml += "<IsNextPage>" + m_TaskData.Weblink[i].IsNextpage + "</IsNextPage>";
                 tXml += "<NextPageRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NextPageRule) + "</NextPageRule>";
                 tXml += "<IsGathered>" + (int)m_TaskData.Weblink[i].IsGathered + "</IsGathered>";
+
+                //保存采集地地址是否需要导航
+                //插入此网址的导航规则
+                if (m_TaskData.Weblink[i].IsNavigation == true)
+                {
+                    tXml += "<NavigationRules>";
+                    for (int j = 0; j < m_TaskData.Weblink[i].NavigRules.Count; j++)
+                    {
+                        tXml += "<Rule>";
+                        tXml += "<Url>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NavigRules[j].Url) + "</Url>";
+                        tXml += "<Level>" + m_TaskData.Weblink[i].NavigRules[j].Level + "</Level>";
+                        tXml += "<NagRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NavigRules[j].NavigRule) + "</NagRule>";
+                        tXml += "</Rule>";
+                    }
+                    tXml += "</NavigationRules>";
+                }
+
                 tXml += "</WebLink>";
             }
 
@@ -592,6 +624,17 @@ namespace SoukeyNetget.Gather
             m_TaskData.IsUrlEncode = t.IsUrlEncode;
             m_TaskData.UrlEncode = t.UrlEncode;
 
+            m_TaskData.GatherAgainNumber = t.GatherAgainNumber;
+            m_TaskData.IsIgnore404 = t.IsIgnore404;
+            m_TaskData.IsErrorLog = t.IsErrorLog;
+            m_TaskData.IsDelRepRow = t.IsDelRepRow;
+            m_TaskData.IsTrigger = t.IsTrigger;
+            if (t.IsTrigger == true)
+            {
+                m_TaskData.TriggerType = t.TriggerType;
+                m_TaskData.TriggerTask = t.TriggerTask;
+            }
+
             ////加载网页地址数据及采集标志数据
             ////再次去处理如果带有参数的网址,则需要进行分解
             ////确保加载的网址肯定是一个有效的网址
@@ -621,10 +664,15 @@ namespace SoukeyNetget.Gather
                         w.IsGathered = t.WebpageLink[i].IsGathered;
                         w.IsNavigation = t.WebpageLink[i].IsNavigation;
                         w.IsNextpage = t.WebpageLink[i].IsNextpage;
-                        w.IsOppPath = t.WebpageLink[i].IsOppPath;
-                        w.NagRule = t.WebpageLink[i].NagRule;
                         w.NextPageRule = t.WebpageLink[i].NextPageRule;
                         w.Weblink = Urls[j].ToString();
+
+                        //加载导航数据
+                        if (t.WebpageLink[i].IsNavigation == true)
+                        {
+                            w.NavigRules = t.WebpageLink[i].NavigRules;
+                        }
+
                         m_TaskData.Weblink.Add(w);
                         w = null;
                     }
@@ -681,6 +729,9 @@ namespace SoukeyNetget.Gather
                     dtc.StartPos =m_TaskData.StartPos;
                     dtc.EndPos =m_TaskData.EndPos;
                     dtc.SavePath =sPath;
+                    dtc.AgainNumber = m_TaskData.GatherAgainNumber;
+                    dtc.Ignore404 = m_TaskData.IsIgnore404;
+                    dtc.IsErrorLog = m_TaskData.IsErrorLog;
 
                     tWeblink = new List<Task.cWebLink>();
 
@@ -714,6 +765,10 @@ namespace SoukeyNetget.Gather
                 dtc.StartPos = m_TaskData.StartPos;
                 dtc.EndPos = m_TaskData.EndPos;
                 dtc.SavePath = sPath;
+                dtc.AgainNumber = m_TaskData.GatherAgainNumber;
+                dtc.Ignore404 = m_TaskData.IsIgnore404;
+                dtc.IsErrorLog = m_TaskData.IsErrorLog;
+
 
                 dtc.SetSplitData(0, m_TaskData.UrlCount - 1, m_TaskData.Weblink, m_TaskData.CutFlag);
                 m_TaskData.TaskSplitData.Add(dtc.TaskSplitData);
@@ -786,6 +841,10 @@ namespace SoukeyNetget.Gather
                             dtc.StartPos = m_TaskData.StartPos;
                             dtc.EndPos = m_TaskData.EndPos;
                             dtc.SavePath = sPath;
+                            dtc.AgainNumber = m_TaskData.GatherAgainNumber;
+                            dtc.Ignore404 = m_TaskData.IsIgnore404;
+                            dtc.IsErrorLog = m_TaskData.IsErrorLog;
+
                             dtc.TaskSplitData = configData;
 
                             m_list_GatherTaskSplit.Add(dtc);
@@ -806,6 +865,10 @@ namespace SoukeyNetget.Gather
                         dtc.StartPos = m_TaskData.StartPos;
                         dtc.EndPos = m_TaskData.EndPos;
                         dtc.SavePath = sPath;
+                        dtc.AgainNumber = m_TaskData.GatherAgainNumber;
+                        dtc.Ignore404 = m_TaskData.IsIgnore404;
+                        dtc.IsErrorLog = m_TaskData.IsErrorLog;
+
 
                         // 新任务，则新建子线程
                         m_list_GatherTaskSplit.Add(dtc);
@@ -840,8 +903,6 @@ namespace SoukeyNetget.Gather
                 dtc.IsInitialized = true;
             }
         }
-
-
 
         /// 重置任务为未初始化状态
         internal void ResetTaskState()
@@ -891,11 +952,24 @@ namespace SoukeyNetget.Gather
                 tXml += "<WebLink>";
                 tXml += "<Url>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].Weblink.ToString()) + "</Url>";
                 tXml += "<IsNag>" + m_TaskData.Weblink[i].IsNavigation + "</IsNag>";
-                tXml += "<IsOppPath>" + m_TaskData.Weblink[i].IsOppPath + "</IsOppPath>";
-                tXml += "<NagRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NagRule) + "</NagRule>";
                 tXml += "<IsNextPage>" + m_TaskData.Weblink[i].IsNextpage + "</IsNextPage>";
                 tXml += "<NextPageRule>" + cTool.ReplaceTrans(m_TaskData.Weblink[i].NextPageRule) + "</NextPageRule>";
                 tXml += "<IsGathered>" + (int)cGlobalParas.UrlGatherResult.UnGather + "</IsGathered>";
+
+                if (m_TaskData.Weblink[i].IsNavigation == true)
+                {
+                    tXml += "<NavigationRules>";
+                    for (int j = 0; j < m_TaskData.Weblink[i].NavigRules.Count; j++)
+                    {
+                        tXml += "<Rule>";
+                        tXml += "<Url>" + m_TaskData.Weblink[i].NavigRules[j].Url + "</Url>";
+                        tXml += "<Level>" + m_TaskData.Weblink[i].NavigRules[j].Level + "</Level>";
+                        tXml += "<NagRule>" + m_TaskData.Weblink[i].NavigRules[j].NavigRule + "</NagRule>";
+                        tXml += "</Rule>";
+                    }
+                    tXml += "</NavigationRules>";
+                }
+
                 tXml += "</WebLink>";
 
                 m_TaskData.Weblink[i].IsGathered = (int) cGlobalParas.UrlGatherResult.UnGather ;
@@ -1001,9 +1075,39 @@ namespace SoukeyNetget.Gather
                     // 设置为完成状态，触发任务完成事件
                     State = cGlobalParas.TaskState.Completed;
                 }
+
+                //无论失败还是成功都要进行触发器的触发
+                if (m_TaskData.IsTrigger == true && m_TaskData.TriggerType == ((int)cGlobalParas.TriggerType.GatheredRun).ToString ())
+                {
+                    cRunTask rt = new cRunTask();
+                    rt.RunSoukeyTaskEvent += this.onRunSoukeyTask;
+
+                    cTaskPlan p;
+                    
+                    for (int i=0;i<m_TaskData.TriggerTask.Count ;i++)
+                    {
+                        p=new cTaskPlan ();
+
+                        p.RunTaskType =m_TaskData.TriggerTask[i].RunTaskType ;
+                        p.RunTaskName =m_TaskData.TriggerTask[i].RunTaskName ;
+                        p.RunTaskPara =m_TaskData.TriggerTask[i].RunTaskPara ;
+
+                        rt.AddTask (p);
+
+                    }
+
+                    rt.RunSoukeyTaskEvent -= this.onRunSoukeyTask;
+                    rt = null;
+                    
+                }
             }
         }
 
+        //处理触发器执行Soukey采摘任务
+        private void onRunSoukeyTask(object sender, cRunTaskEventArgs e)
+        {
+            e_RunTask(this, new cRunTaskEventArgs(e.MessType, e.RunName, e.RunPara));
+        }
 
         /// 处理 分解采集任务 错误事件
         private void TaskThreadError(object sender, TaskThreadErrorEventArgs e)
@@ -1072,6 +1176,15 @@ namespace SoukeyNetget.Gather
             {
                 e_Log(sender, e);
             }
+
+            //在此处理是否写入错误数据到日志的请求
+            if (e.IsSaveErrorLog == true)
+            {
+                cErrLog eLog = new cErrLog();
+                eLog.WriteLog(this.TaskName, cGlobalParas.LogType.GatherError, e.strLog);
+                eLog = null;
+            }
+
         }
 
         //处理数据事件

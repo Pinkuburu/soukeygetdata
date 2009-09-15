@@ -38,8 +38,8 @@ namespace SoukeyNetget.Gather
             m_WaitingTaskList = new List<cGatherTask>();
             m_FinishTaskQueue = new Queue<cGatherTask>();
 
-            //最大任务为10
-            m_MaxTask = 10;
+            //最大任务为20
+            m_MaxTask = 20;
         }
 
 
@@ -182,9 +182,11 @@ namespace SoukeyNetget.Gather
         {
             m_FinishTaskQueue.Enqueue(task);
         }
+
         /// <summary>
         /// 回收已完成的线程
         /// </summary>
+        /// 
         internal void TaskDispose()
         {
             // 释放所有完成的线程
@@ -242,6 +244,7 @@ namespace SoukeyNetget.Gather
             }
         }
 
+    
         /// <summary>
         /// 清空控制器内容
         /// </summary>
@@ -297,9 +300,16 @@ namespace SoukeyNetget.Gather
         internal void RemoveTask(cGatherTask task)
         {
             // 取消任务 删除列表中的所有数据
-            task.Abort();
-
+            if (task.State == cGlobalParas.TaskState.Running || task.State ==cGlobalParas.TaskState.Started )
+            {
+                task.Abort();
+            }
+            
             task.Remove();
+
+            task.State = cGlobalParas.TaskState.Aborted;
+
+            AutoList(task);
         }
 
         ///由系统自动触发结束任务操作，并不是用户触发了任务停止操作，

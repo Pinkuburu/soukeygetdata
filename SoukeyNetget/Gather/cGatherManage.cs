@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using SoukeyNetget.Listener;
 
 ///功能：采集任务管理 管理队列 绑定 响应事件 控制任务 
 ///完成时间：2009-3-2
@@ -145,6 +146,9 @@ namespace SoukeyNetget.Gather
                     gTask.TaskError += this.onTaskError;
                     gTask.TaskStateChanged += this.onTaskStateChanged;
                     gTask.TaskThreadInitialized += this.onTaskThreadInitialized;
+
+                    gTask.RunTask += this.onRunSoukeyTask;
+
                     gTask.IsInitialized = true;
                 }
             }
@@ -165,6 +169,7 @@ namespace SoukeyNetget.Gather
                     gTask.GData -= this.onGData;
                     gTask.TaskError -= this.onTaskError;
                     gTask.TaskStateChanged -= this.onTaskStateChanged;
+                    gTask.RunTask -= this.onRunSoukeyTask;
                     gTask.TaskThreadInitialized -= this.onTaskThreadInitialized;
 
                
@@ -259,10 +264,30 @@ namespace SoukeyNetget.Gather
             add {  e_GData += value;  }
             remove { e_GData -= value;  }
         }
+
+        /// <summary>
+        /// 触发器执行Soukey采摘任务时的事件响应
+        /// </summary>
+        private event EventHandler<cRunTaskEventArgs> e_RunTask;
+        internal event EventHandler<cRunTaskEventArgs> RunTask
+        {
+            add {  e_RunTask += value;  }
+            remove {  e_RunTask -= value; }
+        }
         #endregion
 
         #region 事件处理
-        
+
+        /// <summary>
+        /// 处理任务触发器响应执行Soukey采摘任务时的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onRunSoukeyTask(object sender, cRunTaskEventArgs e)
+        {
+            e_RunTask(this, new cRunTaskEventArgs(e.MessType, e.RunName, e.RunPara));
+        }
+
         /// 处理 任务完成 事件
         private void onTaskCompleted(object sender, cTaskEventArgs e)
         {

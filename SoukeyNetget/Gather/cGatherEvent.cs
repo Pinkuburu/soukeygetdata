@@ -204,11 +204,13 @@ namespace SoukeyNetget.Gather
         //采集日志事件
         public class cGatherTaskLogArgs : cTaskEventArgs
         {
-            public cGatherTaskLogArgs(Int64 TaskID, string strLog)
+            public cGatherTaskLogArgs(Int64 TaskID,  string strLog ,bool IsSaveError)
             {
                 //m_TaskID = TaskID;
                 base.TaskID = TaskID;
+                base.TaskName = TaskName;
                 m_strLog = strLog;
+                m_IsSaveErrorLog = IsSaveError;
             }
 
             private string m_strLog;
@@ -216,6 +218,13 @@ namespace SoukeyNetget.Gather
             {
                 get { return m_strLog; }
                 set { m_strLog = value; }
+            }
+
+            private bool m_IsSaveErrorLog;
+            public bool IsSaveErrorLog
+            {
+                get { return m_IsSaveErrorLog; }
+                set { m_IsSaveErrorLog = value; }
             }
 
             //private Int64 m_TaskID;

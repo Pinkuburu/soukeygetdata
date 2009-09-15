@@ -25,12 +25,30 @@ namespace SoukeyNetget.Gather
         public cGatherWeb()
         {
             this.CutFlag = new List<SoukeyNetget.Task.cWebpageCutFlag>();
+
+            //默认重试次数为3，且忽略404错误
+            //m_IsIgnore404 = true;
+            //m_AgainNumber = 3;
         }
 
         ~cGatherWeb()
         {
             this.CutFlag = null;
         }
+
+        //private bool m_IsIgnore404;
+        //public bool IsIgnore404
+        //{
+        //    get { return m_IsIgnore404; }
+        //    set { m_IsIgnore404 = value; }
+        //}
+
+        //private int m_AgainNumber;
+        //public int AgainNumber
+        //{
+        //    get { return m_AgainNumber; }
+        //    set { m_AgainNumber = value; }
+        //}
 
         private List<Task.cWebpageCutFlag> m_CutFlag; 
         public List<Task.cWebpageCutFlag> CutFlag
@@ -168,8 +186,9 @@ namespace SoukeyNetget.Gather
 
             //设置页面超时时间为12秒
             wReq.Timeout = 12000;
-
+            
             HttpWebResponse wResp = (HttpWebResponse)wReq.GetResponse();
+
             System.IO.Stream respStream = wResp.GetResponseStream();
             
             System.IO.StreamReader reader;
@@ -276,7 +295,8 @@ namespace SoukeyNetget.Gather
                         strCut += "[\\x00-\\xff]*?";
                         break;
                     case (int)cGlobalParas.LimitSign.Custom:
-                        strCut += cTool.RegexReplaceTrans(this.CutFlag[i].RegionExpression.ToString());
+                        //strCut += cTool.RegexReplaceTrans(this.CutFlag[i].RegionExpression.ToString());
+                        strCut += this.CutFlag[i].RegionExpression.ToString();
                         break;
                     default:
                         strCut += "[\\S\\s]*?";
@@ -468,7 +488,10 @@ namespace SoukeyNetget.Gather
                         {
                             int len = tempData.Rows[index][i].ToString().Length;
                             int lefti = int.Parse(this.CutFlag[i].ExportExpression.ToString());
-                            tempData.Rows[index][i] = tempData.Rows[index][i].ToString().Substring(lefti, len - lefti);
+                            if (tempData.Rows[index][i].ToString().Length > lefti)
+                            {
+                                tempData.Rows[index][i] = tempData.Rows[index][i].ToString().Substring(lefti, len - lefti);
+                            }
                         }
                         break;
                     case (int)cGlobalParas.ExportLimit.ExportTrimRight:
@@ -476,7 +499,10 @@ namespace SoukeyNetget.Gather
                         {
                             int len = tempData.Rows[index][i].ToString().Length;
                             int righti = int.Parse(this.CutFlag[i].ExportExpression.ToString());
-                            tempData.Rows[index][i] = tempData.Rows[index][i].ToString().Substring(0, len - righti);
+                            if (tempData.Rows[index][i].ToString().Length > righti)
+                            {
+                                tempData.Rows[index][i] = tempData.Rows[index][i].ToString().Substring(0, len - righti);
+                            }
                         }
                         break;
                     case (int)cGlobalParas.ExportLimit.ExportTrim :
@@ -545,7 +571,7 @@ namespace SoukeyNetget.Gather
                                     DownloadFileName = urlstr[urlstr.Count - 1].ToString();
                                 DownloadFileName = sPath + "\\" + DownloadFileName;
 
-                                if (FileUrl.Substring(0, 4) == "http")
+                                if (string.Compare ( FileUrl.Substring(0, 4) , "http",true )==0)
                                 {
                                     DownloadFile(FileUrl, DownloadFileName);
                                 }

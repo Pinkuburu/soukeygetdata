@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SoukeyNetget.Task;
 
 ///功能：采集任务数据
 ///完成时间：2009-3-2
@@ -200,6 +201,56 @@ namespace SoukeyNetget.Gather
         {
             get { return m_ThreadCount; }
             set { m_ThreadCount = value; }
+        }
+
+        //重试次数
+        private int m_GatherAgainNumber;
+        public int GatherAgainNumber
+        {
+            get { return m_GatherAgainNumber; }
+            set { m_GatherAgainNumber = value; }
+        }
+
+        private bool m_IsIgnore404;
+        public bool IsIgnore404
+        {
+            get { return m_IsIgnore404; }
+            set { m_IsIgnore404 = value; }
+        }
+
+        private bool m_IsErrorLog;
+        public bool IsErrorLog
+        {
+            get { return m_IsErrorLog; }
+            set { m_IsErrorLog = value; }
+        }
+
+        private bool m_IsDelRepRow;
+        public bool IsDelRepRow
+        {
+            get { return m_IsDelRepRow; }
+            set { m_IsDelRepRow = value; }
+        }
+
+        private bool m_IsTrigger;
+        public bool IsTrigger
+        {
+            get { return m_IsTrigger; }
+            set { m_IsTrigger = value; }
+        }
+
+        private string m_TriggerType;
+        public string TriggerType
+        {
+            get { return m_TriggerType; }
+            set { m_TriggerType = value; }
+        }
+
+        private List<cTriggerTask> m_TriggerTask;
+        public List<cTriggerTask> TriggerTask
+        {
+            get { return m_TriggerTask; }
+            set { m_TriggerTask = value; }
         }
 
         #region 网页采集的地址和规则

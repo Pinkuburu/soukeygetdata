@@ -40,7 +40,7 @@ namespace SoukeyNetget.Plan
         }
 
         #region 
-        private void NewIndexFile()
+        public void NewIndexFile()
         {
             cXmlIO xmlConfig = new cXmlIO();
 
@@ -58,7 +58,6 @@ namespace SoukeyNetget.Plan
             return File.Exists(Program.getPrjPath() + "tasks\\plan\\plan.xml");
         }
 
-       
         #endregion
 
         #region 方法
@@ -99,6 +98,8 @@ namespace SoukeyNetget.Plan
                 p.RunWeeklyTime = d[i].Row["RunWeeklyTime"].ToString();
                 p.RunWeekly = d[i].Row["RunWeekly"].ToString();
                 p.RunTimeCount = d[i].Row["RunTimeCount"].ToString();
+                p.FirstRunTime = d[i].Row["FirstRunTime"].ToString();
+                p.RunInterval = d[i].Row["RunInterval"].ToString();
 
                 m_Plans.Add(p);
 
@@ -139,6 +140,8 @@ namespace SoukeyNetget.Plan
             p.RunWeeklyTime = d[0].Row["RunWeeklyTime"].ToString();
             p.RunWeekly = d[0].Row["RunWeekly"].ToString();
             p.RunTimeCount = d[0].Row["RunTimeCount"].ToString();
+            p.FirstRunTime = d[0].Row["FirstRunTime"].ToString();
+            p.RunInterval = d[0].Row["RunInterval"].ToString();
 
 
             cTaskPlan tp;
@@ -151,16 +154,17 @@ namespace SoukeyNetget.Plan
                 p.RunTasks.Add(tp);
             }
 
+            xmlConfig = null;
             return p;
 
-            xmlConfig = null;
+            
 
         }
 
-        public int GetPlanCount()
-        {
-            return 0;
-        }
+        //public int GetPlanCount()
+        //{
+        //    return 0;
+        //}
 
         //插入一个计划,计划不能重名
         public void InsertPlan(cPlan NewPlan)
@@ -182,7 +186,6 @@ namespace SoukeyNetget.Plan
                     {
                         xmlConfig = null;
                         throw new cSoukeyException("已经存在此计划，请修改计划名称，计划名称不能重复！");
-                        break;
                     }
                 }
             }
@@ -233,6 +236,8 @@ namespace SoukeyNetget.Plan
                 "<RunPMTime>" + NewPlan.RunPMTime + "</RunPMTime>" +
                 "<RunWeeklyTime>" + NewPlan.RunWeeklyTime + "</RunWeeklyTime>" +
                 "<RunWeekly>" + NewPlan.RunWeekly + "</RunWeekly>" +
+                "<FirstRunTime>" + NewPlan.FirstRunTime + "</FirstRunTime>" +
+                "<RunInterval>" + NewPlan .RunInterval + "</RunInterval>" +
 
                 //任务运行次数，只要任务进行修改，表示就是一个新任务，则此值修改为零
                 "<RunTimeCount>0</RunTimeCount>" +                            
@@ -318,6 +323,38 @@ namespace SoukeyNetget.Plan
             xmlConfig.Save();
             xmlConfig = null;
 
+        }
+
+        //修改制定计划的名称
+        public bool RenamePlanName(string OldPlanName, string NewPlanName)
+        {
+            //判断计划文件是否存在，如果不存在则新建
+            if (!IsExist())
+                NewIndexFile();
+
+            //判断计划是否重名，如果重名则需要进行名称修改
+            cXmlIO xmlPlan = new cXmlIO(Program.getPrjPath() + "tasks\\plan\\plan.xml");
+
+            DataView d = xmlPlan.GetData("descendant::Plans");
+
+            if (d != null)
+            {
+                for (int i = 0; i < d.Count; i++)
+                {
+                    if (NewPlanName == d[i].Row["PlanName"].ToString())
+                    {
+                        xmlPlan = null;
+                        throw new cSoukeyException("已经存在此计划，重命名失败");
+                        return false;
+                    }
+                }
+            }
+
+            xmlPlan.EditNodeValue("Plans", "PlanName", OldPlanName, "PlanName", NewPlanName);
+            xmlPlan.Save();
+            xmlPlan = null;
+
+            return true;
         }
 
         #endregion

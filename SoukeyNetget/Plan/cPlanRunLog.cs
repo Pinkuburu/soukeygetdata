@@ -166,7 +166,7 @@ namespace SoukeyNetget.Plan
         public void DelLog()
         {
             //删除文件再重新建立一个
-            File.Delete(Program.getPrjPath() + "tasks\\plan\\plan.xml");
+            File.Delete(Program.getPrjPath() + "tasks\\plan\\RunLog.xml");
 
             NewLogFile();
         }

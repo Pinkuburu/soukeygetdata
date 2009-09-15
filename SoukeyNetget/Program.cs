@@ -50,9 +50,14 @@ namespace SoukeyNetget
                 Application.DoEvents();
                 mf.StartListen();
 
+                //mf.IniForm();
+
                 sf.Close();                                 //关闭启动窗体
                 sf.Dispose();
+
+                
                 mf.Show();                                  //启动主程序窗体
+
             }
         }
 

@@ -117,7 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="panel1.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="pictureBox1.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhIAAgAIf9AO3t7Y+Ojqqpqevr6xI7mxQ+oSlLntjX19nZ2cDAwA41kMfGxh5CmDFSpL+/v7Cw
+        sBdApNPT0ytQpm9ubh1AlZWVlZCPj3x7ezpWxaGhofv7+7i3t9ra2jdWq39+fjZdwUVv3zhUyT1bsOnp
+        6Rg9kyJGmixPoD5n0EZu2T5awQ82lzNPzTxkyjNZtztjySxRrWR1oTFWtT1ZxD1mzThgwxM4kD9o1CBE
+        mRE4ljNTpPr5/CdQtD9cu7a1utHR0eHh4TZSyz9ctczN0kJt30RXkzNaujRcvjRbuTdizSpSsiBIrOnp
+        60Jr1y5K0DpYsSpUujpZqz1atihFis/Oz7K2xK60xNTT1bjF6zFRoMTGzF6B2cLCxVRml1pmgz9p2NXU
+        1UBdpD5csTVUrkNt2ShPrR5CnDdWp26R7UFq2SBDlj5buwgxjdrZ2ktnqT9cuC1Utf/+/t7e3i1UsCVM
+        rTthxSRHmV1yo6iqsIWLmerr8jpOfU9god3a2UBr30BcwP7++sC/xHKQ3oaTuVN75aK15jRSusXExzNc
+        vMfJ0dPQ0TdfxThZrmZzljRMurS2vzBYwLKxtzNcwaGmur/AwUx25UhmuXWCo3aIuDhk1KOrxDNRroqa
+        xTZOr0hbirm4uUdan76+xL7CzpihuRxFpMC8vj1n1WqN6HqOwS1Kklh0ufv8/4SZzjVcu0RpxxU8lJqp
+        zl91rff3+XN7jnqHqDxZvvLx9ENVfQw3ocrKyiRKoHmQzxlBnXCFuHKCtn6GpDlWrJKn4a7B8itFybHD
+        8TReyjZPjuvx/8LJ2k513Upimw44nb/I33+Kox9HpdDS2DtkzW51ho6UpVZ83cPDwzBaxrfA2oB/f9HQ
+        1lptoLq6v9jY3p2jtIGe77G1v4WStc/R1zZgxzdj0VNotjhStHiJvjVPk6q42dTa7efq+Hqa7e/u766x
+        uj9cvjhl1qCipm+Dvztn2GB3svLz+Jut34qYvztZu1N1zLvC1Rk/mT1XnTJSq+3s7////////wAAAAAA
+        ACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAD9ACwAAAAAIAAgAAAI/wD7CRxIcMQCAQEuTJhwIYCABSMI
+        Spw4EIEADxkScACgQQMADgkyeBCAgCLFAQ8COBjAYVKVV6fIbcrkiM0ABwEeDDA58ECFDQBwhZpnilKf
+        IX3gYTphj14WABsqHODpw0KEOFkInaEEAgSKMUxsnJiBhBodQXEiWPBB8YCFH1OWcRs0xCuaUpiQIHHB
+        wgWNSE9SLfhhYSrBARUiTLlyBkRdL+1QaAkUSEurR5E+HCqyI0yWCBV2DnywIU61M3VReJEWzBi/16rQ
+        EWr1pkiMGHPAcNjwoGIAAOvSgRiDgkm4Ya+T84Pz51ylJHLkvGgGA0CAkv0EOJgGbBAasDaQXP9RDjsW
+        HHNzXryQIKFMNwcC+o3wMGCbKS9oxM4gduXPsU2nvCIPHDrokAcU67GXCxcDeGBQBgesgkwp+rGgiC68
+        vLDDDkqsokGBsbTBngQmmFCHEBkclMAdWlToAh00PPLEIUe0sEMqS+xTSx5Y7FJGGQzcQAIzCSDEQTQo
+        PDMDCzB+8AErNb4xRwGXJKKNOveQgA8DXFJAQSdsJASAJSe44BcNHxjBSgtJKAHBLW30AMg1ANhRA5dc
+        pnGDFAAopAEMFjppRI1tQlBAAbBAAkk2X3hDwg0lRCopKhospAMj4KRZxBFvuHmoMrCQ0kMPW8BAggGo
+        pooqpQwBwIgRRbT/EEMSoxhaAAGjUGEIIKBwQYEJDWDRwLDEltNnAGzg8cRtZNhKAAEqgCGEEFbMQkEO
+        OZhhRgfccisGERw4lIA7i8jR7KHPQtvGFIl8gY0JZkABhQj0iuCEE2JYUuQCGXyRTLPpEoCDKySYYAcM
+        MOTTAb1hBOFwFBBrEkqK8w0gCwTP4oCDCjU8Cumw+ogQhBtu8MCDGijX88kS1kSknSdSqLCxAgrgQAED
+        YIjiCBXvOFEyO36kIHQKhUhSpEAI/AbNGirQrIArFNQhSgI9kIJIJbQILYMMGHS9h3XY9UMaArasQXPH
+        aZhQhSGgbGGFOBhwHcLcIXDyjSe9DYRYBJPolGF2DVEbcIkVB/CRyTgYhAAEECus0AgVoInW01sO6KFA
+        DWkYgEUO8QjSyy+JM95EE5xUQZhhElUVAQJdSEGBATl0IIYmhXAtujB7OKMWWyb5BNQdXRSTwyJh8OCH
+        DCE4/okkUEnFk0AoqbSEEHh00QkR2HPhCyI35ST58/1YhNEWfHDkEUgikQS+SQcltFBDD0XEU0AAOw==
+</value>
+  </data>
+  <metadata name="labTitle.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="groupBox1.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="button1.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhEAAQAIZpAG+0/1WPtFqb7xddsmmJuhRfslaY7nC0/02HtzyJ4VKP0nKy/F2Lx1iX3mKm8Tlw
@@ -132,6 +180,21 @@
         RcuZgUksPCj4wYeYKwSjoPlS0EMHCQVZdCkDwggUgWO2GExRAEyRHhoEWjloYwAKDkEyQFxsMCAAOw==
 </value>
   </data>
+  <metadata name="richTextBox1.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>1、如果您是第一次使用Soukey采摘，那此部分对您的帮助不会很大，如果遇到问题请及时联系“一孑”即可。
+2、如果您以前使用过Soukey采摘，且这次为升级操作，那么请务必通过“工具”-&gt;“任务升级”对原有任务进行升级操作，否则任务将无法打开且运行，同时对于运行区已有的任务实例，也需删除，待任务升级完成后，再次运行任务即可。
+3、Soukey采摘 1.6 版本较原有版本新增功能为：
+     1) 定时任务：可根据用户需要自动执行采集任务；
+     2) 任务触发器：可根据用户需要在任务采集完成后触发新的程序；
+     3) 多层导航：支持页面多层导航规则；
+     4) 任务高级配置：可灵活配置任务的相关操作；</value>
+  </data>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

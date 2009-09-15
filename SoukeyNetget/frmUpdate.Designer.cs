@@ -68,11 +68,14 @@
             // 
             this.button1.Enabled = false;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(329, 210);
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(338, 210);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 23);
+            this.button1.Size = new System.Drawing.Size(60, 23);
             this.button1.TabIndex = 3;
             this.button1.Text = "关 闭";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -80,7 +83,7 @@
             // 
             this.button2.Enabled = false;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(229, 210);
+            this.button2.Location = new System.Drawing.Point(239, 210);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(84, 23);
             this.button2.TabIndex = 4;

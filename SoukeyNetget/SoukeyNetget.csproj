@@ -68,9 +68,14 @@
   <ItemGroup>
     <Compile Include="cDict.cs" />
     <Compile Include="cGlobalParas.cs" />
-    <Compile Include="cLog.cs" />
     <Compile Include="cSoukeyException.cs" />
     <Compile Include="cSystem.cs" />
+    <Compile Include="CustomControl\cCopyDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControl\cCopyDataGridView.Designer.cs">
+      <DependentUpon>cCopyDataGridView.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomControl\cMyDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -81,11 +86,29 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomControl\DataGridViewProgressBarColumn.cs" />
+    <Compile Include="frmAddGatherRule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddGatherRule.Designer.cs">
+      <DependentUpon>frmAddGatherRule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddGatherUrl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddGatherUrl.Designer.cs">
+      <DependentUpon>frmAddGatherUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddPlanTask.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAddPlanTask.Designer.cs">
       <DependentUpon>frmAddPlanTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddTaskWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddTaskWizard.Designer.cs">
+      <DependentUpon>frmAddTaskWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="frmClose.cs">
       <SubType>Form</SubType>
@@ -93,11 +116,23 @@
     <Compile Include="frmClose.Designer.cs">
       <DependentUpon>frmClose.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfig.Designer.cs">
+      <DependentUpon>frmConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDict.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmDict.Designer.cs">
       <DependentUpon>frmDict.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmHelpInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHelpInfo.Designer.cs">
+      <DependentUpon>frmHelpInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmImportTask.cs">
       <SubType>Form</SubType>
@@ -117,6 +152,15 @@
     <Compile Include="frmMessageBox.Designer.cs">
       <DependentUpon>frmMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmNotifyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectTask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectTask.Designer.cs">
+      <DependentUpon>frmSelectTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSetData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +178,12 @@
     </Compile>
     <Compile Include="frmUpdate.Designer.cs">
       <DependentUpon>frmUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpgradeTask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUpgradeTask.Designer.cs">
+      <DependentUpon>frmUpgradeTask.cs</DependentUpon>
     </Compile>
     <Compile Include="Gather\cEventProxy.cs" />
     <Compile Include="Gather\cExport.cs" />
@@ -153,6 +203,8 @@
     <Compile Include="Listener\cListenEvent.cs" />
     <Compile Include="Listener\cListenManage.cs" />
     <Compile Include="Listener\cRunTask.cs" />
+    <Compile Include="Log\cErrLog.cs" />
+    <Compile Include="Log\cSystemLog.cs" />
     <Compile Include="Plan\cPlan.cs" />
     <Compile Include="Plan\cPlanRunLog.cs" />
     <Compile Include="Plan\cPlans.cs" />
@@ -162,6 +214,8 @@
     <Compile Include="publish\cPublishManage.cs" />
     <Compile Include="publish\cPublishTask.cs" />
     <Compile Include="publish\cPublishTaskData.cs" />
+    <Compile Include="Task\cNavigRule.cs" />
+    <Compile Include="Task\cNavigRules.cs" />
     <Compile Include="Task\cTaskClass.cs" />
     <Compile Include="Task\cTaskComplete.cs" />
     <Compile Include="Task\cTaskIndex.cs" />
@@ -172,6 +226,8 @@
     <Compile Include="Task\cTask.cs" />
     <Compile Include="Task\cTaskRun.cs" />
     <Compile Include="Task\cTasks.cs" />
+    <Compile Include="Task\cTriggerTask.cs" />
+    <Compile Include="Task\cUpgradeTask.cs" />
     <Compile Include="Task\cUrlAnalyze.cs" />
     <Compile Include="Task\cWebLink.cs" />
     <Compile Include="Task\cWebpageCutFlag.cs" />
@@ -223,17 +279,37 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAddGatherRule.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddGatherRule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddGatherUrl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddGatherUrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddPlanTask.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmAddPlanTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddTaskWizard.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddTaskWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmClose.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmClose.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmConfig.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDict.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmDict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHelpInfo.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmHelpInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmImportTask.resx">
       <SubType>Designer</SubType>
@@ -250,6 +326,14 @@
     <EmbeddedResource Include="frmMessageBox.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNotifyWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmNotifyWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectTask.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSelectTask.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetData.resx">
       <SubType>Designer</SubType>
@@ -274,6 +358,10 @@
     <EmbeddedResource Include="frmUpdate.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpgradeTask.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmUpgradeTask.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWaiting.resx">
       <SubType>Designer</SubType>
@@ -320,7 +408,12 @@
     <Content Include="licence.txt" />
     <Content Include="Logo.ico" />
     <Content Include="readme.txt" />
+    <None Include="Resources\A331.gif" />
+    <None Include="Resources\agree.gif" />
+    <None Include="Resources\A10.gif" />
+    <None Include="Resources\right.gif" />
     <Content Include="代码修改及维护说明.txt" />
+    <Content Include="代码规范说明.txt" />
     <None Include="Resources\file.gif" />
     <None Include="Resources\A09.gif" />
     <None Include="Resources\A30.gif" />

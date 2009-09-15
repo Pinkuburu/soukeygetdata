@@ -4,7 +4,7 @@ using System.Text;
 using System.Data;
 using System.IO;
 
-///功能：采集任务类
+///功能：采集任务类，当前版本为1.3 注意：从当前的版本开始不再对以前旧版本任务进行兼容
 ///完成时间：2009-3-2
 ///作者：一孑
 ///遗留问题：无
@@ -25,18 +25,28 @@ namespace SoukeyNetget.Task
     public class cTask
     {
         cXmlIO xmlConfig;
+        private Single m_SupportTaskVersion = Single.Parse ("1.3");
+
+        //此类别可处理的任务版本号，注意从1.3开始，任务处理类不再向前兼容
+        public Single SupportTaskVersion
+        {
+            get { return m_SupportTaskVersion; }
+        }
+
 
         #region 类的构造和销毁
         public cTask()
         {
             this.WebpageLink = new List<cWebLink>();
             this.WebpageCutFlag = new List<cWebpageCutFlag>();
+            this.TriggerTask = new List<cTriggerTask>();
         }
 
         ~cTask()
         {
             this.WebpageLink = null;
             this.WebpageCutFlag = null;
+            this.TriggerType = null;
         }
         #endregion
 
@@ -223,22 +233,6 @@ namespace SoukeyNetget.Task
             set { m_ExportCookie = value; }
         }
 
-        #region 数据库的用户名和密码在任务1.2版本中已经去除 但为了兼容1.0版本所以保存
-        private string m_DataUser;
-        public string DataUser
-        {
-            get { return m_DataUser; }
-            set { m_DataUser = value; }
-        }
-
-        private string m_DataPwd;
-        public string DataPwd
-        {
-            get { return m_DataPwd; }
-            set { m_DataPwd = value; }
-        }
-        #endregion
-
         private string m_DataTableName;
         public string DataTableName
         {
@@ -289,6 +283,64 @@ namespace SoukeyNetget.Task
             set { m_WebpageCutFlag = value; }
         }
 
+        //以下为新增内容，主要是任务版本升级，为1.3
+        private int m_GatherAgainNumber;
+        public int GatherAgainNumber
+        {
+            get { return m_GatherAgainNumber; }
+            set { m_GatherAgainNumber = value; }
+        }
+
+        private bool m_IsIgnore404;
+        public bool IsIgnore404
+        {
+            get { return m_IsIgnore404; }
+            set { m_IsIgnore404 = value; }
+        }
+
+        private bool m_IsExportHeader;
+        public bool IsExportHeader
+        {
+            get { return m_IsExportHeader; }
+            set { m_IsExportHeader = value; }
+        }
+
+        //是否输出错误信息
+        private bool m_IsErrorLog;
+        public bool IsErrorLog
+        {
+            get { return m_IsErrorLog; }
+            set { m_IsErrorLog = value; }
+        }
+
+        //是否去除重复的行
+        private bool m_IsDelRepRow;
+        public bool IsDelRepRow
+        {
+            get { return m_IsDelRepRow; }
+            set { m_IsDelRepRow = value; }
+        }
+
+        private bool m_IsTrigger;
+        public bool IsTrigger
+        {
+            get { return m_IsTrigger; }
+            set { m_IsTrigger = value; }
+        }
+
+        private string m_TriggerType;
+        public string TriggerType
+        {
+            get { return m_TriggerType; }
+            set { m_TriggerType = value; }
+        }
+
+        private List<cTriggerTask> m_TriggerTask;
+        public List<cTriggerTask> TriggerTask
+        {
+            get { return m_TriggerTask; }
+            set { m_TriggerTask = value; }
+        }
 
         #endregion
 
@@ -331,7 +383,7 @@ namespace SoukeyNetget.Task
             return IsExists;
         }
 
-        //保存任务信息
+        //保存任务信息，在保存任务信息的同时会自动维护任务分类数据
         public void Save(string TaskPath)
         {
             //获取需要保存任务的路径
@@ -364,7 +416,7 @@ namespace SoukeyNetget.Task
                 "<Task>" +
                 "<State></State>" +       ///此状态值当前无效,用于将来扩充使用
                 "<BaseInfo>" +
-                "<Version>1.2</Version>" +   //默认当前的任务版本号为：1.2
+                "<Version>1.3</Version>" +   //默认当前的任务版本号为：1.2
                 "<ID>" + TaskID + "</ID>" +
                 "<Name>" + this.TaskName + "</Name>" +
                 "<TaskDemo>" + this.TaskDemo + "</TaskDemo>" +
@@ -392,17 +444,35 @@ namespace SoukeyNetget.Task
                 "<DataSource>" + this.DataSource + "</DataSource>" +
                 "<DataTableName>" + this.DataTableName + "</DataTableName>" +
 
-                //数据库用户名及密码在任务1.2版本中已经删除，所以不进行保存，但代码不进行删除，因为
-                //此版本需要兼容1.0，保证代码的可读性，故不删除
-                //"<DataUser>" + this.DataUser  + "</DataUser>" +
-                //"<DataPwd>" + this.DataPwd + "</DataPwd>" +
 
                 "<InsertSql>" + this.InsertSql + "</InsertSql>" +
                 "<ExportUrl>" + cTool.ReplaceTrans(this.ExportUrl) + "</ExportUrl>" +
                 "<ExportUrlCode>" + this.ExportUrlCode + "</ExportUrlCode>" +
-                "<ExportCookie>" + cTool.ReplaceTrans ( this.ExportCookie) + "</ExportCookie>" +
-                "</Result>" +
-                "<WebLinks>";
+                "<ExportCookie>" + cTool.ReplaceTrans(this.ExportCookie) + "</ExportCookie>" +
+                "</Result>";
+
+            tXml += "<Advance>" +
+                "<GatherAgainNumber>" + this.GatherAgainNumber + "</GatherAgainNumber>" +
+                "<IsIgnore404>" + this.IsIgnore404 + "</IsIgnore404>" +
+                "<IsErrorLog>" + this.IsErrorLog + "</IsErrorLog>" +
+                "<IsExportHeader>" + this.IsExportHeader + "</IsExportHeader>" +
+                "<IsDelRepeatRow>" + this.IsDelRepRow + "</IsDelRepeatRow>" +
+                "<IsTrigger>" + this.IsTrigger + "</IsTrigger>" +
+                "<TriggerType>" + this.TriggerType + "</TriggerType>" +
+                "</Advance>";
+
+            tXml += "<Trigger>";
+            for (i = 0; i < this.m_TriggerTask.Count; i++)
+            {
+                tXml += "<Task>";
+                tXml += "<RunTaskType>" + this.m_TriggerTask[i].RunTaskType + "</RunTaskType>";
+                tXml += "<RunTaskName>" + this.m_TriggerTask[i].RunTaskName + "</RunTaskName>";
+                tXml += "<RunTaskPara>" + this.m_TriggerTask[i].RunTaskPara + "</RunTaskPara>";
+                tXml += "</Task>";
+            }
+            tXml += "</Trigger>";
+
+            tXml +="<WebLinks>";
 
             if (this.WebpageLink != null)
             {
@@ -411,13 +481,26 @@ namespace SoukeyNetget.Task
                     tXml += "<WebLink>";
                     tXml += "<Url>" + cTool.ReplaceTrans ( this.WebpageLink[i].Weblink.ToString ()) + "</Url>";
                     tXml += "<IsNag>" + this.WebpageLink[i].IsNavigation + "</IsNag>";
-                    tXml += "<IsOppPath>" + this.WebpageLink[i].IsOppPath + "</IsOppPath>";
-                    tXml += "<NagRule>" + cTool.ReplaceTrans(this.WebpageLink[i].NagRule) + "</NagRule>";
                     tXml += "<IsNextPage>" + this.WebpageLink[i].IsNextpage + "</IsNextPage>";
                     tXml += "<NextPageRule>" + cTool.ReplaceTrans(this.WebpageLink[i].NextPageRule) + "</NextPageRule>";
 
                     //默认插入一个节点，表示此链接地址还未进行采集，因为是系统添加任务，所以默认为UnGather
                     tXml += "<IsGathered>" + (int)cGlobalParas.UrlGatherResult.UnGather + "</IsGathered>";
+
+                    //插入此网址的导航规则
+                    if (this.WebpageLink[i].IsNavigation ==true)
+                    {
+                        tXml += "<NavigationRules>";
+                        for (int j = 0; j < this.WebpageLink[i].NavigRules.Count; j++)
+                        {
+                            tXml +="<Rule>";
+                            tXml += "<Url>" + cTool.ReplaceTrans(this.WebpageLink[i].NavigRules[j].Url) + "</Url>";
+                            tXml += "<Level>" + this.WebpageLink[i].NavigRules[j].Level + "</Level>";
+                            tXml += "<NagRule>" + cTool.ReplaceTrans(this.WebpageLink[i].NavigRules[j].NavigRule) + "</NagRule>";
+                            tXml +="</Rule>";
+                        }
+                        tXml +="</NavigationRules>";
+                    }
                     tXml += "</WebLink>";
                 }
             }
@@ -445,8 +528,154 @@ namespace SoukeyNetget.Task
             
             xmlConfig =new cXmlIO ();
             xmlConfig.NewXmlFile (tPath + this.TaskName + ".xml",tXml );
+            xmlConfig = null;
+
+        }
+
+        //仅根据任务信息保存任务文件，不做其他数据的问题，此方法
+        //主要用于支持任务升级使用
+        public void SaveTaskFile(string TaskPath)
+        {
+            //获取需要保存任务的路径
+            string tPath = "";
+
+            if (TaskPath == "" || TaskPath == null)
+            {
+                tPath = GetTaskClassPath() + "\\";
+            }
+            else
+            {
+                tPath = TaskPath;
+            }
+            int i = 0;
+
+            //判断此路径下是否已经存在了此任务，如果存在则返回错误信息
+            if (IsExistTaskFile(tPath + this.TaskName))
+            {
+                throw new cSoukeyException("任务已经存在，不能建立");
+            }
+
+            //开始增加Task任务
+            //构造Task任务的XML文档格式
+            //当前构造xml文件全部采用的拼写字符串的形式,并没有采用xml构造函数
+            string tXml;
+            tXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" +
+                "<Task>" +
+                "<State></State>" +       ///此状态值当前无效,用于将来扩充使用
+                "<BaseInfo>" +
+                "<Version>1.3</Version>" +   //默认当前的任务版本号为：1.2
+                "<ID>" + TaskID + "</ID>" +
+                "<Name>" + this.TaskName + "</Name>" +
+                "<TaskDemo>" + this.TaskDemo + "</TaskDemo>" +
+                "<Class>" + this.TaskClass + "</Class>" +
+                "<Type>" + this.TaskType + "</Type>" +
+                "<RunType>" + this.RunType + "</RunType>" +
+
+                //选哟转换成相对路径
+                "<SavePath>" + cTool.GetRelativePath(this.SavePath) + "</SavePath>" +
+                "<ThreadCount>" + this.ThreadCount + "</ThreadCount>" +
+                "<UrlCount>" + this.UrlCount + "</UrlCount>" +
+                "<StartPos>" + cTool.ReplaceTrans(this.StartPos) + "</StartPos>" +
+                "<EndPos>" + cTool.ReplaceTrans(this.EndPos) + "</EndPos>" +
+                "<DemoUrl>" + cTool.ReplaceTrans(this.DemoUrl) + "</DemoUrl>" +
+                "<Cookie>" + cTool.ReplaceTrans(this.Cookie) + "</Cookie>" +
+                "<WebCode>" + this.WebCode + "</WebCode>" +
+                "<IsLogin>" + this.IsLogin + "</IsLogin>" +
+                "<LoginUrl>" + this.LoginUrl + "</LoginUrl>" +
+                "<IsUrlEncode>" + this.IsUrlEncode + "</IsUrlEncode>" +
+                "<UrlEncode>" + this.UrlEncode + "</UrlEncode>" +
+                "</BaseInfo>" +
+                "<Result>" +
+                "<ExportType>" + this.ExportType + "</ExportType>" +
+                "<ExportFileName>" + this.ExportFile + "</ExportFileName>" +
+                "<DataSource>" + this.DataSource + "</DataSource>" +
+                "<DataTableName>" + this.DataTableName + "</DataTableName>" +
 
 
+                "<InsertSql>" + this.InsertSql + "</InsertSql>" +
+                "<ExportUrl>" + cTool.ReplaceTrans(this.ExportUrl) + "</ExportUrl>" +
+                "<ExportUrlCode>" + this.ExportUrlCode + "</ExportUrlCode>" +
+                "<ExportCookie>" + cTool.ReplaceTrans(this.ExportCookie) + "</ExportCookie>" +
+                "</Result>";
+
+            tXml += "<Advance>" +
+                "<GatherAgainNumber>" + this.GatherAgainNumber + "</GatherAgainNumber>" +
+                "<IsIgnore404>" + this.IsIgnore404 + "</IsIgnore404>" +
+                "<IsErrorLog>" + this.IsErrorLog + "</IsErrorLog>" +
+                "<IsExportHeader>" + this.IsExportHeader + "</IsExportHeader>" +
+                "<IsDelRepeatRow>" + this.IsDelRepRow + "</IsDelRepeatRow>" +
+                "<IsTrigger>" + this.IsTrigger + "</IsTrigger>" +
+                "<TriggerType>" + this.TriggerType + "</TriggerType>" +
+                "</Advance>";
+
+            tXml += "<Trigger>";
+            for (i = 0; i < this.m_TriggerTask.Count; i++)
+            {
+                tXml += "<Task>";
+                tXml += "<RunTaskType>" + this.m_TriggerTask[i].RunTaskType + "</RunTaskType>";
+                tXml += "<RunTaskName>" + this.m_TriggerTask[i].RunTaskName + "</RunTaskName>";
+                tXml += "<RunTaskPara>" + this.m_TriggerTask[i].RunTaskPara + "</RunTaskPara>";
+                tXml += "</Task>";
+            }
+            tXml += "</Trigger>";
+
+            tXml += "<WebLinks>";
+
+            if (this.WebpageLink != null)
+            {
+                for (i = 0; i < this.WebpageLink.Count; i++)
+                {
+                    tXml += "<WebLink>";
+                    tXml += "<Url>" + cTool.ReplaceTrans(this.WebpageLink[i].Weblink.ToString()) + "</Url>";
+                    tXml += "<IsNag>" + this.WebpageLink[i].IsNavigation + "</IsNag>";
+                    tXml += "<IsNextPage>" + this.WebpageLink[i].IsNextpage + "</IsNextPage>";
+                    tXml += "<NextPageRule>" + cTool.ReplaceTrans(this.WebpageLink[i].NextPageRule) + "</NextPageRule>";
+
+                    //默认插入一个节点，表示此链接地址还未进行采集，因为是系统添加任务，所以默认为UnGather
+                    tXml += "<IsGathered>" + (int)cGlobalParas.UrlGatherResult.UnGather + "</IsGathered>";
+
+                    //插入此网址的导航规则
+                    if (this.WebpageLink[i].IsNavigation == true)
+                    {
+                        tXml += "<NavigationRules>";
+                        for (int j = 0; j < this.WebpageLink[i].NavigRules.Count; j++)
+                        {
+                            tXml += "<Rule>";
+                            tXml += "<Url>" + cTool.ReplaceTrans(this.WebpageLink[i].NavigRules[j].Url) + "</Url>";
+                            tXml += "<Level>" + this.WebpageLink[i].NavigRules[j].Level + "</Level>";
+                            tXml += "<NagRule>" + cTool.ReplaceTrans(this.WebpageLink[i].NavigRules[j].NavigRule) + "</NagRule>";
+                            tXml += "</Rule>";
+                        }
+                        tXml += "</NavigationRules>";
+                    }
+                    tXml += "</WebLink>";
+                }
+            }
+
+            tXml += "</WebLinks>" +
+                "<GatherRule>";
+            if (this.WebpageCutFlag != null)
+            {
+                for (i = 0; i < this.WebpageCutFlag.Count; i++)
+                {
+                    tXml += "<Rule>";
+                    tXml += "<Title>" + cTool.ReplaceTrans(this.WebpageCutFlag[i].Title) + "</Title>";
+                    tXml += "<DataType>" + this.WebpageCutFlag[i].DataType + "</DataType>";
+                    tXml += "<StartFlag>" + cTool.ReplaceTrans(this.WebpageCutFlag[i].StartPos) + "</StartFlag>";
+                    tXml += "<EndFlag>" + cTool.ReplaceTrans(this.WebpageCutFlag[i].EndPos) + "</EndFlag>";
+                    tXml += "<LimitSign>" + this.WebpageCutFlag[i].LimitSign + "</LimitSign>";
+                    tXml += "<RegionExpression>" + cTool.ReplaceTrans(this.WebpageCutFlag[i].RegionExpression) + "</RegionExpression>";
+                    tXml += "<ExportLimit>" + this.WebpageCutFlag[i].ExportLimit + "</ExportLimit>";
+                    tXml += "<ExportExpression>" + cTool.ReplaceTrans(this.WebpageCutFlag[i].ExportExpression) + "</ExportExpression>";
+                    tXml += "</Rule>";
+                }
+            }
+            tXml += "</GatherRule>" +
+               "</Task>";
+
+            xmlConfig = new cXmlIO();
+            xmlConfig.NewXmlFile(tPath + this.TaskName + ".xml", tXml);
+            xmlConfig = null;
         }
 
         //更改任务的所属分类
@@ -482,6 +711,54 @@ namespace SoukeyNetget.Task
             DeleTask(oldPath, TaskName);
 
             tc = null;
+        }
+
+        //拷贝任务操作，将一个任务从原有分类拷贝到另一个分类下
+        public void CopyTask(string TaskName, string OldTaskClass, string NewTaskClass)
+        {
+            cTaskClass tc = new cTaskClass();
+            string oldPath = "";
+            string NewPath = "";
+
+            if (OldTaskClass == "任务分类")
+                oldPath = Program.getPrjPath() + "tasks";
+            else
+                oldPath = tc.GetTaskClassPathByName(OldTaskClass);
+
+            if (NewTaskClass == "任务分类")
+                NewPath = Program.getPrjPath() + "tasks";
+            else
+                NewPath = tc.GetTaskClassPathByName(NewTaskClass);
+
+            tc = null;
+
+            string FileName = "";
+
+            if (OldTaskClass == NewTaskClass || (File.Exists(NewPath + "\\" + TaskName + ".xml")))
+            {
+                FileName = TaskName + "-复制.xml";
+                System.IO.File.Copy(oldPath + "\\" + TaskName + ".xml", NewPath + "\\" + FileName);
+                
+            }
+            else
+            {
+                FileName = TaskName + ".xml";
+                System.IO.File.Copy(oldPath + "\\" + FileName, NewPath + "\\" + FileName);
+            }
+
+            LoadTask(NewPath + "\\" + FileName);
+
+            if (OldTaskClass ==NewTaskClass ||(File.Exists(NewPath + "\\" + TaskName + ".xml")))
+                this.TaskName = TaskName + "-复制";
+
+            if (NewTaskClass == "任务分类")
+                this.TaskClass = "";
+            else
+                this.TaskClass = NewTaskClass;
+
+            Save("");
+
+            
         }
 
         //插入任务信息到任务索引文件，返回新建任务索引的任务id
@@ -560,7 +837,14 @@ namespace SoukeyNetget.Task
             }
             catch (System.Exception ex)
             {
-                throw ex;
+                if (!File.Exists(FileName))
+                {
+                    throw new System.IO.IOException("您指定的任务文件不存在！");
+                }
+                else
+                {
+                    throw ex;
+                }
             }
 
             //加载任务信息
@@ -576,6 +860,11 @@ namespace SoukeyNetget.Task
             catch (System.Exception )
             {
                 this.TaskVersion =Single.Parse ("1.0");
+            }
+
+            if (TaskVersion != SupportTaskVersion)
+            {
+                throw new cSoukeyException("您加载任务的版本低于系统要求的版本，请对任务进行升级后重试！");
             }
 
 
@@ -603,39 +892,48 @@ namespace SoukeyNetget.Task
             this.DataSource = xmlConfig.GetNodeValue("Task/Result/DataSource");
             this.DataTableName = xmlConfig.GetNodeValue("Task/Result/DataTableName");
 
-            //捕获错误，但不进行处理，这个是为了兼容任务1.0版本进行的处理
-            //datauser及datapwd在1.0版本存在，在1.2版本去除，但为了可以打开1.0
-            //版本的任务信息，所以去除了此内容，当1.0版本的内容保存时，为自动保存为
-            //1.2版本的格式，但如果打开1.0版本的任务，则InsertSql、ExportUrl、ExportCookie
-            //是不存在的，所以需要捕获错误，但不错处理
-
-            //兼容1.0
-            try
-            {
-                this.DataUser = xmlConfig.GetNodeValue("Task/Result/DataUser");
-                this.DataPwd = xmlConfig.GetNodeValue("Task/Result/DataPwd");
-            }
-            catch (System.Exception)
-            {
-            }
-
-            //兼容1.2
-            try
-            {
-                this.InsertSql = xmlConfig.GetNodeValue("Task/Result/InsertSql");
-                this.ExportUrl = xmlConfig.GetNodeValue("Task/Result/ExportUrl");
-                this.ExportUrlCode = xmlConfig.GetNodeValue("Task/Result/ExportUrlCode");
-                this.ExportCookie = xmlConfig.GetNodeValue("Task/Result/ExportCookie");
-            }
-            catch (System.Exception)
-            {
-            }
-           
-            cWebLink w;
+            this.InsertSql = xmlConfig.GetNodeValue("Task/Result/InsertSql");
+            this.ExportUrl = xmlConfig.GetNodeValue("Task/Result/ExportUrl");
+            this.ExportUrlCode = xmlConfig.GetNodeValue("Task/Result/ExportUrlCode");
+            this.ExportCookie = xmlConfig.GetNodeValue("Task/Result/ExportCookie");
+       
+            //加载高级配置信息
+            this.GatherAgainNumber= int.Parse (xmlConfig.GetNodeValue("Task/Advance/GatherAgainNumber"));
+            this.IsIgnore404 = (xmlConfig.GetNodeValue("Task/Advance/IsIgnore404") == "True" ? true : false);
+            this.IsErrorLog = (xmlConfig.GetNodeValue("Task/Advance/IsErrorLog") == "True" ? true : false);
+            this.IsDelRepRow = (xmlConfig.GetNodeValue("Task/Advance/IsDelRepeatRow") == "True" ? true : false);
+            this.IsExportHeader =( xmlConfig.GetNodeValue("Task/Advance/IsExportHeader") == "True" ? true : false);
+            this.IsTrigger =( xmlConfig.GetNodeValue("Task/Advance/IsTrigger") == "True" ? true : false);
+            this.TriggerType = xmlConfig.GetNodeValue("Task/Advance/TriggerType");
+    
             DataView dw = new DataView();
             int i;
-            dw = xmlConfig.GetData("descendant::WebLinks");
             
+            //加载Trigger信息
+            dw = xmlConfig.GetData("descendant::Trigger");
+            cTriggerTask tt;
+
+            if (dw != null)
+            {
+                for (i = 0; i < dw.Count; i++)
+                {
+                    tt = new cTriggerTask();
+                    tt.RunTaskType = int.Parse ( dw[i].Row["RunTaskType"].ToString());
+                    tt.RunTaskName = dw[i].Row["RunTaskName"].ToString();
+                    tt.RunTaskPara = dw[i].Row["RunTaskPara"].ToString();
+
+                    this.TriggerTask.Add(tt);
+                }
+            }
+
+            dw = null;
+            dw = new DataView();
+            
+            dw = xmlConfig.GetData("descendant::WebLinks");
+            cWebLink w;
+
+            DataView dn;
+
             if (dw!=null)
             {
                 for (i = 0; i < dw.Count; i++)
@@ -648,13 +946,6 @@ namespace SoukeyNetget.Task
                     else
                         w.IsNavigation = false;
 
-                    w.NagRule = dw[i].Row["NagRule"].ToString();
-
-                    if (dw[i].Row["IsOppPath"].ToString() == "True")
-                        w.IsOppPath = true;
-                    else
-                        w.IsOppPath = false;
-
                     if (dw[i].Row["IsNextPage"].ToString() == "True")
                         w.IsNextpage = true;
                     else
@@ -662,6 +953,23 @@ namespace SoukeyNetget.Task
 
                     w.NextPageRule = dw[i].Row["NextPageRule"].ToString();
                     w.IsGathered = int.Parse((dw[i].Row["IsGathered"].ToString() == null || dw[i].Row["IsGathered"].ToString() == "") ? "2031" : dw[i].Row["IsGathered"].ToString());
+                    
+                    //加载导航规则
+                    if (w.IsNavigation == true)
+                    {
+                        dn = dw[i].CreateChildView("WebLink_NavigationRules")[0].CreateChildView("NavigationRules_Rule");
+                        cNavigRule nRule;
+
+                        for (int m = 0; m < dn.Count; m++)
+                        {
+                            nRule = new cNavigRule();
+                            nRule.Url = dn[m].Row["Url"].ToString();
+                            nRule.Level = int.Parse(dn[m].Row["Level"].ToString());
+                            nRule.NavigRule = dn[m].Row["NagRule"].ToString();
+
+                            w.NavigRules.Add(nRule);
+                        }
+                    }
                     this.WebpageLink.Add(w);
                     w = null;
                 }
@@ -757,6 +1065,79 @@ namespace SoukeyNetget.Task
 
             //将文件设置为隐藏
             //System.IO.File.SetAttributes(tmpFileName, System.IO.FileAttributes.Hidden);
+            return true;
+        }
+
+        //根据taskid修改任务的名称
+        public bool RenameTask(string TClass,string OldTaskName, string NewTaskName)
+        {
+            try
+            {
+                //根据任务分类获取任务的所属路径
+                cTaskClass tc = new cTaskClass();
+                string tClassPath = "";
+
+                //判断新的任务路径是否存在，如果存在则报错
+                if (TClass == "任务分类")
+                {
+                    tClassPath = Program.getPrjPath() + "tasks";
+                }
+                else
+                {
+                    tClassPath = tc.GetTaskClassPathByName(TClass);
+                }
+
+                tc = null;
+
+                if (File.Exists(tClassPath + "\\" + NewTaskName + ".xml"))
+                    throw new cSoukeyException("您修改的任务名称已经存在，请重新修改！");
+
+                cTaskIndex xmlTasks = new cTaskIndex();
+
+                if (TClass == "任务分类")
+                {
+                    xmlTasks.GetTaskDataByClass();
+                }
+                else
+                {
+                    xmlTasks.GetTaskDataByClass(TClass);
+                }
+
+                //开始初始化此分类下的任务
+                int count = xmlTasks.GetTaskClassCount();
+
+                for (int i = 0; i < count; i++)
+                {
+                    if (xmlTasks.GetTaskName(i) == NewTaskName)
+                    {
+                        xmlTasks = null;
+                        throw new cSoukeyException("您修改的任务名称已经存在，请重新修改！");
+                    }
+                }
+                xmlTasks = null;
+
+                //开始修改任务的名称
+                //先开始修改index.xml的名称
+                cXmlIO xmlIndex = new cXmlIO(tClassPath + "\\index.xml");
+                xmlIndex.EditNodeValue("TaskIndex", "Name", OldTaskName, "Name", NewTaskName);
+                xmlIndex.Save();
+                xmlIndex = null;
+
+                //开始修改任务的名称
+                cXmlIO xmlTask = new cXmlIO(tClassPath + "\\" + OldTaskName + ".xml");
+                xmlTask.EditNodeValue("Task/BaseInfo/Name", NewTaskName);
+                xmlTask.Save();
+                xmlTask = null;
+
+                File.SetAttributes(tClassPath + "\\" + OldTaskName + ".xml", System.IO.FileAttributes.Normal);
+                File.Move(tClassPath + "\\" + OldTaskName + ".xml", tClassPath + "\\" + NewTaskName + ".xml");
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+                return false;
+            }
+
             return true;
         }
 

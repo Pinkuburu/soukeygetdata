@@ -194,5 +194,84 @@ namespace SoukeyNetget.Task
             //System.IO.File.Delete(FileName);
             return true;
         }
+
+        //任务分类改名，任务分类改名就是新建一个分类，并把原有分类的任务都
+        //迁移过来，并修改任务信息的任务，并删除原有内容
+        public bool RenameTaskClass(string TClassName, string NewTClassName)
+        {
+            try
+            {
+                int OldTaskClassID=0;
+                string OldPath = GetTaskClassPathByName(TClassName);
+                string NewPath = OldPath.Substring(0, OldPath.IndexOf(TClassName)) + NewTClassName;
+
+                //判断新的任务路径是否存在，如果存在则报错
+                if (Directory.Exists (NewPath ))
+                    throw new cSoukeyException("新任务分类的路径已经存在，请重新修改任务分类名称！");
+
+                //转换相对路径
+                string NewRelativePath = cTool.GetRelativePath(NewPath);
+
+                int tCount = GetTaskClassCount();
+
+                //需要判断新建立的任务分类是否已经存在
+                for (int i = 0; i < tCount; i++)
+                {
+                    if (TaskClass[i].Row["Name"].ToString() == NewTClassName)
+                    {
+                        throw new cSoukeyException("任务分类已经存在！");
+                    }
+
+                     if (TaskClass[i].Row["Name"].ToString() == TClassName)
+                    {
+                         //获取原有分类的ID
+                         OldTaskClassID=GetTaskClassID (i);
+                    }
+                }
+
+                if (OldTaskClassID == 0)
+                {
+                    throw new cSoukeyException("未能找到需要修改分类的信息，名称修改失败！");
+                }
+
+                //开始修改任务分类下的所有任务的所属分类
+                cTaskIndex xmlTasks = new cTaskIndex();
+                xmlTasks.GetTaskDataByClass(TClassName);
+
+                //开始初始化此分类下的任务
+                int count = xmlTasks.GetTaskClassCount();
+
+                cXmlIO txml;
+
+                for (int i = 0; i < count; i++)
+                {
+                    txml = new cXmlIO(OldPath + "\\" + xmlTasks.GetTaskName(i) + ".xml");
+                    txml.EditNodeValue("Task/BaseInfo/Class", NewTClassName);
+                    txml.Save();
+                    txml = null;
+                }
+
+                xmlTasks = null;
+
+                //开始修改taskclass.xml文件中的任务分类索引信息
+                xmlConfig.EditNodeValue("TaskClasses", "id", OldTaskClassID.ToString (), "Name", NewTClassName);
+                xmlConfig.EditNodeValue("TaskClasses", "id", OldTaskClassID.ToString (), "Path", NewRelativePath);
+                xmlConfig.Save();
+                xmlConfig = null;
+
+                //开始将修改任务分类的实际路径
+                File.SetAttributes(OldPath, System.IO.FileAttributes.Normal);
+                Directory.Move(OldPath, NewPath);
+                //Directory.Delete(OldPath);
+
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+                return false;
+            }
+
+            return true;
+        }
     }
 }

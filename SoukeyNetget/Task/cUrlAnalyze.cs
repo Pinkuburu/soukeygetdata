@@ -27,18 +27,75 @@ namespace SoukeyNetget.Task
         {
         }
 
-        //根据指定的导航规则进行页面导航
-        public List<string> ParseUrlRule(string Url, string UrlRule)
+        ///根据指定的导航规则进行页面导航，在1.6版本中，增加了多层导航的功能
+        ///网址导航是属于一对多的关系，即每一级别的导航都是属于一对多（也会是一对一的关系）
+        ///在此无论是几级导航，返回的都是最终的需要采集内容的网址
+        ///因为是多层导航，所以是属于递归的一种算法
+        public List<string> ParseUrlRule(string Url, List<cNavigRule> nRules)
         {
-            return  PUrlRule(Url, UrlRule);
+            List<string> pUrls = new List<string>();
+            List<string> Urls = new List<string>();
+
+            
+            
+            
+            pUrls.Add(Url);
+
+            //第一层导航分解都是从一个单一网址进行，之所以
+            //选择集合，是为了统一调用接口参数
+            Urls= PUrlRule(pUrls, 1, nRules);
+
+            return Urls;
         }
 
-        //public List<string> ParseUrlRule(string Url, string UrlRule)
-        //{
-        //   return  PUrlRule(Url, UrlRule);
-        //}
+        ///解析导航网页
+        ///判断是否为最后一个级别，在这里需要注意一个问题，因为有可能
+        ///存储的级别并不是按照顺序进行的，所以，要根据传入的级别Level进行
+        ///判断，否则会出现错误，导航网页的解析必须是按照顺序的，否则会
+        ///无法解析
+        public List<string> PUrlRule(List<string> pUrl,int Level, List<cNavigRule> nRules)
+        {
+            List<string> tmpUrls;
+            List<string> Urls =new List<string> ();
+           
+            string UrlRule="";
+            int i;
 
-        public List<string> PUrlRule(string Url, string UrlRule)
+            //根据Level得到需要导航级别的导航规则
+            for (i = 0; i < nRules.Count; i++)
+            {
+                if (Level ==nRules[i].Level )
+                {
+                    UrlRule =nRules [i].NavigRule ;
+                    break;
+                }
+            }
+
+
+            for (i = 0; i < pUrl.Count; i++)
+            {
+                tmpUrls = new List<string>();
+
+                tmpUrls = GetUrlsByRule(pUrl[i].ToString(), UrlRule);
+
+                Urls.AddRange(tmpUrls);
+            }
+
+            //判断是否为最底级的导航，如果是则返回，如果不是则继续导航
+            if (Level == nRules.Count)
+            {
+                return Urls;
+            }
+            else
+            {
+                List<string> rUrls=  PUrlRule(Urls, Level + 1, nRules);
+                return rUrls;
+            }
+
+        }
+
+        //根据导航规则，获取网页地址，是一个集合
+        public List<string> GetUrlsByRule(string Url, string UrlRule)
         {
             string Url1;
             List<string> Urls=new List<string> ();
@@ -63,7 +120,9 @@ namespace SoukeyNetget.Task
                 return null ;
             }
 
-            string Rule=@"(?<=href=[\W])" + cTool.RegexReplaceTrans(UrlRule) + @"(\S[^'"">]*)(?=[\s'""])";
+            //string Rule=@"(?<=href=[\W])" + cTool.RegexReplaceTrans(UrlRule) + @"(\S[^'"">]*)(?=[\s'""])";
+
+            string Rule = @"(?<=[href=|src=|open(][\W])" + cTool.RegexReplaceTrans(UrlRule) + @"(\S[^'"">]*)(?=[\s'""])";
 
             Regex re = new Regex(Rule, RegexOptions.IgnoreCase | RegexOptions.Multiline);
             MatchCollection aa = re.Matches(UrlSource);

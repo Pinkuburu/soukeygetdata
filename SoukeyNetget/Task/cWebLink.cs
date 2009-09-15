@@ -19,6 +19,7 @@ namespace SoukeyNetget.Task
         public cWebLink()
         {
             m_IsGathered =(int) cGlobalParas.UrlGatherResult.UnGather;
+            m_NavigRules = new List<cNavigRule>();
         }
 
         ~cWebLink()
@@ -50,20 +51,30 @@ namespace SoukeyNetget.Task
             set { m_IsNavigation = value; }
         }
 
-        //是否为相对路径
-        private bool m_IsOppPath;
-        public bool IsOppPath
-        {
-            get { return m_IsOppPath; }
-            set { m_IsOppPath = value; }
-        }
+        #region 以下内容被注释，是因为版本升级，支持了多层导航由一个多层导航的集合类进行存储
+        ////是否为相对路径
+        //private bool m_IsOppPath;
+        //public bool IsOppPath
+        //{
+        //    get { return m_IsOppPath; }
+        //    set { m_IsOppPath = value; }
+        //}
 
-        //导航规则
-        private string m_NagRule;
-        public string NagRule
+        ////导航规则
+        //private string m_NagRule;
+        //public string NagRule
+        //{
+        //    get { return m_NagRule; }
+        //    set { m_NagRule = value; }
+        //}
+        #endregion
+
+        //多层导航规则，是一个集合类
+        private List<cNavigRule> m_NavigRules;
+        public List<cNavigRule> NavigRules
         {
-            get { return m_NagRule; }
-            set { m_NagRule = value; }
+            get { return m_NavigRules; }
+            set { m_NavigRules = value; }
         }
 
         //是否提取下一页标识

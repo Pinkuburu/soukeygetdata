@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SoukeyNetget.Listener;
 
 ///功能：发布任务管理 启动任务 响应事件 此功能实现的很简单
 ///完成时间：2009-3-2
@@ -72,6 +73,7 @@ namespace SoukeyNetget.publish
                 pTask.PublishError  += this.onPublishError;
                 pTask.PublishTempDataCompleted += this.onPublishTempDataCompleted;
                 pTask.PublishLog += this.onPublishLog;
+                pTask.RunTask += this.onRunSoukeyTask;
             }
         }
 
@@ -81,6 +83,7 @@ namespace SoukeyNetget.publish
             {
                 e_PublishLog(sender, e);
             }
+
         }
 
         private void onPublishCompleted(object sender, PublishCompletedEventArgs e)
@@ -149,6 +152,11 @@ namespace SoukeyNetget.publish
             }
         }
 
+        private void onRunSoukeyTask(object sender, cRunTaskEventArgs e)
+        {
+            e_RunTask(this, new cRunTaskEventArgs(e.MessType, e.RunName, e.RunPara));
+        }
+
         #region 事件
 
         /// 发布任务 完成事件
@@ -197,6 +205,17 @@ namespace SoukeyNetget.publish
         {
             add { e_PublishLog += value; }
             remove { e_PublishLog -= value; }
+        }
+
+        /// <summary>
+        /// 定义一个执行Soukey采摘任务的事件，用于响应触发器执行Soukey采摘任务时
+        /// 的处理。
+        /// </summary>
+        private event EventHandler<cRunTaskEventArgs> e_RunTask;
+        internal event EventHandler<cRunTaskEventArgs> RunTask
+        {
+            add { e_RunTask += value;  }
+            remove { e_RunTask -= value;  }
         }
         #endregion
     }

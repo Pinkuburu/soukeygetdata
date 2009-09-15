@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
+using SoukeyNetget.Task;
 
 ///功能：发布任务数据
 ///完成时间：2009-3-2
@@ -131,7 +132,43 @@ namespace SoukeyNetget.publish
             set { m_ExportCookie = value; }
         }
 
-        
+        private bool m_IsErrorLog;
+        public bool IsErrorLog
+        {
+            get { return m_IsErrorLog; }
+            set { m_IsErrorLog = value; }
+        }
+
+        private bool m_IsTrigger;
+        public bool IsTrigger
+        {
+            get { return m_IsTrigger; }
+            set { m_IsTrigger = value; }
+        }
+
+        private string m_TriggerType;
+        public string TriggerType
+        {
+            get { return m_TriggerType; }
+            set { m_TriggerType = value; }
+        }
+
+        private List<cTriggerTask> m_TriggerTask;
+        public List<cTriggerTask> TriggerTask
+        {
+            get { return m_TriggerTask; }
+            set { m_TriggerTask = value; }
+        }
+
+        /// <summary>
+        /// 导出文本或Excel文件时，是否输出表头
+        /// </summary>
+        private bool m_IsExportHeader;
+        public bool IsExportHeader
+        {
+            get { return m_IsExportHeader; }
+            set { m_IsExportHeader = value; }
+        }
 
     }
 }

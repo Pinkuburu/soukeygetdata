@@ -11,7 +11,9 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Net;
 using System.Web;
-
+using SoukeyNetget.Log;
+using SoukeyNetget.Listener;
+using SoukeyNetget.Plan;
 
 ///功能：发布任务
 ///完成时间：2009-7-21
@@ -97,10 +99,10 @@ namespace SoukeyNetget.publish
          
             m_pTaskData.TaskID =t.TaskID ;
             m_pTaskData.TaskName =t.TaskName ;
-            m_pTaskData.DataPwd =t.DataPwd ;
+            //m_pTaskData.DataPwd =t.DataPwd ;
             m_pTaskData.ExportFile = t.ExportFile;
             m_pTaskData.DataSource =t.DataSource ;
-            m_pTaskData.DataUser =t.DataUser ;
+            //m_pTaskData.DataUser =t.DataUser ;
             m_pTaskData.FileName = FileName;
             
             //dt.ReadXml(FileName);
@@ -112,11 +114,22 @@ namespace SoukeyNetget.publish
             m_pTaskData.PublishType =(cGlobalParas.PublishType)(int.Parse (t.ExportType ));
             m_pTaskData.DataTableName =t.DataTableName ;
 
-            //以下内容为支持任务1.2的发布信息
             m_pTaskData.InsertSql = t.InsertSql;
             m_pTaskData.ExportUrl = t.ExportUrl;
             m_pTaskData.ExportUrlCode = t.ExportUrlCode;
             m_pTaskData.ExportCookie = t.ExportCookie;
+
+            m_pTaskData.IsErrorLog = t.IsErrorLog;
+
+            m_pTaskData.IsTrigger = t.IsTrigger;
+
+            m_pTaskData.IsExportHeader = t.IsExportHeader;
+
+            if (t.IsTrigger == true)
+            {
+                m_pTaskData.TriggerType = t.TriggerType;
+                m_pTaskData.TriggerTask = t.TriggerTask;
+            }
 
             t=null;
         }
@@ -173,8 +186,17 @@ namespace SoukeyNetget.publish
             remove { lock (m_eventLock) { e_PublishLog -= value; } }
         }
 
+        /// <summary>
+        /// 定义一个执行Soukey采摘任务的事件，用于响应触发器执行Soukey采摘任务时
+        /// 的处理。
+        /// </summary>
+        private event EventHandler<cRunTaskEventArgs> e_RunTask;
+        internal event EventHandler<cRunTaskEventArgs> RunTask
+        {
+            add { lock (m_eventLock) { e_RunTask += value; } }
+            remove { lock (m_eventLock) { e_RunTask -= value; } }
+        }
         #endregion
-
 
         private readonly Object m_threadLock = new Object();
 
@@ -222,7 +244,9 @@ namespace SoukeyNetget.publish
                 //加锁控制，加锁控制在下一版提供
                 if (e_PublishLog != null)
                 {
+                    WriteLog(ex.Message);
                     e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "临时存储失败，错误信息为：" + ex.Message + "\n"));
+
                 }
                 
                 if (e_PublishError != null)
@@ -312,7 +336,10 @@ namespace SoukeyNetget.publish
             }
 
             PublishCompletedEventArgs evt1 = new PublishCompletedEventArgs(this.TaskData.TaskID, this.TaskData.TaskName);
+            
             e_PublishCompleted(this, evt1);
+            
+            TriggerRun();
 
             return true;
         }
@@ -371,8 +398,6 @@ namespace SoukeyNetget.publish
             return strsql;
         }
 
-
-
         private void ExportAccess()
         {
             bool IsTable = false;
@@ -394,6 +419,7 @@ namespace SoukeyNetget.publish
             {
                 if (e_PublishLog != null)
                 {
+                    WriteLog(ex.Message);
                     e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布Access失败，错误信息为：" + ex.Message + "\n"));
                 }
 
@@ -434,6 +460,7 @@ namespace SoukeyNetget.publish
                     {
                         if (e_PublishLog != null)
                         {
+                            WriteLog(ex.Message);
                             e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，错误信息为：" + ex.Message + "\n"));
                         }
 
@@ -465,6 +492,7 @@ namespace SoukeyNetget.publish
                 {
                     if (e_PublishLog != null)
                     {
+                        WriteLog(ex.Message);
                         e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布Access失败，错误信息为：" + ex.Message + "\n"));
                     }
 
@@ -504,6 +532,7 @@ namespace SoukeyNetget.publish
                 {
                     if (e_PublishLog != null)
                     {
+                        WriteLog(ex.Message);
                         e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布Access失败，错误信息为：" + ex.Message + "\n"));
                     }
 
@@ -529,7 +558,7 @@ namespace SoukeyNetget.publish
             // 定义Application 对象,此对象表示整个Excel 程序
 
             FileStream myStream = File.Open(FileName, FileMode.Create, FileAccess.Write, FileShare.Write);
-            StreamWriter sw = new StreamWriter(myStream, System.Text.UTF8Encoding .UTF8 );
+            StreamWriter sw = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("gb2312"));
             string str = "";
             string tempStr = "";
             int i = 0;
@@ -537,14 +566,17 @@ namespace SoukeyNetget.publish
 
             try
             {
-                //写标题 
-                for (i = 0; i < gData.Columns.Count; i++)
+                if (m_pTaskData.IsExportHeader == true)
                 {
-                    str += "\t";
-                    str += gData.Columns[i].ColumnName;
-                }
+                    //写标题 
+                    for (i = 0; i < gData.Columns.Count; i++)
+                    {
+                        str += "\t";
+                        str += gData.Columns[i].ColumnName;
+                    }
 
-                sw.WriteLine(str);
+                    sw.WriteLine(str);
+                }
 
                 Count = gData.Rows.Count;
                 //写内容 
@@ -570,6 +602,7 @@ namespace SoukeyNetget.publish
             {
                 if (e_PublishLog != null)
                 {
+                    WriteLog(ex.Message);
                     e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布" + FileName + "失败，错误信息为：" + ex.Message + "\n"));
                 }
 
@@ -602,14 +635,17 @@ namespace SoukeyNetget.publish
 
             try
             {
-                //写标题 
-                for (int i = 0; i < gData.Columns.Count; i++)
+                if (this.m_pTaskData.IsExportHeader == true)
                 {
-                    str += "\t";
-                    str += gData.Columns[i].ColumnName;
-                }
+                    //写标题 
+                    for (int i = 0; i < gData.Columns.Count; i++)
+                    {
+                        str += "\t";
+                        str += gData.Columns[i].ColumnName;
+                    }
 
-                sw.WriteLine(str);
+                    sw.WriteLine(str);
+                }
 
                 //写内容 
                 for (int i = 0; i < gData.Rows.Count; i++)
@@ -633,6 +669,7 @@ namespace SoukeyNetget.publish
             {
                 if (e_PublishLog != null)
                 {
+                    WriteLog(ex.Message);
                     e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布" + FileName + "失败，错误信息为：" + ex.Message + "\n"));
                 }
 
@@ -670,6 +707,7 @@ namespace SoukeyNetget.publish
             {
                 if (e_PublishLog != null)
                 {
+                    WriteLog(ex.Message);
                     e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MSSql失败，错误信息为：" + ex.Message + "\n"));
                 }
 
@@ -706,6 +744,7 @@ namespace SoukeyNetget.publish
                     {
                         if (e_PublishLog != null)
                         {
+                            WriteLog(ex.Message);
                             e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MSSql失败，错误信息为：" + ex.Message + "\n"));
                         }
 
@@ -779,6 +818,7 @@ namespace SoukeyNetget.publish
                     {
                         if (e_PublishLog != null)
                         {
+                            WriteLog(ex.Message);
                             e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MSSql失败，Sql语句为：" + sql.ToString() + " 错误信息为：" + ex.Message + "\n"));
                         }
 
@@ -809,6 +849,7 @@ namespace SoukeyNetget.publish
             {
                 if (e_PublishLog != null)
                 {
+                    WriteLog(ex.Message);
                     e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，错误信息为：" + ex.Message + "\n"));
                 }
                 throw ex;
@@ -849,6 +890,7 @@ namespace SoukeyNetget.publish
                     {
                         if (e_PublishLog != null)
                         {
+                            WriteLog(ex.Message);
                             e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，错误信息为：" + ex.Message + "\n"));
                         }
                         throw ex;
@@ -891,10 +933,6 @@ namespace SoukeyNetget.publish
                 //    }
                 //}
 
-
-
-
-
             //无需建立新表，需要采用sql语句的方式进行，但需要替换sql语句中的内容
             MySqlCommand cm = new MySqlCommand();
             cm.Connection = conn;
@@ -931,6 +969,7 @@ namespace SoukeyNetget.publish
                 {
                     if (e_PublishLog != null)
                     {
+                        WriteLog(ex.Message);
                         e_PublishLog(this, new PublishLogEventArgs(this.TaskData.TaskID, ((int)cGlobalParas.LogType.Error).ToString() + "任务：" + this.TaskData.TaskName + "发布MySql失败，Sql语句为：" + sql.ToString() + " 错误信息为：" + ex.Message + "\n"));
                     }
 
@@ -1067,6 +1106,52 @@ namespace SoukeyNetget.publish
         }
 
         #endregion
+
+        //写错误日志
+        private void WriteLog(string strMess)
+        {
+
+            //在此处理是否写入错误数据到日志的请求
+            if (this.TaskData.IsErrorLog ==true)
+            {
+                cErrLog eLog = new cErrLog();
+                eLog.WriteLog(this.TaskData.TaskName, cGlobalParas.LogType.PublishError, strMess);
+                eLog = null;
+            }
+        }
+
+        //处理触发器的执行事件
+        private void TriggerRun()
+        {
+            //无论失败还是成功都要进行触发器的触发
+            if (m_pTaskData.IsTrigger == true && m_pTaskData.TriggerType == ((int)cGlobalParas.TriggerType.PublishedRun).ToString())
+            {
+                cRunTask rt = new cRunTask();
+                rt.RunSoukeyTaskEvent += this.onRunSoukeyTask;
+
+                cTaskPlan p;
+
+                for (int i = 0; i < m_pTaskData.TriggerTask.Count; i++)
+                {
+                    p = new cTaskPlan();
+
+                    p.RunTaskType = m_pTaskData.TriggerTask[i].RunTaskType;
+                    p.RunTaskName = m_pTaskData.TriggerTask[i].RunTaskName;
+                    p.RunTaskPara = m_pTaskData.TriggerTask[i].RunTaskPara;
+
+                    rt.AddTask(p);
+                }
+
+                rt.RunSoukeyTaskEvent -= this.onRunSoukeyTask;
+                rt = null;
+
+            }
+        }
+
+        private void onRunSoukeyTask(object sender, cRunTaskEventArgs e)
+        {
+            e_RunTask(this, new cRunTaskEventArgs(e.MessType, e.RunName, e.RunPara));
+        }
 
       
     }

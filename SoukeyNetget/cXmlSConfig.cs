@@ -21,11 +21,44 @@ namespace SoukeyNetget
         {
             //打开配置文件
             xmlConfig = new cXmlIO("SoukeyConfig.xml");
-           
+            m_IsInstantSave = true;
         }
 
         ~cXmlSConfig()
         {
+            xmlConfig = null;
+        }
+
+        //是否即时保存，默认为true，即时保存，即调用方法后马上保存
+        //false时，只修改，不保存文件，需要调用Save方法进行保存，主要用于
+        //配置修改
+        private bool m_IsInstantSave;
+        public bool IsInstantSave
+        {
+            get { return m_IsInstantSave; }
+            set { m_IsInstantSave = value; }
+        }
+
+        public bool IsFirstRun
+        {
+            get
+            {
+                if (xmlConfig.GetNodeValue("Config/Start/First") == "True")
+                    return true;
+                else
+                    return false;
+            }
+            set
+            {
+                bool isFirst = value;
+                if (isFirst==true )
+                    xmlConfig.EditNodeValue("Config/Start/First", "True");
+                else
+                    xmlConfig.EditNodeValue("Config/Start/First", "False");
+
+                if (m_IsInstantSave==true )
+                    xmlConfig.Save();
+            }
         }
 
         public bool ExitIsShow
@@ -46,10 +79,13 @@ namespace SoukeyNetget
                     s = "0";
             
                 xmlConfig.EditNodeValue("Config/Exit/IsShow", s);
-                xmlConfig.Save();
+
+                if (m_IsInstantSave == true)
+                    xmlConfig.Save();
             }
         }
 
+        //退出选择：0-最小化 1-退出
         public int ExitSelected
         {
             get {return int.Parse (xmlConfig.GetNodeValue("Config/Exit/Selected")); }
@@ -57,8 +93,39 @@ namespace SoukeyNetget
             {
                 int i = value;
                 xmlConfig.EditNodeValue("Config/Exit/Selected", i.ToString ());
-                xmlConfig.Save();
+
+                if (m_IsInstantSave == true)
+                    xmlConfig.Save();
             }
+        }
+
+        public bool AutoSaveLog
+        {
+            get 
+            {
+                if (xmlConfig.GetNodeValue("Config/System/AutoSaveLog") == "0")
+                    return false;
+                else
+                    return true;
+            }
+            set
+            {
+                string s = "0";
+                if (value == true)
+                    s = "1";
+                else
+                    s = "0";
+
+                xmlConfig.EditNodeValue("Config/System/AutoSaveLog", s);
+
+                if (m_IsInstantSave == true)
+                    xmlConfig.Save();
+            }
+        }
+
+        public void Save()
+        {
+            xmlConfig.Save();
         }
 
     }

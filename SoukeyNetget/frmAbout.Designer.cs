@@ -57,9 +57,9 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(286, 190);
+            this.button1.Location = new System.Drawing.Point(311, 190);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 26);
+            this.button1.Size = new System.Drawing.Size(60, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "确 定";
             this.button1.UseVisualStyleBackColor = true;
@@ -136,7 +136,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(82, 13);
             this.label10.TabIndex = 2;
-            this.label10.Text = "版 本 号：1.10";
+            this.label10.Text = "版 本 号：1.60";
             // 
             // label11
             // 
@@ -162,7 +162,7 @@
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 225);
+            this.ClientSize = new System.Drawing.Size(380, 221);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);

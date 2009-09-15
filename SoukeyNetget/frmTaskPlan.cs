@@ -110,6 +110,7 @@ namespace SoukeyNetget
                 this.PanelOne.Visible = true;
                 this.PanelDay.Visible = false;
                 this.PanelWeekly.Visible = false;
+                this.panelCustom.Visible = false;
 
                 //修改过期参数
                 this.cboxIsDisabled.Checked = true;
@@ -127,6 +128,7 @@ namespace SoukeyNetget
                 this.PanelOne.Visible = false;
                 this.PanelDay.Visible = true;
                 this.PanelWeekly.Visible = false;
+                this.panelCustom.Visible = false;
             }
 
             this.IsSave.Text = "true";
@@ -139,6 +141,7 @@ namespace SoukeyNetget
                 this.PanelOne.Visible = false;
                 this.PanelDay.Visible = false;
                 this.PanelWeekly.Visible = true;
+                this.panelCustom.Visible = false;
             }
 
             this.IsSave.Text = "true";
@@ -333,7 +336,8 @@ namespace SoukeyNetget
         {
             if (this.IsSave.Text == "true")
             {
-                Save();
+                if (false == Save())
+                    return;
             }
 
             this.Close();
@@ -344,11 +348,11 @@ namespace SoukeyNetget
             Save();
         }
 
-        private void Save()
+        private bool Save()
         {
             if (!CheckInputvalidity())
             {
-                return;
+                return false ;
             }
 
             try
@@ -373,8 +377,10 @@ namespace SoukeyNetget
             catch (System.Exception ex)
             {
                 MessageBox.Show("计划保存时失败，出错原因是：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false ;
             }
+
+            return true;
         }
 
         private Int64  SaveTaskPlan()
@@ -460,7 +466,14 @@ namespace SoukeyNetget
                     NewPlan.RunTaskPlanType = (int)cGlobalParas.RunTaskPlanType.DayTwice;
             }
             else if (this.raWeekly.Checked == true)
+            {
                 NewPlan.RunTaskPlanType = (int)cGlobalParas.RunTaskPlanType.Weekly;
+            }
+            else if (this.raCustom.Checked == true)
+            {
+                NewPlan.RunTaskPlanType = (int)cGlobalParas.RunTaskPlanType.Custom;
+            }
+
 
             NewPlan.EnabledDateTime = this.EnabledDate.Value.ToLongDateString ();
             NewPlan.RunOnesTime = this.RunOnceTime.Value.ToString () ;
@@ -468,6 +481,8 @@ namespace SoukeyNetget
             NewPlan.RunAMTime = this.RunDayTwice1Time.Value.ToLongTimeString();
             NewPlan.RunPMTime = this.RunDayTwice2Time.Value.ToLongTimeString();
             NewPlan.RunWeeklyTime = this.RunWeeklyTime.Value.ToLongTimeString();
+            NewPlan.FirstRunTime = this.FirstRunTime.Value.ToLongTimeString();
+            NewPlan.RunInterval = this.udRunInterval.Value.ToString();
 
             string runWeekly = "";
 
@@ -628,6 +643,11 @@ namespace SoukeyNetget
                         }
                     }
                     break;
+                case (int)cGlobalParas.RunTaskPlanType.Custom :
+                    this.raCustom.Checked = true;
+                    this.FirstRunTime.Value = DateTime.Parse(p.FirstRunTime );
+                    this.udRunInterval.Value = decimal.Parse( p.RunInterval);
+                    break;
             }
 
             p = null;
@@ -656,6 +676,20 @@ namespace SoukeyNetget
             this.IsSave.Text = "false";
         }
 
+        private void raCustom_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.raCustom.Checked == true)
+            {
+                this.PanelOne.Visible = false;
+                this.PanelDay.Visible = false;
+                this.PanelWeekly.Visible = false;
+                this.panelCustom.Visible = true;
+            }
+
+            this.IsSave.Text = "true";
+        }
+
+      
 
     }
 }

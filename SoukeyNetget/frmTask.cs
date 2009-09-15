@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.IO;
 using MySql.Data.MySqlClient;
 using System.Web;
+using SoukeyNetget.Task ;
 
 ///功能：采集任务信息处理  
 ///完成时间：2009-3-2
@@ -25,6 +26,17 @@ namespace SoukeyNetget
     public partial class frmTask : Form
     {
 
+        private Single m_SupportTaskVersion = Single.Parse("1.3");
+
+        public delegate void RIsShowWizard(bool IsShowWizard);
+        public RIsShowWizard RShowWizard;
+
+        //此类别可处理的任务版本号，注意从1.3开始，任务处理不再向前兼容，需升级后方可操作
+        public Single SupportTaskVersion
+        {
+            get { return m_SupportTaskVersion; }
+        }
+
         public delegate void ReturnTaskClass(string tClass);
         public ReturnTaskClass rTClass;
 
@@ -36,6 +48,10 @@ namespace SoukeyNetget
         //定义一个ToolTip
         ToolTip HelpTip = new ToolTip();
         Task.cUrlAnalyze gUrl = new Task.cUrlAnalyze();
+
+        //定义一个集合类用于存储Url地址对应的导航规则,因为当前界面无法显示所有的
+        //导航规则，所以，需要通过一个结合类进行存储
+        private List<cNavigRules> m_listNaviRules = new List<cNavigRules>();
 
         public frmTask()
         {
@@ -55,7 +71,8 @@ namespace SoukeyNetget
         //设置ToolTip的信息
         private void SetTooltip()
         {
-            //HelpTip.SetToolTip(this.tTask, @"输入任务名称，任务名称可以是中文或英文，但不允许出现.*\/,等");
+            HelpTip.SetToolTip(this.tTask, @"输入任务名称，任务名称可以是" + "\r\n" + @"中文或英文，但不允许出现.*\/,等" + "\r\n" + "此项为必填项");
+            //HelpTip.SetToolTip(this.txtTaskDemo, "输入任务备注信息，");
         }
 
         public void NewTask(string TaskClassName)
@@ -86,8 +103,29 @@ namespace SoukeyNetget
 
         private void LoadTask(string TClassPath, string TaskName)
         {
+            //每次加载任务前，都必须将其重新置空
+            int i = 0;
+            m_listNaviRules = null;
+            m_listNaviRules = new List<cNavigRules>();
+
             Task.cTask t = new Task.cTask();
-            t.LoadTask(TClassPath + "\\" + TaskName);
+
+            try
+            {
+                t.LoadTask(TClassPath + "\\" + TaskName);
+            }
+            catch (cSoukeyException ex)
+            {
+                throw ex; 
+            }
+
+            //开始判断任务版本号，如果任务版本号不匹配，则不进行任务信息的加载
+            if (this.SupportTaskVersion !=t.TaskVersion)
+            {
+                t = null;
+                MessageBox.Show("您加载的任务与当前系统支持的任务版本不同，请升级任务版本后再进行加载", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             this.tTask.Text =t.TaskName ;
             this.txtTaskDemo.Text = t.TaskDemo;
@@ -171,17 +209,83 @@ namespace SoukeyNetget
                 this.comUrlEncode.SelectedItem = cGlobalParas.ConvertName(int.Parse(t.UrlEncode));
             }
 
+            //加载高级配置
+            this.udAgainNumber.Value = t.GatherAgainNumber;
+            this.IsIgnore404.Checked = t.IsIgnore404;
+            this.IsSaveErrorLog.Checked = t.IsErrorLog;
+            this.IsDelRepRow.Checked = t.IsDelRepRow;
+            this.IsIncludeHeader.Checked = t.IsExportHeader;
+
+            this.IsStartTrigger.Checked = t.IsTrigger;
+
+            if (t.TriggerType == ((int)cGlobalParas.TriggerType.GatheredRun).ToString ())
+                this.raGatheredRun.Checked = true;
+            else if (t.TriggerType == ((int)cGlobalParas.TriggerType.PublishedRun).ToString ())
+                this.raPublishedRun.Checked = true;
+
+            //加载运行任务
+            if (this.IsStartTrigger.Checked == true)
+            {
+                ListViewItem litem;
+
+                for (i = 0; i <t.TriggerTask.Count ; i++)
+                {
+                    litem = new ListViewItem();
+                    litem.Text = cGlobalParas.ConvertName(t.TriggerTask[i].RunTaskType);
+                    if (t.TriggerTask[i].RunTaskType == (int)cGlobalParas.RunTaskType.DataTask)
+                        litem.SubItems.Add(cGlobalParas.ConvertName(int.Parse(t.TriggerTask[i].RunTaskName)));
+                    else
+                        litem.SubItems.Add(t.TriggerTask[i].RunTaskName);
+                    litem.SubItems.Add(t.TriggerTask[i].RunTaskPara);
+
+                    this.listTask.Items.Add(litem);
+                }
+            }
+
             ListViewItem item;
-            int i = 0;
+           
             for (i = 0; i < t.WebpageLink.Count;  i++)
             {
                 item=new ListViewItem ();
+
+                if (t.WebpageLink[i].IsNavigation == true)
+                {
+                    cNavigRules cns = new cNavigRules();
+                    cns.Url = t.WebpageLink[i].Weblink.ToString();
+                    cns.NavigRule = t.WebpageLink[i].NavigRules;
+
+                    //for (int m=0;m<t.WebpageLink [i].NavigRules.Count;m++)
+                    //{
+                    //    cn=new cNavigRule ();
+                    //    cn.Url =t.WebpageLink[i].NavigRules[m].Url ;
+                    //    cn.Level = t.WebpageLink[i].NavigRules[m].Level;
+                    //    cn.IsOppUrl = t.WebpageLink[i].NavigRules[m].IsOppUrl;
+                    //    cn.NavigRule = t.WebpageLink[i].NavigRules[m].NavigRule;
+
+                    //    cns.NavigRule.Add(cn);
+                    //}
+
+                    m_listNaviRules.Add(cns);
+                }
+
                 item.Name =t.WebpageLink[i].id.ToString ();
                 item.Text =t.WebpageLink[i].Weblink.ToString ();
-                item.SubItems.Add(t.WebpageLink[i].NagRule);
-                item.SubItems.Add((t.WebpageLink[i].IsOppPath == true) ? "是" : "否");
+                if (t.WebpageLink[i].IsNavigation == true)
+                {
+                    item.SubItems.Add("Y");
+                    item.SubItems.Add(t.WebpageLink[i].NavigRules.Count.ToString ());
+                }
+                else
+                {
+                    item.SubItems.Add("N");
+                    item.SubItems.Add("0");
+
+                }
                 item.SubItems.Add(t.WebpageLink[i].NextPageRule);
                 item.SubItems.Add(gUrl.GetUrlCount(t.WebpageLink[i].Weblink.ToString ()).ToString ());
+
+                
+
                 this.listWeblink.Items.Add (item);
                 item=null;
             }
@@ -279,7 +383,8 @@ namespace SoukeyNetget
             this.txtGetTitleName.Items.Add("标题");
             this.txtGetTitleName.Items.Add("内容");
             this.txtGetTitleName.Items.Add("图片");
-            
+
+            this.labLogSavePath.Text = "日志存储在：" + Program.getPrjPath() + "Log";
 
             //初始化页面加载时各个控件的状态
 
@@ -318,6 +423,10 @@ namespace SoukeyNetget
                 }
             }
 
+            //if (this.FormState == cGlobalParas.FormState.New)
+            //{
+                RShowWizard(false);
+            //}
             this.Close();
         }
 
@@ -326,9 +435,10 @@ namespace SoukeyNetget
             this.errorProvider1.Clear();
             int UrlCount = 0;
 
-            if (this.txtWebLink.Text.ToString() == null || this.txtWebLink.Text.Trim().ToString() == "")
+            if (this.txtWebLink.Text.ToString() == null || this.txtWebLink.Text.Trim().ToString() == "" || this.txtWebLink.Text .Trim().ToString ()=="http://")
             {
                 this.errorProvider1.SetError(this.txtWebLink, "请输入网址信息");
+                this.txtWebLink.Focus();
                 return;
             }
             else
@@ -336,6 +446,7 @@ namespace SoukeyNetget
                 if (!Regex.IsMatch (this.txtWebLink.Text.Trim().ToString (),"http://",RegexOptions.IgnoreCase))
                 {
                     this.errorProvider1.SetError(this.txtWebLink, "您输入的网址不合法，请检查");
+                    this.txtWebLink.Focus();
                     return;
                 }
             }
@@ -343,27 +454,39 @@ namespace SoukeyNetget
             ListViewItem litem;
             litem = new ListViewItem();
             litem.Text = this.txtWebLink.Text.ToString();
-            if (this.checkBox2.Checked == true)
+
+            if (this.IsNavigPage.Checked == true)
             {
-                litem.SubItems.Add(this.txtNag.Text.ToString());
-                if (this.checkBox1.Checked == true)
+                litem.SubItems.Add("Y");
+
+                cNavigRule cn;
+                cNavigRules m_listNaviRule = new cNavigRules();
+
+                for (int m = 0; m < this.dataNRule.Rows.Count; m++)
                 {
-                    litem.SubItems.Add("是");
+                    cn = new cNavigRule();
+                    cn.Url = this.txtWebLink.Text;
+                    cn.Level = m+1;
+                    cn.NavigRule = this.dataNRule.Rows[m].Cells[1].Value.ToString ();
+
+                    m_listNaviRule.Url = this.txtWebLink.Text;
+                    m_listNaviRule.NavigRule.Add(cn);
                 }
-                else
-                {
-                    litem.SubItems.Add("否");
-                }
+
+                m_listNaviRules.Add(m_listNaviRule);
+
+                litem.SubItems.Add(this.dataNRule.Rows.Count.ToString ());
+               
             }
             else
             {
-                litem.SubItems.Add("");
-                litem.SubItems.Add("");
+                litem.SubItems.Add("N");
+                litem.SubItems.Add("0");
             }
 
            
 
-            if (this.checkBox3.Checked == true)
+            if (this.IsAutoNextPage.Checked == true)
             {
                 litem.SubItems.Add(this.txtNextPage.Text.ToString());
             }
@@ -380,16 +503,16 @@ namespace SoukeyNetget
             litem = null;
 
             this.txtWebLink.Text = "http://";
-            this.checkBox2.Checked = false;
-            this.checkBox1.Checked = false;
-            this.checkBox3.Checked = false;
+            this.IsNavigPage.Checked = false;
+            this.IsAutoNextPage.Checked = false;
             this.txtNag.Text = "";
             this.txtNextPage.Text = "";
+            this.dataNRule.Rows.Clear();
 
             this.IsSave.Text = "true";
         }
 
-        private string AddDemoUrl(string SourceUrl,bool IsNavPage,bool IsAPath,string APath)
+        private string AddDemoUrl(string SourceUrl,bool IsNavPage,List<cNavigRule> NavRule)
         {
                 string Url;
                 List<string> Urls;
@@ -400,11 +523,7 @@ namespace SoukeyNetget
                 if (IsNavPage ==true )
                 {
 
-                    if (IsAPath ==true)
-                        Url = GetUrl(SourceUrl, APath, true);
-                    else
-                        Url = GetUrl(SourceUrl, APath, false);
-
+                    Url = GetTestUrl(Urls[0].ToString(), NavRule);
                 }
                 else
                 {
@@ -432,6 +551,20 @@ namespace SoukeyNetget
 
         private void cmdDelWeblink_Click(object sender, EventArgs e)
         {
+            if (this.listWeblink.Items.Count == 0)
+                return;
+
+            //如果有导航需要删除导航的规则
+            //删除存储的导航规则
+            if (this.listWeblink.SelectedItems[0].SubItems[1].Text.ToString() == "Y")
+            {
+                for (int i = 0; i < m_listNaviRules.Count; i++)
+                {
+                    if (this.listWeblink.SelectedItems[0].Text == m_listNaviRules[i].Url)
+                        m_listNaviRules.Remove(m_listNaviRules[i]);
+                }
+            }
+
             if (this.listWeblink.SelectedItems.Count != 0)
             {
                 this.listWeblink.Items.Remove(this.listWeblink.SelectedItems[0]);
@@ -454,12 +587,22 @@ namespace SoukeyNetget
                     this.groupBox4.Enabled = true;
                     this.groupBox9.Enabled =true ;
                     this.groupBox10.Enabled = true;
+
+                    this.raPublishedRun.Enabled = true;
+                    this.raPublishedRun.Checked = true;
+
                     break;
+
                 case 1:
                     this.groupBox4.Enabled = false;
                     this.groupBox9.Enabled = false;
                     this.groupBox10.Enabled = false;
+
+                    this.raGatheredRun.Checked = true;
+                    this.raPublishedRun.Enabled = false;
+                    
                     break;
+
                 default :
                     break;
             }
@@ -552,7 +695,7 @@ namespace SoukeyNetget
                 t.UrlEncode = cGlobalParas.ConvertID(this.comUrlEncode.SelectedItem.ToString()).ToString();
             }
 
-            //判断是否导出文件
+            //判断是否导出文件，存储导出的配置信息
             if (this.comRunType.SelectedIndex == 0)
             {
                
@@ -584,11 +727,6 @@ namespace SoukeyNetget
                 t.ExportFile = this.txtFileName.Text.ToString();
                 t.DataSource = this.txtDataSource.Text.ToString();
 
-                //数据库用户名及密码在任务1.2版本中已经删除，所以不进行保存，但代码不进行删除，因为
-                //此版本需要兼容1.0，保证代码的可读性，故不删除
-                //t.DataUser =this.txtDataUser.Text.ToString ();
-                //t.DataPwd =this.txtDataPwd.Text .ToString () ;
-
                 t.DataTableName = this.comTableName.Text.ToString();
                 t.InsertSql = this.txtInsertSql.Text;
                 t.ExportUrl = this.txtExportUrl.Text;
@@ -603,10 +741,41 @@ namespace SoukeyNetget
 
                 t.ExportType = ((int)cGlobalParas.PublishType.NoPublish).ToString();
                 t.DataSource = "";
-                t.DataUser = "";
-                t.DataPwd ="";
                 t.DataTableName = "";
             }
+
+            //开始存储高级配置信息
+            t.GatherAgainNumber = int.Parse (this.udAgainNumber.Value.ToString ());
+            t.IsIgnore404 = this.IsIgnore404.Checked;
+            t.IsExportHeader = this.IsIncludeHeader.Checked;
+            t.IsDelRepRow = this.IsDelRepRow.Checked;
+            t.IsErrorLog = this.IsSaveErrorLog.Checked;
+
+            t.IsTrigger = this.IsStartTrigger.Checked;
+
+            if (this.raGatheredRun.Checked == true)
+                t.TriggerType = ((int)cGlobalParas.TriggerType.GatheredRun).ToString ();
+            else if (this.raPublishedRun.Checked == true)
+                t.TriggerType =((int) cGlobalParas.TriggerType.PublishedRun).ToString ();
+
+            cTriggerTask tt;
+
+            //开始添加触发器执行的任务
+            for (i = 0; i < this.listTask.Items.Count; i++)
+            {
+                tt = new cTriggerTask();
+                tt.RunTaskType = cGlobalParas.ConvertID(this.listTask.Items[i].Text);
+
+                if (cGlobalParas.ConvertID(this.listTask.Items[i].Text) == (int)cGlobalParas.RunTaskType.DataTask)
+                    tt.RunTaskName = cGlobalParas.ConvertID(this.listTask.Items[i].SubItems[1].Text.ToString()).ToString();
+                else
+                    tt.RunTaskName = this.listTask.Items[i].SubItems[1].Text.ToString();
+
+                tt.RunTaskPara = this.listTask.Items[i].SubItems[2].Text.ToString();
+
+                t.TriggerTask.Add(tt);
+            }
+
 
             for (i = 0; i < this.listWeblink.Items.Count; i++)
             {
@@ -620,23 +789,24 @@ namespace SoukeyNetget
                 w=new Task.cWebLink ();
                 w.id = i;
                 w.Weblink=this.listWeblink.Items[i].Text ;
-                if (this.listWeblink.Items[i].SubItems[1].Text == "" || this.listWeblink.Items[i].SubItems[1].Text == null)
+                if (this.listWeblink.Items[i].SubItems[1].Text == "N")
                 {
                     w.IsNavigation = false;
-                    w.IsOppPath = false;
                 }
                 else
                 {
                     w.IsNavigation = true;
-                    if (this.listWeblink.Items[i].SubItems[2].Text == "是")
+
+                    //添加导航规则
+                    for (int m = 0; m < m_listNaviRules.Count; m++)
                     {
-                        w.IsOppPath = true;
+                        if (m_listNaviRules[m].Url == this.listWeblink.Items[i].Text)
+                        {
+                            w.NavigRules = m_listNaviRules[m].NavigRule;
+                            break;
+                        }
                     }
-                    else
-                    {
-                        w.IsOppPath = false;
-                    }
-                    w.NagRule = this.listWeblink.Items[i].SubItems[1].Text.ToString();
+         
                 }
 
                 if (this.listWeblink.Items[i].SubItems[3].Text == "" || this.listWeblink.Items[i].SubItems[3].Text==null)
@@ -721,6 +891,7 @@ namespace SoukeyNetget
 
                 this.IsSave.Text = "false";
 
+                RShowWizard(false);
                 this.Close();
             }
             catch (System.Exception ex)
@@ -868,10 +1039,10 @@ namespace SoukeyNetget
         private void frmTask_Load(object sender, EventArgs e)
         {
             //对Tooltip进行初始化设置
-            HelpTip.ToolTipIcon = ToolTipIcon.Info;
+            HelpTip.ToolTipIcon = ToolTipIcon.None;
             HelpTip.ForeColor =Color.YellowGreen;
             HelpTip.BackColor = Color.LightGray;
-            HelpTip.AutoPopDelay = 5000;
+            HelpTip.AutoPopDelay = 8000;
             HelpTip.ShowAlways = true;
             HelpTip.ToolTipTitle = "";
 
@@ -885,13 +1056,9 @@ namespace SoukeyNetget
 
             DataGridViewTextBoxColumn nRule = new DataGridViewTextBoxColumn();
             nRule.HeaderText = "导航规则";
-            nRule.Width = 170;
+            nRule.Width = 240;
             this.dataNRule.Columns.Insert(1, nRule);
 
-            DataGridViewTextBoxColumn nOUrl = new DataGridViewTextBoxColumn();
-            nOUrl.HeaderText = "相对地址";
-            nOUrl.Width =70;
-            this.dataNRule.Columns.Insert(2, nOUrl);
 
             switch (this.FormState)
             {
@@ -899,6 +1066,8 @@ namespace SoukeyNetget
                     break;
                 case cGlobalParas.FormState.Edit :
                     //编辑状态进来不能修改分类
+                    this.cmdWizard.Enabled = false;
+                    //this.cmdAddByTask.Enabled = false;
 
                     this.tTask.ReadOnly = true;
                     this.comTaskClass.Enabled = false;
@@ -916,6 +1085,9 @@ namespace SoukeyNetget
 
         private void SetFormBrowser()
         {
+            this.cmdWizard.Enabled = false;
+            //this.cmdAddByTask.Enabled = false;
+
             this.cmdOpenFolder.Enabled = false;
             this.button10.Enabled = false;
             this.cmdBrowser.Enabled = false;
@@ -1075,51 +1247,6 @@ namespace SoukeyNetget
             this.txtWebLink.ScrollToCaret();
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.checkBox2.Checked == true)
-            {
-                //this.label10.Enabled = true;
-                //this.txtNag.Enabled = true;
-                //this.checkBox1.Enabled = true;
-                //this.cmdAddNRule.Enabled = true;
-                //this.cmdDelNRule.Enabled = true;
-                //this.dataNRule.Enabled = true;
-                this.groupBox14.Enabled = true;
-            }
-            else
-            {
-                //this.label10.Enabled = false;
-                //this.txtNag.Enabled = false;
-                //this.checkBox1.Enabled = false;
-                //this.cmdAddNRule.Enabled = false;
-                //this.cmdDelNRule.Enabled = false;
-                //this.dataNRule.Enabled = false;
-                this.groupBox14.Enabled = false;
-            }
-
-            this.IsSave.Text = "true";
-        }
-
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        {
-            if(this.checkBox3.Checked ==true )
-            {
-                this.label13.Enabled = true;
-                this.txtNextPage.Enabled =true ;
-                this.txtNextPage.Text = "下一页";
-            }
-            else
-            {
-                if (this.txtNextPage.Text == "下一页")
-                {
-                    this.txtNextPage.Text = "";
-                }
-                this.label13.Enabled = false;
-                this.txtNextPage.Enabled =false ;
-            }
-        }
-
         private void button5_Click(object sender, EventArgs e)
         {
             GatherData();
@@ -1127,13 +1254,26 @@ namespace SoukeyNetget
 
         private void button6_Click(object sender, EventArgs e)
         {
-            if (this.txtNag.Text.Trim() == "")
+            if (this.dataNRule.Rows.Count ==0)
             {
                 MessageBox.Show("导航规则为空，无法测试！", "soukey提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            string Url = GetUrl(this.txtWebLink.Text, this.txtNag.Text, this.checkBox1.Checked);
+            List<cNavigRule> cns = new List<cNavigRule>();
+            cNavigRule cn;
+
+            for (int m = 0; m < this.dataNRule.Rows.Count; m++)
+            {
+                cn = new cNavigRule();
+                cn.Url = this.txtWebLink.Text;
+                cn.Level = int.Parse(this.dataNRule.Rows[m].Cells[0].Value.ToString());
+                cn.NavigRule = this.dataNRule.Rows[m].Cells[1].Value.ToString();
+
+                cns.Add(cn);
+            }
+
+            string Url = GetTestUrl(this.txtWebLink.Text, cns);
 
             if (!Regex.IsMatch(Url, @"(http|https|ftp)+://[^\s]*"))
             {
@@ -1145,7 +1285,7 @@ namespace SoukeyNetget
 
         }
 
-        private string  GetUrl(string webLink,string NavRule,bool IsBool)
+        private string GetTestUrl(string webLink, List<cNavigRule> NavRule)
         {
             List<string> Urls;
 
@@ -1182,7 +1322,8 @@ namespace SoukeyNetget
                 Url = Url.Substring(0, Url.Length - 1);
             }
 
-            if (IsBool== true)
+            //去除了相对网址表示，通过程序进行判断
+            if (string.Compare (Url.Substring (0,4),"http",true)!=0)
             {
                 if (Url.Substring(0, 1) == "/")
                 {
@@ -1255,30 +1396,28 @@ namespace SoukeyNetget
             if (this.listWeblink.Items.Count >= 1)
             {
                 bool IsNav;
-                bool IsAPath;
-                string APath = "";
+                List<cNavigRule> cns = new List<cNavigRule>();
                 string DemoUrl = "";
 
-                if (this.listWeblink.Items[0].SubItems[1].Text == "")
+                if (this.listWeblink.Items[0].SubItems[1].Text == "N")
                 {
                     IsNav = false;
                 }
                 else
                 {
                     IsNav = true;
-                    APath = this.listWeblink.Items[0].SubItems[1].Text;
+
+                    for (int i = 0; i < m_listNaviRules.Count; i++)
+                    {
+                        if (this.listWeblink.Items[0].Text == m_listNaviRules[i].Url)
+                        {
+                            cns = m_listNaviRules[i].NavigRule;
+                            break;
+                        }
+                    }
                 }
 
-                if (this.listWeblink.Items[0].SubItems[2].Text == "是")
-                {
-                    IsAPath = true;
-                }
-                else
-                {
-                    IsAPath = false;
-                }
-
-                DemoUrl = AddDemoUrl(this.listWeblink.Items[0].Text.ToString(), IsNav, IsAPath, APath);
+                DemoUrl = AddDemoUrl(this.listWeblink.Items[0].Text.ToString(), IsNav, cns);
 
                 //根据判断当前是否需要Url进行编码
                 if (this.IsUrlEncode.Checked == true)
@@ -1409,7 +1548,7 @@ namespace SoukeyNetget
                     //捕获错误不做处理，为的是兼容1.0版本的任务信息
                 }
 
-                this.IsSave.Text = "true";
+                //this.IsSave.Text = "false";
             }
         }
 
@@ -1417,35 +1556,47 @@ namespace SoukeyNetget
         {
 
             this.txtWebLink.Text = this.listWeblink.SelectedItems[0].Text;
-            if (this.listWeblink.SelectedItems[0].SubItems[1].Text == "" || this.listWeblink.SelectedItems[0].SubItems[1].Text == null)
+
+            if (this.listWeblink.SelectedItems[0].SubItems[1].Text == "N" )
             {
-                this.checkBox2.Checked = false;
+                this.IsNavigPage.Checked = false;
             }
             else
             {
-                this.checkBox2.Checked = true;
-                this.txtNag.Text = this.listWeblink.SelectedItems[0].SubItems[1].Text;
-                if (this.listWeblink.SelectedItems[0].SubItems[2].Text == "是")
+                this.IsNavigPage.Checked = true;
+
+                this.txtNag.Text = "";
+
+                //添加导航规则
+
+                this.dataNRule.Rows.Clear();
+                
+                for (int i = 0; i < m_listNaviRules.Count; i++)
                 {
-                    this.checkBox1.Checked = true;
-                }
-                else
-                {
-                    this.checkBox1.Checked = false;
+                    if (this.listWeblink.SelectedItems[0].Text == m_listNaviRules[i].Url)
+                    {
+                        for (int j = 0; j < m_listNaviRules[i].NavigRule.Count; j++)
+                        {
+                            this.dataNRule.Rows.Add (m_listNaviRules[i].NavigRule[j].Level ,m_listNaviRules[i].NavigRule[j].NavigRule);
+                        }
+                    }
                 }
                
             }
 
+            //下一页的填充
             if (this.listWeblink.SelectedItems[0].SubItems[3].Text == "")
             {
-                this.checkBox3.Checked = false;
+                this.IsAutoNextPage.Checked = false;
                 this.txtNextPage.Text = "";
             }
             else
             {
-                this.checkBox3.Checked = true;
+                this.IsAutoNextPage.Checked = true;
                 this.txtNextPage.Text = this.listWeblink.SelectedItems[0].SubItems[3].Text;
             }
+
+            this.IsSave.Text = "false";
 
         }
 
@@ -1474,27 +1625,45 @@ namespace SoukeyNetget
             }
 
             this.listWeblink.SelectedItems[0].Text = this.txtWebLink.Text.ToString();
-            if (this.checkBox2.Checked == true)
+            if (this.IsNavigPage.Checked == true)
             {
-                this.listWeblink.SelectedItems[0].SubItems [1].Text =this.txtNag.Text.ToString();
-                if (this.checkBox1.Checked == true)
+                this.listWeblink.SelectedItems[0].SubItems [1].Text ="Y";
+
+                //删除存储的导航规则
+                for (int i = 0; i < m_listNaviRules.Count; i++)
                 {
-                    this.listWeblink.SelectedItems[0].SubItems[2].Text ="是";
+                    if (this.listWeblink.SelectedItems[0].Text == m_listNaviRules[i].Url)
+                        m_listNaviRules.Remove(m_listNaviRules[i]);
                 }
-                else
+
+                cNavigRule cn;
+                cNavigRules m_listNaviRule = new cNavigRules();
+
+                for (int m = 0; m < this.dataNRule.Rows.Count; m++)
                 {
-                    this.listWeblink.SelectedItems[0].SubItems[2].Text = "否";
+                    cn = new cNavigRule();
+                    cn.Url = this.txtWebLink.Text;
+                    cn.Level = m+1;
+                    cn.NavigRule = this.dataNRule.Rows[m].Cells[1].Value.ToString();
+
+                    m_listNaviRule.Url = this.txtWebLink.Text;
+                    m_listNaviRule.NavigRule.Add(cn);
                 }
+
+                m_listNaviRules.Add(m_listNaviRule);
+
+                this.listWeblink.SelectedItems[0].SubItems[2].Text = this.dataNRule.Rows.Count.ToString();
+                
             }
             else
             {
-                this.listWeblink.SelectedItems[0].SubItems[1].Text = "";
-                this.listWeblink.SelectedItems[0].SubItems[2].Text = "";
+                this.listWeblink.SelectedItems[0].SubItems[1].Text = "N";
+                this.listWeblink.SelectedItems[0].SubItems[2].Text = "0";
             }
 
 
 
-            if (this.checkBox3.Checked == true)
+            if (this.IsAutoNextPage.Checked == true)
             {
                 this.listWeblink.SelectedItems[0].SubItems[3].Text=this.txtNextPage.Text.ToString();
             }
@@ -1507,25 +1676,26 @@ namespace SoukeyNetget
             this.listWeblink.SelectedItems[0].SubItems[4].Text = UrlCount.ToString ();
 
             this.txtWebLink.Text = "http://";
-            this.checkBox2.Checked = false;
-            this.checkBox1.Checked = false;
-            this.checkBox3.Checked = false;
+            this.IsNavigPage.Checked = false;
+            this.IsAutoNextPage.Checked = false;
             this.txtNag.Text = "";
             this.txtNextPage.Text = "";
+            this.dataNRule.Rows.Clear();
 
             this.IsSave.Text = "true";
         }
 
+        //自动识别下一页的导航规则，当前暂时未用，并且错误百出，所以全部注释，
         private void button4_Click(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(this.txtWebLink.Text, @"(http|https|ftp)+://[^\s]*"))
-            {
-                MessageBox.Show("网址无法打开，可能出错，请检查网址及导航规则。", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            //if (!Regex.IsMatch(this.txtWebLink.Text, @"(http|https|ftp)+://[^\s]*"))
+            //{
+            //    MessageBox.Show("网址无法打开，可能出错，请检查网址及导航规则。", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return;
+            //}
             
-            string Url=AddDemoUrl (this.txtWebLink.Text,false,false,"" );
-            GetNextPageFlag(Url);
+            //string Url=AddDemoUrl (this.txtWebLink.Text,false,false,"" );
+            //GetNextPageFlag(Url);
 
         }
         
@@ -1729,7 +1899,7 @@ namespace SoukeyNetget
                     //捕获错误不做处理，为的是兼容1.0版本的任务信息
                 }
 
-                this.IsSave.Text = "true";
+                //this.IsSave.Text = "true";
             }
         }
 
@@ -2013,6 +2183,7 @@ namespace SoukeyNetget
         {
             this.txtFileName.Enabled = true;
             this.cmdBrowser.Enabled = true;
+            this.IsIncludeHeader.Enabled = true;
 
             this.txtDataSource.Enabled = false;
             this.comTableName.Enabled = false;
@@ -2030,6 +2201,7 @@ namespace SoukeyNetget
         {
             this.txtFileName.Enabled = false;
             this.cmdBrowser.Enabled = false;
+            this.IsIncludeHeader.Enabled = false;
 
             this.txtDataSource.Enabled = true;
             this.comTableName.Enabled = true;
@@ -2047,6 +2219,7 @@ namespace SoukeyNetget
         {
             this.txtFileName.Enabled = false;
             this.cmdBrowser.Enabled = false;
+            this.IsIncludeHeader.Enabled = false;
 
             this.txtDataSource.Enabled = false;
             this.comTableName.Enabled = false;
@@ -2521,10 +2694,9 @@ namespace SoukeyNetget
             else
                 MaxLevel = this.dataNRule.Rows.Count + 1;
 
-            if (this.checkBox1.Checked ==true )
-                this.dataNRule.Rows.Add(MaxLevel.ToString (),this.txtNag.Text ,"Y");
-            else
-                this.dataNRule.Rows.Add(MaxLevel.ToString (),this.txtNag.Text ,"N");
+            this.dataNRule.Rows.Add(MaxLevel.ToString (),this.txtNag.Text);
+
+            this.txtNag.Text = "";
             
             this.IsSave.Text = "true";
         }
@@ -2536,28 +2708,196 @@ namespace SoukeyNetget
             this.IsSave.Text = "true";
         }
 
-        private void IsGatherErrorAgain_CheckedChanged(object sender, EventArgs e)
-     
-      
-    }
-
-        private void IsPublishErrLog_CheckedChanged()
+        private void IsStartTrigger_CheckedChanged(object sender, EventArgs e)
         {
-        
+            if (this.IsStartTrigger.Checked == true)
+            {
+                this.groupBox13.Enabled = true;
+                
+            }
+            else
+            {
+                this.groupBox13.Enabled = false;
+            }
+            this.IsSave.Text = "true";
         }
 
-        private void radioButton1_CheckedChanged()
+        private void cmdAddTask_Click(object sender, EventArgs e)
         {
-        
+            frmAddPlanTask f = new frmAddPlanTask();
+            f.RTask = GetTaskInfo;
+            f.ShowDialog();
+            f.Dispose();
+
+            this.IsSave.Text = "true";
         }
 
-        private void txtErrorLog_TextChanged()
+        private void GetTaskInfo(cGlobalParas.RunTaskType rType, string TaskName, string TaskPara)
         {
-        
+            ListViewItem Litem = new ListViewItem();
+
+            Litem.Text = cGlobalParas.ConvertName((int)rType);
+            Litem.SubItems.Add(TaskName);
+            Litem.SubItems.Add(TaskPara);
+
+            this.listTask.Items.Add(Litem);
+
         }
 
-        private void udAgainNumber_ValueChanged()
+        private void cmdDelTask_Click(object sender, EventArgs e)
         {
-        
+            this.listTask.Focus();
+            SendKeys.Send("{Del}");
+
+            this.IsSave.Text = "true";
         }
+
+        private void listTask_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                while (this.listTask.SelectedItems.Count > 0)
+                {
+                    this.listTask.Items.Remove(this.listTask.SelectedItems[0]);
+                }
+
+                this.IsSave.Text = "true";
+            }
+        }
+
+        private void IsNavigPage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.IsNavigPage.Checked == true)
+            {
+
+                this.groupBox14.Enabled = true;
+            }
+            else
+            {
+
+                this.groupBox14.Enabled = false;
+            }
+
+            this.IsSave.Text = "true";
+        }
+
+        private void IsAutoNextPage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.IsAutoNextPage.Checked == true)
+            {
+                this.label13.Enabled = true;
+                this.txtNextPage.Enabled = true;
+                this.txtNextPage.Text = "下一页";
+            }
+            else
+            {
+                if (this.txtNextPage.Text == "下一页")
+                {
+                    this.txtNextPage.Text = "";
+                }
+                this.label13.Enabled = false;
+                this.txtNextPage.Enabled = false;
+            }
+            this.IsSave.Text = "true";
+        }
+
+        private void txtWebLink_TextChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void udAgainNumber_ValueChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void IsIgnore404_CheckedChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void IsIncludeHeader_CheckedChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void IsDelRepRow_CheckedChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void IsSaveErrorLog_CheckedChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
+        }
+
+        private void cmdWizard_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+            RShowWizard(true);
+            
+        }
+
+        private void listWebGetFlag_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (this.listWebGetFlag.SelectedItems.Count == 0 || this.listWebGetFlag.Items.Count == 1)
+            {
+                this.cmdUp.Enabled = false;
+                this.cmdDown.Enabled = false;
+            }
+            else
+            {
+                if (this.listWebGetFlag.SelectedItems[0].Index == 0)
+                {
+                    this.cmdUp.Enabled = false;
+                    this.cmdDown.Enabled = true;
+                }
+                else if (this.listWebGetFlag.SelectedItems[0].Index == this.listWebGetFlag.Items.Count - 1)
+                {
+                    this.cmdUp.Enabled = true;
+                    this.cmdDown.Enabled = false;
+                }
+                else
+                {
+                    this.cmdUp.Enabled = true;
+                    this.cmdDown.Enabled = true;
+                }
+            }
+        }
+
+        private void cmdUp_Click(object sender, EventArgs e)
+        {
+            int i = this.listWebGetFlag.SelectedItems[0].Index;
+
+            ListViewItem Litem = this.listWebGetFlag.SelectedItems[0];
+
+            this.listWebGetFlag.Items.Remove(this.listWebGetFlag.SelectedItems[0]);
+            this.listWebGetFlag.Items.Insert(i-1,Litem );
+            this.listWebGetFlag.SelectedItems[0].EnsureVisible();
+
+            this.IsSave.Text = "true";
+
+        }
+
+        private void cmdDown_Click(object sender, EventArgs e)
+        {
+            int i = this.listWebGetFlag.SelectedItems[0].Index;
+
+            ListViewItem Litem = this.listWebGetFlag.SelectedItems[0];
+
+            this.listWebGetFlag.Items.Remove(this.listWebGetFlag.SelectedItems[0]);
+            this.listWebGetFlag.Items.Insert(i + 1, Litem);
+            this.listWebGetFlag.SelectedItems[0].EnsureVisible();
+
+            this.IsSave.Text = "true";
+
+
+        }
+
+       
+          
+   }
+
+        
 }

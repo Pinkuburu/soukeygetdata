@@ -56,7 +56,10 @@ namespace SoukeyNetget
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (DelayTime == 0 || DelayTime < 0)
-                SendKeys.Send("{Enter}");
+            {
+                this.DialogResult = DialogResult.Yes;
+                this.Close();
+            }
             else
                 DelayTime = DelayTime - 1000;
 

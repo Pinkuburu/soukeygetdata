@@ -118,6 +118,14 @@ namespace SoukeyNetget
 
         }
 
+        ////编辑字典分类的名称
+        //public void EditDictClass(string OldName, string NewName)
+        //{
+        //    xmlConfig.EditNode("DictClass", OldName, NewName);
+        //    xmlConfig.EditNodeName("DictConfig/Dict/Dict" + OldName, "Dict" + OldName, "Dict" + NewName);
+        //    xmlConfig.Save();
+        //}
+
         //编辑字典内容
         public void EditDict(string DictClass, string Old_Name,string DictName)
         {

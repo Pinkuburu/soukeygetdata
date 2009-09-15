@@ -97,7 +97,7 @@
             this.panel1.Controls.Add(this.comTaskClass);
             this.panel1.Location = new System.Drawing.Point(6, 20);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(443, 230);
+            this.panel1.Size = new System.Drawing.Size(443, 177);
             this.panel1.TabIndex = 2;
             // 
             // listTask
@@ -111,7 +111,7 @@
             this.listTask.Location = new System.Drawing.Point(15, 37);
             this.listTask.MultiSelect = false;
             this.listTask.Name = "listTask";
-            this.listTask.Size = new System.Drawing.Size(412, 180);
+            this.listTask.Size = new System.Drawing.Size(412, 132);
             this.listTask.TabIndex = 11;
             this.listTask.UseCompatibleStateImageBehavior = false;
             this.listTask.View = System.Windows.Forms.View.Details;
@@ -159,12 +159,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.panel3);
             this.groupBox1.Controls.Add(this.panel2);
-            this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Location = new System.Drawing.Point(14, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(455, 256);
+            this.groupBox1.Size = new System.Drawing.Size(455, 202);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Soukey采摘任务";
@@ -181,7 +181,7 @@
             this.panel3.Controls.Add(this.label6);
             this.panel3.Location = new System.Drawing.Point(6, 20);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(443, 230);
+            this.panel3.Size = new System.Drawing.Size(443, 177);
             this.panel3.TabIndex = 4;
             this.panel3.Visible = false;
             // 
@@ -200,7 +200,7 @@
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.Location = new System.Drawing.Point(374, 46);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(66, 23);
+            this.button12.Size = new System.Drawing.Size(60, 23);
             this.button12.TabIndex = 54;
             this.button12.Text = "设 置";
             this.button12.UseVisualStyleBackColor = true;
@@ -278,7 +278,7 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(6, 20);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(443, 230);
+            this.panel2.Size = new System.Drawing.Size(443, 177);
             this.panel2.TabIndex = 3;
             this.panel2.Visible = false;
             // 
@@ -331,7 +331,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 297);
+            this.groupBox2.Location = new System.Drawing.Point(0, 243);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(501, 5);
             this.groupBox2.TabIndex = 4;
@@ -340,22 +340,28 @@
             // cmdCancel
             // 
             this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Location = new System.Drawing.Point(393, 316);
+            this.cmdCancel.Image = ((System.Drawing.Image)(resources.GetObject("cmdCancel.Image")));
+            this.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdCancel.Location = new System.Drawing.Point(394, 254);
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(76, 25);
+            this.cmdCancel.Size = new System.Drawing.Size(60, 23);
             this.cmdCancel.TabIndex = 9;
             this.cmdCancel.Text = "取 消";
+            this.cmdCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // cmdOK
             // 
             this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Location = new System.Drawing.Point(301, 316);
+            this.cmdOK.Image = ((System.Drawing.Image)(resources.GetObject("cmdOK.Image")));
+            this.cmdOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdOK.Location = new System.Drawing.Point(321, 254);
             this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(76, 25);
+            this.cmdOK.Size = new System.Drawing.Size(60, 23);
             this.cmdOK.TabIndex = 8;
             this.cmdOK.Text = "确 定";
+            this.cmdOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
@@ -375,7 +381,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 354);
+            this.ClientSize = new System.Drawing.Size(482, 286);
             this.Controls.Add(this.raDataTask);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);

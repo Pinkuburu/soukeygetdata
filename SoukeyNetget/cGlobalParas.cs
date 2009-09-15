@@ -14,6 +14,7 @@ namespace SoukeyNetget
 {
     public static class cGlobalParas
     {
+
         #region 枚举常量
         public enum TaskState
         {
@@ -169,6 +170,8 @@ namespace SoukeyNetget
             Error=2062,
             Warning=2063,
             RunPlanTask=2064,
+            GatherError=2065,
+            PublishError=2066,
         }
 
         public enum RunTaskType
@@ -184,6 +187,7 @@ namespace SoukeyNetget
             DayOnes=2082,             //每天运行一次
             DayTwice=2083,            //每天上午下午各运行一次
             Weekly=2084,              //每周运行
+            Custom=2085,              //自定义运行间隔
         }
 
         public enum PlanDisabledType
@@ -209,8 +213,16 @@ namespace SoukeyNetget
             MonitorFileFaild=3014,
         }
 
+        //触发器类型
+        public enum TriggerType
+        {
+            GatheredRun=3020,
+            PublishedRun=3021,
+        }
+
 
         #endregion
+       
 
         #region 界面显示与系统处理转换  这个需要改成字典表进行筛选了，不能这样了
         static public int ConvertID(string enumName)
@@ -433,5 +445,6 @@ namespace SoukeyNetget
         }
 
         #endregion
+
     }
 }

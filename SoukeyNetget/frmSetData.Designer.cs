@@ -84,14 +84,14 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(482, 118);
+            this.panel1.Size = new System.Drawing.Size(413, 118);
             this.panel1.TabIndex = 0;
             // 
             // txtAccessPwd
             // 
             this.txtAccessPwd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAccessPwd.Enabled = false;
-            this.txtAccessPwd.Location = new System.Drawing.Point(261, 73);
+            this.txtAccessPwd.Location = new System.Drawing.Point(261, 85);
             this.txtAccessPwd.Name = "txtAccessPwd";
             this.txtAccessPwd.PasswordChar = '*';
             this.txtAccessPwd.Size = new System.Drawing.Size(133, 20);
@@ -100,7 +100,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(218, 77);
+            this.label5.Location = new System.Drawing.Point(218, 89);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 13);
             this.label5.TabIndex = 35;
@@ -110,7 +110,7 @@
             // 
             this.txtAccessUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAccessUser.Enabled = false;
-            this.txtAccessUser.Location = new System.Drawing.Point(79, 73);
+            this.txtAccessUser.Location = new System.Drawing.Point(79, 85);
             this.txtAccessUser.Name = "txtAccessUser";
             this.txtAccessUser.Size = new System.Drawing.Size(133, 20);
             this.txtAccessUser.TabIndex = 32;
@@ -118,7 +118,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 75);
+            this.label7.Location = new System.Drawing.Point(27, 87);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 13);
             this.label7.TabIndex = 31;
@@ -127,7 +127,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(79, 44);
+            this.checkBox1.Location = new System.Drawing.Point(79, 56);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(86, 17);
             this.checkBox1.TabIndex = 3;
@@ -138,7 +138,7 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(393, 8);
+            this.button1.Location = new System.Drawing.Point(79, 29);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -166,7 +166,7 @@
             // button9
             // 
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Location = new System.Drawing.Point(226, 170);
+            this.button9.Location = new System.Drawing.Point(205, 168);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(70, 23);
             this.button9.TabIndex = 35;
@@ -188,7 +188,7 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(12, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(482, 133);
+            this.panel2.Size = new System.Drawing.Size(413, 133);
             this.panel2.TabIndex = 36;
             // 
             // comSqlServerData
@@ -198,7 +198,7 @@
             this.comSqlServerData.FormattingEnabled = true;
             this.comSqlServerData.Location = new System.Drawing.Point(78, 96);
             this.comSqlServerData.Name = "comSqlServerData";
-            this.comSqlServerData.Size = new System.Drawing.Size(163, 21);
+            this.comSqlServerData.Size = new System.Drawing.Size(134, 21);
             this.comSqlServerData.TabIndex = 9;
             this.comSqlServerData.DropDown += new System.EventHandler(this.comSqlServerData_DropDown);
             // 
@@ -215,17 +215,17 @@
             // 
             this.txtSqlServerPwd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSqlServerPwd.Enabled = false;
-            this.txtSqlServerPwd.Location = new System.Drawing.Point(305, 65);
+            this.txtSqlServerPwd.Location = new System.Drawing.Point(261, 65);
             this.txtSqlServerPwd.Name = "txtSqlServerPwd";
             this.txtSqlServerPwd.PasswordChar = '*';
-            this.txtSqlServerPwd.Size = new System.Drawing.Size(162, 20);
+            this.txtSqlServerPwd.Size = new System.Drawing.Size(134, 20);
             this.txtSqlServerPwd.TabIndex = 7;
             this.txtSqlServerPwd.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(247, 67);
+            this.label4.Location = new System.Drawing.Point(217, 67);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 6;
@@ -237,7 +237,7 @@
             this.txtSqlServerUser.Enabled = false;
             this.txtSqlServerUser.Location = new System.Drawing.Point(78, 64);
             this.txtSqlServerUser.Name = "txtSqlServerUser";
-            this.txtSqlServerUser.Size = new System.Drawing.Size(163, 20);
+            this.txtSqlServerUser.Size = new System.Drawing.Size(134, 20);
             this.txtSqlServerUser.TabIndex = 5;
             this.txtSqlServerUser.Text = "sa";
             // 
@@ -279,7 +279,7 @@
             this.txtSqlserver.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSqlserver.Location = new System.Drawing.Point(78, 11);
             this.txtSqlserver.Name = "txtSqlserver";
-            this.txtSqlserver.Size = new System.Drawing.Size(389, 20);
+            this.txtSqlserver.Size = new System.Drawing.Size(317, 20);
             this.txtSqlserver.TabIndex = 1;
             this.txtSqlserver.Text = "localhost";
             // 
@@ -308,7 +308,7 @@
             this.panel3.Controls.Add(this.label8);
             this.panel3.Location = new System.Drawing.Point(12, 12);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(482, 134);
+            this.panel3.Size = new System.Drawing.Size(413, 134);
             this.panel3.TabIndex = 37;
             // 
             // comMySqlCode
@@ -316,15 +316,15 @@
             this.comMySqlCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comMySqlCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comMySqlCode.FormattingEnabled = true;
-            this.comMySqlCode.Location = new System.Drawing.Point(296, 94);
+            this.comMySqlCode.Location = new System.Drawing.Point(255, 94);
             this.comMySqlCode.Name = "comMySqlCode";
-            this.comMySqlCode.Size = new System.Drawing.Size(172, 21);
+            this.comMySqlCode.Size = new System.Drawing.Size(119, 21);
             this.comMySqlCode.TabIndex = 12;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(248, 99);
+            this.label13.Location = new System.Drawing.Point(207, 99);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(43, 13);
             this.label13.TabIndex = 11;
@@ -336,17 +336,17 @@
             this.comMySqlData.FormattingEnabled = true;
             this.comMySqlData.Location = new System.Drawing.Point(79, 94);
             this.comMySqlData.Name = "comMySqlData";
-            this.comMySqlData.Size = new System.Drawing.Size(163, 21);
+            this.comMySqlData.Size = new System.Drawing.Size(119, 21);
             this.comMySqlData.TabIndex = 10;
             this.comMySqlData.DropDown += new System.EventHandler(this.comMySqlData_DropDown);
             // 
             // txtMySqlPwd
             // 
             this.txtMySqlPwd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMySqlPwd.Location = new System.Drawing.Point(296, 66);
+            this.txtMySqlPwd.Location = new System.Drawing.Point(255, 66);
             this.txtMySqlPwd.Name = "txtMySqlPwd";
             this.txtMySqlPwd.PasswordChar = '*';
-            this.txtMySqlPwd.Size = new System.Drawing.Size(172, 20);
+            this.txtMySqlPwd.Size = new System.Drawing.Size(119, 20);
             this.txtMySqlPwd.TabIndex = 9;
             // 
             // txtMySqlUser
@@ -354,7 +354,7 @@
             this.txtMySqlUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMySqlUser.Location = new System.Drawing.Point(79, 66);
             this.txtMySqlUser.Name = "txtMySqlUser";
-            this.txtMySqlUser.Size = new System.Drawing.Size(163, 20);
+            this.txtMySqlUser.Size = new System.Drawing.Size(119, 20);
             this.txtMySqlUser.TabIndex = 8;
             this.txtMySqlUser.Text = "root";
             // 
@@ -370,7 +370,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(248, 68);
+            this.label11.Location = new System.Drawing.Point(207, 68);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(43, 13);
             this.label11.TabIndex = 5;
@@ -408,7 +408,7 @@
             this.txtMySql.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMySql.Location = new System.Drawing.Point(79, 9);
             this.txtMySql.Name = "txtMySql";
-            this.txtMySql.Size = new System.Drawing.Size(389, 20);
+            this.txtMySql.Size = new System.Drawing.Size(295, 20);
             this.txtMySql.TabIndex = 1;
             this.txtMySql.Text = "localhost";
             // 
@@ -424,11 +424,14 @@
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(318, 170);
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Location = new System.Drawing.Point(288, 168);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(70, 23);
+            this.button2.Size = new System.Drawing.Size(60, 23);
             this.button2.TabIndex = 38;
             this.button2.Text = "确 定";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -436,11 +439,14 @@
             // 
             this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(410, 170);
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(362, 168);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(70, 23);
+            this.button3.Size = new System.Drawing.Size(60, 23);
             this.button3.TabIndex = 39;
             this.button3.Text = "取 消";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -458,7 +464,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button3;
-            this.ClientSize = new System.Drawing.Size(509, 208);
+            this.ClientSize = new System.Drawing.Size(434, 203);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);

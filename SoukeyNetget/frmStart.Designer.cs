@@ -79,7 +79,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "版 本 号：1.10";
+            this.label2.Text = "版 本 号：1.60";
             // 
             // label1
             // 

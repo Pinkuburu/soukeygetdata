@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTask));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -73,11 +73,10 @@
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.cmdDelNRule = new System.Windows.Forms.Button();
             this.cmdAddNRule = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.txtNag = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.IsNavigPage = new System.Windows.Forms.CheckBox();
             this.label31 = new System.Windows.Forms.Label();
             this.comUrlEncode = new System.Windows.Forms.ComboBox();
             this.txtWebLink = new System.Windows.Forms.TextBox();
@@ -86,7 +85,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.txtNextPage = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.IsAutoNextPage = new System.Windows.Forms.CheckBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -101,6 +100,8 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.cmdDown = new System.Windows.Forms.Button();
+            this.cmdUp = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtExpression = new System.Windows.Forms.TextBox();
             this.txtRegion = new System.Windows.Forms.TextBox();
@@ -133,6 +134,7 @@
             this.columnHeader13 = new System.Windows.Forms.ColumnHeader();
             this.label18 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -168,6 +170,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.IsIncludeHeader = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.txtFileName = new System.Windows.Forms.TextBox();
             this.cmdBrowser = new System.Windows.Forms.Button();
@@ -179,29 +182,22 @@
             this.button5 = new System.Windows.Forms.Button();
             this.dataTestGather = new System.Windows.Forms.DataGridView();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.IsStartTrigger = new System.Windows.Forms.CheckBox();
             this.label46 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.raStopRun = new System.Windows.Forms.RadioButton();
-            this.raStartRun = new System.Windows.Forms.RadioButton();
+            this.raPublishedRun = new System.Windows.Forms.RadioButton();
+            this.raGatheredRun = new System.Windows.Forms.RadioButton();
             this.cmdDelTask = new System.Windows.Forms.Button();
             this.cmdAddTask = new System.Windows.Forms.Button();
             this.listTask = new System.Windows.Forms.ListView();
             this.columnHeader14 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader15 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader16 = new System.Windows.Forms.ColumnHeader();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.cmdPublishErrlog = new System.Windows.Forms.Button();
-            this.label45 = new System.Windows.Forms.Label();
-            this.txtPublishErrorLog = new System.Windows.Forms.TextBox();
-            this.IsPublishErrLog = new System.Windows.Forms.CheckBox();
-            this.IsIncludeHeader = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.cmdErrLog = new System.Windows.Forms.Button();
-            this.txtErrorLog = new System.Windows.Forms.TextBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.IsGatherErrLog = new System.Windows.Forms.CheckBox();
-            this.IsDisabledAgain = new System.Windows.Forms.CheckBox();
-            this.IsGatherErrorAgain = new System.Windows.Forms.CheckBox();
+            this.labLogSavePath = new System.Windows.Forms.Label();
+            this.IsSaveErrorLog = new System.Windows.Forms.CheckBox();
+            this.IsDelRepRow = new System.Windows.Forms.CheckBox();
+            this.IsIgnore404 = new System.Windows.Forms.CheckBox();
             this.label43 = new System.Windows.Forms.Label();
             this.udAgainNumber = new System.Windows.Forms.NumericUpDown();
             this.tTask = new System.Windows.Forms.TextBox();
@@ -225,12 +221,13 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.rmenuGetFormat = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.pOST前缀POSTToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pOST后缀POSTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.手工捕获POST数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolmenuPost1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolmenuPost2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolmenuPostData = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.cmdApply = new System.Windows.Forms.Button();
             this.IsSave = new System.Windows.Forms.TextBox();
+            this.cmdWizard = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -252,7 +249,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataTestGather)).BeginInit();
             this.tabPage6.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            this.groupBox12.SuspendLayout();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udAgainNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -633,7 +629,7 @@
             this.groupBox6.Controls.Add(this.label47);
             this.groupBox6.Controls.Add(this.button6);
             this.groupBox6.Controls.Add(this.groupBox14);
-            this.groupBox6.Controls.Add(this.checkBox2);
+            this.groupBox6.Controls.Add(this.IsNavigPage);
             this.groupBox6.Controls.Add(this.label31);
             this.groupBox6.Controls.Add(this.comUrlEncode);
             this.groupBox6.Controls.Add(this.txtWebLink);
@@ -642,7 +638,7 @@
             this.groupBox6.Controls.Add(this.button4);
             this.groupBox6.Controls.Add(this.txtNextPage);
             this.groupBox6.Controls.Add(this.label13);
-            this.groupBox6.Controls.Add(this.checkBox3);
+            this.groupBox6.Controls.Add(this.IsAutoNextPage);
             this.groupBox6.Controls.Add(this.button3);
             this.groupBox6.Controls.Add(this.button2);
             this.groupBox6.Controls.Add(this.label9);
@@ -665,7 +661,7 @@
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(235, 13);
             this.label47.TabIndex = 50;
-            this.label47.Text = "系统支持多层导航，只需增加导航规则即可";
+            this.label47.Text = "系统支持多层导航，但只采集最终页数据。";
             // 
             // button6
             // 
@@ -684,7 +680,6 @@
             this.groupBox14.Controls.Add(this.groupBox15);
             this.groupBox14.Controls.Add(this.cmdDelNRule);
             this.groupBox14.Controls.Add(this.cmdAddNRule);
-            this.groupBox14.Controls.Add(this.checkBox1);
             this.groupBox14.Controls.Add(this.txtNag);
             this.groupBox14.Controls.Add(this.label10);
             this.groupBox14.Controls.Add(this.label22);
@@ -703,14 +698,14 @@
             this.dataNRule.AllowUserToResizeRows = false;
             this.dataNRule.BackgroundColor = System.Drawing.Color.White;
             this.dataNRule.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataNRule.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataNRule.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataNRule.Location = new System.Drawing.Point(296, 15);
             this.dataNRule.Name = "dataNRule";
             this.dataNRule.RowHeadersVisible = false;
@@ -734,7 +729,7 @@
             this.cmdDelNRule.Location = new System.Drawing.Point(226, 70);
             this.cmdDelNRule.Name = "cmdDelNRule";
             this.cmdDelNRule.Size = new System.Drawing.Size(52, 23);
-            this.cmdDelNRule.TabIndex = 28;
+            this.cmdDelNRule.TabIndex = 10;
             this.cmdDelNRule.Text = "移除";
             this.cmdDelNRule.UseVisualStyleBackColor = true;
             this.cmdDelNRule.Click += new System.EventHandler(this.cmdDelNRule_Click);
@@ -745,35 +740,24 @@
             this.cmdAddNRule.Location = new System.Drawing.Point(226, 36);
             this.cmdAddNRule.Name = "cmdAddNRule";
             this.cmdAddNRule.Size = new System.Drawing.Size(52, 23);
-            this.cmdAddNRule.TabIndex = 27;
+            this.cmdAddNRule.TabIndex = 9;
             this.cmdAddNRule.Text = "添加";
             this.cmdAddNRule.UseVisualStyleBackColor = true;
             this.cmdAddNRule.Click += new System.EventHandler(this.cmdAddNRule_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(13, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(158, 17);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "导航网址使用了相对路径";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // txtNag
             // 
             this.txtNag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNag.Location = new System.Drawing.Point(13, 57);
+            this.txtNag.Location = new System.Drawing.Point(13, 40);
             this.txtNag.Name = "txtNag";
             this.txtNag.Size = new System.Drawing.Size(182, 20);
-            this.txtNag.TabIndex = 19;
+            this.txtNag.TabIndex = 8;
             this.txtNag.TextChanged += new System.EventHandler(this.txtNag_TextChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 39);
+            this.label10.Location = new System.Drawing.Point(10, 22);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 13);
             this.label10.TabIndex = 20;
@@ -782,28 +766,28 @@
             // label22
             // 
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(10, 80);
+            this.label22.Location = new System.Drawing.Point(10, 67);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(207, 29);
             this.label22.TabIndex = 26;
             this.label22.Text = "直接填写导航网址的前缀（共有部分）即可, 需填写完整";
             // 
-            // checkBox2
+            // IsNavigPage
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(20, 124);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(140, 17);
-            this.checkBox2.TabIndex = 7;
-            this.checkBox2.Text = "导航页(需要导航规则)";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.IsNavigPage.AutoSize = true;
+            this.IsNavigPage.Location = new System.Drawing.Point(20, 124);
+            this.IsNavigPage.Name = "IsNavigPage";
+            this.IsNavigPage.Size = new System.Drawing.Size(140, 17);
+            this.IsNavigPage.TabIndex = 7;
+            this.IsNavigPage.Text = "导航页(需要导航规则)";
+            this.IsNavigPage.UseVisualStyleBackColor = true;
+            this.IsNavigPage.CheckedChanged += new System.EventHandler(this.IsNavigPage_CheckedChanged);
             // 
             // label31
             // 
             this.label31.AutoSize = true;
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label31.Location = new System.Drawing.Point(526, 102);
+            this.label31.Location = new System.Drawing.Point(524, 103);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(91, 13);
             this.label31.TabIndex = 32;
@@ -818,7 +802,7 @@
             this.comUrlEncode.Location = new System.Drawing.Point(256, 16);
             this.comUrlEncode.Name = "comUrlEncode";
             this.comUrlEncode.Size = new System.Drawing.Size(281, 21);
-            this.comUrlEncode.TabIndex = 0;
+            this.comUrlEncode.TabIndex = 1;
             this.comUrlEncode.TextChanged += new System.EventHandler(this.comUrlEncode_TextChanged);
             // 
             // txtWebLink
@@ -829,17 +813,21 @@
             this.txtWebLink.Name = "txtWebLink";
             this.txtWebLink.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtWebLink.Size = new System.Drawing.Size(454, 48);
-            this.txtWebLink.TabIndex = 1;
+            this.txtWebLink.TabIndex = 2;
             this.txtWebLink.Text = "http://";
+            this.txtWebLink.TextChanged += new System.EventHandler(this.txtWebLink_TextChanged);
             // 
             // cmdEditWeblink
             // 
             this.cmdEditWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdEditWeblink.Location = new System.Drawing.Point(498, 269);
+            this.cmdEditWeblink.Image = ((System.Drawing.Image)(resources.GetObject("cmdEditWeblink.Image")));
+            this.cmdEditWeblink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdEditWeblink.Location = new System.Drawing.Point(495, 269);
             this.cmdEditWeblink.Name = "cmdEditWeblink";
-            this.cmdEditWeblink.Size = new System.Drawing.Size(57, 23);
-            this.cmdEditWeblink.TabIndex = 11;
+            this.cmdEditWeblink.Size = new System.Drawing.Size(60, 23);
+            this.cmdEditWeblink.TabIndex = 12;
             this.cmdEditWeblink.Text = "修 改";
+            this.cmdEditWeblink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdEditWeblink.UseVisualStyleBackColor = true;
             this.cmdEditWeblink.Click += new System.EventHandler(this.cmdEditWeblink_Click);
             // 
@@ -849,7 +837,7 @@
             this.IsUrlEncode.Location = new System.Drawing.Point(20, 18);
             this.IsUrlEncode.Name = "IsUrlEncode";
             this.IsUrlEncode.Size = new System.Drawing.Size(230, 17);
-            this.IsUrlEncode.TabIndex = 29;
+            this.IsUrlEncode.TabIndex = 0;
             this.IsUrlEncode.Text = "网址中含有中文参数，需指定编码格式";
             this.IsUrlEncode.UseVisualStyleBackColor = true;
             this.IsUrlEncode.CheckedChanged += new System.EventHandler(this.IsUrlEncode_CheckedChanged);
@@ -857,7 +845,7 @@
             // button4
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(543, 102);
+            this.button4.Location = new System.Drawing.Point(543, 96);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(82, 23);
             this.button4.TabIndex = 6;
@@ -873,7 +861,7 @@
             this.txtNextPage.Location = new System.Drawing.Point(247, 99);
             this.txtNextPage.Name = "txtNextPage";
             this.txtNextPage.Size = new System.Drawing.Size(273, 20);
-            this.txtNextPage.TabIndex = 5;
+            this.txtNextPage.TabIndex = 6;
             // 
             // label13
             // 
@@ -885,16 +873,16 @@
             this.label13.TabIndex = 22;
             this.label13.Text = "下一页标识：";
             // 
-            // checkBox3
+            // IsAutoNextPage
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(20, 100);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(158, 17);
-            this.checkBox3.TabIndex = 4;
-            this.checkBox3.Text = "根据下一页标识自动翻页";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            this.IsAutoNextPage.AutoSize = true;
+            this.IsAutoNextPage.Location = new System.Drawing.Point(20, 100);
+            this.IsAutoNextPage.Name = "IsAutoNextPage";
+            this.IsAutoNextPage.Size = new System.Drawing.Size(158, 17);
+            this.IsAutoNextPage.TabIndex = 5;
+            this.IsAutoNextPage.Text = "根据下一页标识自动翻页";
+            this.IsAutoNextPage.UseVisualStyleBackColor = true;
+            this.IsAutoNextPage.CheckedChanged += new System.EventHandler(this.IsAutoNextPage_CheckedChanged);
             // 
             // button3
             // 
@@ -902,7 +890,7 @@
             this.button3.Location = new System.Drawing.Point(543, 68);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(82, 23);
-            this.button3.TabIndex = 3;
+            this.button3.TabIndex = 4;
             this.button3.Text = "字典表参数";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
@@ -913,7 +901,7 @@
             this.button2.Location = new System.Drawing.Point(543, 43);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(82, 23);
-            this.button2.TabIndex = 2;
+            this.button2.TabIndex = 3;
             this.button2.Text = "参数/变量";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -930,11 +918,14 @@
             // cmdDelWeblink
             // 
             this.cmdDelWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelWeblink.Location = new System.Drawing.Point(568, 269);
+            this.cmdDelWeblink.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelWeblink.Image")));
+            this.cmdDelWeblink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDelWeblink.Location = new System.Drawing.Point(565, 269);
             this.cmdDelWeblink.Name = "cmdDelWeblink";
-            this.cmdDelWeblink.Size = new System.Drawing.Size(57, 23);
-            this.cmdDelWeblink.TabIndex = 12;
+            this.cmdDelWeblink.Size = new System.Drawing.Size(60, 23);
+            this.cmdDelWeblink.TabIndex = 13;
             this.cmdDelWeblink.Text = "删 除";
+            this.cmdDelWeblink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDelWeblink.UseVisualStyleBackColor = true;
             this.cmdDelWeblink.Click += new System.EventHandler(this.cmdDelWeblink_Click);
             // 
@@ -953,7 +944,7 @@
             this.listWeblink.Name = "listWeblink";
             this.listWeblink.ShowItemToolTips = true;
             this.listWeblink.Size = new System.Drawing.Size(611, 129);
-            this.listWeblink.TabIndex = 13;
+            this.listWeblink.TabIndex = 14;
             this.listWeblink.UseCompatibleStateImageBehavior = false;
             this.listWeblink.View = System.Windows.Forms.View.Details;
             this.listWeblink.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listWeblink_KeyDown);
@@ -966,13 +957,13 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "导航页规则";
+            this.columnHeader2.Text = "是否导航";
             this.columnHeader2.Width = 83;
             // 
             // columnHeader8
             // 
-            this.columnHeader8.Text = "是否为相对路径";
-            this.columnHeader8.Width = 98;
+            this.columnHeader8.Text = "导航深度";
+            this.columnHeader8.Width = 80;
             // 
             // columnHeader6
             // 
@@ -986,11 +977,14 @@
             // cmdAddWeblink
             // 
             this.cmdAddWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddWeblink.Location = new System.Drawing.Point(426, 269);
+            this.cmdAddWeblink.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddWeblink.Image")));
+            this.cmdAddWeblink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAddWeblink.Location = new System.Drawing.Point(424, 269);
             this.cmdAddWeblink.Name = "cmdAddWeblink";
-            this.cmdAddWeblink.Size = new System.Drawing.Size(57, 23);
-            this.cmdAddWeblink.TabIndex = 10;
+            this.cmdAddWeblink.Size = new System.Drawing.Size(60, 23);
+            this.cmdAddWeblink.TabIndex = 11;
             this.cmdAddWeblink.Text = "增 加";
+            this.cmdAddWeblink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdAddWeblink.UseVisualStyleBackColor = true;
             this.cmdAddWeblink.Click += new System.EventHandler(this.cmdAddWeblink_Click);
             // 
@@ -1018,6 +1012,8 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.cmdDown);
+            this.groupBox8.Controls.Add(this.cmdUp);
             this.groupBox8.Controls.Add(this.label5);
             this.groupBox8.Controls.Add(this.txtExpression);
             this.groupBox8.Controls.Add(this.txtRegion);
@@ -1047,6 +1043,36 @@
             this.groupBox8.TabIndex = 15;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "数据采集规则";
+            // 
+            // cmdDown
+            // 
+            this.cmdDown.Enabled = false;
+            this.cmdDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdDown.Image = ((System.Drawing.Image)(resources.GetObject("cmdDown.Image")));
+            this.cmdDown.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDown.Location = new System.Drawing.Point(178, 180);
+            this.cmdDown.Name = "cmdDown";
+            this.cmdDown.Size = new System.Drawing.Size(60, 23);
+            this.cmdDown.TabIndex = 64;
+            this.cmdDown.Text = "下移";
+            this.cmdDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cmdDown.UseVisualStyleBackColor = true;
+            this.cmdDown.Click += new System.EventHandler(this.cmdDown_Click);
+            // 
+            // cmdUp
+            // 
+            this.cmdUp.Enabled = false;
+            this.cmdUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdUp.Image = ((System.Drawing.Image)(resources.GetObject("cmdUp.Image")));
+            this.cmdUp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdUp.Location = new System.Drawing.Point(112, 180);
+            this.cmdUp.Name = "cmdUp";
+            this.cmdUp.Size = new System.Drawing.Size(60, 23);
+            this.cmdUp.TabIndex = 63;
+            this.cmdUp.Text = "上移";
+            this.cmdUp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cmdUp.UseVisualStyleBackColor = true;
+            this.cmdUp.Click += new System.EventHandler(this.cmdUp_Click);
             // 
             // label5
             // 
@@ -1093,7 +1119,7 @@
             this.comExportLimit.Location = new System.Drawing.Point(104, 138);
             this.comExportLimit.Name = "comExportLimit";
             this.comExportLimit.Size = new System.Drawing.Size(213, 21);
-            this.comExportLimit.TabIndex = 58;
+            this.comExportLimit.TabIndex = 5;
             this.comExportLimit.SelectedIndexChanged += new System.EventHandler(this.comExportLimit_SelectedIndexChanged);
             // 
             // label36
@@ -1167,11 +1193,14 @@
             // button8
             // 
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Location = new System.Drawing.Point(509, 180);
+            this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
+            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button8.Location = new System.Drawing.Point(506, 180);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(57, 23);
-            this.button8.TabIndex = 6;
+            this.button8.Size = new System.Drawing.Size(60, 23);
+            this.button8.TabIndex = 7;
             this.button8.Text = "修 改";
+            this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -1198,10 +1227,10 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(18, 180);
+            this.button1.Location = new System.Drawing.Point(12, 180);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(92, 23);
-            this.button1.TabIndex = 46;
+            this.button1.TabIndex = 9;
             this.button1.Text = "测试采集数据";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -1209,22 +1238,28 @@
             // cmdDelCutFlag
             // 
             this.cmdDelCutFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelCutFlag.Location = new System.Drawing.Point(578, 180);
+            this.cmdDelCutFlag.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelCutFlag.Image")));
+            this.cmdDelCutFlag.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDelCutFlag.Location = new System.Drawing.Point(575, 180);
             this.cmdDelCutFlag.Name = "cmdDelCutFlag";
-            this.cmdDelCutFlag.Size = new System.Drawing.Size(57, 23);
-            this.cmdDelCutFlag.TabIndex = 7;
+            this.cmdDelCutFlag.Size = new System.Drawing.Size(60, 23);
+            this.cmdDelCutFlag.TabIndex = 8;
             this.cmdDelCutFlag.Text = "删 除";
+            this.cmdDelCutFlag.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDelCutFlag.UseVisualStyleBackColor = true;
             this.cmdDelCutFlag.Click += new System.EventHandler(this.cmdDelCutFlag_Click);
             // 
             // cmdAddCutFlag
             // 
             this.cmdAddCutFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddCutFlag.Location = new System.Drawing.Point(440, 180);
+            this.cmdAddCutFlag.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddCutFlag.Image")));
+            this.cmdAddCutFlag.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAddCutFlag.Location = new System.Drawing.Point(437, 180);
             this.cmdAddCutFlag.Name = "cmdAddCutFlag";
-            this.cmdAddCutFlag.Size = new System.Drawing.Size(57, 23);
-            this.cmdAddCutFlag.TabIndex = 5;
+            this.cmdAddCutFlag.Size = new System.Drawing.Size(60, 23);
+            this.cmdAddCutFlag.TabIndex = 6;
             this.cmdAddCutFlag.Text = "增 加";
+            this.cmdAddCutFlag.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdAddCutFlag.UseVisualStyleBackColor = true;
             this.cmdAddCutFlag.Click += new System.EventHandler(this.cmdAddCutFlag_Click);
             // 
@@ -1270,15 +1305,16 @@
             this.listWebGetFlag.FullRowSelect = true;
             this.listWebGetFlag.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listWebGetFlag.HideSelection = false;
-            this.listWebGetFlag.Location = new System.Drawing.Point(19, 207);
+            this.listWebGetFlag.Location = new System.Drawing.Point(12, 207);
             this.listWebGetFlag.MultiSelect = false;
             this.listWebGetFlag.Name = "listWebGetFlag";
             this.listWebGetFlag.ShowItemToolTips = true;
-            this.listWebGetFlag.Size = new System.Drawing.Size(617, 125);
+            this.listWebGetFlag.Size = new System.Drawing.Size(623, 125);
             this.listWebGetFlag.TabIndex = 8;
             this.listWebGetFlag.UseCompatibleStateImageBehavior = false;
             this.listWebGetFlag.View = System.Windows.Forms.View.Details;
             this.listWebGetFlag.SelectedIndexChanged += new System.EventHandler(this.listWebGetFlag_SelectedIndexChanged);
+            this.listWebGetFlag.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listWebGetFlag_ItemSelectionChanged);
             this.listWebGetFlag.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listWebGetFlag_KeyDown);
             this.listWebGetFlag.Click += new System.EventHandler(this.listWebGetFlag_Click);
             // 
@@ -1333,6 +1369,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label44);
             this.groupBox5.Controls.Add(this.button7);
             this.groupBox5.Controls.Add(this.label33);
             this.groupBox5.Controls.Add(this.label15);
@@ -1349,6 +1386,16 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "页面采集范围";
             // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label44.Location = new System.Drawing.Point(101, 40);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(295, 13);
+            this.label44.TabIndex = 35;
+            this.label44.Text = "原则上是必须自动获取的，否则会导致测试采集失败！";
+            // 
             // button7
             // 
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1364,7 +1411,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label33.Location = new System.Drawing.Point(101, 74);
+            this.label33.Location = new System.Drawing.Point(100, 78);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(487, 13);
             this.label33.TabIndex = 34;
@@ -1373,7 +1420,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(356, 52);
+            this.label15.Location = new System.Drawing.Point(356, 59);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(19, 13);
             this.label15.TabIndex = 29;
@@ -1382,7 +1429,7 @@
             // txtEndPos
             // 
             this.txtEndPos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEndPos.Location = new System.Drawing.Point(381, 49);
+            this.txtEndPos.Location = new System.Drawing.Point(381, 56);
             this.txtEndPos.Name = "txtEndPos";
             this.txtEndPos.Size = new System.Drawing.Size(251, 20);
             this.txtEndPos.TabIndex = 4;
@@ -1391,7 +1438,7 @@
             // txtStartPos
             // 
             this.txtStartPos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtStartPos.Location = new System.Drawing.Point(99, 49);
+            this.txtStartPos.Location = new System.Drawing.Point(99, 56);
             this.txtStartPos.Name = "txtStartPos";
             this.txtStartPos.Size = new System.Drawing.Size(251, 20);
             this.txtStartPos.TabIndex = 3;
@@ -1400,7 +1447,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 52);
+            this.label14.Location = new System.Drawing.Point(6, 59);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(91, 13);
             this.label14.TabIndex = 26;
@@ -1495,7 +1542,7 @@
             this.button9.Location = new System.Drawing.Point(546, 43);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(80, 23);
-            this.button9.TabIndex = 41;
+            this.button9.TabIndex = 14;
             this.button9.Text = "插入参数";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
@@ -1509,7 +1556,7 @@
             this.comExportUrlCode.Location = new System.Drawing.Point(183, 17);
             this.comExportUrlCode.Name = "comExportUrlCode";
             this.comExportUrlCode.Size = new System.Drawing.Size(135, 21);
-            this.comExportUrlCode.TabIndex = 40;
+            this.comExportUrlCode.TabIndex = 12;
             this.comExportUrlCode.SelectedIndexChanged += new System.EventHandler(this.comExportUrlCode_SelectedIndexChanged);
             // 
             // label27
@@ -1528,7 +1575,7 @@
             this.button11.Location = new System.Drawing.Point(546, 129);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(80, 23);
-            this.button11.TabIndex = 38;
+            this.button11.TabIndex = 16;
             this.button11.Text = "获取Cookie";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
@@ -1540,7 +1587,7 @@
             this.txtExportCookie.Location = new System.Drawing.Point(82, 129);
             this.txtExportCookie.Name = "txtExportCookie";
             this.txtExportCookie.Size = new System.Drawing.Size(465, 20);
-            this.txtExportCookie.TabIndex = 37;
+            this.txtExportCookie.TabIndex = 15;
             this.txtExportCookie.TextChanged += new System.EventHandler(this.txtExportCookie_TextChanged);
             // 
             // label38
@@ -1570,7 +1617,7 @@
             this.txtExportUrl.Name = "txtExportUrl";
             this.txtExportUrl.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtExportUrl.Size = new System.Drawing.Size(464, 80);
-            this.txtExportUrl.TabIndex = 34;
+            this.txtExportUrl.TabIndex = 13;
             this.txtExportUrl.TextChanged += new System.EventHandler(this.txtExportUrl_TextChanged);
             // 
             // raExportWeb
@@ -1580,7 +1627,7 @@
             this.raExportWeb.Location = new System.Drawing.Point(9, 19);
             this.raExportWeb.Name = "raExportWeb";
             this.raExportWeb.Size = new System.Drawing.Size(84, 17);
-            this.raExportWeb.TabIndex = 33;
+            this.raExportWeb.TabIndex = 11;
             this.raExportWeb.TabStop = true;
             this.raExportWeb.Text = "发布到网站";
             this.raExportWeb.UseVisualStyleBackColor = true;
@@ -1624,7 +1671,7 @@
             this.comTableName.Location = new System.Drawing.Point(83, 66);
             this.comTableName.Name = "comTableName";
             this.comTableName.Size = new System.Drawing.Size(225, 21);
-            this.comTableName.TabIndex = 39;
+            this.comTableName.TabIndex = 9;
             this.comTableName.SelectedIndexChanged += new System.EventHandler(this.comTableName_SelectedIndexChanged);
             this.comTableName.DropDown += new System.EventHandler(this.comTableName_DropDown);
             this.comTableName.TextChanged += new System.EventHandler(this.comTableName_TextChanged);
@@ -1638,7 +1685,7 @@
             this.txtInsertSql.Name = "txtInsertSql";
             this.txtInsertSql.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtInsertSql.Size = new System.Drawing.Size(543, 39);
-            this.txtInsertSql.TabIndex = 38;
+            this.txtInsertSql.TabIndex = 10;
             this.txtInsertSql.TextChanged += new System.EventHandler(this.txtInsertSql_TextChanged);
             // 
             // label7
@@ -1657,7 +1704,7 @@
             this.button12.Location = new System.Drawing.Point(546, 39);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(80, 23);
-            this.button12.TabIndex = 36;
+            this.button12.TabIndex = 8;
             this.button12.Text = "设 置";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
@@ -1669,7 +1716,7 @@
             this.txtDataSource.Location = new System.Drawing.Point(83, 39);
             this.txtDataSource.Name = "txtDataSource";
             this.txtDataSource.Size = new System.Drawing.Size(464, 20);
-            this.txtDataSource.TabIndex = 35;
+            this.txtDataSource.TabIndex = 7;
             this.txtDataSource.TextChanged += new System.EventHandler(this.txtDataSource_TextChanged);
             // 
             // raExportMySql
@@ -1679,7 +1726,7 @@
             this.raExportMySql.Location = new System.Drawing.Point(265, 19);
             this.raExportMySql.Name = "raExportMySql";
             this.raExportMySql.Size = new System.Drawing.Size(89, 17);
-            this.raExportMySql.TabIndex = 34;
+            this.raExportMySql.TabIndex = 6;
             this.raExportMySql.TabStop = true;
             this.raExportMySql.Text = "发布到MySql";
             this.raExportMySql.UseVisualStyleBackColor = true;
@@ -1692,7 +1739,7 @@
             this.raExportMSSQL.Location = new System.Drawing.Point(122, 19);
             this.raExportMSSQL.Name = "raExportMSSQL";
             this.raExportMSSQL.Size = new System.Drawing.Size(125, 17);
-            this.raExportMSSQL.TabIndex = 33;
+            this.raExportMSSQL.TabIndex = 5;
             this.raExportMSSQL.TabStop = true;
             this.raExportMSSQL.Text = "发布到MS SqlServer";
             this.raExportMSSQL.UseVisualStyleBackColor = true;
@@ -1705,7 +1752,7 @@
             this.raExportAccess.Location = new System.Drawing.Point(9, 19);
             this.raExportAccess.Name = "raExportAccess";
             this.raExportAccess.Size = new System.Drawing.Size(95, 17);
-            this.raExportAccess.TabIndex = 31;
+            this.raExportAccess.TabIndex = 4;
             this.raExportAccess.Text = "发布到Access";
             this.raExportAccess.UseVisualStyleBackColor = true;
             this.raExportAccess.CheckedChanged += new System.EventHandler(this.raExportAccess_CheckedChanged);
@@ -1730,6 +1777,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.IsIncludeHeader);
             this.groupBox4.Controls.Add(this.label23);
             this.groupBox4.Controls.Add(this.txtFileName);
             this.groupBox4.Controls.Add(this.cmdBrowser);
@@ -1741,6 +1789,18 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "发布到文件";
+            // 
+            // IsIncludeHeader
+            // 
+            this.IsIncludeHeader.AutoSize = true;
+            this.IsIncludeHeader.Checked = true;
+            this.IsIncludeHeader.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.IsIncludeHeader.Location = new System.Drawing.Point(238, 19);
+            this.IsIncludeHeader.Name = "IsIncludeHeader";
+            this.IsIncludeHeader.Size = new System.Drawing.Size(340, 17);
+            this.IsIncludeHeader.TabIndex = 26;
+            this.IsIncludeHeader.Text = "数据发布类型如果是文件（文本或Excel），则需要包含表头";
+            this.IsIncludeHeader.UseVisualStyleBackColor = true;
             // 
             // label23
             // 
@@ -1757,7 +1817,7 @@
             this.txtFileName.Location = new System.Drawing.Point(83, 39);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(464, 20);
-            this.txtFileName.TabIndex = 24;
+            this.txtFileName.TabIndex = 2;
             this.txtFileName.TextChanged += new System.EventHandler(this.txtFileName_TextChanged);
             // 
             // cmdBrowser
@@ -1766,7 +1826,7 @@
             this.cmdBrowser.Location = new System.Drawing.Point(546, 39);
             this.cmdBrowser.Name = "cmdBrowser";
             this.cmdBrowser.Size = new System.Drawing.Size(80, 23);
-            this.cmdBrowser.TabIndex = 4;
+            this.cmdBrowser.TabIndex = 3;
             this.cmdBrowser.Text = "浏览...";
             this.cmdBrowser.UseVisualStyleBackColor = true;
             this.cmdBrowser.Click += new System.EventHandler(this.cmdBrowser_Click);
@@ -1845,43 +1905,43 @@
             // 
             this.dataTestGather.AllowUserToAddRows = false;
             this.dataTestGather.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTestGather.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTestGather.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataTestGather.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataTestGather.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataTestGather.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataTestGather.Location = new System.Drawing.Point(6, 53);
             this.dataTestGather.Name = "dataTestGather";
             this.dataTestGather.ReadOnly = true;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTestGather.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTestGather.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataTestGather.RowTemplate.Height = 23;
             this.dataTestGather.Size = new System.Drawing.Size(629, 371);
             this.dataTestGather.TabIndex = 0;
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.IsStartTrigger);
             this.tabPage6.Controls.Add(this.label46);
             this.tabPage6.Controls.Add(this.groupBox13);
-            this.tabPage6.Controls.Add(this.groupBox12);
             this.tabPage6.Controls.Add(this.groupBox11);
             this.tabPage6.ImageIndex = 11;
             this.tabPage6.Location = new System.Drawing.Point(4, 26);
@@ -1891,71 +1951,90 @@
             this.tabPage6.Text = "高级设置";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // IsStartTrigger
+            // 
+            this.IsStartTrigger.AutoSize = true;
+            this.IsStartTrigger.Location = new System.Drawing.Point(11, 114);
+            this.IsStartTrigger.Name = "IsStartTrigger";
+            this.IsStartTrigger.Size = new System.Drawing.Size(86, 17);
+            this.IsStartTrigger.TabIndex = 0;
+            this.IsStartTrigger.Text = "启动触发器";
+            this.IsStartTrigger.UseVisualStyleBackColor = true;
+            this.IsStartTrigger.CheckedChanged += new System.EventHandler(this.IsStartTrigger_CheckedChanged);
+            // 
             // label46
             // 
             this.label46.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label46.Location = new System.Drawing.Point(3, 361);
+            this.label46.Location = new System.Drawing.Point(3, 327);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(639, 61);
+            this.label46.Size = new System.Drawing.Size(639, 45);
             this.label46.TabIndex = 3;
-            this.label46.Text = "触发器是一种自动化操作方式，通过触发器的配置可以再任务执行结束自动执行某个程序或其他，但在此需要重点了解，触发器提供了执行Soukey采摘计划的能力，但Souke" +
-                "y采摘计划也提供了执行Soukey采摘任务的能力，所以，配置时一定要注意，避免形成相互调用，造成死循环。";
+            this.label46.Text = "触发器是一种自动化操作方式，通过触发器的配置可以在任务执行结束后自动执行某个程序或其他任务。";
             // 
             // groupBox13
             // 
-            this.groupBox13.Controls.Add(this.raStopRun);
-            this.groupBox13.Controls.Add(this.raStartRun);
+            this.groupBox13.Controls.Add(this.raPublishedRun);
+            this.groupBox13.Controls.Add(this.raGatheredRun);
             this.groupBox13.Controls.Add(this.cmdDelTask);
             this.groupBox13.Controls.Add(this.cmdAddTask);
             this.groupBox13.Controls.Add(this.listTask);
-            this.groupBox13.Location = new System.Drawing.Point(1, 173);
+            this.groupBox13.Enabled = false;
+            this.groupBox13.Location = new System.Drawing.Point(1, 137);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(641, 185);
             this.groupBox13.TabIndex = 2;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "触发器";
             // 
-            // raStopRun
+            // raPublishedRun
             // 
-            this.raStopRun.AutoSize = true;
-            this.raStopRun.Checked = true;
-            this.raStopRun.Location = new System.Drawing.Point(125, 20);
-            this.raStopRun.Name = "raStopRun";
-            this.raStopRun.Size = new System.Drawing.Size(109, 17);
-            this.raStopRun.TabIndex = 6;
-            this.raStopRun.TabStop = true;
-            this.raStopRun.Text = "任务完成后触发";
-            this.raStopRun.UseVisualStyleBackColor = true;
+            this.raPublishedRun.AutoSize = true;
+            this.raPublishedRun.Location = new System.Drawing.Point(125, 20);
+            this.raPublishedRun.Name = "raPublishedRun";
+            this.raPublishedRun.Size = new System.Drawing.Size(109, 17);
+            this.raPublishedRun.TabIndex = 1;
+            this.raPublishedRun.Text = "发布完成后出发";
+            this.raPublishedRun.UseVisualStyleBackColor = true;
             // 
-            // raStartRun
+            // raGatheredRun
             // 
-            this.raStartRun.AutoSize = true;
-            this.raStartRun.Location = new System.Drawing.Point(10, 19);
-            this.raStartRun.Name = "raStartRun";
-            this.raStartRun.Size = new System.Drawing.Size(109, 17);
-            this.raStartRun.TabIndex = 5;
-            this.raStartRun.Text = "任务启动时触发";
-            this.raStartRun.UseVisualStyleBackColor = true;
+            this.raGatheredRun.AutoSize = true;
+            this.raGatheredRun.Checked = true;
+            this.raGatheredRun.Location = new System.Drawing.Point(10, 19);
+            this.raGatheredRun.Name = "raGatheredRun";
+            this.raGatheredRun.Size = new System.Drawing.Size(109, 17);
+            this.raGatheredRun.TabIndex = 0;
+            this.raGatheredRun.TabStop = true;
+            this.raGatheredRun.Text = "采集完成后触发";
+            this.raGatheredRun.UseVisualStyleBackColor = true;
             // 
             // cmdDelTask
             // 
             this.cmdDelTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelTask.Location = new System.Drawing.Point(564, 16);
+            this.cmdDelTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelTask.Image")));
+            this.cmdDelTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDelTask.Location = new System.Drawing.Point(575, 16);
             this.cmdDelTask.Name = "cmdDelTask";
-            this.cmdDelTask.Size = new System.Drawing.Size(71, 23);
-            this.cmdDelTask.TabIndex = 4;
+            this.cmdDelTask.Size = new System.Drawing.Size(60, 23);
+            this.cmdDelTask.TabIndex = 3;
             this.cmdDelTask.Text = "删  除";
+            this.cmdDelTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDelTask.UseVisualStyleBackColor = true;
+            this.cmdDelTask.Click += new System.EventHandler(this.cmdDelTask_Click);
             // 
             // cmdAddTask
             // 
             this.cmdAddTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddTask.Location = new System.Drawing.Point(477, 16);
+            this.cmdAddTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddTask.Image")));
+            this.cmdAddTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAddTask.Location = new System.Drawing.Point(506, 16);
             this.cmdAddTask.Name = "cmdAddTask";
-            this.cmdAddTask.Size = new System.Drawing.Size(71, 23);
-            this.cmdAddTask.TabIndex = 3;
+            this.cmdAddTask.Size = new System.Drawing.Size(60, 23);
+            this.cmdAddTask.TabIndex = 2;
             this.cmdAddTask.Text = "添  加";
+            this.cmdAddTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdAddTask.UseVisualStyleBackColor = true;
+            this.cmdAddTask.Click += new System.EventHandler(this.cmdAddTask_Click);
             // 
             // listTask
             // 
@@ -1967,9 +2046,10 @@
             this.listTask.Location = new System.Drawing.Point(10, 43);
             this.listTask.Name = "listTask";
             this.listTask.Size = new System.Drawing.Size(625, 131);
-            this.listTask.TabIndex = 1;
+            this.listTask.TabIndex = 4;
             this.listTask.UseCompatibleStateImageBehavior = false;
             this.listTask.View = System.Windows.Forms.View.Details;
+            this.listTask.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listTask_KeyDown);
             // 
             // columnHeader14
             // 
@@ -1979,164 +2059,85 @@
             // columnHeader15
             // 
             this.columnHeader15.Text = "任务";
-            this.columnHeader15.Width = 180;
+            this.columnHeader15.Width = 300;
             // 
             // columnHeader16
             // 
             this.columnHeader16.Text = "参数";
-            this.columnHeader16.Width = 120;
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.cmdPublishErrlog);
-            this.groupBox12.Controls.Add(this.label45);
-            this.groupBox12.Controls.Add(this.txtPublishErrorLog);
-            this.groupBox12.Controls.Add(this.IsPublishErrLog);
-            this.groupBox12.Controls.Add(this.IsIncludeHeader);
-            this.groupBox12.Location = new System.Drawing.Point(1, 83);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(641, 84);
-            this.groupBox12.TabIndex = 1;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "数据发布设置";
-            // 
-            // cmdPublishErrlog
-            // 
-            this.cmdPublishErrlog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdPublishErrlog.Location = new System.Drawing.Point(556, 41);
-            this.cmdPublishErrlog.Name = "cmdPublishErrlog";
-            this.cmdPublishErrlog.Size = new System.Drawing.Size(79, 23);
-            this.cmdPublishErrlog.TabIndex = 4;
-            this.cmdPublishErrlog.Text = "浏览...";
-            this.cmdPublishErrlog.UseVisualStyleBackColor = true;
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(198, 44);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(91, 13);
-            this.label45.TabIndex = 3;
-            this.label45.Text = "日志文件名称：";
-            // 
-            // txtPublishErrorLog
-            // 
-            this.txtPublishErrorLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPublishErrorLog.Location = new System.Drawing.Point(292, 41);
-            this.txtPublishErrorLog.Name = "txtPublishErrorLog";
-            this.txtPublishErrorLog.Size = new System.Drawing.Size(265, 20);
-            this.txtPublishErrorLog.TabIndex = 2;
-            // 
-            // IsPublishErrLog
-            // 
-            this.IsPublishErrLog.AutoSize = true;
-            this.IsPublishErrLog.Location = new System.Drawing.Point(10, 43);
-            this.IsPublishErrLog.Name = "IsPublishErrLog";
-            this.IsPublishErrLog.Size = new System.Drawing.Size(182, 17);
-            this.IsPublishErrLog.TabIndex = 1;
-            this.IsPublishErrLog.Text = "将发布出错的数据导出到日志";
-            this.IsPublishErrLog.UseVisualStyleBackColor = true;
-            this.IsPublishErrLog.CheckedChanged += new System.EventHandler(this.IsPublishErrLog_CheckedChanged);
-            // 
-            // IsIncludeHeader
-            // 
-            this.IsIncludeHeader.AutoSize = true;
-            this.IsIncludeHeader.Checked = true;
-            this.IsIncludeHeader.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IsIncludeHeader.Location = new System.Drawing.Point(10, 19);
-            this.IsIncludeHeader.Name = "IsIncludeHeader";
-            this.IsIncludeHeader.Size = new System.Drawing.Size(230, 17);
-            this.IsIncludeHeader.TabIndex = 0;
-            this.IsIncludeHeader.Text = "如果是发布文件，则是否需要包含表头";
-            this.IsIncludeHeader.UseVisualStyleBackColor = true;
+            this.columnHeader16.Width = 180;
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.cmdErrLog);
-            this.groupBox11.Controls.Add(this.txtErrorLog);
-            this.groupBox11.Controls.Add(this.label44);
-            this.groupBox11.Controls.Add(this.IsGatherErrLog);
-            this.groupBox11.Controls.Add(this.IsDisabledAgain);
-            this.groupBox11.Controls.Add(this.IsGatherErrorAgain);
+            this.groupBox11.Controls.Add(this.labLogSavePath);
+            this.groupBox11.Controls.Add(this.IsSaveErrorLog);
+            this.groupBox11.Controls.Add(this.IsDelRepRow);
+            this.groupBox11.Controls.Add(this.IsIgnore404);
             this.groupBox11.Controls.Add(this.label43);
             this.groupBox11.Controls.Add(this.udAgainNumber);
             this.groupBox11.Location = new System.Drawing.Point(1, 3);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(641, 74);
+            this.groupBox11.Size = new System.Drawing.Size(641, 105);
             this.groupBox11.TabIndex = 0;
             this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "采集错误处理";
+            this.groupBox11.Text = "高级设置";
             // 
-            // cmdErrLog
+            // labLogSavePath
             // 
-            this.cmdErrLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdErrLog.Location = new System.Drawing.Point(556, 44);
-            this.cmdErrLog.Name = "cmdErrLog";
-            this.cmdErrLog.Size = new System.Drawing.Size(79, 23);
-            this.cmdErrLog.TabIndex = 9;
-            this.cmdErrLog.Text = "浏览...";
-            this.cmdErrLog.UseVisualStyleBackColor = true;
+            this.labLogSavePath.AutoSize = true;
+            this.labLogSavePath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labLogSavePath.Location = new System.Drawing.Point(7, 76);
+            this.labLogSavePath.Name = "labLogSavePath";
+            this.labLogSavePath.Size = new System.Drawing.Size(79, 13);
+            this.labLogSavePath.TabIndex = 8;
+            this.labLogSavePath.Text = "日志存储在：";
             // 
-            // txtErrorLog
+            // IsSaveErrorLog
             // 
-            this.txtErrorLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtErrorLog.Location = new System.Drawing.Point(292, 44);
-            this.txtErrorLog.Name = "txtErrorLog";
-            this.txtErrorLog.Size = new System.Drawing.Size(265, 20);
-            this.txtErrorLog.TabIndex = 8;
+            this.IsSaveErrorLog.AutoSize = true;
+            this.IsSaveErrorLog.Location = new System.Drawing.Point(126, 47);
+            this.IsSaveErrorLog.Name = "IsSaveErrorLog";
+            this.IsSaveErrorLog.Size = new System.Drawing.Size(290, 17);
+            this.IsSaveErrorLog.TabIndex = 5;
+            this.IsSaveErrorLog.Text = "自动保存出错信息（采集错误及发布错误）到日志";
+            this.IsSaveErrorLog.UseVisualStyleBackColor = true;
+            this.IsSaveErrorLog.CheckedChanged += new System.EventHandler(this.IsSaveErrorLog_CheckedChanged);
             // 
-            // label44
+            // IsDelRepRow
             // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(198, 48);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(91, 13);
-            this.label44.TabIndex = 7;
-            this.label44.Text = "日志文件名称：";
+            this.IsDelRepRow.AutoSize = true;
+            this.IsDelRepRow.Location = new System.Drawing.Point(10, 47);
+            this.IsDelRepRow.Name = "IsDelRepRow";
+            this.IsDelRepRow.Size = new System.Drawing.Size(110, 17);
+            this.IsDelRepRow.TabIndex = 4;
+            this.IsDelRepRow.Text = "是否去除重复行";
+            this.IsDelRepRow.UseVisualStyleBackColor = true;
+            this.IsDelRepRow.CheckedChanged += new System.EventHandler(this.IsDelRepRow_CheckedChanged);
             // 
-            // IsGatherErrLog
+            // IsIgnore404
             // 
-            this.IsGatherErrLog.AutoSize = true;
-            this.IsGatherErrLog.Location = new System.Drawing.Point(10, 46);
-            this.IsGatherErrLog.Name = "IsGatherErrLog";
-            this.IsGatherErrLog.Size = new System.Drawing.Size(182, 17);
-            this.IsGatherErrLog.TabIndex = 6;
-            this.IsGatherErrLog.Text = "将采集错误的网址导出到日志";
-            this.IsGatherErrLog.UseVisualStyleBackColor = true;
-            // 
-            // IsDisabledAgain
-            // 
-            this.IsDisabledAgain.AutoSize = true;
-            this.IsDisabledAgain.Location = new System.Drawing.Point(363, 22);
-            this.IsDisabledAgain.Name = "IsDisabledAgain";
-            this.IsDisabledAgain.Size = new System.Drawing.Size(194, 17);
-            this.IsDisabledAgain.TabIndex = 5;
-            this.IsDisabledAgain.Text = "如果是网址无效错误则无需重试";
-            this.IsDisabledAgain.UseVisualStyleBackColor = true;
-            // 
-            // IsGatherErrorAgain
-            // 
-            this.IsGatherErrorAgain.AutoSize = true;
-            this.IsGatherErrorAgain.Location = new System.Drawing.Point(10, 20);
-            this.IsGatherErrorAgain.Name = "IsGatherErrorAgain";
-            this.IsGatherErrorAgain.Size = new System.Drawing.Size(170, 17);
-            this.IsGatherErrorAgain.TabIndex = 4;
-            this.IsGatherErrorAgain.Text = "当采集发生错误时进行重试";
-            this.IsGatherErrorAgain.UseVisualStyleBackColor = true;
-            this.IsGatherErrorAgain.CheckedChanged += new System.EventHandler(this.IsGatherErrorAgain_CheckedChanged);
+            this.IsIgnore404.AutoSize = true;
+            this.IsIgnore404.Checked = true;
+            this.IsIgnore404.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.IsIgnore404.Location = new System.Drawing.Point(222, 20);
+            this.IsIgnore404.Name = "IsIgnore404";
+            this.IsIgnore404.Size = new System.Drawing.Size(194, 17);
+            this.IsIgnore404.TabIndex = 2;
+            this.IsIgnore404.Text = "如果是网址无效错误则忽略重试";
+            this.IsIgnore404.UseVisualStyleBackColor = true;
+            this.IsIgnore404.CheckedChanged += new System.EventHandler(this.IsIgnore404_CheckedChanged);
             // 
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(198, 21);
+            this.label43.Location = new System.Drawing.Point(7, 21);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(67, 13);
-            this.label43.TabIndex = 2;
-            this.label43.Text = "重试次数：";
+            this.label43.Size = new System.Drawing.Size(139, 13);
+            this.label43.TabIndex = 0;
+            this.label43.Text = "网址访问失败重试次数：";
             // 
             // udAgainNumber
             // 
-            this.udAgainNumber.Location = new System.Drawing.Point(291, 19);
+            this.udAgainNumber.Location = new System.Drawing.Point(152, 19);
             this.udAgainNumber.Maximum = new decimal(new int[] {
             10,
             0,
@@ -2155,22 +2156,25 @@
             0,
             0,
             0});
+            this.udAgainNumber.ValueChanged += new System.EventHandler(this.udAgainNumber_ValueChanged);
             // 
             // tTask
             // 
             this.tTask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tTask.Location = new System.Drawing.Point(83, 7);
             this.tTask.Name = "tTask";
-            this.tTask.Size = new System.Drawing.Size(553, 20);
+            this.tTask.Size = new System.Drawing.Size(424, 20);
             this.tTask.TabIndex = 0;
             this.tTask.TextChanged += new System.EventHandler(this.tTask_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.Navy;
             this.label1.Location = new System.Drawing.Point(12, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "任务名称：";
             // 
@@ -2290,32 +2294,32 @@
             // rmenuGetFormat
             // 
             this.rmenuGetFormat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pOST前缀POSTToolStripMenuItem1,
-            this.pOST后缀POSTToolStripMenuItem,
-            this.手工捕获POST数据ToolStripMenuItem,
+            this.toolmenuPost1,
+            this.toolmenuPost2,
+            this.toolmenuPostData,
             this.toolStripSeparator5});
             this.rmenuGetFormat.Name = "rmenuGetFormat";
             this.rmenuGetFormat.Size = new System.Drawing.Size(186, 76);
             this.rmenuGetFormat.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.rmenuGetFormat_ItemClicked);
             this.rmenuGetFormat.Opening += new System.ComponentModel.CancelEventHandler(this.rmenuGetFormat_Opening);
             // 
-            // pOST前缀POSTToolStripMenuItem1
+            // toolmenuPost1
             // 
-            this.pOST前缀POSTToolStripMenuItem1.Name = "pOST前缀POSTToolStripMenuItem1";
-            this.pOST前缀POSTToolStripMenuItem1.Size = new System.Drawing.Size(185, 22);
-            this.pOST前缀POSTToolStripMenuItem1.Text = "POST前缀<POST>";
+            this.toolmenuPost1.Name = "toolmenuPost1";
+            this.toolmenuPost1.Size = new System.Drawing.Size(185, 22);
+            this.toolmenuPost1.Text = "POST前缀<POST>";
             // 
-            // pOST后缀POSTToolStripMenuItem
+            // toolmenuPost2
             // 
-            this.pOST后缀POSTToolStripMenuItem.Name = "pOST后缀POSTToolStripMenuItem";
-            this.pOST后缀POSTToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.pOST后缀POSTToolStripMenuItem.Text = "POST后缀</POST>";
+            this.toolmenuPost2.Name = "toolmenuPost2";
+            this.toolmenuPost2.Size = new System.Drawing.Size(185, 22);
+            this.toolmenuPost2.Text = "POST后缀</POST>";
             // 
-            // 手工捕获POST数据ToolStripMenuItem
+            // toolmenuPostData
             // 
-            this.手工捕获POST数据ToolStripMenuItem.Name = "手工捕获POST数据ToolStripMenuItem";
-            this.手工捕获POST数据ToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.手工捕获POST数据ToolStripMenuItem.Text = "手工捕获POST数据";
+            this.toolmenuPostData.Name = "toolmenuPostData";
+            this.toolmenuPostData.Size = new System.Drawing.Size(185, 22);
+            this.toolmenuPostData.Text = "手工捕获POST数据";
             // 
             // toolStripSeparator5
             // 
@@ -2346,6 +2350,17 @@
             this.IsSave.Visible = false;
             this.IsSave.TextChanged += new System.EventHandler(this.IsSave_TextChanged);
             // 
+            // cmdWizard
+            // 
+            this.cmdWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdWizard.Location = new System.Drawing.Point(506, 7);
+            this.cmdWizard.Name = "cmdWizard";
+            this.cmdWizard.Size = new System.Drawing.Size(152, 23);
+            this.cmdWizard.TabIndex = 6;
+            this.cmdWizard.Text = "配置太复杂，我需要向导";
+            this.cmdWizard.UseVisualStyleBackColor = true;
+            this.cmdWizard.Click += new System.EventHandler(this.cmdWizard_Click);
+            // 
             // frmTask
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2357,6 +2372,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.cmdWizard);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -2366,7 +2382,7 @@
             this.Name = "frmTask";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "任务信息";
+            this.Text = "采集任务信息维护";
             this.Load += new System.EventHandler(this.frmTask_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTask_FormClosing);
             this.tabControl1.ResumeLayout(false);
@@ -2399,10 +2415,9 @@
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataTestGather)).EndInit();
             this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udAgainNumber)).EndInit();
@@ -2459,9 +2474,9 @@
         private System.Windows.Forms.ContextMenuStrip DictMenu;
         private System.Windows.Forms.ToolStripMenuItem menuOpenDict;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox IsNavigPage;
         private System.Windows.Forms.TextBox txtNag;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox IsAutoNextPage;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtNextPage;
         private System.Windows.Forms.Label label13;
@@ -2481,7 +2496,6 @@
         private System.Windows.Forms.Label labWaiting;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridView dataTestGather;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Label label25;
@@ -2575,10 +2589,10 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.ContextMenuStrip rmenuGetFormat;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.ToolStripMenuItem pOST前缀POSTToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem pOST后缀POSTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolmenuPost1;
+        private System.Windows.Forms.ToolStripMenuItem toolmenuPost2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem 手工捕获POST数据ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolmenuPostData;
         private System.Windows.Forms.Button cmdApply;
         private System.Windows.Forms.TextBox IsSave;
         private System.Windows.Forms.Label label42;
@@ -2586,19 +2600,8 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.NumericUpDown udAgainNumber;
-        private System.Windows.Forms.CheckBox IsGatherErrorAgain;
-        private System.Windows.Forms.CheckBox IsGatherErrLog;
-        private System.Windows.Forms.CheckBox IsDisabledAgain;
-        private System.Windows.Forms.TextBox txtErrorLog;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.CheckBox IsIgnore404;
         private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.CheckBox IsIncludeHeader;
-        private System.Windows.Forms.CheckBox IsPublishErrLog;
-        private System.Windows.Forms.Button cmdPublishErrlog;
-        private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.TextBox txtPublishErrorLog;
-        private System.Windows.Forms.Button cmdErrLog;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.Button cmdDelNRule;
@@ -2612,8 +2615,17 @@
         private System.Windows.Forms.ColumnHeader columnHeader16;
         private System.Windows.Forms.Button cmdDelTask;
         private System.Windows.Forms.Button cmdAddTask;
-        private System.Windows.Forms.RadioButton raStopRun;
-        private System.Windows.Forms.RadioButton raStartRun;
+        private System.Windows.Forms.RadioButton raPublishedRun;
+        private System.Windows.Forms.RadioButton raGatheredRun;
+        private System.Windows.Forms.CheckBox IsStartTrigger;
+        private System.Windows.Forms.CheckBox IsDelRepRow;
+        private System.Windows.Forms.CheckBox IsSaveErrorLog;
+        private System.Windows.Forms.Label labLogSavePath;
+        private System.Windows.Forms.Button cmdWizard;
+        private System.Windows.Forms.CheckBox IsIncludeHeader;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Button cmdDown;
+        private System.Windows.Forms.Button cmdUp;
 
 
     }

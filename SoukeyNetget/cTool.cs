@@ -204,15 +204,15 @@ namespace SoukeyNetget
                 return "";
 
             string conStr = "";
-            if (Regex.IsMatch(str, @"[\$\.\*\[\]\?\\]"))
+            if (Regex.IsMatch(str, @"[\$\*\[\]\?\\\(\)]"))
             {
                 Regex re = new Regex(@"\$", RegexOptions.IgnoreCase);
                 str = re.Replace(str, @"\$");
                 re = null;
 
-                re = new Regex(@"\.", RegexOptions.IgnoreCase);
-                str = re.Replace(str, @"\.");
-                re = null;
+                //re = new Regex(@"\.", RegexOptions.IgnoreCase);
+                //str = re.Replace(str, @"\.");
+                //re = null;
 
                 re = new Regex(@"\*", RegexOptions.IgnoreCase);
                 str = re.Replace(str, @"\*");
@@ -228,6 +228,18 @@ namespace SoukeyNetget
 
                 re = new Regex(@"\?", RegexOptions.IgnoreCase);
                 str = re.Replace(str, @"\?");
+                re = null;
+
+                re = new Regex(@"\\", RegexOptions.IgnoreCase);
+                str = re.Replace(str, @"\\");
+                re = null;
+
+                re = new Regex(@"\(", RegexOptions.IgnoreCase);
+                str = re.Replace(str, @"\(");
+                re = null;
+
+                re = new Regex(@"\)", RegexOptions.IgnoreCase);
+                str = re.Replace(str, @"\)");
                 re = null;
 
                 conStr = str;

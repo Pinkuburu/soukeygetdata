@@ -34,6 +34,7 @@ namespace SoukeyNetget
             try
             {
                 objXmlDoc.Load(XmlFile);
+                
             }
             catch (System.Exception ex)
             {
@@ -52,9 +53,12 @@ namespace SoukeyNetget
         {
             //获取路径
 
-            string s = "\\b.*(?=\\\\)\\b";
-            Match m = Regex.Match(FileName, s);
-            string fPath = m.Groups[0].Value.ToString();
+            //string s = "\\b.*(?=\\\\)\\b";
+            //Match m = Regex.Match(FileName, s);
+            //string fPath = m.Groups[0].Value.ToString();
+
+            string fPath = Path.GetDirectoryName(FileName);
+
             if (!System.IO.Directory.Exists(fPath))
             {
                 //目录不存在，首先需要创建此目录
@@ -78,7 +82,12 @@ namespace SoukeyNetget
         //根据指定的路径读取一个值
         public string GetNodeValue(string nodPath)
         {
-            return  objXmlDoc.SelectSingleNode(nodPath).InnerText.ToString ();
+            XmlNode gNode = objXmlDoc.SelectSingleNode(nodPath);
+
+            if (gNode == null)
+                return "";
+            else
+                return  gNode.InnerText.ToString ();
         }
 
         //根据节点返回数据,类型为dataview
@@ -183,7 +192,7 @@ namespace SoukeyNetget
 
         }
 
-        //修改一个节点信息
+        //修改一个节点包含的信息信息
         public void EditNode(string Element, string Old_Content,string Content)
         {
 
@@ -197,6 +206,20 @@ namespace SoukeyNetget
                 }
 
             }
+        }
+
+        //修改一个节点本身的值
+        public void EditNodeName(string nodPath, string OldName, string NewName)
+        {
+            XmlNode Nod = objXmlDoc.SelectSingleNode(nodPath);
+            string xml = Nod.InnerXml;
+
+            DeleteNode(OldName);
+
+            nodPath = nodPath.Substring(0, nodPath.LastIndexOf("/"));
+
+            InsertElement(nodPath, NewName, xml);
+
         }
 
         //根据指定的节点修改器值

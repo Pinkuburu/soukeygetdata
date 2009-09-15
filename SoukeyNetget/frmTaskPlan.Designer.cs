@@ -62,6 +62,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.raCustom = new System.Windows.Forms.RadioButton();
             this.label12 = new System.Windows.Forms.Label();
             this.EnabledDate = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
@@ -69,9 +70,12 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.raDay = new System.Windows.Forms.RadioButton();
             this.raWeekly = new System.Windows.Forms.RadioButton();
-            this.PanelOne = new System.Windows.Forms.Panel();
-            this.RunOnceTime = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
+            this.panelCustom = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
+            this.udRunInterval = new System.Windows.Forms.NumericUpDown();
+            this.FirstRunTime = new System.Windows.Forms.DateTimePicker();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.PanelWeekly = new System.Windows.Forms.Panel();
             this.cboxThursday = new System.Windows.Forms.CheckBox();
             this.cboxWednesday = new System.Windows.Forms.CheckBox();
@@ -91,6 +95,9 @@
             this.raRunones = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.RunDayTwice2Time = new System.Windows.Forms.DateTimePicker();
+            this.PanelOne = new System.Windows.Forms.Panel();
+            this.RunOnceTime = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.IsSave = new System.Windows.Forms.TextBox();
@@ -110,9 +117,11 @@
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.PanelOne.SuspendLayout();
+            this.panelCustom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udRunInterval)).BeginInit();
             this.PanelWeekly.SuspendLayout();
             this.PanelDay.SuspendLayout();
+            this.PanelOne.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,7 +140,7 @@
             this.txtPlanName.Location = new System.Drawing.Point(82, 12);
             this.txtPlanName.Name = "txtPlanName";
             this.txtPlanName.Size = new System.Drawing.Size(411, 20);
-            this.txtPlanName.TabIndex = 1;
+            this.txtPlanName.TabIndex = 0;
             this.txtPlanName.Tag = "";
             this.txtPlanName.TextChanged += new System.EventHandler(this.txtPlanName_TextChanged);
             // 
@@ -146,7 +155,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(491, 300);
-            this.tabControl1.TabIndex = 2;
+            this.tabControl1.TabIndex = 1;
             // 
             // tabPage3
             // 
@@ -237,7 +246,7 @@
             this.DisabledDateTime.Name = "DisabledDateTime";
             this.DisabledDateTime.ShowUpDown = true;
             this.DisabledDateTime.Size = new System.Drawing.Size(176, 20);
-            this.DisabledDateTime.TabIndex = 8;
+            this.DisabledDateTime.TabIndex = 7;
             this.DisabledDateTime.ValueChanged += new System.EventHandler(this.DisabledDateTime_ValueChanged);
             // 
             // groupBox4
@@ -272,7 +281,7 @@
             0});
             this.DisabledRunNum.Name = "DisabledRunNum";
             this.DisabledRunNum.Size = new System.Drawing.Size(81, 20);
-            this.DisabledRunNum.TabIndex = 7;
+            this.DisabledRunNum.TabIndex = 6;
             this.DisabledRunNum.Value = new decimal(new int[] {
             1,
             0,
@@ -296,7 +305,7 @@
             this.raDateTime.Location = new System.Drawing.Point(197, 106);
             this.raDateTime.Name = "raDateTime";
             this.raDateTime.Size = new System.Drawing.Size(61, 17);
-            this.raDateTime.TabIndex = 5;
+            this.raDateTime.TabIndex = 4;
             this.raDateTime.TabStop = true;
             this.raDateTime.Text = "按时间";
             this.raDateTime.UseVisualStyleBackColor = true;
@@ -310,7 +319,7 @@
             this.raNumber.Location = new System.Drawing.Point(109, 105);
             this.raNumber.Name = "raNumber";
             this.raNumber.Size = new System.Drawing.Size(61, 17);
-            this.raNumber.TabIndex = 4;
+            this.raNumber.TabIndex = 3;
             this.raNumber.TabStop = true;
             this.raNumber.Text = "按次数";
             this.raNumber.UseVisualStyleBackColor = true;
@@ -322,7 +331,7 @@
             this.cboxIsDisabled.Location = new System.Drawing.Point(19, 106);
             this.cboxIsDisabled.Name = "cboxIsDisabled";
             this.cboxIsDisabled.Size = new System.Drawing.Size(74, 17);
-            this.cboxIsDisabled.TabIndex = 3;
+            this.cboxIsDisabled.TabIndex = 2;
             this.cboxIsDisabled.Text = "是否过期";
             this.cboxIsDisabled.UseVisualStyleBackColor = true;
             this.cboxIsDisabled.CheckedChanged += new System.EventHandler(this.cboxIsDisabled_CheckedChanged);
@@ -333,7 +342,7 @@
             this.cboxIsRun.Location = new System.Drawing.Point(264, 107);
             this.cboxIsRun.Name = "cboxIsRun";
             this.cboxIsRun.Size = new System.Drawing.Size(266, 17);
-            this.cboxIsRun.TabIndex = 2;
+            this.cboxIsRun.TabIndex = 5;
             this.cboxIsRun.Text = "如果过了计划开始操作时间，则立即启动任务";
             this.cboxIsRun.UseVisualStyleBackColor = true;
             this.cboxIsRun.Visible = false;
@@ -387,22 +396,28 @@
             // cmdDelTask
             // 
             this.cmdDelTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelTask.Location = new System.Drawing.Point(399, 199);
+            this.cmdDelTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelTask.Image")));
+            this.cmdDelTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDelTask.Location = new System.Drawing.Point(410, 15);
             this.cmdDelTask.Name = "cmdDelTask";
-            this.cmdDelTask.Size = new System.Drawing.Size(71, 23);
+            this.cmdDelTask.Size = new System.Drawing.Size(60, 23);
             this.cmdDelTask.TabIndex = 2;
             this.cmdDelTask.Text = "删  除";
+            this.cmdDelTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDelTask.UseVisualStyleBackColor = true;
             this.cmdDelTask.Click += new System.EventHandler(this.cmdDelTask_Click);
             // 
             // cmdAddTask
             // 
             this.cmdAddTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddTask.Location = new System.Drawing.Point(312, 199);
+            this.cmdAddTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddTask.Image")));
+            this.cmdAddTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAddTask.Location = new System.Drawing.Point(338, 15);
             this.cmdAddTask.Name = "cmdAddTask";
-            this.cmdAddTask.Size = new System.Drawing.Size(71, 23);
+            this.cmdAddTask.Size = new System.Drawing.Size(60, 23);
             this.cmdAddTask.TabIndex = 1;
             this.cmdAddTask.Text = "添  加";
+            this.cmdAddTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdAddTask.UseVisualStyleBackColor = true;
             this.cmdAddTask.Click += new System.EventHandler(this.cmdAddTask_Click);
             // 
@@ -413,10 +428,10 @@
             this.columnHeader2,
             this.columnHeader3});
             this.listTask.FullRowSelect = true;
-            this.listTask.Location = new System.Drawing.Point(6, 19);
+            this.listTask.Location = new System.Drawing.Point(6, 44);
             this.listTask.Name = "listTask";
-            this.listTask.Size = new System.Drawing.Size(464, 174);
-            this.listTask.TabIndex = 0;
+            this.listTask.Size = new System.Drawing.Size(464, 177);
+            this.listTask.TabIndex = 3;
             this.listTask.UseCompatibleStateImageBehavior = false;
             this.listTask.View = System.Windows.Forms.View.Details;
             this.listTask.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listTask_KeyDown);
@@ -459,6 +474,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.raCustom);
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Controls.Add(this.EnabledDate);
             this.groupBox7.Controls.Add(this.label5);
@@ -466,15 +482,28 @@
             this.groupBox7.Controls.Add(this.groupBox6);
             this.groupBox7.Controls.Add(this.raDay);
             this.groupBox7.Controls.Add(this.raWeekly);
+            this.groupBox7.Controls.Add(this.panelCustom);
+            this.groupBox7.Controls.Add(this.PanelWeekly);
             this.groupBox7.Controls.Add(this.PanelDay);
             this.groupBox7.Controls.Add(this.PanelOne);
-            this.groupBox7.Controls.Add(this.PanelWeekly);
             this.groupBox7.Location = new System.Drawing.Point(1, 3);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(476, 261);
             this.groupBox7.TabIndex = 5;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "执行计划";
+            // 
+            // raCustom
+            // 
+            this.raCustom.AutoSize = true;
+            this.raCustom.Location = new System.Drawing.Point(10, 118);
+            this.raCustom.Name = "raCustom";
+            this.raCustom.Size = new System.Drawing.Size(61, 17);
+            this.raCustom.TabIndex = 14;
+            this.raCustom.TabStop = true;
+            this.raCustom.Text = "自定义";
+            this.raCustom.UseVisualStyleBackColor = true;
+            this.raCustom.CheckedChanged += new System.EventHandler(this.raCustom_CheckedChanged);
             // 
             // label12
             // 
@@ -493,7 +522,7 @@
             this.EnabledDate.Location = new System.Drawing.Point(196, 28);
             this.EnabledDate.Name = "EnabledDate";
             this.EnabledDate.Size = new System.Drawing.Size(130, 20);
-            this.EnabledDate.TabIndex = 9;
+            this.EnabledDate.TabIndex = 3;
             this.EnabledDate.ValueChanged += new System.EventHandler(this.EnabledDate_ValueChanged);
             // 
             // label5
@@ -548,36 +577,86 @@
             this.raWeekly.UseVisualStyleBackColor = true;
             this.raWeekly.CheckedChanged += new System.EventHandler(this.raWeekly_CheckedChanged);
             // 
-            // PanelOne
+            // panelCustom
             // 
-            this.PanelOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PanelOne.Controls.Add(this.RunOnceTime);
-            this.PanelOne.Controls.Add(this.label6);
-            this.PanelOne.Location = new System.Drawing.Point(114, 58);
-            this.PanelOne.Name = "PanelOne";
-            this.PanelOne.Size = new System.Drawing.Size(348, 121);
-            this.PanelOne.TabIndex = 10;
-            this.PanelOne.Visible = false;
+            this.panelCustom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelCustom.Controls.Add(this.label19);
+            this.panelCustom.Controls.Add(this.udRunInterval);
+            this.panelCustom.Controls.Add(this.FirstRunTime);
+            this.panelCustom.Controls.Add(this.label18);
+            this.panelCustom.Controls.Add(this.label17);
+            this.panelCustom.Location = new System.Drawing.Point(114, 58);
+            this.panelCustom.Name = "panelCustom";
+            this.panelCustom.Size = new System.Drawing.Size(348, 121);
+            this.panelCustom.TabIndex = 15;
+            this.panelCustom.Visible = false;
             // 
-            // RunOnceTime
+            // label19
             // 
-            this.RunOnceTime.CustomFormat = "yyyy-MM-dd ddd HH:mm";
-            this.RunOnceTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.RunOnceTime.Location = new System.Drawing.Point(81, 9);
-            this.RunOnceTime.Name = "RunOnceTime";
-            this.RunOnceTime.ShowUpDown = true;
-            this.RunOnceTime.Size = new System.Drawing.Size(182, 20);
-            this.RunOnceTime.TabIndex = 1;
-            this.RunOnceTime.ValueChanged += new System.EventHandler(this.RunOnceTime_ValueChanged);
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(215, 46);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(31, 13);
+            this.label19.TabIndex = 5;
+            this.label19.Text = "小时";
             // 
-            // label6
+            // udRunInterval
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "执行时间：";
+            this.udRunInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.udRunInterval.DecimalPlaces = 1;
+            this.udRunInterval.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.udRunInterval.Location = new System.Drawing.Point(101, 42);
+            this.udRunInterval.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.udRunInterval.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.udRunInterval.Name = "udRunInterval";
+            this.udRunInterval.Size = new System.Drawing.Size(110, 20);
+            this.udRunInterval.TabIndex = 4;
+            this.udRunInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.udRunInterval.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            65536});
+            // 
+            // FirstRunTime
+            // 
+            this.FirstRunTime.CustomFormat = "HH:mm:ss";
+            this.FirstRunTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.FirstRunTime.Location = new System.Drawing.Point(100, 9);
+            this.FirstRunTime.Name = "FirstRunTime";
+            this.FirstRunTime.ShowUpDown = true;
+            this.FirstRunTime.Size = new System.Drawing.Size(111, 20);
+            this.FirstRunTime.TabIndex = 3;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(10, 13);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(91, 13);
+            this.label18.TabIndex = 2;
+            this.label18.Text = "起始运行时间：";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(33, 44);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(67, 13);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "运行间隔：";
             // 
             // PanelWeekly
             // 
@@ -603,7 +682,7 @@
             this.cboxThursday.Location = new System.Drawing.Point(12, 71);
             this.cboxThursday.Name = "cboxThursday";
             this.cboxThursday.Size = new System.Drawing.Size(62, 17);
-            this.cboxThursday.TabIndex = 8;
+            this.cboxThursday.TabIndex = 6;
             this.cboxThursday.Text = "星期四";
             this.cboxThursday.UseVisualStyleBackColor = true;
             this.cboxThursday.CheckedChanged += new System.EventHandler(this.cboxThursday_CheckedChanged);
@@ -614,7 +693,7 @@
             this.cboxWednesday.Location = new System.Drawing.Point(228, 45);
             this.cboxWednesday.Name = "cboxWednesday";
             this.cboxWednesday.Size = new System.Drawing.Size(62, 17);
-            this.cboxWednesday.TabIndex = 7;
+            this.cboxWednesday.TabIndex = 5;
             this.cboxWednesday.Text = "星期三";
             this.cboxWednesday.UseVisualStyleBackColor = true;
             this.cboxWednesday.CheckedChanged += new System.EventHandler(this.cboxWednesday_CheckedChanged);
@@ -625,7 +704,7 @@
             this.cboxSturday.Location = new System.Drawing.Point(154, 71);
             this.cboxSturday.Name = "cboxSturday";
             this.cboxSturday.Size = new System.Drawing.Size(62, 17);
-            this.cboxSturday.TabIndex = 6;
+            this.cboxSturday.TabIndex = 8;
             this.cboxSturday.Text = "星期六";
             this.cboxSturday.UseVisualStyleBackColor = true;
             this.cboxSturday.CheckedChanged += new System.EventHandler(this.cboxSturday_CheckedChanged);
@@ -636,7 +715,7 @@
             this.cboxFriday.Location = new System.Drawing.Point(83, 71);
             this.cboxFriday.Name = "cboxFriday";
             this.cboxFriday.Size = new System.Drawing.Size(62, 17);
-            this.cboxFriday.TabIndex = 5;
+            this.cboxFriday.TabIndex = 7;
             this.cboxFriday.Text = "星期五";
             this.cboxFriday.UseVisualStyleBackColor = true;
             this.cboxFriday.CheckedChanged += new System.EventHandler(this.cboxFriday_CheckedChanged);
@@ -676,7 +755,7 @@
             // 
             // RunWeeklyTime
             // 
-            this.RunWeeklyTime.CustomFormat = "HH:mm";
+            this.RunWeeklyTime.CustomFormat = "HH:mm:ss";
             this.RunWeeklyTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.RunWeeklyTime.Location = new System.Drawing.Point(71, 12);
             this.RunWeeklyTime.Name = "RunWeeklyTime";
@@ -712,7 +791,7 @@
             // 
             // RunDayTwice1Time
             // 
-            this.RunDayTwice1Time.CustomFormat = "HH:mm";
+            this.RunDayTwice1Time.CustomFormat = "HH:mm:ss";
             this.RunDayTwice1Time.Enabled = false;
             this.RunDayTwice1Time.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.RunDayTwice1Time.Location = new System.Drawing.Point(100, 61);
@@ -724,7 +803,7 @@
             // 
             // RunDayOnesTime
             // 
-            this.RunDayOnesTime.CustomFormat = "HH:mm";
+            this.RunDayOnesTime.CustomFormat = "HH:mm:ss";
             this.RunDayOnesTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.RunDayOnesTime.Location = new System.Drawing.Point(100, 35);
             this.RunDayOnesTime.Name = "RunDayOnesTime";
@@ -788,7 +867,7 @@
             // 
             // RunDayTwice2Time
             // 
-            this.RunDayTwice2Time.CustomFormat = "HH:mm";
+            this.RunDayTwice2Time.CustomFormat = "HH:mm:ss";
             this.RunDayTwice2Time.Enabled = false;
             this.RunDayTwice2Time.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.RunDayTwice2Time.Location = new System.Drawing.Point(100, 89);
@@ -797,6 +876,37 @@
             this.RunDayTwice2Time.Size = new System.Drawing.Size(111, 20);
             this.RunDayTwice2Time.TabIndex = 7;
             this.RunDayTwice2Time.ValueChanged += new System.EventHandler(this.RunDayTwice2Time_ValueChanged);
+            // 
+            // PanelOne
+            // 
+            this.PanelOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelOne.Controls.Add(this.RunOnceTime);
+            this.PanelOne.Controls.Add(this.label6);
+            this.PanelOne.Location = new System.Drawing.Point(114, 58);
+            this.PanelOne.Name = "PanelOne";
+            this.PanelOne.Size = new System.Drawing.Size(348, 121);
+            this.PanelOne.TabIndex = 10;
+            this.PanelOne.Visible = false;
+            // 
+            // RunOnceTime
+            // 
+            this.RunOnceTime.CustomFormat = "yyyy-MM-dd ddd HH:mm:ss";
+            this.RunOnceTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.RunOnceTime.Location = new System.Drawing.Point(81, 9);
+            this.RunOnceTime.Name = "RunOnceTime";
+            this.RunOnceTime.ShowUpDown = true;
+            this.RunOnceTime.Size = new System.Drawing.Size(182, 20);
+            this.RunOnceTime.TabIndex = 1;
+            this.RunOnceTime.ValueChanged += new System.EventHandler(this.RunOnceTime_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(67, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "执行时间：";
             // 
             // imageList1
             // 
@@ -832,7 +942,7 @@
             this.cmdApply.Location = new System.Drawing.Point(428, 355);
             this.cmdApply.Name = "cmdApply";
             this.cmdApply.Size = new System.Drawing.Size(65, 24);
-            this.cmdApply.TabIndex = 8;
+            this.cmdApply.TabIndex = 4;
             this.cmdApply.Text = "应 用";
             this.cmdApply.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdApply.UseVisualStyleBackColor = true;
@@ -846,7 +956,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(349, 355);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(65, 24);
-            this.cmdCancel.TabIndex = 7;
+            this.cmdCancel.TabIndex = 3;
             this.cmdCancel.Text = "取 消";
             this.cmdCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdCancel.UseVisualStyleBackColor = true;
@@ -860,7 +970,7 @@
             this.cmdOK.Location = new System.Drawing.Point(271, 355);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(65, 24);
-            this.cmdOK.TabIndex = 6;
+            this.cmdOK.TabIndex = 2;
             this.cmdOK.Text = "确 定";
             this.cmdOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdOK.UseVisualStyleBackColor = true;
@@ -925,12 +1035,15 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.PanelOne.ResumeLayout(false);
-            this.PanelOne.PerformLayout();
+            this.panelCustom.ResumeLayout(false);
+            this.panelCustom.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udRunInterval)).EndInit();
             this.PanelWeekly.ResumeLayout(false);
             this.PanelWeekly.PerformLayout();
             this.PanelDay.ResumeLayout(false);
             this.PanelDay.PerformLayout();
+            this.PanelOne.ResumeLayout(false);
+            this.PanelOne.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1009,5 +1122,12 @@
         private System.Windows.Forms.TextBox txtPlanState;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Panel panelCustom;
+        private System.Windows.Forms.RadioButton raCustom;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.DateTimePicker FirstRunTime;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.NumericUpDown udRunInterval;
     }
 }

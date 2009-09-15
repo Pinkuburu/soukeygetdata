@@ -155,6 +155,20 @@ namespace SoukeyNetget.Plan
             set { m_RunWeekly = value; }
         }
 
+        private string m_FirstRunTime;
+        public string FirstRunTime
+        {
+            get { return m_FirstRunTime; }
+            set { m_FirstRunTime = value; }
+        }
+
+        private string m_RunInterval;
+        public string RunInterval
+        {
+            get { return m_RunInterval; }
+            set { m_RunInterval = value; }
+        }
+
         //此任务下次运行的时间，此内容动态计算，不进行保存。
         private string m_NextRunTime;
         public string NextRunTime
@@ -220,8 +234,43 @@ namespace SoukeyNetget.Plan
                     {
                         return GetWeekNextTime(CurWeek, this.RunWeekly, this.RunWeeklyTime);
                     }
-                    
-                    break;
+
+
+                case (int)cGlobalParas.RunTaskPlanType.Custom :
+                    string FirstDateTime = this.EnabledDateTime + " " + this.FirstRunTime;
+
+                    if (DateTime.Compare(DateTime.Parse(DateTime.Now.ToShortTimeString()), DateTime.Parse(FirstDateTime)) < 0)
+                        //
+                        return FirstDateTime;
+                    else
+                    {
+                        string NextTime=DateTime.Now.ToLongDateString () + " " + this.FirstRunTime ;
+
+                        if (DateTime.Compare(DateTime.Now, DateTime.Parse(NextTime)) > 0)
+                        {
+                             while (DateTime.Compare(DateTime.Now, DateTime.Parse(NextTime)) > 0)
+                            {
+
+                                NextTime = ((DateTime.Parse(NextTime)).AddHours(double.Parse(this.RunInterval))).ToString();
+                            }
+                        }
+                        else
+                        {
+                            //表示根据运行时间和间隔递减，但递减符合条件后，还需增加一个间隔，因为时间是向后运行
+                            //递减符合条件的时间是已经过去的时间
+                           while (DateTime.Compare(DateTime.Now, DateTime.Parse(NextTime)) < 0)
+                            {
+
+                                NextTime = ((DateTime.Parse(NextTime)).AddHours(-double.Parse(this.RunInterval))).ToString();
+                            }
+
+                            NextTime = ((DateTime.Parse(NextTime)).AddHours(double.Parse(this.RunInterval))).ToString();
+                        }
+
+                        return  NextTime ;
+                    }
+
+
                 default :
                     break;
             }
@@ -245,7 +294,19 @@ namespace SoukeyNetget.Plan
             return "";
         }
 
-       
+        /// <summary>
+        /// 此属性主要是用来控制任务自动执行，系统检测时会根据此时间进行判断，第一次肯定为空，如果为空
+        /// 则去除下一次运行的时间，然后再次检测得到可执行的任务，当任务压入执行列表，则调自动修改此属性
+        /// 为下次运行的时间
+        /// 不用下次运行时间作为判断是因为：运行时间精确到秒，所以一旦过了一秒，下次运行时间就会发生变化（动态维护）
+        /// 为检测间隔为半分钟，所以肯定会出问题。
+        /// </summary>
+        private string m_PlanRunTime;
+        public string PlanRunTime
+        {
+            get { return m_PlanRunTime; }
+            set { m_PlanRunTime = value; }
+        }
 
         #endregion
 

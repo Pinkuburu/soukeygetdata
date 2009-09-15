@@ -52,8 +52,8 @@ namespace SoukeyNetget.CustomControl
                                 base.SelectionColor = System.Drawing.Color.Black;
                                 break;
                             case (int)cGlobalParas.LogType.Warning:
-                                base.SelectionFont = new System.Drawing.Font(DefaultFont, System.Drawing.FontStyle.Regular);
-                                base.SelectionColor = System.Drawing.Color.Black;
+                                base.SelectionFont = new System.Drawing.Font(DefaultFont, System.Drawing.FontStyle.Bold);
+                                base.SelectionColor = System.Drawing.Color.Orange;
                                 break;
                             default:
                                 base.SelectionFont = new System.Drawing.Font(DefaultFont, System.Drawing.FontStyle.Regular);

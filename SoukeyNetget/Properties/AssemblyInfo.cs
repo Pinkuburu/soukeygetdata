@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Soukey采摘 网站数据采集软件 开源 免费 V1.1")]
+[assembly: AssemblyTitle("Soukey采摘 网站数据采集软件 开源 免费 V1.60")]
 [assembly: AssemblyDescription("Soukey网站数据采集软件 用于对网站的数据进行采集下载，或根据关键字进行数据采集")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("『一孑工作室』")]
@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      次版本 
 //      修订版本号号
 //
-[assembly: AssemblyVersion("01.10.00")]
-[assembly: AssemblyFileVersion("01.10.00")]
+[assembly: AssemblyVersion("01.6.00")]
+[assembly: AssemblyFileVersion("01.6.00")]

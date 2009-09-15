@@ -74,9 +74,30 @@ namespace SoukeyNetget.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap A10 {
+            get {
+                object obj = ResourceManager.GetObject("A10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap A30 {
             get {
                 object obj = ResourceManager.GetObject("A30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap A33 {
+            get {
+                object obj = ResourceManager.GetObject("A33", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap agree {
+            get {
+                object obj = ResourceManager.GetObject("agree", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -91,6 +112,13 @@ namespace SoukeyNetget.Properties {
         internal static System.Drawing.Bitmap Help {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap right {
+            get {
+                object obj = ResourceManager.GetObject("right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

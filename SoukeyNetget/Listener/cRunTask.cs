@@ -137,7 +137,6 @@ namespace SoukeyNetget.Listener
             catch (System.Exception ex)
             {
                 throw ex;
-                return;
             }
 
             SqlCommand com = new SqlCommand();

@@ -61,7 +61,6 @@ namespace SoukeyNetget.Listener
         }
     }
 
-
     //触发新增运行任务事件
     public class cAddRunTaskEventArgs : EventArgs
     {
@@ -80,6 +79,27 @@ namespace SoukeyNetget.Listener
             get { return m_RunTask; }
             set { m_RunTask = value; }
         }
+    }
+
+    //监听失败事件
+    public class cListenErrorEventArgs : EventArgs
+    {
+        public cListenErrorEventArgs()
+        {
+        }
+
+        public cListenErrorEventArgs(string Mess)
+        {
+            m_Message = Mess;
+        }
+
+        private string m_Message;
+        public string Message
+        {
+            get { return m_Message; }
+            set { m_Message = value; }
+        }
+
     }
 
 }

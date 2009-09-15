@@ -21,20 +21,18 @@ namespace SoukeyNetget.Listener
         private bool m_Isbusying;
         private System.Threading.Timer m_ListenEngine;
         private bool m_IsRunning = false;
-        private cCheckPlan m_checkPlan;
-        private cRunTask m_rTask;
+        private cCheckPlan m_checkPlan= new cCheckPlan();
+        private cRunTask m_rTask= new cRunTask();
         
 
         public cListenManage()
         {
             //初始化运行任务类
-            m_rTask = new cRunTask();
             m_rTask.RunSoukeyTaskEvent += this.onRunSoukeyTask;
 
             //初始化任务检测类
-            m_checkPlan = new cCheckPlan();
             m_checkPlan.AddRunTaskEvent += this.OnAddRunTask ;
-
+            m_checkPlan.ListenErrorEvent += this.OnListenError;
 
 
             timerInit();
@@ -65,8 +63,14 @@ namespace SoukeyNetget.Listener
             {
                 m_Isbusying = true;
 
-                m_checkPlan.CheckPlan();
-
+                try
+                {
+                    m_checkPlan.CheckPlan();
+                }
+                catch (System.Exception ex)
+                {
+                    e_ListenError(this, new cListenErrorEventArgs(ex.Message));
+                }
 
                 m_Isbusying = false;
             }
@@ -99,6 +103,11 @@ namespace SoukeyNetget.Listener
             cp = null;
         }
 
+        private void OnListenError(object sender, cListenErrorEventArgs e)
+        {
+            e_ListenError(this, new cListenErrorEventArgs(e.Message));
+        }
+
         private void onRunSoukeyTask(object sender, cRunTaskEventArgs e)
         {
             e_RunTask(this,new cRunTaskEventArgs (e.MessType ,e.RunName ,e.RunPara ));
@@ -118,6 +127,12 @@ namespace SoukeyNetget.Listener
             remove { lock (m_eventLock) { e_RunTask -= value; } }
         }
 
+        private event EventHandler<cListenErrorEventArgs> e_ListenError;
+        internal event EventHandler<cListenErrorEventArgs> ListenError
+        {
+            add { lock (m_eventLock) { e_ListenError += value; } }
+            remove { lock (m_eventLock) { e_ListenError -= value; } }
+        }
         #endregion
 
         #region IDisposable 成员

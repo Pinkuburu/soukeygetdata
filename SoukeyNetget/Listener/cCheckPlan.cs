@@ -25,17 +25,33 @@ namespace SoukeyNetget.Listener
         #region 构造和析构
         public cCheckPlan()
         {
-            m_runTasks = new List<cPlan>();
+            if (!File.Exists(Program.getPrjPath() + "tasks\\plan\\plan.xml"))
+            {
+                cPlans cs = new cPlans();
+                cs.NewIndexFile();
+                cs = null;
+            }
 
-            IniCheckPlan();
+            try
+            {
+                m_runTasks = new List<cPlan>();
 
-            //初始化任务文件监听类,，根据文件变化不断更新任务监控信息
-            m_FileMonitor = new cFileMonitor(Program.getPrjPath() + "tasks\\plan\\plan.xml");
-            m_FileMonitor.ReloadPlanFile += this.On_Reload;
+                IniCheckPlan();
 
-            //系统默认为启动文件监听
-            StartListenPlanFile();
+                //初始化任务文件监听类,，根据文件变化不断更新任务监控信息
+                m_FileMonitor = new cFileMonitor(Program.getPrjPath() + "tasks\\plan\\plan.xml");
+                m_FileMonitor.ReloadPlanFile += this.On_Reload;
 
+                //系统默认为启动文件监听
+                StartListenPlanFile();
+            }
+            catch (System.Exception ex)
+            {
+                if (e_ListenErrorEvent != null)
+                {
+                    e_ListenErrorEvent(this, new cListenErrorEventArgs(ex.Message));
+                }
+            }
         }
 
         ~cCheckPlan()
@@ -66,6 +82,8 @@ namespace SoukeyNetget.Listener
             if (m_IsReloading == false)
             {
                 cTaskPlan tPlan;
+
+                
  
                 for (int i = 0; i < m_runTasks.Count; i++)
                 {
@@ -79,28 +97,37 @@ namespace SoukeyNetget.Listener
                             continue;
                         }
 
-                        double douTime = TimeSpan.Parse(DateTime.Now.Subtract(DateTime.Parse(m_runTasks[i].NextRunTime)).ToString()).TotalSeconds;
-
-                        //表示下次运行的时间已经到了，但还未超过5分钟，如果超过5分钟，则默认系统没有执行此任务
-                        //是否再次执行由配置参数决定：IsOverRun
-                        if (douTime > 0 && douTime < 300)
+                        if (m_runTasks[i].PlanRunTime == "" || m_runTasks[i].PlanRunTime == null)
                         {
-                            //将任务压入任务队列
+                            m_runTasks[i].PlanRunTime = m_runTasks[i].NextRunTime;
+                        }
+                        else
+                        {
+                            double douTime = TimeSpan.Parse(DateTime.Now.Subtract(DateTime.Parse(m_runTasks[i].PlanRunTime)).ToString()).TotalSeconds;
 
-                            for (int j = 0; j < m_runTasks[i].RunTasks.Count; j++)
+                            //表示下次运行的时间已经到了，但还未超过5分钟，如果超过5分钟，则默认系统没有执行此任务
+                            //是否再次执行由配置参数决定：IsOverRun
+                            if (douTime > 0 && douTime < 300)
                             {
-                                //在此需要重新初始化执行任务的数据，主要是要增加计划的ID和计划的名称
-                                tPlan = new cTaskPlan();
+                                //将任务压入任务队列
 
-                                tPlan.PlanID = m_runTasks[i].PlanID.ToString ();
-                                tPlan.PlanName = m_runTasks[i].PlanName;
-                                tPlan.RunTaskType = m_runTasks[i].RunTasks[j].RunTaskType;
-                                tPlan.RunTaskName = m_runTasks[i].RunTasks[j].RunTaskName;
-                                tPlan.RunTaskPara = m_runTasks[i].RunTasks[j].RunTaskPara;
+                                for (int j = 0; j < m_runTasks[i].RunTasks.Count; j++)
+                                {
+                                    //在此需要重新初始化执行任务的数据，主要是要增加计划的ID和计划的名称
+                                    tPlan = new cTaskPlan();
 
-                                e_AddRunTaskEvent(this, new cAddRunTaskEventArgs(tPlan));
+                                    tPlan.PlanID = m_runTasks[i].PlanID.ToString();
+                                    tPlan.PlanName = m_runTasks[i].PlanName;
+                                    tPlan.RunTaskType = m_runTasks[i].RunTasks[j].RunTaskType;
+                                    tPlan.RunTaskName = m_runTasks[i].RunTasks[j].RunTaskName;
+                                    tPlan.RunTaskPara = m_runTasks[i].RunTasks[j].RunTaskPara;
+
+                                    e_AddRunTaskEvent(this, new cAddRunTaskEventArgs(tPlan));
+                                }
+
+                                m_runTasks[i].PlanRunTime = m_runTasks[i].NextRunTime;
+
                             }
-
                         }
                     }
                 }
@@ -110,63 +137,72 @@ namespace SoukeyNetget.Listener
         //加载计划,加载计划的时候需要对计划的状态进行维护
         private void IniCheckPlan()
         {
-            cXmlIO xmlConfig = new cXmlIO(Program.getPrjPath() + "tasks\\plan\\plan.xml");
-
-            DataView d = xmlConfig.GetData("descendant::Plans");
-
-            if (d == null)
+            try
             {
-                return;
-            }
+                cXmlIO xmlConfig = new cXmlIO(Program.getPrjPath() + "tasks\\plan\\plan.xml");
 
-            cPlan p;
+                DataView d = xmlConfig.GetData("descendant::Plans");
 
-            for (int i = 0; i < d.Count; i++)
-            {
-                p = new cPlan();
-
-                if (int.Parse (d[i].Row["PlanState"].ToString()) == (int)cGlobalParas.PlanState.Enabled)
+                if (d == null)
                 {
-                    p.PlanID = Int64.Parse(d[i].Row["ID"].ToString());
-                    p.PlanName = d[i].Row["PlanName"].ToString();
-                    p.PlanState = int.Parse(d[i].Row["PlanState"].ToString());
-                    p.IsOverRun = d[i].Row["IsOverRun"].ToString() == "True" ? true : false;
-                    p.IsDisabled = d[i].Row["IsDisabled"].ToString() == "True" ? true : false;
-                    p.DisabledType = int.Parse(d[i].Row["DisabledType"].ToString());
-                    p.DisabledTime = int.Parse(d[i].Row["DisabledTime"].ToString());
-                    p.DisabledDateTime = DateTime.Parse(d[i].Row["DisabledDateTime"].ToString());
-                    p.RunTaskPlanType = int.Parse(d[i].Row["RunTaskPlanType"].ToString());
-                    p.EnabledDateTime = d[i].Row["EnabledDateTime"].ToString();
-                    p.RunOnesTime = d[i].Row["RunOnesTime"].ToString();
-                    p.RunDayTime = d[i].Row["RunDayTime"].ToString();
-                    p.RunAMTime = d[i].Row["RunAMTime"].ToString();
-                    p.RunPMTime = d[i].Row["RunPMTime"].ToString();
-                    p.RunWeeklyTime = d[i].Row["RunWeeklyTime"].ToString();
-                    p.RunWeekly = d[i].Row["RunWeekly"].ToString();
-                    p.RunTimeCount = d[i].Row["RunTimeCount"].ToString();
-
-                    cTaskPlan tp;
-                    DataView t = d[i].CreateChildView("Plan_Tasks")[0].CreateChildView("Tasks_Task");
-
-                    for (int j = 0; j < t.Count; j++)
-                    {
-                        tp = new cTaskPlan();
-                        tp.RunTaskType = int.Parse(t[j].Row["RunTaskType"].ToString());
-                        tp.RunTaskName = t[j].Row["RunTaskName"].ToString();
-                        tp.RunTaskPara = t[j].Row["RunTaskPara"].ToString();
-                        p.RunTasks.Add(tp);
-                    }
-
-                    m_runTasks.Add(p);
+                    return;
                 }
+
+                cPlan p;
+
+                for (int i = 0; i < d.Count; i++)
+                {
+                    p = new cPlan();
+
+                    if (int.Parse(d[i].Row["PlanState"].ToString()) == (int)cGlobalParas.PlanState.Enabled)
+                    {
+                        p.PlanID = Int64.Parse(d[i].Row["ID"].ToString());
+                        p.PlanName = d[i].Row["PlanName"].ToString();
+                        p.PlanState = int.Parse(d[i].Row["PlanState"].ToString());
+                        p.IsOverRun = d[i].Row["IsOverRun"].ToString() == "True" ? true : false;
+                        p.IsDisabled = d[i].Row["IsDisabled"].ToString() == "True" ? true : false;
+                        p.DisabledType = int.Parse(d[i].Row["DisabledType"].ToString());
+                        p.DisabledTime = int.Parse(d[i].Row["DisabledTime"].ToString());
+                        p.DisabledDateTime = DateTime.Parse(d[i].Row["DisabledDateTime"].ToString());
+                        p.RunTaskPlanType = int.Parse(d[i].Row["RunTaskPlanType"].ToString());
+                        p.EnabledDateTime = d[i].Row["EnabledDateTime"].ToString();
+                        p.RunOnesTime = d[i].Row["RunOnesTime"].ToString();
+                        p.RunDayTime = d[i].Row["RunDayTime"].ToString();
+                        p.RunAMTime = d[i].Row["RunAMTime"].ToString();
+                        p.RunPMTime = d[i].Row["RunPMTime"].ToString();
+                        p.RunWeeklyTime = d[i].Row["RunWeeklyTime"].ToString();
+                        p.RunWeekly = d[i].Row["RunWeekly"].ToString();
+                        p.RunTimeCount = d[i].Row["RunTimeCount"].ToString();
+                        p.FirstRunTime = d[i].Row["FirstRunTime"].ToString();
+                        p.RunInterval = d[i].Row["RunInterval"].ToString();
+
+                        cTaskPlan tp;
+                        DataView t = d[i].CreateChildView("Plan_Tasks")[0].CreateChildView("Tasks_Task");
+
+                        for (int j = 0; j < t.Count; j++)
+                        {
+                            tp = new cTaskPlan();
+                            tp.RunTaskType = int.Parse(t[j].Row["RunTaskType"].ToString());
+                            tp.RunTaskName = t[j].Row["RunTaskName"].ToString();
+                            tp.RunTaskPara = t[j].Row["RunTaskPara"].ToString();
+                            p.RunTasks.Add(tp);
+                        }
+
+                        m_runTasks.Add(p);
+                    }
+                }
+
+                p = null;
+
+                xmlConfig = null;
+
+                //自动维护计划状态
+                AutoState();
             }
-
-            p = null;
-
-            xmlConfig = null;
-
-            //自动维护计划状态
-            AutoState();
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
         }
 
         //重新加载任务
@@ -218,6 +254,13 @@ namespace SoukeyNetget.Listener
         {
             add { lock (m_eventLock) { e_AddRunTaskEvent += value; } }
             remove { lock (m_eventLock) { e_AddRunTaskEvent -= value; } }
+        }
+
+        private event EventHandler<cListenErrorEventArgs> e_ListenErrorEvent;
+        internal event EventHandler<cListenErrorEventArgs> ListenErrorEvent
+        {
+            add { lock (m_eventLock) { e_ListenErrorEvent += value; } }
+            remove { lock (m_eventLock) { e_ListenErrorEvent -= value; } }
         }
 
         #endregion

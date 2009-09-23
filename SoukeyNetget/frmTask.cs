@@ -12,6 +12,8 @@ using System.IO;
 using MySql.Data.MySqlClient;
 using System.Web;
 using SoukeyNetget.Task ;
+using System.Resources;
+using System.Reflection;
 
 ///功能：采集任务信息处理  
 ///完成时间：2009-3-2
@@ -30,6 +32,9 @@ namespace SoukeyNetget
 
         public delegate void RIsShowWizard(bool IsShowWizard);
         public RIsShowWizard RShowWizard;
+
+        //定义一个访问资源文件的变量
+        private ResourceManager rm;
 
         //此类别可处理的任务版本号，注意从1.3开始，任务处理不再向前兼容，需升级后方可操作
         public Single SupportTaskVersion
@@ -123,7 +128,7 @@ namespace SoukeyNetget
             if (this.SupportTaskVersion !=t.TaskVersion)
             {
                 t = null;
-                MessageBox.Show("您加载的任务与当前系统支持的任务版本不同，请升级任务版本后再进行加载", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString("Info1"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -323,71 +328,79 @@ namespace SoukeyNetget
         {
             //初始化页面加载数据
 
-            this.TaskType.Items.Add("根据网址采集网页数据");
-            this.TaskType.Items.Add("采集ajax网页数据");
+            //初始化资源文件的参数
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
+            //根据当前的区域进行显示信息的加载
+            ResourceManager rmPara = new ResourceManager("SoukeyNetget.Resources.globalPara", Assembly.GetExecutingAssembly());
+
+            this.TaskType.Items.Add(rmPara.GetString("TaskType1"));
+            this.TaskType.Items.Add(rmPara.GetString("TaskType4"));
             this.TaskType.SelectedIndex = 0;
 
-            this.comRunType.Items.Add("采集并发布数据");
-            this.comRunType.Items.Add("仅采集数据");
+            this.comRunType.Items.Add(rmPara.GetString("TaskRunType2"));
+            this.comRunType.Items.Add(rmPara.GetString("TaskRunType1"));
             this.comRunType.SelectedIndex = 1;
 
-            this.comLimit.Items.Add("不做任意格式的限制");
-            this.comLimit.Items.Add("匹配时去掉网页符号");
-            this.comLimit.Items.Add("只匹配中文");
-            this.comLimit.Items.Add("只匹配双字节字符");
-            this.comLimit.Items.Add("只匹配数字");
-            this.comLimit.Items.Add("只匹配字母数字及常用字符");
-            this.comLimit.Items.Add("自定义正则匹配表达式");
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign1"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign2"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign3"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign4"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign5"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign6"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign7"));
             this.comLimit.SelectedIndex = 0;
 
-            this.comExportLimit.Items.Add("不做输出控制");
-            this.comExportLimit.Items.Add("输出时去掉网页符号");
-            this.comExportLimit.Items.Add("输出时附加前缀");
-            this.comExportLimit.Items.Add("输出时附加后缀");
-            this.comExportLimit.Items.Add("左起去掉字符");
-            this.comExportLimit.Items.Add("右起去掉字符");
-            this.comExportLimit.Items.Add("替换其中符合条件的字符");
-            this.comExportLimit.Items.Add("去掉字符串首尾空格");
-            this.comExportLimit.Items.Add("输出时采用正则表达式进行替换");
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit1"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit2"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit3"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit4"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit5"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit6"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit7"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit8"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit9"));
             this.comExportLimit.SelectedIndex = 0;
 
-            this.comWebCode.Items.Add("自动");
-            this.comWebCode.Items.Add("gb2312");
-            this.comWebCode.Items.Add("UTF-8");
-            this.comWebCode.Items.Add("gbk");
-            this.comWebCode.Items.Add("big5");
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode2"));
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode3"));
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode4"));
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode5"));
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode6"));
 
-            this.comExportUrlCode.Items.Add("不编码");
-            this.comExportUrlCode.Items.Add("gb2312");
-            this.comExportUrlCode.Items.Add("UTF-8");
-            this.comExportUrlCode.Items.Add("gbk");
-            this.comExportUrlCode.Items.Add("big5");
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode1"));
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode3"));
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode4"));
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode5"));
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode6"));
             this.comExportUrlCode.SelectedIndex = 0;
 
             this.comWebCode.SelectedIndex = 0;
 
-            this.comUrlEncode.Items.Add("UTF-8");
-            this.comUrlEncode.Items.Add("gb2312");
-            this.comUrlEncode.Items.Add("gbk");
-            this.comUrlEncode.Items.Add("big5");
+            this.comUrlEncode.Items.Add(rmPara.GetString("WebCode3"));
+            this.comUrlEncode.Items.Add(rmPara.GetString("WebCode4"));
+            this.comUrlEncode.Items.Add(rmPara.GetString("WebCode5"));
+            this.comUrlEncode.Items.Add(rmPara.GetString("WebCode6"));
 
-            this.comGetType.Items.Add("文本");
-            this.comGetType.Items.Add("图片");
-            this.comGetType.Items.Add("Flash");
-            this.comGetType.Items.Add("文件");
-            this.comGetType.SelectedIndex =0;
+            this.comGetType.Items.Add(rmPara.GetString("GDataType4"));
+            this.comGetType.Items.Add(rmPara.GetString("GDataType3"));
+            this.comGetType.Items.Add(rmPara.GetString("GDataType2"));
+            this.comGetType.Items.Add(rmPara.GetString("GDataType1"));
+            this.comGetType.SelectedIndex = 0;
 
-            this.txtSavePath.Text =Program.getPrjPath() + "data";
+            rmPara = null;
+
+            this.txtSavePath.Text = Program.getPrjPath() + "data";
 
             this.txtGetTitleName.Items.Add("链接地址");
             this.txtGetTitleName.Items.Add("标题");
             this.txtGetTitleName.Items.Add("内容");
             this.txtGetTitleName.Items.Add("图片");
 
-            this.labLogSavePath.Text = "日志存储在：" + Program.getPrjPath() + "Log";
+            this.labLogSavePath.Text = rm.GetString("Info2") + "：" + Program.getPrjPath() + "Log";
+
 
             //初始化页面加载时各个控件的状态
-
 
             //初始化任务分类
             //开始初始化树形结构,取xml中的数据,读取任务分类
@@ -403,6 +416,8 @@ namespace SoukeyNetget
             xmlTClass = null;
 
             this.comTaskClass.SelectedIndex = 0;
+
+            
         }
 
         #endregion
@@ -437,7 +452,7 @@ namespace SoukeyNetget
 
             if (this.txtWebLink.Text.ToString() == null || this.txtWebLink.Text.Trim().ToString() == "" || this.txtWebLink.Text .Trim().ToString ()=="http://")
             {
-                this.errorProvider1.SetError(this.txtWebLink, "请输入网址信息");
+                this.errorProvider1.SetError(this.txtWebLink, rm.GetString("Error1"));
                 this.txtWebLink.Focus();
                 return;
             }
@@ -445,7 +460,7 @@ namespace SoukeyNetget
             {
                 if (!Regex.IsMatch (this.txtWebLink.Text.Trim().ToString (),"http://",RegexOptions.IgnoreCase))
                 {
-                    this.errorProvider1.SetError(this.txtWebLink, "您输入的网址不合法，请检查");
+                    this.errorProvider1.SetError(this.txtWebLink, rm.GetString("Error2"));
                     this.txtWebLink.Focus();
                     return;
                 }
@@ -866,7 +881,7 @@ namespace SoukeyNetget
 
             if (this.listWeblink.Items.Count == 0 || this.listWebGetFlag.Items.Count == 0)
             {
-                if (MessageBox.Show("在此任务没有定义需要采集的网址或者采集网址的规则，是否继续保存任务？", "soukey采摘 系统询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show(rm.GetString("Quaere1"), rm.GetString ("MessageboxQuaere"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     return;
             }
 
@@ -896,7 +911,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("任务保存时失败，出错原因是：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString ("Error3") + ex.Message, rm.GetString ("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -912,7 +927,7 @@ namespace SoukeyNetget
 
             if (this.tTask.Text.ToString () == null || this.tTask.Text.Trim().ToString () == "")
             {
-                this.errorProvider1.SetError(this.tTask, "任务名称不能为空!");
+                this.errorProvider1.SetError(this.tTask, rm.GetString ("Error22"));
                 return false ;
             }
 
@@ -1048,18 +1063,6 @@ namespace SoukeyNetget
 
             SetTooltip();
 
-            //初始化导航规则的datagrid的表头
-            DataGridViewTextBoxColumn nRuleLevel = new DataGridViewTextBoxColumn();
-            nRuleLevel.HeaderText = "级别";
-            nRuleLevel.Width = 40;
-            this.dataNRule.Columns.Insert(0, nRuleLevel);
-
-            DataGridViewTextBoxColumn nRule = new DataGridViewTextBoxColumn();
-            nRule.HeaderText = "导航规则";
-            nRule.Width = 240;
-            this.dataNRule.Columns.Insert(1, nRule);
-
-
             switch (this.FormState)
             {
                 case cGlobalParas.FormState.New :
@@ -1079,6 +1082,20 @@ namespace SoukeyNetget
                 default :
                     break ;
             }
+
+            //ResourceManager rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+            ////初始化导航规则的datagrid的表头
+            //DataGridViewTextBoxColumn nRuleLevel = new DataGridViewTextBoxColumn();
+            //nRuleLevel.HeaderText = rm.GetString("NaviLevel");
+            //nRuleLevel.Width = 40;
+            //this.dataNRule.Columns.Insert(0, nRuleLevel);
+
+            //DataGridViewTextBoxColumn nRule = new DataGridViewTextBoxColumn();
+            //nRule.HeaderText = rm.GetString("NaviRule");
+            //nRule.Width = 240;
+            //this.dataNRule.Columns.Insert(1, nRule);
+
+            //rm = null;
 
             this.IsSave.Text = "false";
         }
@@ -1114,24 +1131,25 @@ namespace SoukeyNetget
             this.cmdApply.Enabled = false;
         }
 
-      
+        //定义一个代理用于修改任务的名称
+        private delegate DataTable delegateGData(string Url,List<cWebpageCutFlag> gCutFlags, cGlobalParas.WebCode webCode, string cookie, string startPos, string endPos, string sPath, bool IsAjax);
         private void GatherData()
         {
 
-
-            if (this.listWeblink.Items.Count == 0 )
+            if (this.listWeblink.Items.Count == 0)
             {
-                MessageBox.Show("在此任务没有定义需要采集的网址，无法进行采集测试工作！", "soukey采摘 系统信息", MessageBoxButtons.OK , MessageBoxIcon.Information );
+                MessageBox.Show(rm.GetString ("Info3"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.tabControl1.SelectedTab = this.tabControl1.TabPages[1];
-                return;
+                return ;
             }
 
             if (this.listWebGetFlag.Items.Count == 0)
             {
-                MessageBox.Show("在此任务没有定义需要采集数据的采集规则，无法进行采集测试工作！", "soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString ("Info4"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.tabControl1.SelectedTab = this.tabControl1.TabPages[2];
-                return;
+                return ;
             }
+
 
             //测试采集，根据用户定义的内容测试采集
             //验证数据是否正确
@@ -1142,54 +1160,89 @@ namespace SoukeyNetget
             {
                 GetDemoUrl();
             }
-                       
+
             this.tabControl1.SelectedTab = this.tabControl1.TabPages[4];
-            this.labWaiting.Visible = true;
 
             Application.DoEvents();
 
-            Gather.cGatherWeb gData = new Gather.cGatherWeb();
+            
 
             //增加采集的标志
-            Task.cWebpageCutFlag c;
+            cWebpageCutFlag c;
+            List<cWebpageCutFlag> gFlag = new List<cWebpageCutFlag>();
 
             for (int i = 0; i < this.listWebGetFlag.Items.Count; i++)
             {
                 c = new Task.cWebpageCutFlag();
                 c.id = i;
                 c.Title = this.listWebGetFlag.Items[i].Text;
-                c.DataType = cGlobalParas.ConvertID ( this.listWebGetFlag.Items[i].SubItems[1].Text);
+                c.DataType = cGlobalParas.ConvertID(this.listWebGetFlag.Items[i].SubItems[1].Text);
                 c.StartPos = this.listWebGetFlag.Items[i].SubItems[2].Text;
                 c.EndPos = this.listWebGetFlag.Items[i].SubItems[3].Text;
-                c.LimitSign =cGlobalParas.ConvertID ( this.listWebGetFlag.Items[i].SubItems[4].Text);
+                c.LimitSign = cGlobalParas.ConvertID(this.listWebGetFlag.Items[i].SubItems[4].Text);
                 c.RegionExpression = this.listWebGetFlag.Items[i].SubItems[5].Text;
                 c.ExportLimit = cGlobalParas.ConvertID(this.listWebGetFlag.Items[i].SubItems[6].Text);
                 c.ExportExpression = this.listWebGetFlag.Items[i].SubItems[7].Text;
-                gData.CutFlag.Add(c);
+                gFlag.Add(c);
                 c = null;
             }
 
+            string tmpSavePath = this.txtSavePath.Text.ToString() + "\\" + this.tTask.Text.ToString() + "_file";
+
+            bool IsAjax = false;
+
+            if (cGlobalParas.ConvertID(this.TaskType.SelectedItem.ToString()) == (int)cGlobalParas.TaskType.AjaxHtmlByUrl)
+                IsAjax = true;
+
+            //定义一个修改分类名称的委托
+            delegateGData sd = new delegateGData(this.GatherTestData);
+
+            //开始调用函数,可以带参数 
+            IAsyncResult ir = sd.BeginInvoke(this.txtWeblinkDemo.Text.ToString(),gFlag, (cGlobalParas.WebCode)cGlobalParas.ConvertID(this.comWebCode.SelectedItem.ToString()), this.txtCookie.Text.ToString(), this.txtStartPos.Text.ToString(), this.txtEndPos.Text.ToString(), tmpSavePath, IsAjax,null, null);
+
+            //显示等待的窗口 
+            frmWaiting fWait = new frmWaiting(rm.GetString ("Info5"));
+            fWait.Text = rm.GetString("Info5");
+            fWait.Show(this);
+
+            //刷新这个等待的窗口 
+            Application.DoEvents();
+
+            //循环检测是否完成了异步的操作 
+            while (true)
+            {
+                if (ir.IsCompleted)
+                {
+                    //完成了操作则关闭窗口
+                    fWait.Close();
+                    break;
+                }
+
+            }
+
+            //取函数的返回值 
+            DataTable retValue = sd.EndInvoke(ir);
+
+            //绑定到显示的DataGrid中
+            this.dataTestGather.DataSource = retValue;
+        }
+      
+        private DataTable GatherTestData(string Url,List<cWebpageCutFlag> gCutFlags, cGlobalParas.WebCode webCode, string cookie, string startPos, string endPos, string sPath, bool IsAjax)
+        {
+            Gather.cGatherWeb gData = new Gather.cGatherWeb();
+            gData.CutFlag = gCutFlags;
+            DataTable dGather = new DataTable();
             try
             {
-                string tmpSavePath = this.txtSavePath.Text.ToString() + "\\" + this.tTask.Text.ToString() + "_file";
-
-                bool IsAjax = false;
-
-                if (cGlobalParas.ConvertID(this.TaskType.SelectedItem.ToString()) == (int)cGlobalParas.TaskType.AjaxHtmlByUrl)
-                    IsAjax = true;
-
-                DataTable dGather = gData.GetGatherData(this.txtWeblinkDemo.Text.ToString(), (cGlobalParas.WebCode)cGlobalParas.ConvertID(this.comWebCode.SelectedItem.ToString()), this.txtCookie.Text.ToString(), this.txtStartPos.Text.ToString(), this.txtEndPos.Text.ToString(), tmpSavePath,IsAjax );
-
-                //绑定到显示的DataGrid中
-                this.dataTestGather.DataSource = dGather;
-
+                dGather = gData.GetGatherData(Url, webCode ,cookie ,startPos ,endPos , sPath, IsAjax);
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("采集发生错误，错误信息：" + ex.Message, "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString ("Error4") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
-            
-            this.labWaiting.Visible = false;
+
+            return dGather;
 
         }
 
@@ -1216,7 +1269,7 @@ namespace SoukeyNetget
 
         private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (e.ClickedItem.Text == "手工捕获POST数据")
+            if (e.ClickedItem.Name == "rmenuGetPostData")
             {
                 frmWeblink wftm = new frmWeblink();
                 wftm.getFlag = 1;
@@ -1256,7 +1309,7 @@ namespace SoukeyNetget
         {
             if (this.dataNRule.Rows.Count ==0)
             {
-                MessageBox.Show("导航规则为空，无法测试！", "soukey提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString ("Error5"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -1277,7 +1330,7 @@ namespace SoukeyNetget
 
             if (!Regex.IsMatch(Url, @"(http|https|ftp)+://[^\s]*"))
             {
-                MessageBox.Show("网址无法打开，可能出错，请检查网址及导航规则。", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString ("Error6"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return ;
             }
 
@@ -1346,7 +1399,7 @@ namespace SoukeyNetget
         {
             if (this.txtWeblinkDemo.Text.Trim().ToString() == "")
             {
-                MessageBox.Show("请首先获取示例网址，再进行源代码查看！", "Soukey提示", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                MessageBox.Show(rm.GetString ("Info6"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Question);
                 this.errorProvider1.Clear();
                 this.errorProvider1.SetError(this.txtWeblinkDemo, "请输入网址信息");
 
@@ -1382,7 +1435,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("获取网页源代码出错，错误信息为：" + ex.Message, "Soukey采摘 错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString ("Error7") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1489,15 +1542,15 @@ namespace SoukeyNetget
         {
             this.contextMenuStrip1.Items.Clear();
 
-            this.contextMenuStrip1.Items.Add("递增变量{Num:1,100,1}");
-            this.contextMenuStrip1.Items.Add("递减变量{Num:100,1,-1}");
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString ("rmenu1") + "{Num:1,100,1}", null, null, "rmenuAddNum"));
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString ("rmenu2") + "{Num:100,1,-1}",null,null,"rmenuDegreNum"));
             this.contextMenuStrip1.Items.Add(new ToolStripSeparator());
-            this.contextMenuStrip1.Items.Add("字母递增{Letter:a,z}");
-            this.contextMenuStrip1.Items.Add("字母递减{Letter:z,a}");
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString ("rmenu3") + "{Letter:a,z}",null,null ,"rmenuAddLetter"));
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString ("rmenu4") + "{Letter:z,a}",null ,null ,"rmenuDegreLetter"));
             this.contextMenuStrip1.Items.Add(new ToolStripSeparator());
-            this.contextMenuStrip1.Items.Add("POST前缀<POST>");
-            this.contextMenuStrip1.Items.Add("POST后缀</POST>");
-            this.contextMenuStrip1.Items.Add("手工捕获POST数据");
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString ("rmenu5") + "<POST>",null,null,"rmenuPostPrefix"));
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString ("rmenu6") + "</POST>", null, null, "rmenuPostSuffix"));
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString ("rmenu7"), null, null, "rmenuGetPostData"));
             this.contextMenuStrip1.Items.Add(new ToolStripSeparator());
 
             //初始化字典菜单的项目
@@ -1507,7 +1560,7 @@ namespace SoukeyNetget
 
             for (int i = 0; i < count; i++)
             {
-                this.contextMenuStrip1.Items.Add("字典:{Dict:" + d.GetDictClassName(i).ToString() + "}");
+                this.contextMenuStrip1.Items.Add(rm.GetString ("rmenu8") + ":{Dict:" + d.GetDictClassName(i).ToString() + "}");
             }
 
         }
@@ -1518,11 +1571,13 @@ namespace SoukeyNetget
             {
                 this.comUrlEncode.Enabled = true;
                 this.comUrlEncode.SelectedIndex = 0;
+                this.cmdUrlEncoding.Enabled = true;
             }
             else
             {
                 this.comUrlEncode.Enabled = false;
                 this.comUrlEncode.SelectedIndex= - 1;
+                this.cmdUrlEncoding.Enabled = false;
             }
 
             this.IsSave.Text = "true";
@@ -1612,14 +1667,14 @@ namespace SoukeyNetget
 
             if (this.txtWebLink.Text.ToString() == null || this.txtWebLink.Text.Trim().ToString() == "")
             {
-                this.errorProvider1.SetError(this.txtWebLink, "请输入网址信息");
+                this.errorProvider1.SetError(this.txtWebLink, rm.GetString("Error1"));
                 return;
             }
             else
             {
                 if (!Regex.IsMatch(this.txtWebLink.Text.Trim().ToString(), "http://", RegexOptions.IgnoreCase))
                 {
-                    this.errorProvider1.SetError(this.txtWebLink, "您输入的网址不合法，请检查");
+                    this.errorProvider1.SetError(this.txtWebLink, rm.GetString("Error2"));
                     return;
                 }
             }
@@ -1735,27 +1790,28 @@ namespace SoukeyNetget
 
             if (this.txtGetTitleName.Text.Trim().ToString() == "")
             {
-                this.errorProvider1.SetError(this.txtGetTitleName, "请输入采集数据的名称");
+                this.errorProvider1.SetError(this.txtGetTitleName, rm.GetString("Error8"));
                 return;
             }
 
             if (this.txtGetStart.Text.Trim().ToString() == "")
             {
-                this.errorProvider1.SetError(this.txtGetStart, "请输入采集数据的起始标志");
+                this.errorProvider1.SetError(this.txtGetStart, rm.GetString ("Error9"));
                 return;
 
             }
 
             if (this.txtGetEnd.Text.Trim().ToString() == "")
             {
-                this.errorProvider1.SetError(this.txtGetEnd, "请输入采集数据的结束标志");
+                this.errorProvider1.SetError(this.txtGetEnd, rm.GetString("Error10"));
                 return;
             }
 
             if (this.comLimit.SelectedIndex == -1)
-            {
                 this.comLimit.SelectedIndex = 0;
-            }
+
+            if (this.comExportLimit.SelectedIndex == -1)
+                this.comExportLimit.SelectedIndex = 0;
 
             //判断名称是否已经重复
             for (int i = 0; i < this.listWebGetFlag.Items.Count; i++)
@@ -1763,7 +1819,7 @@ namespace SoukeyNetget
                 if (this.listWebGetFlag.Items[i].Text == this.txtGetTitleName.Text)
                 {
                     this.errorProvider1.Clear();
-                    this.errorProvider1.SetError(this.txtGetEnd, "采集的名称不能重复，请重新命名");
+                    this.errorProvider1.SetError(this.txtGetEnd, rm.GetString("Error11"));
                     return;
                 }
             }
@@ -1802,20 +1858,20 @@ namespace SoukeyNetget
 
             if (this.txtGetTitleName.Text.Trim().ToString() == "")
             {
-                this.errorProvider1.SetError(this.txtGetTitleName, "请输入采集数据的名称");
+                this.errorProvider1.SetError(this.txtGetTitleName, rm.GetString("Error8"));
                 return;
             }
 
             if (this.txtGetStart.Text.Trim().ToString() == "")
             {
-                this.errorProvider1.SetError(this.txtGetStart, "请输入采集数据的起始标志");
+                this.errorProvider1.SetError(this.txtGetStart, rm.GetString("Error9"));
                 return;
 
             }
 
             if (this.txtGetEnd.Text.Trim().ToString() == "")
             {
-                this.errorProvider1.SetError(this.txtGetEnd, "请输入采集数据的结束标志");
+                this.errorProvider1.SetError(this.txtGetEnd, rm.GetString("Error10"));
                 return;
             }
 
@@ -1865,7 +1921,7 @@ namespace SoukeyNetget
 
         private void cmdOpenFolder_Click(object sender, EventArgs e)
         {
-            this.folderBrowserDialog1.Description = "请选择采集任务数据存储的路径：" ;
+            this.folderBrowserDialog1.Description = rm.GetString ("Info7");
             this.folderBrowserDialog1.SelectedPath = Program.getPrjPath();
             if (this.folderBrowserDialog1.ShowDialog()==DialogResult.OK)
             {
@@ -1910,10 +1966,11 @@ namespace SoukeyNetget
 
             if (this.IsSave.Text == "true")
             {
-                if (MessageBox.Show("任务信息已经发生了修改，不保存退出？", "Soukey采摘 信息提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show(rm.GetString ("Quaere2"), rm.GetString("MessageboxQuaere"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     e.Cancel = true;
                     return;
             }
+            
         }
 
         #region 设置修改保存标记
@@ -2013,37 +2070,37 @@ namespace SoukeyNetget
             switch (this.comExportLimit.SelectedIndex)
             {
                 case 0:
-                    this.label37.Text = "加工条件：";
+                    this.label37.Text = rm.GetString ("Label1");
                     this.txtExpression.Text = "";
                     this.txtExpression.Enabled = false;
                     break;
                 case 1:
-                    this.label37.Text = "加工条件：";
+                    this.label37.Text = rm.GetString("Label1");
                     this.txtExpression.Text = "";
                     this.txtExpression.Enabled = false;
                     break;
                 case 2:
-                    this.label37.Text = "前缀：";
+                    this.label37.Text = rm.GetString("Label2");
                     this.txtExpression.Text = "";
                     this.txtExpression.Enabled = true;
                     break;
                 case 3:
-                    this.label37.Text = "后缀：";
+                    this.label37.Text = rm.GetString("Label3");
                     this.txtExpression.Text = "";
                     this.txtExpression.Enabled = true;
                     break;
                 case 4:
-                    this.label37.Text = "截取字符数：";
+                    this.label37.Text = rm.GetString("Label4");
                     this.txtExpression.Text = "0";
                     this.txtExpression.Enabled = true;
                     break;
                 case 5:
-                    this.label37.Text = "截取字符数：";
+                    this.label37.Text = rm.GetString("Label4");
                     this.txtExpression.Text = "0";
                     this.txtExpression.Enabled = true;
                     break;
                 case 6:
-                    this.label37.Text = "表达式：";
+                    this.label37.Text = rm.GetString("Label5");
                     this.txtExpression.Text = "\"\",\"\"";
                     this.txtExpression.Enabled = true;
                     break;
@@ -2051,7 +2108,7 @@ namespace SoukeyNetget
                     this.txtExpression.Enabled = false;
                     break;
                 case 8:
-                    this.label37.Text = "正则表达式：";
+                    this.label37.Text = rm.GetString("Label6");
                     this.txtExpression.Text = "\"\",\"\"";
                     this.txtExpression.Enabled = true;
                     break;
@@ -2237,14 +2294,14 @@ namespace SoukeyNetget
         {
             if (this.raExportTxt.Checked == true)
             {
-                this.saveFileDialog1.Title = "请指定导出的文本文件名";
+                this.saveFileDialog1.Title = rm.GetString ("Info12");
 
                 saveFileDialog1.InitialDirectory = Program.getPrjPath();
                 saveFileDialog1.Filter = "txt Files(*.txt)|*.txt|All Files(*.*)|*.*";
             }
             else if (this.raExportExcel.Checked == true)
             {
-                this.saveFileDialog1.Title = "请指定导出的Excel文件名";
+                this.saveFileDialog1.Title = rm.GetString("Info13");
 
                 saveFileDialog1.InitialDirectory = Program.getPrjPath();
                 saveFileDialog1.Filter = "Excel Files(*.xls)|*.xls|All Files(*.*)|*.*";
@@ -2317,7 +2374,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString ("Error12") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2348,7 +2405,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Error12") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2376,7 +2433,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Error12") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -2489,7 +2546,7 @@ namespace SoukeyNetget
 
             for (int j = 0; j < this.listWebGetFlag.Items.Count; j++)
             {
-                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本")
+                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本" || this.listWebGetFlag.Items[j].SubItems[1].Text == "Text")
                     strColumnsValue += "\"{" + this.listWebGetFlag.Items[j].Text + "}\",";
 
             }
@@ -2511,7 +2568,7 @@ namespace SoukeyNetget
 
             for (int j = 0; j < this.listWebGetFlag.Items.Count; j++)
             {
-                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本")
+                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本" || this.listWebGetFlag.Items[j].SubItems[1].Text == "Text")
                     strColumns += this.listWebGetFlag.Items[j].Text + ",";
                     strColumnsValue += "\"{" + this.listWebGetFlag.Items[j].Text + "}\",";
 
@@ -2533,9 +2590,9 @@ namespace SoukeyNetget
         {
            
             this.rmenuGetFormat.Items.Clear();
-            this.rmenuGetFormat.Items.Add("POST前缀<POST>");
-            this.rmenuGetFormat.Items.Add("POST后缀</POST>");
-            this.rmenuGetFormat.Items.Add("手工捕获POST数据");
+            this.rmenuGetFormat.Items.Add(new ToolStripMenuItem ( rm.GetString("rmenu5") + "<POST>",null,null,"rmenuPost1"));
+            this.rmenuGetFormat.Items.Add(new ToolStripMenuItem (rm.GetString("rmenu6") + "</POST>",null,null,"rmenuPost2"));
+            this.rmenuGetFormat.Items.Add(new ToolStripMenuItem(rm.GetString("rmenu7"), null, null, "rmenuPublishPostData"));
             this.rmenuGetFormat.Items.Add(new ToolStripSeparator());
 
             for (int i = 0; i < this.listWebGetFlag.Items.Count; i++)
@@ -2546,7 +2603,7 @@ namespace SoukeyNetget
 
         private void rmenuGetFormat_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (e.ClickedItem.Text == "手工捕获POST数据")
+            if (e.ClickedItem.Name == "rmenuPublishPostData")
             {
                 frmWeblink wftm = new frmWeblink();
                 wftm.getFlag = 3;
@@ -2621,7 +2678,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("任务保存时失败，出错原因是：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString ("Error13") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -2679,7 +2736,7 @@ namespace SoukeyNetget
             if (this.txtNag.Text == "" || this.txtNag.Text == null)
             {
                 this.txtNag.Focus();
-                MessageBox.Show("请填写导航规则后再添加", "Soukey采摘 信息信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(rm.GetString ("Info8"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -2787,11 +2844,11 @@ namespace SoukeyNetget
             {
                 this.label13.Enabled = true;
                 this.txtNextPage.Enabled = true;
-                this.txtNextPage.Text = "下一页";
+                this.txtNextPage.Text = rm.GetString ("Label7");
             }
             else
             {
-                if (this.txtNextPage.Text == "下一页")
+                if (this.txtNextPage.Text == rm.GetString("Label7"))
                 {
                     this.txtNextPage.Text = "";
                 }
@@ -2893,6 +2950,17 @@ namespace SoukeyNetget
             this.IsSave.Text = "true";
 
 
+        }
+
+        private void cmdUrlEncoding_Click(object sender, EventArgs e)
+        {
+            frmUrlEncoding f = new frmUrlEncoding();
+            f.Show();
+        }
+
+        private void frmTask_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
 
        

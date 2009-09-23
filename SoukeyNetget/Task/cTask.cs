@@ -679,18 +679,25 @@ namespace SoukeyNetget.Task
         }
 
         //更改任务的所属分类
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="TaskName">任务名称</param>
+        /// <param name="OldTaskClass">原有任务分类</param>
+        /// <param name="NewTaskClass">新任务分类</param>
+        /// 
         public void ChangeTaskClass(string TaskName, string OldTaskClass, string NewTaskClass)
         {
             cTaskClass tc = new cTaskClass();
             string oldPath="";
             string NewPath="";
 
-            if (OldTaskClass == "任务分类")
+            if (OldTaskClass == "")
                 oldPath = Program.getPrjPath() + "tasks";
             else
                 oldPath = tc.GetTaskClassPathByName(OldTaskClass);
 
-            if (NewTaskClass =="任务分类")
+            if (NewTaskClass =="")
                 NewPath = Program.getPrjPath() + "tasks";
             else
                 NewPath = tc.GetTaskClassPathByName(NewTaskClass);
@@ -701,7 +708,7 @@ namespace SoukeyNetget.Task
 
             LoadTask(NewPath + "\\" + FileName);
 
-            if (NewTaskClass =="任务分类")
+            if (NewTaskClass =="")
                 this.TaskClass ="";
             else
                 this.TaskClass = NewTaskClass;
@@ -720,12 +727,12 @@ namespace SoukeyNetget.Task
             string oldPath = "";
             string NewPath = "";
 
-            if (OldTaskClass == "任务分类")
+            if (OldTaskClass == "")
                 oldPath = Program.getPrjPath() + "tasks";
             else
                 oldPath = tc.GetTaskClassPathByName(OldTaskClass);
 
-            if (NewTaskClass == "任务分类")
+            if (NewTaskClass == "")
                 NewPath = Program.getPrjPath() + "tasks";
             else
                 NewPath = tc.GetTaskClassPathByName(NewTaskClass);
@@ -737,7 +744,9 @@ namespace SoukeyNetget.Task
             if (OldTaskClass == NewTaskClass || (File.Exists(NewPath + "\\" + TaskName + ".xml")))
             {
                 FileName = TaskName + "-复制.xml";
+                
                 System.IO.File.Copy(oldPath + "\\" + TaskName + ".xml", NewPath + "\\" + FileName);
+                TaskName = TaskName + "-复制";
                 
             }
             else
@@ -748,10 +757,10 @@ namespace SoukeyNetget.Task
 
             LoadTask(NewPath + "\\" + FileName);
 
-            if (OldTaskClass ==NewTaskClass ||(File.Exists(NewPath + "\\" + TaskName + ".xml")))
-                this.TaskName = TaskName + "-复制";
+            //修改任务的名称
+            this.TaskName = TaskName;
 
-            if (NewTaskClass == "任务分类")
+            if (NewTaskClass == "")
                 this.TaskClass = "";
             else
                 this.TaskClass = NewTaskClass;

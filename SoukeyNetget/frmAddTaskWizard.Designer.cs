@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddTaskWizard));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labInfo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -114,6 +114,8 @@
             this.txtWeblinkDemo = new System.Windows.Forms.TextBox();
             this.cmdWebSource = new System.Windows.Forms.Button();
             this.step5 = new System.Windows.Forms.Panel();
+            this.cmdDown = new System.Windows.Forms.Button();
+            this.cmdUp = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cmdDelCutFlag = new System.Windows.Forms.Button();
@@ -193,8 +195,6 @@
             this.toolmenuPost2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolmenuPostData = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.cmdDown = new System.Windows.Forms.Button();
-            this.cmdUp = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -897,14 +897,14 @@
             this.dataNRule.AllowUserToResizeRows = false;
             this.dataNRule.BackgroundColor = System.Drawing.Color.White;
             this.dataNRule.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataNRule.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataNRule.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataNRule.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataNRule.Location = new System.Drawing.Point(10, 217);
             this.dataNRule.Name = "dataNRule";
@@ -1127,6 +1127,36 @@
             this.step5.Size = new System.Drawing.Size(487, 307);
             this.step5.TabIndex = 10;
             this.step5.Visible = false;
+            // 
+            // cmdDown
+            // 
+            this.cmdDown.Enabled = false;
+            this.cmdDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdDown.Image = ((System.Drawing.Image)(resources.GetObject("cmdDown.Image")));
+            this.cmdDown.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdDown.Location = new System.Drawing.Point(416, 9);
+            this.cmdDown.Name = "cmdDown";
+            this.cmdDown.Size = new System.Drawing.Size(60, 23);
+            this.cmdDown.TabIndex = 66;
+            this.cmdDown.Text = "下移";
+            this.cmdDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cmdDown.UseVisualStyleBackColor = true;
+            this.cmdDown.Click += new System.EventHandler(this.cmdDown_Click);
+            // 
+            // cmdUp
+            // 
+            this.cmdUp.Enabled = false;
+            this.cmdUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdUp.Image = ((System.Drawing.Image)(resources.GetObject("cmdUp.Image")));
+            this.cmdUp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdUp.Location = new System.Drawing.Point(350, 9);
+            this.cmdUp.Name = "cmdUp";
+            this.cmdUp.Size = new System.Drawing.Size(60, 23);
+            this.cmdUp.TabIndex = 65;
+            this.cmdUp.Text = "上移";
+            this.cmdUp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cmdUp.UseVisualStyleBackColor = true;
+            this.cmdUp.Click += new System.EventHandler(this.cmdUp_Click);
             // 
             // label17
             // 
@@ -1961,36 +1991,6 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(182, 6);
             // 
-            // cmdDown
-            // 
-            this.cmdDown.Enabled = false;
-            this.cmdDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDown.Image = ((System.Drawing.Image)(resources.GetObject("cmdDown.Image")));
-            this.cmdDown.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDown.Location = new System.Drawing.Point(416, 9);
-            this.cmdDown.Name = "cmdDown";
-            this.cmdDown.Size = new System.Drawing.Size(60, 23);
-            this.cmdDown.TabIndex = 66;
-            this.cmdDown.Text = "下移";
-            this.cmdDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmdDown.UseVisualStyleBackColor = true;
-            this.cmdDown.Click += new System.EventHandler(this.cmdDown_Click);
-            // 
-            // cmdUp
-            // 
-            this.cmdUp.Enabled = false;
-            this.cmdUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdUp.Image = ((System.Drawing.Image)(resources.GetObject("cmdUp.Image")));
-            this.cmdUp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdUp.Location = new System.Drawing.Point(350, 9);
-            this.cmdUp.Name = "cmdUp";
-            this.cmdUp.Size = new System.Drawing.Size(60, 23);
-            this.cmdUp.TabIndex = 65;
-            this.cmdUp.Text = "上移";
-            this.cmdUp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmdUp.UseVisualStyleBackColor = true;
-            this.cmdUp.Click += new System.EventHandler(this.cmdUp_Click);
-            // 
             // frmAddTaskWizard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2003,8 +2003,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.step5);
-            this.Controls.Add(this.step4);
             this.Controls.Add(this.step2);
             this.Controls.Add(this.step3);
             this.Controls.Add(this.step1);
@@ -2013,6 +2011,8 @@
             this.Controls.Add(this.step6);
             this.Controls.Add(this.step7);
             this.Controls.Add(this.step10);
+            this.Controls.Add(this.step5);
+            this.Controls.Add(this.step4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

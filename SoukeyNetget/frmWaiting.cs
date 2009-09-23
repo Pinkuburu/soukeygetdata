@@ -22,5 +22,14 @@ namespace SoukeyNetget
         {
             InitializeComponent();
         }
+
+        public frmWaiting(string Info)
+        {
+            InitializeComponent();
+            this.labTxt.Text = Info;
+            Application.DoEvents();
+        }
+
+      
     }
 }

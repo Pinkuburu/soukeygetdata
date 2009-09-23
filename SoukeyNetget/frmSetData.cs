@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using System.Resources;
+using System.Reflection;
 
 namespace SoukeyNetget
 {
@@ -15,6 +17,8 @@ namespace SoukeyNetget
     {
         public delegate void ReturnDataSource(string DataSource);
         public ReturnDataSource rDataSource;
+
+        private ResourceManager rm;
 
         public frmSetData()
         {
@@ -31,7 +35,7 @@ namespace SoukeyNetget
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.Title = "请指定Access数据库文件";
+            this.openFileDialog1.Title = rm.GetString ("Info84");
 
             openFileDialog1.InitialDirectory = Program.getPrjPath();
             openFileDialog1.Filter = "Access Files(*.mdb)|*.mdb|All Files(*.*)|*.*";
@@ -82,6 +86,8 @@ namespace SoukeyNetget
 
         private void frmSetData_Load(object sender, EventArgs e)
         {
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
             this.comMySqlCode.Items.Add("utf8");
             this.comMySqlCode.Items.Add("big5");
             this.comMySqlCode.Items.Add("gb2312");
@@ -134,7 +140,7 @@ namespace SoukeyNetget
                 if (this.comSqlServerData.Text.Trim() == "")
                 {
                     this.comSqlServerData.Focus();
-                    MessageBox.Show("请选择需要发布的MSSqlServer数据库名称！", "Soukey采摘 信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(rm.GetString ("Info85"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     
                     return;
                 }
@@ -157,7 +163,7 @@ namespace SoukeyNetget
                 if (this.comMySqlData.Text.Trim() == "")
                 {
                     this.comMySqlData.Focus();
-                    MessageBox.Show("请选择需要发布的MySql数据库名称！", "Soukey采摘 信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(rm.GetString ("Info86"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     return;
                 }
@@ -207,13 +213,13 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接失败，错误信息为：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info75") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             conn.Close ();
 
-            MessageBox.Show ("数据库链接成功！","Soukey采摘 信息",MessageBoxButtons.OK ,MessageBoxIcon.Information );
+            MessageBox.Show(rm.GetString("Info87"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
@@ -228,13 +234,13 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接失败，错误信息为：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info75") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             conn.Close();
 
-            MessageBox.Show("数据库链接成功！", "Soukey采摘 信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(rm.GetString("Info87"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void TestMySql()
@@ -248,13 +254,13 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接失败，错误信息为：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info75") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             conn.Close();
 
-            MessageBox.Show("数据库链接成功！", "Soukey采摘 信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(rm.GetString("Info87"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private string GetAccessConn()
@@ -311,7 +317,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接失败，错误信息为：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info75") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -339,7 +345,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接失败，错误信息为：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info75") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -351,6 +357,11 @@ namespace SoukeyNetget
                 this.comMySqlData.Items.Add(r[1].ToString());
 
             }
+        }
+
+        private void frmSetData_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
 
     }

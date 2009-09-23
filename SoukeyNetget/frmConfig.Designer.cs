@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("常用选项", 1, 1);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("退出选项", 1, 1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConfig));
             this.treeMenu = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comUILanguage = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtLogPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,36 +45,28 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.raExit = new System.Windows.Forms.RadioButton();
             this.raMin = new System.Windows.Forms.RadioButton();
+            this.IsSave = new System.Windows.Forms.TextBox();
             this.cmdApply = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.IsSave = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeMenu
             // 
+            this.treeMenu.AccessibleDescription = null;
+            this.treeMenu.AccessibleName = null;
+            resources.ApplyResources(this.treeMenu, "treeMenu");
+            this.treeMenu.BackgroundImage = null;
+            this.treeMenu.Font = null;
             this.treeMenu.HideSelection = false;
-            this.treeMenu.ImageIndex = 0;
             this.treeMenu.ImageList = this.imageList1;
-            this.treeMenu.Location = new System.Drawing.Point(12, 12);
             this.treeMenu.Name = "treeMenu";
-            treeNode3.ImageIndex = 1;
-            treeNode3.Name = "nodNormal";
-            treeNode3.SelectedImageIndex = 1;
-            treeNode3.Text = "常用选项";
-            treeNode4.ImageIndex = 1;
-            treeNode4.Name = "nodExit";
-            treeNode4.SelectedImageIndex = 1;
-            treeNode4.Text = "退出选项";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
-            this.treeMenu.SelectedImageIndex = 0;
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("treeMenu.Nodes"))),
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("treeMenu.Nodes1")))});
             this.treeMenu.ShowRootLines = false;
-            this.treeMenu.Size = new System.Drawing.Size(139, 222);
-            this.treeMenu.TabIndex = 0;
             this.treeMenu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeMenu_AfterSelect);
             // 
             // imageList1
@@ -85,185 +78,214 @@
             // 
             // panel1
             // 
+            this.panel1.AccessibleDescription = null;
+            this.panel1.AccessibleName = null;
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.BackgroundImage = null;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.comUILanguage);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtLogPath);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.IsAutoSystemLog);
-            this.panel1.Location = new System.Drawing.Point(157, 12);
+            this.panel1.Font = null;
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(338, 222);
-            this.panel1.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AccessibleDescription = null;
+            this.label4.AccessibleName = null;
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Font = null;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label4.Name = "label4";
+            // 
+            // comUILanguage
+            // 
+            this.comUILanguage.AccessibleDescription = null;
+            this.comUILanguage.AccessibleName = null;
+            resources.ApplyResources(this.comUILanguage, "comUILanguage");
+            this.comUILanguage.BackgroundImage = null;
+            this.comUILanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comUILanguage.Font = null;
+            this.comUILanguage.FormattingEnabled = true;
+            this.comUILanguage.Name = "comUILanguage";
+            this.comUILanguage.SelectedIndexChanged += new System.EventHandler(this.comUILanguage_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AccessibleDescription = null;
+            this.label3.AccessibleName = null;
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Font = null;
+            this.label3.Name = "label3";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
+            this.label2.AccessibleDescription = null;
+            this.label2.AccessibleName = null;
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Font = null;
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(267, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "不可修改";
             // 
             // txtLogPath
             // 
+            this.txtLogPath.AccessibleDescription = null;
+            this.txtLogPath.AccessibleName = null;
+            resources.ApplyResources(this.txtLogPath, "txtLogPath");
             this.txtLogPath.BackColor = System.Drawing.Color.White;
+            this.txtLogPath.BackgroundImage = null;
             this.txtLogPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLogPath.Location = new System.Drawing.Point(16, 67);
+            this.txtLogPath.Font = null;
             this.txtLogPath.Name = "txtLogPath";
             this.txtLogPath.ReadOnly = true;
-            this.txtLogPath.Size = new System.Drawing.Size(306, 20);
-            this.txtLogPath.TabIndex = 2;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
+            this.label1.AccessibleDescription = null;
+            this.label1.AccessibleName = null;
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Font = null;
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(13, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "保存路径：";
             // 
             // IsAutoSystemLog
             // 
-            this.IsAutoSystemLog.AutoSize = true;
-            this.IsAutoSystemLog.Location = new System.Drawing.Point(16, 16);
+            this.IsAutoSystemLog.AccessibleDescription = null;
+            this.IsAutoSystemLog.AccessibleName = null;
+            resources.ApplyResources(this.IsAutoSystemLog, "IsAutoSystemLog");
+            this.IsAutoSystemLog.BackgroundImage = null;
+            this.IsAutoSystemLog.Font = null;
             this.IsAutoSystemLog.Name = "IsAutoSystemLog";
-            this.IsAutoSystemLog.Size = new System.Drawing.Size(254, 17);
-            this.IsAutoSystemLog.TabIndex = 0;
-            this.IsAutoSystemLog.Text = "自动保存系统日志，日志按照日期进行命名";
             this.IsAutoSystemLog.UseVisualStyleBackColor = true;
             this.IsAutoSystemLog.CheckedChanged += new System.EventHandler(this.IsAutoSystemLog_CheckedChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(-3, 240);
+            this.groupBox1.AccessibleDescription = null;
+            this.groupBox1.AccessibleName = null;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.BackgroundImage = null;
+            this.groupBox1.Font = null;
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(561, 5);
-            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
             // panel2
             // 
+            this.panel2.AccessibleDescription = null;
+            this.panel2.AccessibleName = null;
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.BackgroundImage = null;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.raExit);
             this.panel2.Controls.Add(this.raMin);
-            this.panel2.Location = new System.Drawing.Point(157, 12);
+            this.panel2.Font = null;
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(338, 222);
-            this.panel2.TabIndex = 4;
-            this.panel2.Visible = false;
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(16, 16);
+            this.checkBox1.AccessibleDescription = null;
+            this.checkBox1.AccessibleName = null;
+            resources.ApplyResources(this.checkBox1, "checkBox1");
+            this.checkBox1.BackgroundImage = null;
+            this.checkBox1.Font = null;
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(158, 17);
-            this.checkBox1.TabIndex = 6;
-            this.checkBox1.Text = "系统退出时提醒用户选择";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // raExit
             // 
-            this.raExit.AutoSize = true;
-            this.raExit.Location = new System.Drawing.Point(32, 68);
+            this.raExit.AccessibleDescription = null;
+            this.raExit.AccessibleName = null;
+            resources.ApplyResources(this.raExit, "raExit");
+            this.raExit.BackgroundImage = null;
+            this.raExit.Font = null;
             this.raExit.Name = "raExit";
-            this.raExit.Size = new System.Drawing.Size(121, 17);
-            this.raExit.TabIndex = 5;
-            this.raExit.Text = "退出Soukey采摘。";
             this.raExit.UseVisualStyleBackColor = true;
             this.raExit.CheckedChanged += new System.EventHandler(this.raExit_CheckedChanged);
             // 
             // raMin
             // 
-            this.raMin.AutoSize = true;
+            this.raMin.AccessibleDescription = null;
+            this.raMin.AccessibleName = null;
+            resources.ApplyResources(this.raMin, "raMin");
+            this.raMin.BackgroundImage = null;
             this.raMin.Checked = true;
-            this.raMin.Location = new System.Drawing.Point(32, 45);
+            this.raMin.Font = null;
             this.raMin.Name = "raMin";
-            this.raMin.Size = new System.Drawing.Size(193, 17);
-            this.raMin.TabIndex = 4;
             this.raMin.TabStop = true;
-            this.raMin.Text = "最小化到托盘图标，继续运行。";
             this.raMin.UseVisualStyleBackColor = true;
             this.raMin.CheckedChanged += new System.EventHandler(this.raMin_CheckedChanged);
             // 
+            // IsSave
+            // 
+            this.IsSave.AccessibleDescription = null;
+            this.IsSave.AccessibleName = null;
+            resources.ApplyResources(this.IsSave, "IsSave");
+            this.IsSave.BackgroundImage = null;
+            this.IsSave.Font = null;
+            this.IsSave.Name = "IsSave";
+            this.IsSave.TextChanged += new System.EventHandler(this.IsSave_TextChanged);
+            // 
             // cmdApply
             // 
-            this.cmdApply.Enabled = false;
-            this.cmdApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdApply.Image = ((System.Drawing.Image)(resources.GetObject("cmdApply.Image")));
-            this.cmdApply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdApply.Location = new System.Drawing.Point(430, 251);
+            this.cmdApply.AccessibleDescription = null;
+            this.cmdApply.AccessibleName = null;
+            resources.ApplyResources(this.cmdApply, "cmdApply");
+            this.cmdApply.BackgroundImage = null;
+            this.cmdApply.Font = null;
             this.cmdApply.Name = "cmdApply";
-            this.cmdApply.Size = new System.Drawing.Size(65, 24);
-            this.cmdApply.TabIndex = 8;
-            this.cmdApply.Text = "应 用";
-            this.cmdApply.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdApply.UseVisualStyleBackColor = true;
             this.cmdApply.Click += new System.EventHandler(this.cmdApply_Click);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Image = ((System.Drawing.Image)(resources.GetObject("cmdCancel.Image")));
-            this.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.cmdCancel.Location = new System.Drawing.Point(351, 251);
+            this.cmdCancel.AccessibleDescription = null;
+            this.cmdCancel.AccessibleName = null;
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
+            this.cmdCancel.BackgroundImage = null;
+            this.cmdCancel.Font = null;
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(65, 24);
-            this.cmdCancel.TabIndex = 7;
-            this.cmdCancel.Text = "取 消";
-            this.cmdCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // cmdOK
             // 
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Image = ((System.Drawing.Image)(resources.GetObject("cmdOK.Image")));
-            this.cmdOK.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.cmdOK.Location = new System.Drawing.Point(273, 251);
+            this.cmdOK.AccessibleDescription = null;
+            this.cmdOK.AccessibleName = null;
+            resources.ApplyResources(this.cmdOK, "cmdOK");
+            this.cmdOK.BackgroundImage = null;
+            this.cmdOK.Font = null;
             this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(65, 24);
-            this.cmdOK.TabIndex = 6;
-            this.cmdOK.Text = "确 定";
-            this.cmdOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
-            // IsSave
-            // 
-            this.IsSave.Location = new System.Drawing.Point(78, 254);
-            this.IsSave.Name = "IsSave";
-            this.IsSave.Size = new System.Drawing.Size(43, 20);
-            this.IsSave.TabIndex = 9;
-            this.IsSave.Visible = false;
-            this.IsSave.TextChanged += new System.EventHandler(this.IsSave_TextChanged);
-            // 
             // frmConfig
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 285);
+            this.BackgroundImage = null;
             this.Controls.Add(this.IsSave);
             this.Controls.Add(this.cmdApply);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.treeMenu);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmConfig";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Soukey采摘 系统参数";
             this.Load += new System.EventHandler(this.frmConfig_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmConfig_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -291,5 +313,8 @@
         private System.Windows.Forms.TextBox txtLogPath;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox IsSave;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comUILanguage;
+        private System.Windows.Forms.Label label4;
     }
 }

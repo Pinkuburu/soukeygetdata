@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Threading;
+using System.Reflection;
+using System.Resources;
 
 namespace SoukeyNetget
 {
@@ -16,6 +18,8 @@ namespace SoukeyNetget
         private string New_Copy;
         private string SCode = "";
         private bool OnShow = false;
+
+        private ResourceManager rm;
 
         //定义一个代理，用于下载最新版本时可以不断刷新页面
         //等待消息，以告诉用户正在下载软件，而并非系统死机
@@ -32,22 +36,22 @@ namespace SoukeyNetget
         {
             Gather.cGatherWeb gData = new Gather.cGatherWeb();
 
-            this.textBox1.Text ="正在获取本地系统版本号........";
+            this.textBox1.Text =rm.GetString ("Info90");
             Application.DoEvents();
             Old_Copy = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            this.textBox1.Text +="\r\n" + "本地版本号为：" + Assembly.GetExecutingAssembly().GetName().Version;
+            this.textBox1.Text += "\r\n" + rm.GetString("Info91") + Assembly.GetExecutingAssembly().GetName().Version;
             Application.DoEvents();
-            this.textBox1.Text += "\r\n" + "开始连接Soukey采摘官方网站：http://www.yijie.net ......";
+            this.textBox1.Text += "\r\n" + rm.GetString("Info92");
             Application.DoEvents();
             SCode = cTool.GetHtmlSource("http://www.yijie.net/user/soft/updatesoukey.html", true);
             if (SCode == "" || SCode == null)
             {
-                this.textBox1.Text += "\r\n" + "连接失败，请确认是否已经连接到Internet。" + "\r\n" + "检查已经停止！";
+                this.textBox1.Text += "\r\n" + rm.GetString("Info93") + "\r\n" + rm.GetString("Info94");
                 Application.DoEvents();
                 return;
             }
 
-            this.textBox1.Text += "\r\n" + "连接成功！" + "\r\n" + "开始获取Soukey采摘最新版本号.......";
+            this.textBox1.Text += "\r\n" + rm.GetString("Info95") + "\r\n" + rm.GetString("Info96");
             Application.DoEvents();
 
             //增加采集的标志
@@ -78,7 +82,7 @@ namespace SoukeyNetget
             DataTable dGather = gData.GetGatherData("http://www.yijie.net/user/soft/updatesoukey.html", cGlobalParas.WebCode.utf8, "", "", "", Program.getPrjPath(),false);
 
             New_Copy = dGather.Rows[0][0].ToString();
-            this.textBox1.Text += "\r\n" + "Soukey采摘最新版本号为：" + New_Copy ;
+            this.textBox1.Text += "\r\n" + rm.GetString("Info97") + New_Copy;
             Application.DoEvents();
 
             ///版本号比较需要比较四个界别：00.00.00.00，所有版本必须遵照此格式，否则会出现错误。
@@ -98,8 +102,8 @@ namespace SoukeyNetget
 
                 if (New_V >Old_V )
                 {
-                    
-                    this.textBox1.Text += "\r\n" + "发现了新的版本，版本说明如下：";
+
+                    this.textBox1.Text += "\r\n" + rm.GetString("Info98");
                     Application.DoEvents();
 
                     this.textBox1.Text += "\r\n" + dGather.Rows [0][1].ToString ();
@@ -116,7 +120,7 @@ namespace SoukeyNetget
                 }
             }
 
-            this.textBox1.Text += "\r\n" + "没有新版本，无需进行下载操作！";
+            this.textBox1.Text += "\r\n" + rm.GetString("Info99");
             Application.DoEvents();
 
             this.button1.Enabled = true;
@@ -131,7 +135,7 @@ namespace SoukeyNetget
 
             if (done)
             {
-                this.textBox1.Text += "\r\n" + "下载成功，请在Soukey采摘工作目录中检查Soukey.exe文件，此文件为最新版本，并且是rar自解压的免安装版本！";
+                this.textBox1.Text += "\r\n" + rm.GetString("Info100");
                 Application.DoEvents();
 
                 this.button1.Enabled = true;
@@ -178,7 +182,7 @@ namespace SoukeyNetget
                 }
                 catch (System.Exception ex)
                 {
-                    this.textBox1.Text += "\r\n" + "检查更新失败！错误信息为：" + ex.Message ;
+                    this.textBox1.Text += "\r\n" + rm.GetString("Info101") + ex.Message;
                     Application.DoEvents();
                 }
 
@@ -196,7 +200,7 @@ namespace SoukeyNetget
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.textBox1.Text += "\r\n" + "开始下载最新版本，请等待......";
+            this.textBox1.Text += "\r\n" + rm.GetString("Info102");
             Application.DoEvents();
 
             this.button2.Enabled = false;
@@ -216,6 +220,16 @@ namespace SoukeyNetget
 
 
             return;
+        }
+
+        private void frmUpdate_Load(object sender, EventArgs e)
+        {
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+        }
+
+        private void frmUpdate_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
     }
 }

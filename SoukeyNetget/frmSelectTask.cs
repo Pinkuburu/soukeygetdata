@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
+using System.Resources;
 
 namespace SoukeyNetget
 {
@@ -14,6 +16,8 @@ namespace SoukeyNetget
 
         public ReturnTaskItem RTaskItem;
 
+        private ResourceManager rm;
+
         public frmSelectTask()
         {
             InitializeComponent();
@@ -21,6 +25,8 @@ namespace SoukeyNetget
 
         private void frmSelectTask_Load(object sender, EventArgs e)
         {
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
             int i;
 
             Task.cTaskClass xmlTClass = new Task.cTaskClass();
@@ -79,12 +85,12 @@ namespace SoukeyNetget
 
             catch (System.IO.IOException)
             {
-                MessageBox.Show("分类下的索引文件丢失，请返回主界面通过点击丢失文件的任务分类自动创建", "询问", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(rm.GetString("Info72"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
             catch (System.Exception)
             {
-                MessageBox.Show("加载的任务分类索引文件非法，请返回主界面通过点击此任务分类校验文件是否合法。", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(rm.GetString("Info73"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
         }
@@ -93,7 +99,7 @@ namespace SoukeyNetget
         {
             if (this.listTask.Items.Count == 0)
             {
-                this.errorProvider1.SetError(this.listTask, "选择任务分类筛选任务，如果放弃操作，请点击“取消”");
+                this.errorProvider1.SetError(this.listTask, rm.GetString("Info83"));
                 return;
             }
             //int tClassID = int.Parse(this.listTask.SelectedItems[0].Name.Substring(1, this.listTask.SelectedItems[0].Name.Length - 1).ToString());
@@ -116,6 +122,11 @@ namespace SoukeyNetget
         {
             ReturnValue();
             this.Close();
+        }
+
+        private void frmSelectTask_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
     }
 }

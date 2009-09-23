@@ -127,14 +127,25 @@ namespace SoukeyNetget.Gather
         #region 采集任务控制操作
 
         /// 增加运行区所有的任务
-        public void AddGatherTask(cTaskDataList taskDataList)
+        public bool AddGatherTask(cTaskDataList taskDataList)
         {
             //根据运行区数据进行采集任务的添加
+            //如果有任务加载出错，则忽略错误，继续加载，确保所有的任务都可以加载成功
+            bool IsSucceed = true;
 
             for (int i=0 ;i<taskDataList.TaskCount;i++)
             {
-                m_TaskManage.Add(taskDataList.TaskDataList[i]);
+                try
+                {
+                    m_TaskManage.Add(taskDataList.TaskDataList[i]);
+                }
+                catch (System.Exception ex)
+                {
+                    IsSucceed = false;
+                }
             }
+
+            return IsSucceed;
         }
 
         //增加单个任务

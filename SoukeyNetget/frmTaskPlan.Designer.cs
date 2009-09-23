@@ -70,6 +70,9 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.raDay = new System.Windows.Forms.RadioButton();
             this.raWeekly = new System.Windows.Forms.RadioButton();
+            this.PanelOne = new System.Windows.Forms.Panel();
+            this.RunOnceTime = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
             this.panelCustom = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
             this.udRunInterval = new System.Windows.Forms.NumericUpDown();
@@ -95,9 +98,6 @@
             this.raRunones = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.RunDayTwice2Time = new System.Windows.Forms.DateTimePicker();
-            this.PanelOne = new System.Windows.Forms.Panel();
-            this.RunOnceTime = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.IsSave = new System.Windows.Forms.TextBox();
@@ -117,60 +117,77 @@
             this.groupBox2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.PanelOne.SuspendLayout();
             this.panelCustom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udRunInterval)).BeginInit();
             this.PanelWeekly.SuspendLayout();
             this.PanelDay.SuspendLayout();
-            this.PanelOne.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 15);
+            this.label1.AccessibleDescription = null;
+            this.label1.AccessibleName = null;
+            resources.ApplyResources(this.label1, "label1");
+            this.errorProvider1.SetError(this.label1, resources.GetString("label1.Error"));
+            this.label1.ForeColor = System.Drawing.Color.Navy;
+            this.errorProvider1.SetIconAlignment(this.label1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label1, ((int)(resources.GetObject("label1.IconPadding"))));
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "计划名称：";
             // 
             // txtPlanName
             // 
+            this.txtPlanName.AccessibleDescription = null;
+            this.txtPlanName.AccessibleName = null;
+            resources.ApplyResources(this.txtPlanName, "txtPlanName");
+            this.txtPlanName.BackgroundImage = null;
             this.txtPlanName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPlanName.Location = new System.Drawing.Point(82, 12);
+            this.errorProvider1.SetError(this.txtPlanName, resources.GetString("txtPlanName.Error"));
+            this.txtPlanName.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtPlanName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtPlanName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtPlanName, ((int)(resources.GetObject("txtPlanName.IconPadding"))));
             this.txtPlanName.Name = "txtPlanName";
-            this.txtPlanName.Size = new System.Drawing.Size(411, 20);
-            this.txtPlanName.TabIndex = 0;
             this.txtPlanName.Tag = "";
             this.txtPlanName.TextChanged += new System.EventHandler(this.txtPlanName_TextChanged);
             // 
             // tabControl1
             // 
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tabControl1.AccessibleDescription = null;
+            this.tabControl1.AccessibleName = null;
+            resources.ApplyResources(this.tabControl1, "tabControl1");
+            this.tabControl1.BackgroundImage = null;
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.errorProvider1.SetError(this.tabControl1, resources.GetString("tabControl1.Error"));
+            this.tabControl1.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabControl1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabControl1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabControl1, ((int)(resources.GetObject("tabControl1.IconPadding"))));
             this.tabControl1.ImageList = this.imageList1;
-            this.tabControl1.Location = new System.Drawing.Point(12, 38);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(491, 300);
-            this.tabControl1.TabIndex = 1;
             // 
             // tabPage3
             // 
+            this.tabPage3.AccessibleDescription = null;
+            this.tabPage3.AccessibleName = null;
+            resources.ApplyResources(this.tabPage3, "tabPage3");
+            this.tabPage3.BackgroundImage = null;
             this.tabPage3.Controls.Add(this.groupBox3);
-            this.tabPage3.ImageIndex = 2;
-            this.tabPage3.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage3, resources.GetString("tabPage3.Error"));
+            this.tabPage3.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage3, ((int)(resources.GetObject("tabPage3.IconPadding"))));
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(483, 270);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "常规设置";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.AccessibleDescription = null;
+            this.groupBox3.AccessibleName = null;
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.BackgroundImage = null;
             this.groupBox3.Controls.Add(this.txtPlanState);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.groupBox5);
@@ -181,107 +198,136 @@
             this.groupBox3.Controls.Add(this.cboxIsRun);
             this.groupBox3.Controls.Add(this.txtPlanDemo);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(1, 3);
+            this.groupBox3.Controls.Add(this.label15);
+            this.errorProvider1.SetError(this.groupBox3, resources.GetString("groupBox3.Error"));
+            this.groupBox3.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox3, ((int)(resources.GetObject("groupBox3.IconPadding"))));
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(476, 261);
-            this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "常规设置";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
+            this.label15.AccessibleDescription = null;
+            this.label15.AccessibleName = null;
+            resources.ApplyResources(this.label15, "label15");
+            this.errorProvider1.SetError(this.label15, resources.GetString("label15.Error"));
+            this.label15.Font = null;
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label15.Location = new System.Drawing.Point(176, 19);
+            this.errorProvider1.SetIconAlignment(this.label15, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label15.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label15, ((int)(resources.GetObject("label15.IconPadding"))));
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(247, 13);
-            this.label15.TabIndex = 13;
-            this.label15.Text = "无法修改，由系统根据计划运行情况自动维护";
             // 
             // txtPlanState
             // 
+            this.txtPlanState.AccessibleDescription = null;
+            this.txtPlanState.AccessibleName = null;
+            resources.ApplyResources(this.txtPlanState, "txtPlanState");
             this.txtPlanState.BackColor = System.Drawing.Color.White;
+            this.txtPlanState.BackgroundImage = null;
             this.txtPlanState.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPlanState.Location = new System.Drawing.Point(65, 15);
+            this.errorProvider1.SetError(this.txtPlanState, resources.GetString("txtPlanState.Error"));
+            this.txtPlanState.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtPlanState, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtPlanState.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtPlanState, ((int)(resources.GetObject("txtPlanState.IconPadding"))));
             this.txtPlanState.Name = "txtPlanState";
             this.txtPlanState.ReadOnly = true;
-            this.txtPlanState.Size = new System.Drawing.Size(105, 20);
-            this.txtPlanState.TabIndex = 12;
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(16, 19);
+            this.label14.AccessibleDescription = null;
+            this.label14.AccessibleName = null;
+            resources.ApplyResources(this.label14, "label14");
+            this.errorProvider1.SetError(this.label14, resources.GetString("label14.Error"));
+            this.label14.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label14, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label14.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label14, ((int)(resources.GetObject("label14.IconPadding"))));
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(43, 13);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "状态：";
             // 
             // groupBox5
             // 
+            this.groupBox5.AccessibleDescription = null;
+            this.groupBox5.AccessibleName = null;
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.BackgroundImage = null;
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.DisabledDateTime);
-            this.groupBox5.Enabled = false;
-            this.groupBox5.Location = new System.Drawing.Point(19, 197);
+            this.errorProvider1.SetError(this.groupBox5, resources.GetString("groupBox5.Error"));
+            this.groupBox5.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox5, ((int)(resources.GetObject("groupBox5.IconPadding"))));
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(440, 58);
-            this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "运行终止时间过期";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 28);
+            this.label4.AccessibleDescription = null;
+            this.label4.AccessibleName = null;
+            resources.ApplyResources(this.label4, "label4");
+            this.errorProvider1.SetError(this.label4, resources.GetString("label4.Error"));
+            this.label4.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label4, ((int)(resources.GetObject("label4.IconPadding"))));
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "过期时间";
             // 
             // DisabledDateTime
             // 
-            this.DisabledDateTime.CustomFormat = "yyyy-MM-dd ddd HH:mm";
+            this.DisabledDateTime.AccessibleDescription = null;
+            this.DisabledDateTime.AccessibleName = null;
+            resources.ApplyResources(this.DisabledDateTime, "DisabledDateTime");
+            this.DisabledDateTime.BackgroundImage = null;
+            this.DisabledDateTime.CalendarFont = null;
+            this.errorProvider1.SetError(this.DisabledDateTime, resources.GetString("DisabledDateTime.Error"));
+            this.DisabledDateTime.Font = null;
             this.DisabledDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DisabledDateTime.Location = new System.Drawing.Point(90, 24);
+            this.errorProvider1.SetIconAlignment(this.DisabledDateTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("DisabledDateTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.DisabledDateTime, ((int)(resources.GetObject("DisabledDateTime.IconPadding"))));
             this.DisabledDateTime.Name = "DisabledDateTime";
             this.DisabledDateTime.ShowUpDown = true;
-            this.DisabledDateTime.Size = new System.Drawing.Size(176, 20);
-            this.DisabledDateTime.TabIndex = 7;
             this.DisabledDateTime.ValueChanged += new System.EventHandler(this.DisabledDateTime_ValueChanged);
             // 
             // groupBox4
             // 
+            this.groupBox4.AccessibleDescription = null;
+            this.groupBox4.AccessibleName = null;
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.BackgroundImage = null;
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.DisabledRunNum);
             this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Enabled = false;
-            this.groupBox4.Location = new System.Drawing.Point(19, 135);
+            this.errorProvider1.SetError(this.groupBox4, resources.GetString("groupBox4.Error"));
+            this.groupBox4.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox4, ((int)(resources.GetObject("groupBox4.IconPadding"))));
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(440, 56);
-            this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "运行次数过期";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(148, 27);
+            this.label7.AccessibleDescription = null;
+            this.label7.AccessibleName = null;
+            resources.ApplyResources(this.label7, "label7");
+            this.errorProvider1.SetError(this.label7, resources.GetString("label7.Error"));
+            this.label7.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label7.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label7, ((int)(resources.GetObject("label7.IconPadding"))));
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(91, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "次后，任务过期";
             // 
             // DisabledRunNum
             // 
-            this.DisabledRunNum.Location = new System.Drawing.Point(61, 23);
+            this.DisabledRunNum.AccessibleDescription = null;
+            this.DisabledRunNum.AccessibleName = null;
+            resources.ApplyResources(this.DisabledRunNum, "DisabledRunNum");
+            this.errorProvider1.SetError(this.DisabledRunNum, resources.GetString("DisabledRunNum.Error"));
+            this.DisabledRunNum.Font = null;
+            this.errorProvider1.SetIconAlignment(this.DisabledRunNum, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("DisabledRunNum.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.DisabledRunNum, ((int)(resources.GetObject("DisabledRunNum.IconPadding"))));
             this.DisabledRunNum.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.DisabledRunNum.Name = "DisabledRunNum";
-            this.DisabledRunNum.Size = new System.Drawing.Size(81, 20);
-            this.DisabledRunNum.TabIndex = 6;
             this.DisabledRunNum.Value = new decimal(new int[] {
             1,
             0,
@@ -291,189 +337,222 @@
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 27);
+            this.label3.AccessibleDescription = null;
+            this.label3.AccessibleName = null;
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
+            this.label3.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "执行";
             // 
             // raDateTime
             // 
-            this.raDateTime.AutoSize = true;
-            this.raDateTime.Enabled = false;
-            this.raDateTime.Location = new System.Drawing.Point(197, 106);
+            this.raDateTime.AccessibleDescription = null;
+            this.raDateTime.AccessibleName = null;
+            resources.ApplyResources(this.raDateTime, "raDateTime");
+            this.raDateTime.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raDateTime, resources.GetString("raDateTime.Error"));
+            this.raDateTime.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raDateTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raDateTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raDateTime, ((int)(resources.GetObject("raDateTime.IconPadding"))));
             this.raDateTime.Name = "raDateTime";
-            this.raDateTime.Size = new System.Drawing.Size(61, 17);
-            this.raDateTime.TabIndex = 4;
             this.raDateTime.TabStop = true;
-            this.raDateTime.Text = "按时间";
             this.raDateTime.UseVisualStyleBackColor = true;
             this.raDateTime.CheckedChanged += new System.EventHandler(this.raDateTime_CheckedChanged);
             // 
             // raNumber
             // 
-            this.raNumber.AutoSize = true;
+            this.raNumber.AccessibleDescription = null;
+            this.raNumber.AccessibleName = null;
+            resources.ApplyResources(this.raNumber, "raNumber");
+            this.raNumber.BackgroundImage = null;
             this.raNumber.Checked = true;
-            this.raNumber.Enabled = false;
-            this.raNumber.Location = new System.Drawing.Point(109, 105);
+            this.errorProvider1.SetError(this.raNumber, resources.GetString("raNumber.Error"));
+            this.raNumber.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raNumber, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raNumber.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raNumber, ((int)(resources.GetObject("raNumber.IconPadding"))));
             this.raNumber.Name = "raNumber";
-            this.raNumber.Size = new System.Drawing.Size(61, 17);
-            this.raNumber.TabIndex = 3;
             this.raNumber.TabStop = true;
-            this.raNumber.Text = "按次数";
             this.raNumber.UseVisualStyleBackColor = true;
             this.raNumber.CheckedChanged += new System.EventHandler(this.raNumber_CheckedChanged);
             // 
             // cboxIsDisabled
             // 
-            this.cboxIsDisabled.AutoSize = true;
-            this.cboxIsDisabled.Location = new System.Drawing.Point(19, 106);
+            this.cboxIsDisabled.AccessibleDescription = null;
+            this.cboxIsDisabled.AccessibleName = null;
+            resources.ApplyResources(this.cboxIsDisabled, "cboxIsDisabled");
+            this.cboxIsDisabled.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxIsDisabled, resources.GetString("cboxIsDisabled.Error"));
+            this.cboxIsDisabled.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxIsDisabled, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxIsDisabled.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxIsDisabled, ((int)(resources.GetObject("cboxIsDisabled.IconPadding"))));
             this.cboxIsDisabled.Name = "cboxIsDisabled";
-            this.cboxIsDisabled.Size = new System.Drawing.Size(74, 17);
-            this.cboxIsDisabled.TabIndex = 2;
-            this.cboxIsDisabled.Text = "是否过期";
             this.cboxIsDisabled.UseVisualStyleBackColor = true;
             this.cboxIsDisabled.CheckedChanged += new System.EventHandler(this.cboxIsDisabled_CheckedChanged);
             // 
             // cboxIsRun
             // 
-            this.cboxIsRun.AutoSize = true;
-            this.cboxIsRun.Location = new System.Drawing.Point(264, 107);
+            this.cboxIsRun.AccessibleDescription = null;
+            this.cboxIsRun.AccessibleName = null;
+            resources.ApplyResources(this.cboxIsRun, "cboxIsRun");
+            this.cboxIsRun.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxIsRun, resources.GetString("cboxIsRun.Error"));
+            this.cboxIsRun.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxIsRun, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxIsRun.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxIsRun, ((int)(resources.GetObject("cboxIsRun.IconPadding"))));
             this.cboxIsRun.Name = "cboxIsRun";
-            this.cboxIsRun.Size = new System.Drawing.Size(266, 17);
-            this.cboxIsRun.TabIndex = 5;
-            this.cboxIsRun.Text = "如果过了计划开始操作时间，则立即启动任务";
             this.cboxIsRun.UseVisualStyleBackColor = true;
-            this.cboxIsRun.Visible = false;
             this.cboxIsRun.CheckedChanged += new System.EventHandler(this.cboxIsRun_CheckedChanged);
             // 
             // txtPlanDemo
             // 
+            this.txtPlanDemo.AccessibleDescription = null;
+            this.txtPlanDemo.AccessibleName = null;
+            resources.ApplyResources(this.txtPlanDemo, "txtPlanDemo");
+            this.txtPlanDemo.BackgroundImage = null;
             this.txtPlanDemo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPlanDemo.Location = new System.Drawing.Point(65, 41);
-            this.txtPlanDemo.Multiline = true;
+            this.errorProvider1.SetError(this.txtPlanDemo, resources.GetString("txtPlanDemo.Error"));
+            this.txtPlanDemo.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtPlanDemo, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtPlanDemo.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtPlanDemo, ((int)(resources.GetObject("txtPlanDemo.IconPadding"))));
             this.txtPlanDemo.Name = "txtPlanDemo";
-            this.txtPlanDemo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPlanDemo.Size = new System.Drawing.Size(394, 55);
-            this.txtPlanDemo.TabIndex = 1;
             this.txtPlanDemo.TextChanged += new System.EventHandler(this.txtPlanDemo_TextChanged);
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 41);
+            this.label2.AccessibleDescription = null;
+            this.label2.AccessibleName = null;
+            resources.ApplyResources(this.label2, "label2");
+            this.errorProvider1.SetError(this.label2, resources.GetString("label2.Error"));
+            this.label2.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "备注：";
             // 
             // tabPage1
             // 
+            this.tabPage1.AccessibleDescription = null;
+            this.tabPage1.AccessibleName = null;
+            resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.BackgroundImage = null;
             this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.ImageIndex = 0;
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage1, resources.GetString("tabPage1.Error"));
+            this.tabPage1.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage1, ((int)(resources.GetObject("tabPage1.IconPadding"))));
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(483, 270);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "任务信息";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
+            this.groupBox2.AccessibleDescription = null;
+            this.groupBox2.AccessibleName = null;
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.BackgroundImage = null;
             this.groupBox2.Controls.Add(this.cmdDelTask);
             this.groupBox2.Controls.Add(this.cmdAddTask);
             this.groupBox2.Controls.Add(this.listTask);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Location = new System.Drawing.Point(1, 3);
+            this.errorProvider1.SetError(this.groupBox2, resources.GetString("groupBox2.Error"));
+            this.groupBox2.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox2, ((int)(resources.GetObject("groupBox2.IconPadding"))));
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(476, 261);
-            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "任务信息";
             // 
             // cmdDelTask
             // 
-            this.cmdDelTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelTask.Image")));
-            this.cmdDelTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDelTask.Location = new System.Drawing.Point(410, 15);
+            this.cmdDelTask.AccessibleDescription = null;
+            this.cmdDelTask.AccessibleName = null;
+            resources.ApplyResources(this.cmdDelTask, "cmdDelTask");
+            this.cmdDelTask.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdDelTask, resources.GetString("cmdDelTask.Error"));
+            this.cmdDelTask.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdDelTask, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdDelTask.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdDelTask, ((int)(resources.GetObject("cmdDelTask.IconPadding"))));
             this.cmdDelTask.Name = "cmdDelTask";
-            this.cmdDelTask.Size = new System.Drawing.Size(60, 23);
-            this.cmdDelTask.TabIndex = 2;
-            this.cmdDelTask.Text = "删  除";
-            this.cmdDelTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDelTask.UseVisualStyleBackColor = true;
             this.cmdDelTask.Click += new System.EventHandler(this.cmdDelTask_Click);
             // 
             // cmdAddTask
             // 
-            this.cmdAddTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddTask.Image")));
-            this.cmdAddTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAddTask.Location = new System.Drawing.Point(338, 15);
+            this.cmdAddTask.AccessibleDescription = null;
+            this.cmdAddTask.AccessibleName = null;
+            resources.ApplyResources(this.cmdAddTask, "cmdAddTask");
+            this.cmdAddTask.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdAddTask, resources.GetString("cmdAddTask.Error"));
+            this.cmdAddTask.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdAddTask, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdAddTask.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdAddTask, ((int)(resources.GetObject("cmdAddTask.IconPadding"))));
             this.cmdAddTask.Name = "cmdAddTask";
-            this.cmdAddTask.Size = new System.Drawing.Size(60, 23);
-            this.cmdAddTask.TabIndex = 1;
-            this.cmdAddTask.Text = "添  加";
-            this.cmdAddTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdAddTask.UseVisualStyleBackColor = true;
             this.cmdAddTask.Click += new System.EventHandler(this.cmdAddTask_Click);
             // 
             // listTask
             // 
+            this.listTask.AccessibleDescription = null;
+            this.listTask.AccessibleName = null;
+            resources.ApplyResources(this.listTask, "listTask");
+            this.listTask.BackgroundImage = null;
             this.listTask.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+            this.errorProvider1.SetError(this.listTask, resources.GetString("listTask.Error"));
+            this.listTask.Font = null;
             this.listTask.FullRowSelect = true;
-            this.listTask.Location = new System.Drawing.Point(6, 44);
+            this.errorProvider1.SetIconAlignment(this.listTask, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("listTask.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.listTask, ((int)(resources.GetObject("listTask.IconPadding"))));
             this.listTask.Name = "listTask";
-            this.listTask.Size = new System.Drawing.Size(464, 177);
-            this.listTask.TabIndex = 3;
             this.listTask.UseCompatibleStateImageBehavior = false;
             this.listTask.View = System.Windows.Forms.View.Details;
             this.listTask.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listTask_KeyDown);
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "任务类型";
-            this.columnHeader1.Width = 120;
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "任务";
-            this.columnHeader2.Width = 180;
+            resources.ApplyResources(this.columnHeader2, "columnHeader2");
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "参数";
-            this.columnHeader3.Width = 120;
+            resources.ApplyResources(this.columnHeader3, "columnHeader3");
             // 
             // label13
             // 
+            this.label13.AccessibleDescription = null;
+            this.label13.AccessibleName = null;
+            resources.ApplyResources(this.label13, "label13");
+            this.errorProvider1.SetError(this.label13, resources.GetString("label13.Error"));
+            this.label13.Font = null;
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label13.Location = new System.Drawing.Point(3, 228);
+            this.errorProvider1.SetIconAlignment(this.label13, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label13.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label13, ((int)(resources.GetObject("label13.IconPadding"))));
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(467, 30);
-            this.label13.TabIndex = 3;
-            this.label13.Text = "系统支持两种自动运行任务：Soukey采摘任务和用户自定义任务。但需要注意：如果计划执行的任务被删除，则计划执行会失败！";
             // 
             // tabPage2
             // 
+            this.tabPage2.AccessibleDescription = null;
+            this.tabPage2.AccessibleName = null;
+            resources.ApplyResources(this.tabPage2, "tabPage2");
+            this.tabPage2.BackgroundImage = null;
             this.tabPage2.Controls.Add(this.groupBox7);
-            this.tabPage2.ImageIndex = 1;
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage2, resources.GetString("tabPage2.Error"));
+            this.tabPage2.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage2, ((int)(resources.GetObject("tabPage2.IconPadding"))));
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(483, 270);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "执行计划";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
+            this.groupBox7.AccessibleDescription = null;
+            this.groupBox7.AccessibleName = null;
+            resources.ApplyResources(this.groupBox7, "groupBox7");
+            this.groupBox7.BackgroundImage = null;
             this.groupBox7.Controls.Add(this.raCustom);
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Controls.Add(this.EnabledDate);
@@ -482,134 +561,215 @@
             this.groupBox7.Controls.Add(this.groupBox6);
             this.groupBox7.Controls.Add(this.raDay);
             this.groupBox7.Controls.Add(this.raWeekly);
+            this.groupBox7.Controls.Add(this.PanelOne);
             this.groupBox7.Controls.Add(this.panelCustom);
             this.groupBox7.Controls.Add(this.PanelWeekly);
             this.groupBox7.Controls.Add(this.PanelDay);
-            this.groupBox7.Controls.Add(this.PanelOne);
-            this.groupBox7.Location = new System.Drawing.Point(1, 3);
+            this.errorProvider1.SetError(this.groupBox7, resources.GetString("groupBox7.Error"));
+            this.groupBox7.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox7.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox7, ((int)(resources.GetObject("groupBox7.IconPadding"))));
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(476, 261);
-            this.groupBox7.TabIndex = 5;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "执行计划";
             // 
             // raCustom
             // 
-            this.raCustom.AutoSize = true;
-            this.raCustom.Location = new System.Drawing.Point(10, 118);
+            this.raCustom.AccessibleDescription = null;
+            this.raCustom.AccessibleName = null;
+            resources.ApplyResources(this.raCustom, "raCustom");
+            this.raCustom.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raCustom, resources.GetString("raCustom.Error"));
+            this.raCustom.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raCustom, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raCustom.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raCustom, ((int)(resources.GetObject("raCustom.IconPadding"))));
             this.raCustom.Name = "raCustom";
-            this.raCustom.Size = new System.Drawing.Size(61, 17);
-            this.raCustom.TabIndex = 14;
             this.raCustom.TabStop = true;
-            this.raCustom.Text = "自定义";
             this.raCustom.UseVisualStyleBackColor = true;
             this.raCustom.CheckedChanged += new System.EventHandler(this.raCustom_CheckedChanged);
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
+            this.label12.AccessibleDescription = null;
+            this.label12.AccessibleName = null;
+            resources.ApplyResources(this.label12, "label12");
+            this.errorProvider1.SetError(this.label12, resources.GetString("label12.Error"));
+            this.label12.Font = null;
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label12.Location = new System.Drawing.Point(7, 193);
+            this.errorProvider1.SetIconAlignment(this.label12, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label12.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label12, ((int)(resources.GetObject("label12.IconPadding"))));
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(453, 13);
-            this.label12.TabIndex = 13;
-            this.label12.Text = "如果选择“运行一次”，则系统会自动修改任务过期参数为：任务运行1次后任务过期。";
             // 
             // EnabledDate
             // 
-            this.EnabledDate.CustomFormat = "yyyy-MM-dd";
+            this.EnabledDate.AccessibleDescription = null;
+            this.EnabledDate.AccessibleName = null;
+            resources.ApplyResources(this.EnabledDate, "EnabledDate");
+            this.EnabledDate.BackgroundImage = null;
+            this.EnabledDate.CalendarFont = null;
+            this.errorProvider1.SetError(this.EnabledDate, resources.GetString("EnabledDate.Error"));
+            this.EnabledDate.Font = null;
             this.EnabledDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.EnabledDate.Location = new System.Drawing.Point(196, 28);
+            this.errorProvider1.SetIconAlignment(this.EnabledDate, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("EnabledDate.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.EnabledDate, ((int)(resources.GetObject("EnabledDate.IconPadding"))));
             this.EnabledDate.Name = "EnabledDate";
-            this.EnabledDate.Size = new System.Drawing.Size(130, 20);
-            this.EnabledDate.TabIndex = 3;
             this.EnabledDate.ValueChanged += new System.EventHandler(this.EnabledDate_ValueChanged);
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(123, 31);
+            this.label5.AccessibleDescription = null;
+            this.label5.AccessibleName = null;
+            resources.ApplyResources(this.label5, "label5");
+            this.errorProvider1.SetError(this.label5, resources.GetString("label5.Error"));
+            this.label5.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label5, ((int)(resources.GetObject("label5.IconPadding"))));
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(67, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "生效日期：";
             // 
             // raOneTime
             // 
-            this.raOneTime.AutoSize = true;
-            this.raOneTime.Location = new System.Drawing.Point(10, 24);
+            this.raOneTime.AccessibleDescription = null;
+            this.raOneTime.AccessibleName = null;
+            resources.ApplyResources(this.raOneTime, "raOneTime");
+            this.raOneTime.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raOneTime, resources.GetString("raOneTime.Error"));
+            this.raOneTime.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raOneTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raOneTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raOneTime, ((int)(resources.GetObject("raOneTime.IconPadding"))));
             this.raOneTime.Name = "raOneTime";
-            this.raOneTime.Size = new System.Drawing.Size(73, 17);
-            this.raOneTime.TabIndex = 0;
-            this.raOneTime.Text = "执行一次";
             this.raOneTime.UseVisualStyleBackColor = true;
             this.raOneTime.CheckedChanged += new System.EventHandler(this.raOneTime_CheckedChanged);
             // 
             // groupBox6
             // 
-            this.groupBox6.Location = new System.Drawing.Point(96, 15);
+            this.groupBox6.AccessibleDescription = null;
+            this.groupBox6.AccessibleName = null;
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.BackgroundImage = null;
+            this.errorProvider1.SetError(this.groupBox6, resources.GetString("groupBox6.Error"));
+            this.groupBox6.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox6, ((int)(resources.GetObject("groupBox6.IconPadding"))));
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(2, 168);
-            this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             // 
             // raDay
             // 
-            this.raDay.AutoSize = true;
+            this.raDay.AccessibleDescription = null;
+            this.raDay.AccessibleName = null;
+            resources.ApplyResources(this.raDay, "raDay");
+            this.raDay.BackgroundImage = null;
             this.raDay.Checked = true;
-            this.raDay.Location = new System.Drawing.Point(10, 55);
+            this.errorProvider1.SetError(this.raDay, resources.GetString("raDay.Error"));
+            this.raDay.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raDay, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raDay.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raDay, ((int)(resources.GetObject("raDay.IconPadding"))));
             this.raDay.Name = "raDay";
-            this.raDay.Size = new System.Drawing.Size(73, 17);
-            this.raDay.TabIndex = 1;
             this.raDay.TabStop = true;
-            this.raDay.Text = "每天执行";
             this.raDay.UseVisualStyleBackColor = true;
             this.raDay.CheckedChanged += new System.EventHandler(this.raDay_CheckedChanged);
             // 
             // raWeekly
             // 
-            this.raWeekly.AutoSize = true;
-            this.raWeekly.Location = new System.Drawing.Point(10, 86);
+            this.raWeekly.AccessibleDescription = null;
+            this.raWeekly.AccessibleName = null;
+            resources.ApplyResources(this.raWeekly, "raWeekly");
+            this.raWeekly.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raWeekly, resources.GetString("raWeekly.Error"));
+            this.raWeekly.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raWeekly, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raWeekly.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raWeekly, ((int)(resources.GetObject("raWeekly.IconPadding"))));
             this.raWeekly.Name = "raWeekly";
-            this.raWeekly.Size = new System.Drawing.Size(73, 17);
-            this.raWeekly.TabIndex = 2;
-            this.raWeekly.Text = "每周执行";
             this.raWeekly.UseVisualStyleBackColor = true;
             this.raWeekly.CheckedChanged += new System.EventHandler(this.raWeekly_CheckedChanged);
             // 
+            // PanelOne
+            // 
+            this.PanelOne.AccessibleDescription = null;
+            this.PanelOne.AccessibleName = null;
+            resources.ApplyResources(this.PanelOne, "PanelOne");
+            this.PanelOne.BackgroundImage = null;
+            this.PanelOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelOne.Controls.Add(this.RunOnceTime);
+            this.PanelOne.Controls.Add(this.label6);
+            this.errorProvider1.SetError(this.PanelOne, resources.GetString("PanelOne.Error"));
+            this.PanelOne.Font = null;
+            this.errorProvider1.SetIconAlignment(this.PanelOne, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("PanelOne.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.PanelOne, ((int)(resources.GetObject("PanelOne.IconPadding"))));
+            this.PanelOne.Name = "PanelOne";
+            // 
+            // RunOnceTime
+            // 
+            this.RunOnceTime.AccessibleDescription = null;
+            this.RunOnceTime.AccessibleName = null;
+            resources.ApplyResources(this.RunOnceTime, "RunOnceTime");
+            this.RunOnceTime.BackgroundImage = null;
+            this.RunOnceTime.CalendarFont = null;
+            this.errorProvider1.SetError(this.RunOnceTime, resources.GetString("RunOnceTime.Error"));
+            this.RunOnceTime.Font = null;
+            this.RunOnceTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.errorProvider1.SetIconAlignment(this.RunOnceTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("RunOnceTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.RunOnceTime, ((int)(resources.GetObject("RunOnceTime.IconPadding"))));
+            this.RunOnceTime.Name = "RunOnceTime";
+            this.RunOnceTime.ShowUpDown = true;
+            this.RunOnceTime.ValueChanged += new System.EventHandler(this.RunOnceTime_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AccessibleDescription = null;
+            this.label6.AccessibleName = null;
+            resources.ApplyResources(this.label6, "label6");
+            this.errorProvider1.SetError(this.label6, resources.GetString("label6.Error"));
+            this.label6.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label6, ((int)(resources.GetObject("label6.IconPadding"))));
+            this.label6.Name = "label6";
+            // 
             // panelCustom
             // 
+            this.panelCustom.AccessibleDescription = null;
+            this.panelCustom.AccessibleName = null;
+            resources.ApplyResources(this.panelCustom, "panelCustom");
+            this.panelCustom.BackgroundImage = null;
             this.panelCustom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCustom.Controls.Add(this.label19);
             this.panelCustom.Controls.Add(this.udRunInterval);
             this.panelCustom.Controls.Add(this.FirstRunTime);
             this.panelCustom.Controls.Add(this.label18);
             this.panelCustom.Controls.Add(this.label17);
-            this.panelCustom.Location = new System.Drawing.Point(114, 58);
+            this.errorProvider1.SetError(this.panelCustom, resources.GetString("panelCustom.Error"));
+            this.panelCustom.Font = null;
+            this.errorProvider1.SetIconAlignment(this.panelCustom, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("panelCustom.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.panelCustom, ((int)(resources.GetObject("panelCustom.IconPadding"))));
             this.panelCustom.Name = "panelCustom";
-            this.panelCustom.Size = new System.Drawing.Size(348, 121);
-            this.panelCustom.TabIndex = 15;
-            this.panelCustom.Visible = false;
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(215, 46);
+            this.label19.AccessibleDescription = null;
+            this.label19.AccessibleName = null;
+            resources.ApplyResources(this.label19, "label19");
+            this.errorProvider1.SetError(this.label19, resources.GetString("label19.Error"));
+            this.label19.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label19, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label19.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label19, ((int)(resources.GetObject("label19.IconPadding"))));
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(31, 13);
-            this.label19.TabIndex = 5;
-            this.label19.Text = "小时";
             // 
             // udRunInterval
             // 
+            this.udRunInterval.AccessibleDescription = null;
+            this.udRunInterval.AccessibleName = null;
+            resources.ApplyResources(this.udRunInterval, "udRunInterval");
+            this.udRunInterval.BackColor = System.Drawing.Color.White;
             this.udRunInterval.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.udRunInterval.DecimalPlaces = 1;
+            this.errorProvider1.SetError(this.udRunInterval, resources.GetString("udRunInterval.Error"));
+            this.udRunInterval.Font = null;
+            this.errorProvider1.SetIconAlignment(this.udRunInterval, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("udRunInterval.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.udRunInterval, ((int)(resources.GetObject("udRunInterval.IconPadding"))));
             this.udRunInterval.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-            this.udRunInterval.Location = new System.Drawing.Point(101, 42);
             this.udRunInterval.Maximum = new decimal(new int[] {
             8,
             0,
@@ -621,9 +781,7 @@
             0,
             65536});
             this.udRunInterval.Name = "udRunInterval";
-            this.udRunInterval.Size = new System.Drawing.Size(110, 20);
-            this.udRunInterval.TabIndex = 4;
-            this.udRunInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.udRunInterval.ReadOnly = true;
             this.udRunInterval.Value = new decimal(new int[] {
             20,
             0,
@@ -632,34 +790,47 @@
             // 
             // FirstRunTime
             // 
-            this.FirstRunTime.CustomFormat = "HH:mm:ss";
+            this.FirstRunTime.AccessibleDescription = null;
+            this.FirstRunTime.AccessibleName = null;
+            resources.ApplyResources(this.FirstRunTime, "FirstRunTime");
+            this.FirstRunTime.BackgroundImage = null;
+            this.FirstRunTime.CalendarFont = null;
+            this.errorProvider1.SetError(this.FirstRunTime, resources.GetString("FirstRunTime.Error"));
+            this.FirstRunTime.Font = null;
             this.FirstRunTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.FirstRunTime.Location = new System.Drawing.Point(100, 9);
+            this.errorProvider1.SetIconAlignment(this.FirstRunTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("FirstRunTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.FirstRunTime, ((int)(resources.GetObject("FirstRunTime.IconPadding"))));
             this.FirstRunTime.Name = "FirstRunTime";
             this.FirstRunTime.ShowUpDown = true;
-            this.FirstRunTime.Size = new System.Drawing.Size(111, 20);
-            this.FirstRunTime.TabIndex = 3;
             // 
             // label18
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(10, 13);
+            this.label18.AccessibleDescription = null;
+            this.label18.AccessibleName = null;
+            resources.ApplyResources(this.label18, "label18");
+            this.errorProvider1.SetError(this.label18, resources.GetString("label18.Error"));
+            this.label18.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label18, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label18.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label18, ((int)(resources.GetObject("label18.IconPadding"))));
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(91, 13);
-            this.label18.TabIndex = 2;
-            this.label18.Text = "起始运行时间：";
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(33, 44);
+            this.label17.AccessibleDescription = null;
+            this.label17.AccessibleName = null;
+            resources.ApplyResources(this.label17, "label17");
+            this.errorProvider1.SetError(this.label17, resources.GetString("label17.Error"));
+            this.label17.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label17, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label17.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label17, ((int)(resources.GetObject("label17.IconPadding"))));
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(67, 13);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "运行间隔：";
             // 
             // PanelWeekly
             // 
+            this.PanelWeekly.AccessibleDescription = null;
+            this.PanelWeekly.AccessibleName = null;
+            resources.ApplyResources(this.PanelWeekly, "PanelWeekly");
+            this.PanelWeekly.BackgroundImage = null;
             this.PanelWeekly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelWeekly.Controls.Add(this.cboxThursday);
             this.PanelWeekly.Controls.Add(this.cboxWednesday);
@@ -670,111 +841,143 @@
             this.PanelWeekly.Controls.Add(this.cboxSunday);
             this.PanelWeekly.Controls.Add(this.RunWeeklyTime);
             this.PanelWeekly.Controls.Add(this.label11);
-            this.PanelWeekly.Location = new System.Drawing.Point(114, 58);
+            this.errorProvider1.SetError(this.PanelWeekly, resources.GetString("PanelWeekly.Error"));
+            this.PanelWeekly.Font = null;
+            this.errorProvider1.SetIconAlignment(this.PanelWeekly, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("PanelWeekly.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.PanelWeekly, ((int)(resources.GetObject("PanelWeekly.IconPadding"))));
             this.PanelWeekly.Name = "PanelWeekly";
-            this.PanelWeekly.Size = new System.Drawing.Size(348, 121);
-            this.PanelWeekly.TabIndex = 12;
-            this.PanelWeekly.Visible = false;
             // 
             // cboxThursday
             // 
-            this.cboxThursday.AutoSize = true;
-            this.cboxThursday.Location = new System.Drawing.Point(12, 71);
+            this.cboxThursday.AccessibleDescription = null;
+            this.cboxThursday.AccessibleName = null;
+            resources.ApplyResources(this.cboxThursday, "cboxThursday");
+            this.cboxThursday.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxThursday, resources.GetString("cboxThursday.Error"));
+            this.cboxThursday.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxThursday, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxThursday.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxThursday, ((int)(resources.GetObject("cboxThursday.IconPadding"))));
             this.cboxThursday.Name = "cboxThursday";
-            this.cboxThursday.Size = new System.Drawing.Size(62, 17);
-            this.cboxThursday.TabIndex = 6;
-            this.cboxThursday.Text = "星期四";
             this.cboxThursday.UseVisualStyleBackColor = true;
             this.cboxThursday.CheckedChanged += new System.EventHandler(this.cboxThursday_CheckedChanged);
             // 
             // cboxWednesday
             // 
-            this.cboxWednesday.AutoSize = true;
-            this.cboxWednesday.Location = new System.Drawing.Point(228, 45);
+            this.cboxWednesday.AccessibleDescription = null;
+            this.cboxWednesday.AccessibleName = null;
+            resources.ApplyResources(this.cboxWednesday, "cboxWednesday");
+            this.cboxWednesday.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxWednesday, resources.GetString("cboxWednesday.Error"));
+            this.cboxWednesday.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxWednesday, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxWednesday.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxWednesday, ((int)(resources.GetObject("cboxWednesday.IconPadding"))));
             this.cboxWednesday.Name = "cboxWednesday";
-            this.cboxWednesday.Size = new System.Drawing.Size(62, 17);
-            this.cboxWednesday.TabIndex = 5;
-            this.cboxWednesday.Text = "星期三";
             this.cboxWednesday.UseVisualStyleBackColor = true;
             this.cboxWednesday.CheckedChanged += new System.EventHandler(this.cboxWednesday_CheckedChanged);
             // 
             // cboxSturday
             // 
-            this.cboxSturday.AutoSize = true;
-            this.cboxSturday.Location = new System.Drawing.Point(154, 71);
+            this.cboxSturday.AccessibleDescription = null;
+            this.cboxSturday.AccessibleName = null;
+            resources.ApplyResources(this.cboxSturday, "cboxSturday");
+            this.cboxSturday.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxSturday, resources.GetString("cboxSturday.Error"));
+            this.cboxSturday.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxSturday, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxSturday.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxSturday, ((int)(resources.GetObject("cboxSturday.IconPadding"))));
             this.cboxSturday.Name = "cboxSturday";
-            this.cboxSturday.Size = new System.Drawing.Size(62, 17);
-            this.cboxSturday.TabIndex = 8;
-            this.cboxSturday.Text = "星期六";
             this.cboxSturday.UseVisualStyleBackColor = true;
             this.cboxSturday.CheckedChanged += new System.EventHandler(this.cboxSturday_CheckedChanged);
             // 
             // cboxFriday
             // 
-            this.cboxFriday.AutoSize = true;
-            this.cboxFriday.Location = new System.Drawing.Point(83, 71);
+            this.cboxFriday.AccessibleDescription = null;
+            this.cboxFriday.AccessibleName = null;
+            resources.ApplyResources(this.cboxFriday, "cboxFriday");
+            this.cboxFriday.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxFriday, resources.GetString("cboxFriday.Error"));
+            this.cboxFriday.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxFriday, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxFriday.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxFriday, ((int)(resources.GetObject("cboxFriday.IconPadding"))));
             this.cboxFriday.Name = "cboxFriday";
-            this.cboxFriday.Size = new System.Drawing.Size(62, 17);
-            this.cboxFriday.TabIndex = 7;
-            this.cboxFriday.Text = "星期五";
             this.cboxFriday.UseVisualStyleBackColor = true;
             this.cboxFriday.CheckedChanged += new System.EventHandler(this.cboxFriday_CheckedChanged);
             // 
             // cboxTuesday
             // 
-            this.cboxTuesday.AutoSize = true;
-            this.cboxTuesday.Location = new System.Drawing.Point(154, 43);
+            this.cboxTuesday.AccessibleDescription = null;
+            this.cboxTuesday.AccessibleName = null;
+            resources.ApplyResources(this.cboxTuesday, "cboxTuesday");
+            this.cboxTuesday.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxTuesday, resources.GetString("cboxTuesday.Error"));
+            this.cboxTuesday.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxTuesday, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxTuesday.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxTuesday, ((int)(resources.GetObject("cboxTuesday.IconPadding"))));
             this.cboxTuesday.Name = "cboxTuesday";
-            this.cboxTuesday.Size = new System.Drawing.Size(62, 17);
-            this.cboxTuesday.TabIndex = 4;
-            this.cboxTuesday.Text = "星期二";
             this.cboxTuesday.UseVisualStyleBackColor = true;
             this.cboxTuesday.CheckedChanged += new System.EventHandler(this.cboxTuesday_CheckedChanged);
             // 
             // cboxMonday
             // 
-            this.cboxMonday.AutoSize = true;
-            this.cboxMonday.Location = new System.Drawing.Point(83, 43);
+            this.cboxMonday.AccessibleDescription = null;
+            this.cboxMonday.AccessibleName = null;
+            resources.ApplyResources(this.cboxMonday, "cboxMonday");
+            this.cboxMonday.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxMonday, resources.GetString("cboxMonday.Error"));
+            this.cboxMonday.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxMonday, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxMonday.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxMonday, ((int)(resources.GetObject("cboxMonday.IconPadding"))));
             this.cboxMonday.Name = "cboxMonday";
-            this.cboxMonday.Size = new System.Drawing.Size(62, 17);
-            this.cboxMonday.TabIndex = 3;
-            this.cboxMonday.Text = "星期一";
             this.cboxMonday.UseVisualStyleBackColor = true;
             this.cboxMonday.CheckedChanged += new System.EventHandler(this.cboxMonday_CheckedChanged);
             // 
             // cboxSunday
             // 
-            this.cboxSunday.AutoSize = true;
-            this.cboxSunday.Location = new System.Drawing.Point(12, 42);
+            this.cboxSunday.AccessibleDescription = null;
+            this.cboxSunday.AccessibleName = null;
+            resources.ApplyResources(this.cboxSunday, "cboxSunday");
+            this.cboxSunday.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cboxSunday, resources.GetString("cboxSunday.Error"));
+            this.cboxSunday.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cboxSunday, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cboxSunday.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cboxSunday, ((int)(resources.GetObject("cboxSunday.IconPadding"))));
             this.cboxSunday.Name = "cboxSunday";
-            this.cboxSunday.Size = new System.Drawing.Size(62, 17);
-            this.cboxSunday.TabIndex = 2;
-            this.cboxSunday.Text = "星期日";
             this.cboxSunday.UseVisualStyleBackColor = true;
             this.cboxSunday.CheckedChanged += new System.EventHandler(this.cboxSunday_CheckedChanged);
             // 
             // RunWeeklyTime
             // 
-            this.RunWeeklyTime.CustomFormat = "HH:mm:ss";
+            this.RunWeeklyTime.AccessibleDescription = null;
+            this.RunWeeklyTime.AccessibleName = null;
+            resources.ApplyResources(this.RunWeeklyTime, "RunWeeklyTime");
+            this.RunWeeklyTime.BackgroundImage = null;
+            this.RunWeeklyTime.CalendarFont = null;
+            this.errorProvider1.SetError(this.RunWeeklyTime, resources.GetString("RunWeeklyTime.Error"));
+            this.RunWeeklyTime.Font = null;
             this.RunWeeklyTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.RunWeeklyTime.Location = new System.Drawing.Point(71, 12);
+            this.errorProvider1.SetIconAlignment(this.RunWeeklyTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("RunWeeklyTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.RunWeeklyTime, ((int)(resources.GetObject("RunWeeklyTime.IconPadding"))));
             this.RunWeeklyTime.Name = "RunWeeklyTime";
             this.RunWeeklyTime.ShowUpDown = true;
-            this.RunWeeklyTime.Size = new System.Drawing.Size(129, 20);
-            this.RunWeeklyTime.TabIndex = 1;
             this.RunWeeklyTime.ValueChanged += new System.EventHandler(this.RunWeeklyTime_ValueChanged);
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 14);
+            this.label11.AccessibleDescription = null;
+            this.label11.AccessibleName = null;
+            resources.ApplyResources(this.label11, "label11");
+            this.errorProvider1.SetError(this.label11, resources.GetString("label11.Error"));
+            this.label11.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label11, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label11.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label11, ((int)(resources.GetObject("label11.IconPadding"))));
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(67, 13);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "执行时间：";
             // 
             // PanelDay
             // 
+            this.PanelDay.AccessibleDescription = null;
+            this.PanelDay.AccessibleName = null;
+            resources.ApplyResources(this.PanelDay, "PanelDay");
+            this.PanelDay.BackgroundImage = null;
             this.PanelDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelDay.Controls.Add(this.RunDayTwice1Time);
             this.PanelDay.Controls.Add(this.RunDayOnesTime);
@@ -784,129 +987,122 @@
             this.PanelDay.Controls.Add(this.raRunones);
             this.PanelDay.Controls.Add(this.label8);
             this.PanelDay.Controls.Add(this.RunDayTwice2Time);
-            this.PanelDay.Location = new System.Drawing.Point(114, 58);
+            this.errorProvider1.SetError(this.PanelDay, resources.GetString("PanelDay.Error"));
+            this.PanelDay.Font = null;
+            this.errorProvider1.SetIconAlignment(this.PanelDay, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("PanelDay.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.PanelDay, ((int)(resources.GetObject("PanelDay.IconPadding"))));
             this.PanelDay.Name = "PanelDay";
-            this.PanelDay.Size = new System.Drawing.Size(348, 121);
-            this.PanelDay.TabIndex = 11;
             // 
             // RunDayTwice1Time
             // 
-            this.RunDayTwice1Time.CustomFormat = "HH:mm:ss";
-            this.RunDayTwice1Time.Enabled = false;
+            this.RunDayTwice1Time.AccessibleDescription = null;
+            this.RunDayTwice1Time.AccessibleName = null;
+            resources.ApplyResources(this.RunDayTwice1Time, "RunDayTwice1Time");
+            this.RunDayTwice1Time.BackgroundImage = null;
+            this.RunDayTwice1Time.CalendarFont = null;
+            this.errorProvider1.SetError(this.RunDayTwice1Time, resources.GetString("RunDayTwice1Time.Error"));
+            this.RunDayTwice1Time.Font = null;
             this.RunDayTwice1Time.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.RunDayTwice1Time.Location = new System.Drawing.Point(100, 61);
+            this.errorProvider1.SetIconAlignment(this.RunDayTwice1Time, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("RunDayTwice1Time.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.RunDayTwice1Time, ((int)(resources.GetObject("RunDayTwice1Time.IconPadding"))));
             this.RunDayTwice1Time.Name = "RunDayTwice1Time";
             this.RunDayTwice1Time.ShowUpDown = true;
-            this.RunDayTwice1Time.Size = new System.Drawing.Size(111, 20);
-            this.RunDayTwice1Time.TabIndex = 6;
             this.RunDayTwice1Time.ValueChanged += new System.EventHandler(this.RunDayTwice1Time_ValueChanged);
             // 
             // RunDayOnesTime
             // 
-            this.RunDayOnesTime.CustomFormat = "HH:mm:ss";
+            this.RunDayOnesTime.AccessibleDescription = null;
+            this.RunDayOnesTime.AccessibleName = null;
+            resources.ApplyResources(this.RunDayOnesTime, "RunDayOnesTime");
+            this.RunDayOnesTime.BackgroundImage = null;
+            this.RunDayOnesTime.CalendarFont = null;
+            this.errorProvider1.SetError(this.RunDayOnesTime, resources.GetString("RunDayOnesTime.Error"));
+            this.RunDayOnesTime.Font = null;
             this.RunDayOnesTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.RunDayOnesTime.Location = new System.Drawing.Point(100, 35);
+            this.errorProvider1.SetIconAlignment(this.RunDayOnesTime, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("RunDayOnesTime.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.RunDayOnesTime, ((int)(resources.GetObject("RunDayOnesTime.IconPadding"))));
             this.RunDayOnesTime.Name = "RunDayOnesTime";
             this.RunDayOnesTime.ShowUpDown = true;
-            this.RunDayOnesTime.Size = new System.Drawing.Size(111, 20);
-            this.RunDayOnesTime.TabIndex = 5;
             this.RunDayOnesTime.ValueChanged += new System.EventHandler(this.RunDayOnesTime_ValueChanged);
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Enabled = false;
-            this.label10.Location = new System.Drawing.Point(9, 64);
+            this.label10.AccessibleDescription = null;
+            this.label10.AccessibleName = null;
+            resources.ApplyResources(this.label10, "label10");
+            this.errorProvider1.SetError(this.label10, resources.GetString("label10.Error"));
+            this.label10.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label10, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label10.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label10, ((int)(resources.GetObject("label10.IconPadding"))));
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 13);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "上午执行时间：";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Enabled = false;
-            this.label9.Location = new System.Drawing.Point(9, 89);
+            this.label9.AccessibleDescription = null;
+            this.label9.AccessibleName = null;
+            resources.ApplyResources(this.label9, "label9");
+            this.errorProvider1.SetError(this.label9, resources.GetString("label9.Error"));
+            this.label9.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label9, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label9.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label9, ((int)(resources.GetObject("label9.IconPadding"))));
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(91, 13);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "下午执行时间：";
             // 
             // raRuntwice
             // 
-            this.raRuntwice.AutoSize = true;
-            this.raRuntwice.Location = new System.Drawing.Point(130, 12);
+            this.raRuntwice.AccessibleDescription = null;
+            this.raRuntwice.AccessibleName = null;
+            resources.ApplyResources(this.raRuntwice, "raRuntwice");
+            this.raRuntwice.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raRuntwice, resources.GetString("raRuntwice.Error"));
+            this.raRuntwice.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raRuntwice, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raRuntwice.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raRuntwice, ((int)(resources.GetObject("raRuntwice.IconPadding"))));
             this.raRuntwice.Name = "raRuntwice";
-            this.raRuntwice.Size = new System.Drawing.Size(133, 17);
-            this.raRuntwice.TabIndex = 2;
-            this.raRuntwice.Text = "上午下午各执行一次";
             this.raRuntwice.UseVisualStyleBackColor = true;
             this.raRuntwice.CheckedChanged += new System.EventHandler(this.raRuntwice_CheckedChanged);
             // 
             // raRunones
             // 
-            this.raRunones.AutoSize = true;
+            this.raRunones.AccessibleDescription = null;
+            this.raRunones.AccessibleName = null;
+            resources.ApplyResources(this.raRunones, "raRunones");
+            this.raRunones.BackgroundImage = null;
             this.raRunones.Checked = true;
-            this.raRunones.Location = new System.Drawing.Point(12, 12);
+            this.errorProvider1.SetError(this.raRunones, resources.GetString("raRunones.Error"));
+            this.raRunones.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raRunones, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raRunones.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raRunones, ((int)(resources.GetObject("raRunones.IconPadding"))));
             this.raRunones.Name = "raRunones";
-            this.raRunones.Size = new System.Drawing.Size(109, 17);
-            this.raRunones.TabIndex = 1;
             this.raRunones.TabStop = true;
-            this.raRunones.Text = "每天仅执行一次";
             this.raRunones.UseVisualStyleBackColor = true;
             this.raRunones.CheckedChanged += new System.EventHandler(this.raRunones_CheckedChanged);
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 41);
+            this.label8.AccessibleDescription = null;
+            this.label8.AccessibleName = null;
+            resources.ApplyResources(this.label8, "label8");
+            this.errorProvider1.SetError(this.label8, resources.GetString("label8.Error"));
+            this.label8.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label8, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label8.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label8, ((int)(resources.GetObject("label8.IconPadding"))));
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "执行时间：";
             // 
             // RunDayTwice2Time
             // 
-            this.RunDayTwice2Time.CustomFormat = "HH:mm:ss";
-            this.RunDayTwice2Time.Enabled = false;
+            this.RunDayTwice2Time.AccessibleDescription = null;
+            this.RunDayTwice2Time.AccessibleName = null;
+            resources.ApplyResources(this.RunDayTwice2Time, "RunDayTwice2Time");
+            this.RunDayTwice2Time.BackgroundImage = null;
+            this.RunDayTwice2Time.CalendarFont = null;
+            this.errorProvider1.SetError(this.RunDayTwice2Time, resources.GetString("RunDayTwice2Time.Error"));
+            this.RunDayTwice2Time.Font = null;
             this.RunDayTwice2Time.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.RunDayTwice2Time.Location = new System.Drawing.Point(100, 89);
+            this.errorProvider1.SetIconAlignment(this.RunDayTwice2Time, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("RunDayTwice2Time.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.RunDayTwice2Time, ((int)(resources.GetObject("RunDayTwice2Time.IconPadding"))));
             this.RunDayTwice2Time.Name = "RunDayTwice2Time";
             this.RunDayTwice2Time.ShowUpDown = true;
-            this.RunDayTwice2Time.Size = new System.Drawing.Size(111, 20);
-            this.RunDayTwice2Time.TabIndex = 7;
             this.RunDayTwice2Time.ValueChanged += new System.EventHandler(this.RunDayTwice2Time_ValueChanged);
-            // 
-            // PanelOne
-            // 
-            this.PanelOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PanelOne.Controls.Add(this.RunOnceTime);
-            this.PanelOne.Controls.Add(this.label6);
-            this.PanelOne.Location = new System.Drawing.Point(114, 58);
-            this.PanelOne.Name = "PanelOne";
-            this.PanelOne.Size = new System.Drawing.Size(348, 121);
-            this.PanelOne.TabIndex = 10;
-            this.PanelOne.Visible = false;
-            // 
-            // RunOnceTime
-            // 
-            this.RunOnceTime.CustomFormat = "yyyy-MM-dd ddd HH:mm:ss";
-            this.RunOnceTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.RunOnceTime.Location = new System.Drawing.Point(81, 9);
-            this.RunOnceTime.Name = "RunOnceTime";
-            this.RunOnceTime.ShowUpDown = true;
-            this.RunOnceTime.Size = new System.Drawing.Size(182, 20);
-            this.RunOnceTime.TabIndex = 1;
-            this.RunOnceTime.ValueChanged += new System.EventHandler(this.RunOnceTime_ValueChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 13);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "执行时间：";
             // 
             // imageList1
             // 
@@ -918,91 +1114,108 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(2, 344);
+            this.groupBox1.AccessibleDescription = null;
+            this.groupBox1.AccessibleName = null;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.BackgroundImage = null;
+            this.errorProvider1.SetError(this.groupBox1, resources.GetString("groupBox1.Error"));
+            this.groupBox1.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox1, ((int)(resources.GetObject("groupBox1.IconPadding"))));
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(516, 5);
-            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
             // IsSave
             // 
-            this.IsSave.Location = new System.Drawing.Point(196, 358);
+            this.IsSave.AccessibleDescription = null;
+            this.IsSave.AccessibleName = null;
+            resources.ApplyResources(this.IsSave, "IsSave");
+            this.IsSave.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsSave, resources.GetString("IsSave.Error"));
+            this.IsSave.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsSave, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsSave.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsSave, ((int)(resources.GetObject("IsSave.IconPadding"))));
             this.IsSave.Name = "IsSave";
-            this.IsSave.Size = new System.Drawing.Size(43, 20);
-            this.IsSave.TabIndex = 9;
-            this.IsSave.Visible = false;
             this.IsSave.TextChanged += new System.EventHandler(this.IsSave_TextChanged);
             // 
             // cmdApply
             // 
-            this.cmdApply.Enabled = false;
-            this.cmdApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdApply.Image = ((System.Drawing.Image)(resources.GetObject("cmdApply.Image")));
-            this.cmdApply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdApply.Location = new System.Drawing.Point(428, 355);
+            this.cmdApply.AccessibleDescription = null;
+            this.cmdApply.AccessibleName = null;
+            resources.ApplyResources(this.cmdApply, "cmdApply");
+            this.cmdApply.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdApply, resources.GetString("cmdApply.Error"));
+            this.cmdApply.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdApply, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdApply.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdApply, ((int)(resources.GetObject("cmdApply.IconPadding"))));
             this.cmdApply.Name = "cmdApply";
-            this.cmdApply.Size = new System.Drawing.Size(65, 24);
-            this.cmdApply.TabIndex = 4;
-            this.cmdApply.Text = "应 用";
-            this.cmdApply.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdApply.UseVisualStyleBackColor = true;
             this.cmdApply.Click += new System.EventHandler(this.cmdApply_Click);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Image = ((System.Drawing.Image)(resources.GetObject("cmdCancel.Image")));
-            this.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.cmdCancel.Location = new System.Drawing.Point(349, 355);
+            this.cmdCancel.AccessibleDescription = null;
+            this.cmdCancel.AccessibleName = null;
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
+            this.cmdCancel.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdCancel, resources.GetString("cmdCancel.Error"));
+            this.cmdCancel.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdCancel, ((int)(resources.GetObject("cmdCancel.IconPadding"))));
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(65, 24);
-            this.cmdCancel.TabIndex = 3;
-            this.cmdCancel.Text = "取 消";
-            this.cmdCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // cmdOK
             // 
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Image = ((System.Drawing.Image)(resources.GetObject("cmdOK.Image")));
-            this.cmdOK.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.cmdOK.Location = new System.Drawing.Point(271, 355);
+            this.cmdOK.AccessibleDescription = null;
+            this.cmdOK.AccessibleName = null;
+            resources.ApplyResources(this.cmdOK, "cmdOK");
+            this.cmdOK.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdOK, resources.GetString("cmdOK.Error"));
+            this.cmdOK.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdOK, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdOK.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdOK, ((int)(resources.GetObject("cmdOK.IconPadding"))));
             this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(65, 24);
-            this.cmdOK.TabIndex = 2;
-            this.cmdOK.Text = "确 定";
-            this.cmdOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // txtPlanID
             // 
-            this.txtPlanID.Location = new System.Drawing.Point(82, 358);
+            this.txtPlanID.AccessibleDescription = null;
+            this.txtPlanID.AccessibleName = null;
+            resources.ApplyResources(this.txtPlanID, "txtPlanID");
+            this.txtPlanID.BackgroundImage = null;
+            this.errorProvider1.SetError(this.txtPlanID, resources.GetString("txtPlanID.Error"));
+            this.txtPlanID.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtPlanID, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtPlanID.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtPlanID, ((int)(resources.GetObject("txtPlanID.IconPadding"))));
             this.txtPlanID.Name = "txtPlanID";
-            this.txtPlanID.Size = new System.Drawing.Size(66, 20);
-            this.txtPlanID.TabIndex = 10;
-            this.txtPlanID.Visible = false;
             // 
             // label16
             // 
-            this.label16.AutoSize = true;
+            this.label16.AccessibleDescription = null;
+            this.label16.AccessibleName = null;
+            resources.ApplyResources(this.label16, "label16");
+            this.errorProvider1.SetError(this.label16, resources.GetString("label16.Error"));
+            this.label16.Font = null;
             this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label16.Location = new System.Drawing.Point(14, 360);
+            this.errorProvider1.SetIconAlignment(this.label16, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label16.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label16, ((int)(resources.GetObject("label16.IconPadding"))));
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(235, 13);
-            this.label16.TabIndex = 11;
-            this.label16.Text = "计划必须在Soukey采摘运行状态下方可执行";
             // 
             // frmTaskPlan
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 390);
+            this.BackgroundImage = null;
             this.Controls.Add(this.label16);
             this.Controls.Add(this.txtPlanID);
             this.Controls.Add(this.IsSave);
@@ -1013,13 +1226,11 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.txtPlanName);
             this.Controls.Add(this.label1);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmTaskPlan";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "任务执行计划";
             this.Load += new System.EventHandler(this.frmTaskPlan_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -1035,6 +1246,8 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.PanelOne.ResumeLayout(false);
+            this.PanelOne.PerformLayout();
             this.panelCustom.ResumeLayout(false);
             this.panelCustom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udRunInterval)).EndInit();
@@ -1042,8 +1255,6 @@
             this.PanelWeekly.PerformLayout();
             this.PanelDay.ResumeLayout(false);
             this.PanelDay.PerformLayout();
-            this.PanelOne.ResumeLayout(false);
-            this.PanelOne.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -4,6 +4,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Data;
 using System.Web;
+using System.Reflection;
+using System.Resources;
 
 ///功能：任务中URL规则解析处理
 ///完成时间：2009-3-2
@@ -135,9 +137,20 @@ namespace SoukeyNetget.Task
         }
 
         //拆分网址
-        public List<string> SplitWebUrl(string Url)//, bool IsUrlEncode
+        public List<string> SplitWebUrl(string Url)         //, bool IsUrlEncode
         {
-            return SplitUrl(Url);//, IsUrlEncode, ""
+            List<string> Urls = new List<string>();
+
+            try
+            {
+                Urls = SplitUrl(Url);
+            }
+            catch (System.Exception ex)
+            {
+                throw new cSoukeyException(ex.Message);
+            }
+            
+            return Urls;                                  //, IsUrlEncode, ""
         }
 
         //public List<string> SplitWebUrl(string Url)//, bool IsUrlEncode, string UrlEncode

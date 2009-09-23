@@ -39,6 +39,24 @@ namespace SoukeyNetget
             set { m_IsInstantSave = value; }
         }
 
+        public cGlobalParas.CurLanguage CurrentLanguage
+        {
+            get
+            {
+                return (cGlobalParas.CurLanguage)int.Parse (xmlConfig.GetNodeValue("Config/System/UILanguage"));
+            }
+            set
+            {
+
+                cGlobalParas.CurLanguage cl = value;
+
+                xmlConfig.EditNodeValue("Config/System/UILanguage", ((int)cl).ToString ());
+
+                if (m_IsInstantSave == true)
+                    xmlConfig.Save();
+            }
+        }
+
         public bool IsFirstRun
         {
             get

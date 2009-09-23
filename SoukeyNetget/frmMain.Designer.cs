@@ -30,58 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("正在采集", 1, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("正在发布", 2, 2);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("已经完成的任务", 3, 3);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("任务运行区", 0, 0, new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("任务计划", 11, 11);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("执行历史", 14, 14);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("任务执行计划", 10, 10, new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("任务分类", 4, 4);
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolManage = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolUpgradeTask = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolImportTask = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolManageDict = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolWebbrowser = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolLookInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolNewTask = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolmenuNewTask = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolMenuNewTaskPlan = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolmenuNewTaskClass = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolCopyTask = new System.Windows.Forms.ToolStripButton();
-            this.toolPasteTask = new System.Windows.Forms.ToolStripButton();
-            this.toolDelTask = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStartTask = new System.Windows.Forms.ToolStripButton();
-            this.toolStopTask = new System.Windows.Forms.ToolStripButton();
-            this.toolRestartTask = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolBrowserData = new System.Windows.Forms.ToolStripButton();
-            this.toolExportData = new System.Windows.Forms.ToolStripSplitButton();
-            this.toolExportTxt = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolExportExcel = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.staIsInternet = new System.Windows.Forms.ToolStripStatusLabel();
-            this.StateInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ExportProbar = new System.Windows.Forms.ToolStripProgressBar();
-            this.PrograBarTxt = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -124,6 +74,44 @@
             this.rMenuCloseTabPage = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolManage = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolUpgradeTask = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolImportTask = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolUrlEncoding = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolManageDict = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolWebbrowser = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolLookInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolNewTask = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolmenuNewTask = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolMenuNewTaskPlan = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolmenuNewTaskClass = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolCopyTask = new System.Windows.Forms.ToolStripButton();
+            this.toolPasteTask = new System.Windows.Forms.ToolStripButton();
+            this.toolDelTask = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStartTask = new System.Windows.Forms.ToolStripButton();
+            this.toolStopTask = new System.Windows.Forms.ToolStripButton();
+            this.toolRestartTask = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolBrowserData = new System.Windows.Forms.ToolStripButton();
+            this.toolExportData = new System.Windows.Forms.ToolStripSplitButton();
+            this.toolExportTxt = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolExportExcel = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.staIsInternet = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StateInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ExportProbar = new System.Windows.Forms.ToolStripProgressBar();
+            this.PrograBarTxt = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -139,7 +127,10 @@
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.toolmenuConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolMenuLanguage = new System.Windows.Forms.ToolStripMenuItem();
-            this.中文简体ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolmenuAuto = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolmenuEnglish = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolmenuCHS = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.toolMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.Soukey采摘ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -153,8 +144,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStrip5 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.rmenuSaveLog = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -173,459 +162,138 @@
             this.tabControl1.SuspendLayout();
             this.contextMenuStrip4.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip5.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolManage,
-            this.toolStripSeparator9,
-            this.toolNewTask,
-            this.toolCopyTask,
-            this.toolPasteTask,
-            this.toolDelTask,
-            this.toolStripSeparator1,
-            this.toolStartTask,
-            this.toolStopTask,
-            this.toolRestartTask,
-            this.toolStripButton5,
-            this.toolBrowserData,
-            this.toolExportData,
-            this.toolStripSeparator8,
-            this.toolStripButton2});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(891, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolManage
-            // 
-            this.toolManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolUpgradeTask,
-            this.toolImportTask,
-            this.toolStripSeparator17,
-            this.toolManageDict,
-            this.toolStripSeparator10,
-            this.toolWebbrowser,
-            this.toolStripSeparator11,
-            this.toolLookInfo});
-            this.toolManage.Image = ((System.Drawing.Image)(resources.GetObject("toolManage.Image")));
-            this.toolManage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolManage.Name = "toolManage";
-            this.toolManage.Size = new System.Drawing.Size(61, 22);
-            this.toolManage.Text = "工具";
-            // 
-            // toolUpgradeTask
-            // 
-            this.toolUpgradeTask.Name = "toolUpgradeTask";
-            this.toolUpgradeTask.Size = new System.Drawing.Size(148, 22);
-            this.toolUpgradeTask.Text = "任务升级";
-            this.toolUpgradeTask.Click += new System.EventHandler(this.toolUpgradeTask_Click);
-            // 
-            // toolImportTask
-            // 
-            this.toolImportTask.Name = "toolImportTask";
-            this.toolImportTask.Size = new System.Drawing.Size(148, 22);
-            this.toolImportTask.Text = "导入任务";
-            this.toolImportTask.Click += new System.EventHandler(this.toolImportTask_Click);
-            // 
-            // toolStripSeparator17
-            // 
-            this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(145, 6);
-            // 
-            // toolManageDict
-            // 
-            this.toolManageDict.Name = "toolManageDict";
-            this.toolManageDict.Size = new System.Drawing.Size(148, 22);
-            this.toolManageDict.Text = "维护参数字典";
-            this.toolManageDict.Click += new System.EventHandler(this.toolManageDict_Click);
-            // 
-            // toolStripSeparator10
-            // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(145, 6);
-            // 
-            // toolWebbrowser
-            // 
-            this.toolWebbrowser.Name = "toolWebbrowser";
-            this.toolWebbrowser.Size = new System.Drawing.Size(148, 22);
-            this.toolWebbrowser.Text = "Mini 浏览器";
-            this.toolWebbrowser.Click += new System.EventHandler(this.toolWebbrowser_Click);
-            // 
-            // toolStripSeparator11
-            // 
-            this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(145, 6);
-            // 
-            // toolLookInfo
-            // 
-            this.toolLookInfo.Checked = true;
-            this.toolLookInfo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolLookInfo.Name = "toolLookInfo";
-            this.toolLookInfo.Size = new System.Drawing.Size(148, 22);
-            this.toolLookInfo.Text = "查看系统信息";
-            this.toolLookInfo.Click += new System.EventHandler(this.toolLookInfo_Click);
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolNewTask
-            // 
-            this.toolNewTask.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolmenuNewTask,
-            this.toolMenuNewTaskPlan,
-            this.toolStripSeparator14,
-            this.toolmenuNewTaskClass});
-            this.toolNewTask.Image = global::SoukeyNetget.Properties.Resources.file;
-            this.toolNewTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolNewTask.Name = "toolNewTask";
-            this.toolNewTask.Size = new System.Drawing.Size(61, 22);
-            this.toolNewTask.Text = "新建";
-            this.toolNewTask.ToolTipText = "新建任务";
-            // 
-            // toolmenuNewTask
-            // 
-            this.toolmenuNewTask.Name = "toolmenuNewTask";
-            this.toolmenuNewTask.Size = new System.Drawing.Size(172, 22);
-            this.toolmenuNewTask.Text = "新建任务";
-            this.toolmenuNewTask.Click += new System.EventHandler(this.toolmenuNewTask_Click);
-            // 
-            // toolMenuNewTaskPlan
-            // 
-            this.toolMenuNewTaskPlan.Name = "toolMenuNewTaskPlan";
-            this.toolMenuNewTaskPlan.Size = new System.Drawing.Size(172, 22);
-            this.toolMenuNewTaskPlan.Text = "新建任务执行计划";
-            this.toolMenuNewTaskPlan.Click += new System.EventHandler(this.toolMenuNewTaskPlan_Click);
-            // 
-            // toolStripSeparator14
-            // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(169, 6);
-            // 
-            // toolmenuNewTaskClass
-            // 
-            this.toolmenuNewTaskClass.Name = "toolmenuNewTaskClass";
-            this.toolmenuNewTaskClass.Size = new System.Drawing.Size(172, 22);
-            this.toolmenuNewTaskClass.Text = "新建任务分类";
-            this.toolmenuNewTaskClass.Click += new System.EventHandler(this.toolmenuNewTaskClass_Click);
-            // 
-            // toolCopyTask
-            // 
-            this.toolCopyTask.Enabled = false;
-            this.toolCopyTask.Image = ((System.Drawing.Image)(resources.GetObject("toolCopyTask.Image")));
-            this.toolCopyTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolCopyTask.Name = "toolCopyTask";
-            this.toolCopyTask.Size = new System.Drawing.Size(52, 22);
-            this.toolCopyTask.Text = "复制";
-            this.toolCopyTask.ToolTipText = "复制任务";
-            this.toolCopyTask.Click += new System.EventHandler(this.toolCopyTask_Click);
-            // 
-            // toolPasteTask
-            // 
-            this.toolPasteTask.Enabled = false;
-            this.toolPasteTask.Image = ((System.Drawing.Image)(resources.GetObject("toolPasteTask.Image")));
-            this.toolPasteTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolPasteTask.Name = "toolPasteTask";
-            this.toolPasteTask.Size = new System.Drawing.Size(52, 22);
-            this.toolPasteTask.Text = "粘贴";
-            this.toolPasteTask.ToolTipText = "粘贴任务";
-            this.toolPasteTask.Click += new System.EventHandler(this.toolPasteT_Click);
-            // 
-            // toolDelTask
-            // 
-            this.toolDelTask.Image = ((System.Drawing.Image)(resources.GetObject("toolDelTask.Image")));
-            this.toolDelTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolDelTask.Name = "toolDelTask";
-            this.toolDelTask.Size = new System.Drawing.Size(52, 22);
-            this.toolDelTask.Text = "删除";
-            this.toolDelTask.Click += new System.EventHandler(this.toolDelTask_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStartTask
-            // 
-            this.toolStartTask.Enabled = false;
-            this.toolStartTask.Image = ((System.Drawing.Image)(resources.GetObject("toolStartTask.Image")));
-            this.toolStartTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStartTask.Name = "toolStartTask";
-            this.toolStartTask.Size = new System.Drawing.Size(52, 22);
-            this.toolStartTask.Text = "开始";
-            this.toolStartTask.ToolTipText = "启动任务";
-            this.toolStartTask.Click += new System.EventHandler(this.toolStartTask_Click);
-            // 
-            // toolStopTask
-            // 
-            this.toolStopTask.Enabled = false;
-            this.toolStopTask.Image = ((System.Drawing.Image)(resources.GetObject("toolStopTask.Image")));
-            this.toolStopTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStopTask.Name = "toolStopTask";
-            this.toolStopTask.Size = new System.Drawing.Size(52, 22);
-            this.toolStopTask.Text = "停止";
-            this.toolStopTask.ToolTipText = "停止正在运行的任务";
-            this.toolStopTask.Click += new System.EventHandler(this.toolStopTask_Click);
-            // 
-            // toolRestartTask
-            // 
-            this.toolRestartTask.Enabled = false;
-            this.toolRestartTask.Image = ((System.Drawing.Image)(resources.GetObject("toolRestartTask.Image")));
-            this.toolRestartTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolRestartTask.Name = "toolRestartTask";
-            this.toolRestartTask.Size = new System.Drawing.Size(52, 22);
-            this.toolRestartTask.Text = "重置";
-            this.toolRestartTask.ToolTipText = "重置任务 将已运行的任务重置初始状态";
-            this.toolRestartTask.Click += new System.EventHandler(this.toolRestartTask_Click);
-            // 
-            // toolStripButton5
-            // 
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolBrowserData
-            // 
-            this.toolBrowserData.Enabled = false;
-            this.toolBrowserData.Image = ((System.Drawing.Image)(resources.GetObject("toolBrowserData.Image")));
-            this.toolBrowserData.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBrowserData.Name = "toolBrowserData";
-            this.toolBrowserData.Size = new System.Drawing.Size(76, 22);
-            this.toolBrowserData.Text = "查看数据";
-            this.toolBrowserData.ToolTipText = "查看已采集的数据";
-            this.toolBrowserData.Click += new System.EventHandler(this.toolBrowserData_Click);
-            // 
-            // toolExportData
-            // 
-            this.toolExportData.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolExportTxt,
-            this.toolExportExcel});
-            this.toolExportData.Enabled = false;
-            this.toolExportData.Image = ((System.Drawing.Image)(resources.GetObject("toolExportData.Image")));
-            this.toolExportData.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolExportData.Name = "toolExportData";
-            this.toolExportData.Size = new System.Drawing.Size(88, 22);
-            this.toolExportData.Text = "导出数据";
-            this.toolExportData.ToolTipText = "导出采集数据";
-            this.toolExportData.ButtonClick += new System.EventHandler(this.toolExportData_ButtonClick);
-            // 
-            // toolExportTxt
-            // 
-            this.toolExportTxt.Name = "toolExportTxt";
-            this.toolExportTxt.Size = new System.Drawing.Size(148, 22);
-            this.toolExportTxt.Text = "导出文本文件";
-            this.toolExportTxt.Click += new System.EventHandler(this.toolExportTxt_Click);
-            // 
-            // toolExportExcel
-            // 
-            this.toolExportExcel.Name = "toolExportExcel";
-            this.toolExportExcel.Size = new System.Drawing.Size(148, 22);
-            this.toolExportExcel.Text = "导出Excel";
-            this.toolExportExcel.Click += new System.EventHandler(this.toolExportExcel_Click);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(52, 22);
-            this.toolStripButton2.Text = "退出";
-            this.toolStripButton2.ToolTipText = "退出 Soukey采摘";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.staIsInternet,
-            this.StateInfo,
-            this.toolStripStatusLabel1,
-            this.ExportProbar,
-            this.PrograBarTxt,
-            this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 452);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(891, 26);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // staIsInternet
-            // 
-            this.staIsInternet.AutoSize = false;
-            this.staIsInternet.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.staIsInternet.Image = ((System.Drawing.Image)(resources.GetObject("staIsInternet.Image")));
-            this.staIsInternet.Name = "staIsInternet";
-            this.staIsInternet.Size = new System.Drawing.Size(60, 21);
-            this.staIsInternet.Text = "在线";
-            // 
-            // StateInfo
-            // 
-            this.StateInfo.AutoSize = false;
-            this.StateInfo.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.StateInfo.Name = "StateInfo";
-            this.StateInfo.Size = new System.Drawing.Size(200, 21);
-            this.StateInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 21);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
-            // ExportProbar
-            // 
-            this.ExportProbar.AutoSize = false;
-            this.ExportProbar.Enabled = false;
-            this.ExportProbar.Name = "ExportProbar";
-            this.ExportProbar.Size = new System.Drawing.Size(100, 20);
-            this.ExportProbar.Visible = false;
-            // 
-            // PrograBarTxt
-            // 
-            this.PrograBarTxt.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.PrograBarTxt.Name = "PrograBarTxt";
-            this.PrograBarTxt.Size = new System.Drawing.Size(96, 21);
-            this.PrograBarTxt.Text = "当前正在导出：";
-            this.PrograBarTxt.Visible = false;
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(616, 21);
-            this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // toolStripContainer1
             // 
+            this.toolStripContainer1.AccessibleDescription = null;
+            this.toolStripContainer1.AccessibleName = null;
+            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
+            // 
+            // toolStripContainer1.BottomToolStripPanel
+            // 
+            this.toolStripContainer1.BottomToolStripPanel.AccessibleDescription = null;
+            this.toolStripContainer1.BottomToolStripPanel.AccessibleName = null;
+            this.toolStripContainer1.BottomToolStripPanel.BackgroundImage = null;
+            resources.ApplyResources(this.toolStripContainer1.BottomToolStripPanel, "toolStripContainer1.BottomToolStripPanel");
+            this.toolStripContainer1.BottomToolStripPanel.Font = null;
             this.toolStripContainer1.BottomToolStripPanelVisible = false;
             // 
             // toolStripContainer1.ContentPanel
             // 
+            this.toolStripContainer1.ContentPanel.AccessibleDescription = null;
+            this.toolStripContainer1.ContentPanel.AccessibleName = null;
+            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            this.toolStripContainer1.ContentPanel.BackgroundImage = null;
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(891, 402);
-            this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toolStripContainer1.ContentPanel.Font = null;
+            this.toolStripContainer1.Font = null;
+            // 
+            // toolStripContainer1.LeftToolStripPanel
+            // 
+            this.toolStripContainer1.LeftToolStripPanel.AccessibleDescription = null;
+            this.toolStripContainer1.LeftToolStripPanel.AccessibleName = null;
+            this.toolStripContainer1.LeftToolStripPanel.BackgroundImage = null;
+            resources.ApplyResources(this.toolStripContainer1.LeftToolStripPanel, "toolStripContainer1.LeftToolStripPanel");
+            this.toolStripContainer1.LeftToolStripPanel.Font = null;
             this.toolStripContainer1.LeftToolStripPanelVisible = false;
-            this.toolStripContainer1.Location = new System.Drawing.Point(0, 50);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(891, 402);
-            this.toolStripContainer1.TabIndex = 5;
-            this.toolStripContainer1.Text = "toolStripContainer1";
+            // 
+            // toolStripContainer1.RightToolStripPanel
+            // 
+            this.toolStripContainer1.RightToolStripPanel.AccessibleDescription = null;
+            this.toolStripContainer1.RightToolStripPanel.AccessibleName = null;
+            this.toolStripContainer1.RightToolStripPanel.BackgroundImage = null;
+            resources.ApplyResources(this.toolStripContainer1.RightToolStripPanel, "toolStripContainer1.RightToolStripPanel");
+            this.toolStripContainer1.RightToolStripPanel.Font = null;
+            // 
+            // toolStripContainer1.TopToolStripPanel
+            // 
+            this.toolStripContainer1.TopToolStripPanel.AccessibleDescription = null;
+            this.toolStripContainer1.TopToolStripPanel.AccessibleName = null;
+            this.toolStripContainer1.TopToolStripPanel.BackgroundImage = null;
+            resources.ApplyResources(this.toolStripContainer1.TopToolStripPanel, "toolStripContainer1.TopToolStripPanel");
+            this.toolStripContainer1.TopToolStripPanel.Font = null;
             this.toolStripContainer1.TopToolStripPanelVisible = false;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.AccessibleDescription = null;
+            this.splitContainer1.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer1, "splitContainer1");
+            this.splitContainer1.BackgroundImage = null;
+            this.splitContainer1.Font = null;
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.AccessibleDescription = null;
+            this.splitContainer1.Panel1.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
+            this.splitContainer1.Panel1.BackgroundImage = null;
             this.splitContainer1.Panel1.Controls.Add(this.splitContainer3);
+            this.splitContainer1.Panel1.Font = null;
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.AccessibleDescription = null;
+            this.splitContainer1.Panel2.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
+            this.splitContainer1.Panel2.BackgroundImage = null;
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(891, 402);
-            this.splitContainer1.SplitterDistance = 169;
-            this.splitContainer1.TabIndex = 4;
+            this.splitContainer1.Panel2.Font = null;
             // 
             // splitContainer3
             // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.AccessibleDescription = null;
+            this.splitContainer3.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer3, "splitContainer3");
+            this.splitContainer3.BackgroundImage = null;
+            this.splitContainer3.Font = null;
             this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.AccessibleDescription = null;
+            this.splitContainer3.Panel1.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer3.Panel1, "splitContainer3.Panel1");
+            this.splitContainer3.Panel1.BackgroundImage = null;
             this.splitContainer3.Panel1.Controls.Add(this.treeMenu);
-            this.splitContainer3.Panel1MinSize = 300;
+            this.splitContainer3.Panel1.Font = null;
             // 
             // splitContainer3.Panel2
             // 
+            this.splitContainer3.Panel2.AccessibleDescription = null;
+            this.splitContainer3.Panel2.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer3.Panel2, "splitContainer3.Panel2");
             this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainer3.Panel2.BackgroundImage = null;
             this.splitContainer3.Panel2.Controls.Add(this.txtLog);
             this.splitContainer3.Panel2.Controls.Add(this.panel1);
-            this.splitContainer3.Panel2MinSize = 0;
-            this.splitContainer3.Size = new System.Drawing.Size(169, 402);
-            this.splitContainer3.SplitterDistance = 300;
-            this.splitContainer3.TabIndex = 1;
+            this.splitContainer3.Panel2.Font = null;
             // 
             // treeMenu
             // 
+            this.treeMenu.AccessibleDescription = null;
+            this.treeMenu.AccessibleName = null;
             this.treeMenu.AllowDrop = true;
+            resources.ApplyResources(this.treeMenu, "treeMenu");
+            this.treeMenu.BackgroundImage = null;
             this.treeMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treeMenu.ContextMenuStrip = this.contextMenuStrip1;
-            this.treeMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeMenu.Font = null;
             this.treeMenu.HideSelection = false;
-            this.treeMenu.ImageIndex = 0;
             this.treeMenu.ImageList = this.imageList1;
-            this.treeMenu.Location = new System.Drawing.Point(0, 0);
             this.treeMenu.Name = "treeMenu";
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "nodRunning";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "正在采集";
-            treeNode1.ToolTipText = "显示需要采集数据的任务";
-            treeNode2.ImageIndex = 2;
-            treeNode2.Name = "nodPublish";
-            treeNode2.SelectedImageIndex = 2;
-            treeNode2.Text = "正在发布";
-            treeNode2.ToolTipText = "显示正在发布的任务 不能人工干预";
-            treeNode3.ImageIndex = 3;
-            treeNode3.Name = "nodComplete";
-            treeNode3.SelectedImageIndex = 3;
-            treeNode3.Text = "已经完成的任务";
-            treeNode3.ToolTipText = "显示已经完成采集的任务";
-            treeNode4.ImageIndex = 0;
-            treeNode4.Name = "nodSnap";
-            treeNode4.SelectedImageIndex = 0;
-            treeNode4.Text = "任务运行区";
-            treeNode5.ImageIndex = 11;
-            treeNode5.Name = "nodPlanRunning";
-            treeNode5.SelectedImageIndex = 11;
-            treeNode5.Text = "任务计划";
-            treeNode6.ImageIndex = 14;
-            treeNode6.Name = "nodPlanCompleted";
-            treeNode6.SelectedImageIndex = 14;
-            treeNode6.Text = "执行历史";
-            treeNode7.ImageIndex = 10;
-            treeNode7.Name = "nodTaskPlan";
-            treeNode7.SelectedImageIndex = 10;
-            treeNode7.Text = "任务执行计划";
-            treeNode8.ImageIndex = 4;
-            treeNode8.Name = "nodTaskClass";
-            treeNode8.SelectedImageIndex = 4;
-            treeNode8.Text = "任务分类";
             this.treeMenu.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode7,
-            treeNode8});
-            this.treeMenu.SelectedImageIndex = 0;
-            this.treeMenu.Size = new System.Drawing.Size(169, 300);
-            this.treeMenu.TabIndex = 0;
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("treeMenu.Nodes"))),
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("treeMenu.Nodes1"))),
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("treeMenu.Nodes2")))});
             this.treeMenu.DragLeave += new System.EventHandler(this.treeMenu_DragLeave);
             this.treeMenu.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeMenu_AfterLabelEdit);
             this.treeMenu.Enter += new System.EventHandler(this.treeMenu_Enter);
@@ -638,6 +306,11 @@
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.AccessibleDescription = null;
+            this.contextMenuStrip1.AccessibleName = null;
+            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
+            this.contextMenuStrip1.BackgroundImage = null;
+            this.contextMenuStrip1.Font = null;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rmenuAddTaskClass,
             this.rmenuRenameTaskClass,
@@ -646,51 +319,63 @@
             this.menuAddTask,
             this.menuAddTaskPlan});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(190, 120);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // rmenuAddTaskClass
             // 
+            this.rmenuAddTaskClass.AccessibleDescription = null;
+            this.rmenuAddTaskClass.AccessibleName = null;
+            resources.ApplyResources(this.rmenuAddTaskClass, "rmenuAddTaskClass");
+            this.rmenuAddTaskClass.BackgroundImage = null;
             this.rmenuAddTaskClass.Name = "rmenuAddTaskClass";
-            this.rmenuAddTaskClass.Size = new System.Drawing.Size(189, 22);
-            this.rmenuAddTaskClass.Text = "添加分类";
+            this.rmenuAddTaskClass.ShortcutKeyDisplayString = null;
             this.rmenuAddTaskClass.Click += new System.EventHandler(this.rmenuAddTaskClass_Click);
             // 
             // rmenuRenameTaskClass
             // 
-            this.rmenuRenameTaskClass.Enabled = false;
+            this.rmenuRenameTaskClass.AccessibleDescription = null;
+            this.rmenuRenameTaskClass.AccessibleName = null;
+            resources.ApplyResources(this.rmenuRenameTaskClass, "rmenuRenameTaskClass");
+            this.rmenuRenameTaskClass.BackgroundImage = null;
             this.rmenuRenameTaskClass.Name = "rmenuRenameTaskClass";
-            this.rmenuRenameTaskClass.Size = new System.Drawing.Size(189, 22);
-            this.rmenuRenameTaskClass.Text = "重命名          F2";
+            this.rmenuRenameTaskClass.ShortcutKeyDisplayString = null;
             this.rmenuRenameTaskClass.Click += new System.EventHandler(this.rmenuRenameTaskClass_Click);
             // 
             // rmenuDelTaskClass
             // 
-            this.rmenuDelTaskClass.Enabled = false;
-            this.rmenuDelTaskClass.Image = ((System.Drawing.Image)(resources.GetObject("rmenuDelTaskClass.Image")));
+            this.rmenuDelTaskClass.AccessibleDescription = null;
+            this.rmenuDelTaskClass.AccessibleName = null;
+            resources.ApplyResources(this.rmenuDelTaskClass, "rmenuDelTaskClass");
+            this.rmenuDelTaskClass.BackgroundImage = null;
             this.rmenuDelTaskClass.Name = "rmenuDelTaskClass";
-            this.rmenuDelTaskClass.Size = new System.Drawing.Size(189, 22);
-            this.rmenuDelTaskClass.Text = "删除分类       Delete";
+            this.rmenuDelTaskClass.ShortcutKeyDisplayString = null;
             this.rmenuDelTaskClass.Click += new System.EventHandler(this.rmenuDelTaskClass_Click);
             // 
             // toolStripSeparator16
             // 
+            this.toolStripSeparator16.AccessibleDescription = null;
+            this.toolStripSeparator16.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator16, "toolStripSeparator16");
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(186, 6);
             // 
             // menuAddTask
             // 
+            this.menuAddTask.AccessibleDescription = null;
+            this.menuAddTask.AccessibleName = null;
+            resources.ApplyResources(this.menuAddTask, "menuAddTask");
+            this.menuAddTask.BackgroundImage = null;
             this.menuAddTask.Name = "menuAddTask";
-            this.menuAddTask.Size = new System.Drawing.Size(189, 22);
-            this.menuAddTask.Text = "新建任务";
+            this.menuAddTask.ShortcutKeyDisplayString = null;
             this.menuAddTask.Click += new System.EventHandler(this.menuAddTask_Click);
             // 
             // menuAddTaskPlan
             // 
-            this.menuAddTaskPlan.Image = ((System.Drawing.Image)(resources.GetObject("menuAddTaskPlan.Image")));
+            this.menuAddTaskPlan.AccessibleDescription = null;
+            this.menuAddTaskPlan.AccessibleName = null;
+            resources.ApplyResources(this.menuAddTaskPlan, "menuAddTaskPlan");
+            this.menuAddTaskPlan.BackgroundImage = null;
             this.menuAddTaskPlan.Name = "menuAddTaskPlan";
-            this.menuAddTaskPlan.Size = new System.Drawing.Size(189, 22);
-            this.menuAddTaskPlan.Text = "新建任务执行计划";
+            this.menuAddTaskPlan.ShortcutKeyDisplayString = null;
             this.menuAddTaskPlan.Click += new System.EventHandler(this.menuAddTaskPlan_Click);
             // 
             // imageList1
@@ -715,73 +400,80 @@
             // 
             // txtLog
             // 
+            this.txtLog.AccessibleDescription = null;
+            this.txtLog.AccessibleName = null;
+            resources.ApplyResources(this.txtLog, "txtLog");
+            this.txtLog.BackgroundImage = null;
             this.txtLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLog.Location = new System.Drawing.Point(0, 21);
+            this.txtLog.Font = null;
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(169, 77);
-            this.txtLog.TabIndex = 2;
-            this.txtLog.Text = "";
-            this.txtLog.WordWrap = false;
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            this.panel1.AccessibleDescription = null;
+            this.panel1.AccessibleName = null;
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.cmdCloseInfo);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Font = null;
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(169, 21);
-            this.panel1.TabIndex = 1;
             // 
             // cmdCloseInfo
             // 
+            this.cmdCloseInfo.AccessibleDescription = null;
+            this.cmdCloseInfo.AccessibleName = null;
+            resources.ApplyResources(this.cmdCloseInfo, "cmdCloseInfo");
             this.cmdCloseInfo.BackColor = System.Drawing.Color.Transparent;
-            this.cmdCloseInfo.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cmdCloseInfo.BackgroundImage = null;
             this.cmdCloseInfo.FlatAppearance.BorderSize = 0;
             this.cmdCloseInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.cmdCloseInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.cmdCloseInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCloseInfo.Image = ((System.Drawing.Image)(resources.GetObject("cmdCloseInfo.Image")));
-            this.cmdCloseInfo.Location = new System.Drawing.Point(154, 0);
+            this.cmdCloseInfo.Font = null;
             this.cmdCloseInfo.Name = "cmdCloseInfo";
-            this.cmdCloseInfo.Size = new System.Drawing.Size(15, 21);
-            this.cmdCloseInfo.TabIndex = 1;
             this.cmdCloseInfo.UseVisualStyleBackColor = false;
             this.cmdCloseInfo.Click += new System.EventHandler(this.cmdCloseInfo_Click);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
+            this.label1.AccessibleDescription = null;
+            this.label1.AccessibleName = null;
+            resources.ApplyResources(this.label1, "label1");
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(6, 4);
+            this.label1.Font = null;
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "系统信息";
             // 
             // splitContainer2
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.AccessibleDescription = null;
+            this.splitContainer2.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer2, "splitContainer2");
+            this.splitContainer2.BackgroundImage = null;
+            this.splitContainer2.Font = null;
             this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.AccessibleDescription = null;
+            this.splitContainer2.Panel1.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer2.Panel1, "splitContainer2.Panel1");
+            this.splitContainer2.Panel1.BackgroundImage = null;
             this.splitContainer2.Panel1.Controls.Add(this.dataTask);
+            this.splitContainer2.Panel1.Font = null;
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.AccessibleDescription = null;
+            this.splitContainer2.Panel2.AccessibleName = null;
+            resources.ApplyResources(this.splitContainer2.Panel2, "splitContainer2.Panel2");
             this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.splitContainer2.Panel2.BackgroundImage = null;
             this.splitContainer2.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer2.Size = new System.Drawing.Size(718, 402);
-            this.splitContainer2.SplitterDistance = 200;
-            this.splitContainer2.TabIndex = 0;
+            this.splitContainer2.Panel2.Font = null;
             // 
             // dataTask
             // 
+            this.dataTask.AccessibleDescription = null;
+            this.dataTask.AccessibleName = null;
             this.dataTask.AllowUserToAddRows = false;
             this.dataTask.AllowUserToOrderColumns = true;
             this.dataTask.AllowUserToResizeRows = false;
@@ -789,11 +481,12 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             this.dataTask.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            resources.ApplyResources(this.dataTask, "dataTask");
             this.dataTask.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             this.dataTask.BackgroundColor = System.Drawing.Color.White;
+            this.dataTask.BackgroundImage = null;
             this.dataTask.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dataTask.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.dataTask.ColumnHeadersHeight = 20;
             this.dataTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataTask.ContextMenuStrip = this.contextMenuStrip2;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -804,19 +497,15 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataTask.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataTask.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataTask.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataTask.Font = null;
             this.dataTask.GridColor = System.Drawing.SystemColors.AppWorkspace;
-            this.dataTask.Location = new System.Drawing.Point(0, 0);
-            this.dataTask.Margin = new System.Windows.Forms.Padding(0);
             this.dataTask.Name = "dataTask";
             this.dataTask.ReadOnly = true;
             this.dataTask.RowHeadersVisible = false;
             this.dataTask.RowTemplate.Height = 23;
             this.dataTask.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataTask.Size = new System.Drawing.Size(718, 200);
             this.dataTask.StandardTab = true;
-            this.dataTask.TabIndex = 0;
             this.dataTask.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataTask_MouseDown);
             this.dataTask.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataTask_CellBeginEdit);
             this.dataTask.Enter += new System.EventHandler(this.dataTask_Enter);
@@ -830,6 +519,11 @@
             // 
             // contextMenuStrip2
             // 
+            this.contextMenuStrip2.AccessibleDescription = null;
+            this.contextMenuStrip2.AccessibleName = null;
+            resources.ApplyResources(this.contextMenuStrip2, "contextMenuStrip2");
+            this.contextMenuStrip2.BackgroundImage = null;
+            this.contextMenuStrip2.Font = null;
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rmmenuStartTask,
             this.rmmenuStopTask,
@@ -847,198 +541,635 @@
             this.rmmenuNewTask,
             this.rmenuAddPlan});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(178, 270);
             this.contextMenuStrip2.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip2_Opening);
             // 
             // rmmenuStartTask
             // 
-            this.rmmenuStartTask.Image = ((System.Drawing.Image)(resources.GetObject("rmmenuStartTask.Image")));
+            this.rmmenuStartTask.AccessibleDescription = null;
+            this.rmmenuStartTask.AccessibleName = null;
+            resources.ApplyResources(this.rmmenuStartTask, "rmmenuStartTask");
+            this.rmmenuStartTask.BackgroundImage = null;
             this.rmmenuStartTask.Name = "rmmenuStartTask";
-            this.rmmenuStartTask.Size = new System.Drawing.Size(177, 22);
-            this.rmmenuStartTask.Text = "启动任务";
+            this.rmmenuStartTask.ShortcutKeyDisplayString = null;
             this.rmmenuStartTask.Click += new System.EventHandler(this.rmmenuStartTask_Click);
             // 
             // rmmenuStopTask
             // 
-            this.rmmenuStopTask.Image = ((System.Drawing.Image)(resources.GetObject("rmmenuStopTask.Image")));
+            this.rmmenuStopTask.AccessibleDescription = null;
+            this.rmmenuStopTask.AccessibleName = null;
+            resources.ApplyResources(this.rmmenuStopTask, "rmmenuStopTask");
+            this.rmmenuStopTask.BackgroundImage = null;
             this.rmmenuStopTask.Name = "rmmenuStopTask";
-            this.rmmenuStopTask.Size = new System.Drawing.Size(177, 22);
-            this.rmmenuStopTask.Text = "停止任务";
+            this.rmmenuStopTask.ShortcutKeyDisplayString = null;
             this.rmmenuStopTask.Click += new System.EventHandler(this.rmmenuStopTask_Click);
             // 
             // rmmenuRestartTask
             // 
-            this.rmmenuRestartTask.Image = ((System.Drawing.Image)(resources.GetObject("rmmenuRestartTask.Image")));
+            this.rmmenuRestartTask.AccessibleDescription = null;
+            this.rmmenuRestartTask.AccessibleName = null;
+            resources.ApplyResources(this.rmmenuRestartTask, "rmmenuRestartTask");
+            this.rmmenuRestartTask.BackgroundImage = null;
             this.rmmenuRestartTask.Name = "rmmenuRestartTask";
-            this.rmmenuRestartTask.Size = new System.Drawing.Size(177, 22);
-            this.rmmenuRestartTask.Text = "重置任务";
+            this.rmmenuRestartTask.ShortcutKeyDisplayString = null;
             this.rmmenuRestartTask.Click += new System.EventHandler(this.rmmenuRestartTask_Click);
             // 
             // toolStripSeparator5
             // 
+            this.toolStripSeparator5.AccessibleDescription = null;
+            this.toolStripSeparator5.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(174, 6);
             // 
             // rmenuBrowserData
             // 
+            this.rmenuBrowserData.AccessibleDescription = null;
+            this.rmenuBrowserData.AccessibleName = null;
+            resources.ApplyResources(this.rmenuBrowserData, "rmenuBrowserData");
+            this.rmenuBrowserData.BackgroundImage = null;
             this.rmenuBrowserData.Name = "rmenuBrowserData";
-            this.rmenuBrowserData.Size = new System.Drawing.Size(177, 22);
-            this.rmenuBrowserData.Text = "查看数据";
+            this.rmenuBrowserData.ShortcutKeyDisplayString = null;
             this.rmenuBrowserData.Click += new System.EventHandler(this.rmenuBrowserData_Click);
             // 
             // toolStripSeparator15
             // 
+            this.toolStripSeparator15.AccessibleDescription = null;
+            this.toolStripSeparator15.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator15, "toolStripSeparator15");
             this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(174, 6);
             // 
             // rmenuCopyTask
             // 
-            this.rmenuCopyTask.Image = ((System.Drawing.Image)(resources.GetObject("rmenuCopyTask.Image")));
+            this.rmenuCopyTask.AccessibleDescription = null;
+            this.rmenuCopyTask.AccessibleName = null;
+            resources.ApplyResources(this.rmenuCopyTask, "rmenuCopyTask");
+            this.rmenuCopyTask.BackgroundImage = null;
             this.rmenuCopyTask.Name = "rmenuCopyTask";
-            this.rmenuCopyTask.Size = new System.Drawing.Size(177, 22);
-            this.rmenuCopyTask.Text = "复制          Ctrl+C";
+            this.rmenuCopyTask.ShortcutKeyDisplayString = null;
             this.rmenuCopyTask.Click += new System.EventHandler(this.rmenuCopyTask_Click);
             // 
             // rmenuPasteTask
             // 
-            this.rmenuPasteTask.Image = ((System.Drawing.Image)(resources.GetObject("rmenuPasteTask.Image")));
+            this.rmenuPasteTask.AccessibleDescription = null;
+            this.rmenuPasteTask.AccessibleName = null;
+            resources.ApplyResources(this.rmenuPasteTask, "rmenuPasteTask");
+            this.rmenuPasteTask.BackgroundImage = null;
             this.rmenuPasteTask.Name = "rmenuPasteTask";
-            this.rmenuPasteTask.Size = new System.Drawing.Size(177, 22);
-            this.rmenuPasteTask.Text = "粘贴          Ctrl+V";
+            this.rmenuPasteTask.ShortcutKeyDisplayString = null;
             this.rmenuPasteTask.Click += new System.EventHandler(this.rmenuPasteTask_Click);
             // 
             // toolStripSeparator18
             // 
+            this.toolStripSeparator18.AccessibleDescription = null;
+            this.toolStripSeparator18.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator18, "toolStripSeparator18");
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(174, 6);
             // 
             // rmmenuEditTask
             // 
+            this.rmmenuEditTask.AccessibleDescription = null;
+            this.rmmenuEditTask.AccessibleName = null;
+            resources.ApplyResources(this.rmmenuEditTask, "rmmenuEditTask");
+            this.rmmenuEditTask.BackgroundImage = null;
             this.rmmenuEditTask.Name = "rmmenuEditTask";
-            this.rmmenuEditTask.Size = new System.Drawing.Size(177, 22);
-            this.rmmenuEditTask.Text = "编辑";
+            this.rmmenuEditTask.ShortcutKeyDisplayString = null;
             this.rmmenuEditTask.Click += new System.EventHandler(this.rmmenuEditTask_Click);
             // 
             // rmmenuRenameTask
             // 
+            this.rmmenuRenameTask.AccessibleDescription = null;
+            this.rmmenuRenameTask.AccessibleName = null;
+            resources.ApplyResources(this.rmmenuRenameTask, "rmmenuRenameTask");
+            this.rmmenuRenameTask.BackgroundImage = null;
             this.rmmenuRenameTask.Name = "rmmenuRenameTask";
-            this.rmmenuRenameTask.Size = new System.Drawing.Size(177, 22);
-            this.rmmenuRenameTask.Text = "重命名       F2";
+            this.rmmenuRenameTask.ShortcutKeyDisplayString = null;
             this.rmmenuRenameTask.Click += new System.EventHandler(this.rmmenuRenameTask_Click);
             // 
             // rmmenuDelTask
             // 
-            this.rmmenuDelTask.Image = ((System.Drawing.Image)(resources.GetObject("rmmenuDelTask.Image")));
+            this.rmmenuDelTask.AccessibleDescription = null;
+            this.rmmenuDelTask.AccessibleName = null;
+            resources.ApplyResources(this.rmmenuDelTask, "rmmenuDelTask");
+            this.rmmenuDelTask.BackgroundImage = null;
             this.rmmenuDelTask.Name = "rmmenuDelTask";
-            this.rmmenuDelTask.Size = new System.Drawing.Size(177, 22);
-            this.rmmenuDelTask.Text = "删除          Delete";
+            this.rmmenuDelTask.ShortcutKeyDisplayString = null;
             this.rmmenuDelTask.Click += new System.EventHandler(this.rmmenuDelTask_Click);
             // 
             // toolStripSeparator3
             // 
+            this.toolStripSeparator3.AccessibleDescription = null;
+            this.toolStripSeparator3.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(174, 6);
             // 
             // rmmenuNewTask
             // 
-            this.rmmenuNewTask.Image = ((System.Drawing.Image)(resources.GetObject("rmmenuNewTask.Image")));
+            this.rmmenuNewTask.AccessibleDescription = null;
+            this.rmmenuNewTask.AccessibleName = null;
+            resources.ApplyResources(this.rmmenuNewTask, "rmmenuNewTask");
+            this.rmmenuNewTask.BackgroundImage = null;
             this.rmmenuNewTask.Name = "rmmenuNewTask";
-            this.rmmenuNewTask.Size = new System.Drawing.Size(177, 22);
-            this.rmmenuNewTask.Text = "新建任务";
+            this.rmmenuNewTask.ShortcutKeyDisplayString = null;
             this.rmmenuNewTask.Click += new System.EventHandler(this.rmmenuNewTask_Click);
             // 
             // rmenuAddPlan
             // 
-            this.rmenuAddPlan.Image = ((System.Drawing.Image)(resources.GetObject("rmenuAddPlan.Image")));
+            this.rmenuAddPlan.AccessibleDescription = null;
+            this.rmenuAddPlan.AccessibleName = null;
+            resources.ApplyResources(this.rmenuAddPlan, "rmenuAddPlan");
+            this.rmenuAddPlan.BackgroundImage = null;
             this.rmenuAddPlan.Name = "rmenuAddPlan";
-            this.rmenuAddPlan.Size = new System.Drawing.Size(177, 22);
-            this.rmenuAddPlan.Text = "新建任务执行计划";
+            this.rmenuAddPlan.ShortcutKeyDisplayString = null;
             this.rmenuAddPlan.Click += new System.EventHandler(this.rmenuAddPlan_Click);
             // 
             // tabControl1
             // 
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tabControl1.AccessibleDescription = null;
+            this.tabControl1.AccessibleName = null;
+            resources.ApplyResources(this.tabControl1, "tabControl1");
+            this.tabControl1.BackgroundImage = null;
             this.tabControl1.ContextMenuStrip = this.contextMenuStrip4;
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Font = null;
             this.tabControl1.ImageList = this.imageList1;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(718, 198);
-            this.tabControl1.TabIndex = 13;
             this.tabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // contextMenuStrip4
             // 
+            this.contextMenuStrip4.AccessibleDescription = null;
+            this.contextMenuStrip4.AccessibleName = null;
+            resources.ApplyResources(this.contextMenuStrip4, "contextMenuStrip4");
+            this.contextMenuStrip4.BackgroundImage = null;
+            this.contextMenuStrip4.Font = null;
             this.contextMenuStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rMenuExportTxt,
             this.rMenuExportExcel,
             this.toolStripSeparator4,
             this.rMenuCloseTabPage});
             this.contextMenuStrip4.Name = "contextMenuStrip4";
-            this.contextMenuStrip4.Size = new System.Drawing.Size(149, 76);
             this.contextMenuStrip4.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip4_Opening);
             // 
             // rMenuExportTxt
             // 
+            this.rMenuExportTxt.AccessibleDescription = null;
+            this.rMenuExportTxt.AccessibleName = null;
+            resources.ApplyResources(this.rMenuExportTxt, "rMenuExportTxt");
+            this.rMenuExportTxt.BackgroundImage = null;
             this.rMenuExportTxt.Name = "rMenuExportTxt";
-            this.rMenuExportTxt.Size = new System.Drawing.Size(148, 22);
-            this.rMenuExportTxt.Text = "导出文本";
+            this.rMenuExportTxt.ShortcutKeyDisplayString = null;
             this.rMenuExportTxt.Click += new System.EventHandler(this.rMenuExportTxt_Click);
             // 
             // rMenuExportExcel
             // 
+            this.rMenuExportExcel.AccessibleDescription = null;
+            this.rMenuExportExcel.AccessibleName = null;
+            resources.ApplyResources(this.rMenuExportExcel, "rMenuExportExcel");
+            this.rMenuExportExcel.BackgroundImage = null;
             this.rMenuExportExcel.Name = "rMenuExportExcel";
-            this.rMenuExportExcel.Size = new System.Drawing.Size(148, 22);
-            this.rMenuExportExcel.Text = "导出Excel";
+            this.rMenuExportExcel.ShortcutKeyDisplayString = null;
             this.rMenuExportExcel.Click += new System.EventHandler(this.rMenuExportExcel_Click);
             // 
             // toolStripSeparator4
             // 
+            this.toolStripSeparator4.AccessibleDescription = null;
+            this.toolStripSeparator4.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(145, 6);
             // 
             // rMenuCloseTabPage
             // 
+            this.rMenuCloseTabPage.AccessibleDescription = null;
+            this.rMenuCloseTabPage.AccessibleName = null;
+            resources.ApplyResources(this.rMenuCloseTabPage, "rMenuCloseTabPage");
+            this.rMenuCloseTabPage.BackgroundImage = null;
             this.rMenuCloseTabPage.Name = "rMenuCloseTabPage";
-            this.rMenuCloseTabPage.Size = new System.Drawing.Size(148, 22);
-            this.rMenuCloseTabPage.Text = "关闭此选项卡";
+            this.rMenuCloseTabPage.ShortcutKeyDisplayString = null;
             this.rMenuCloseTabPage.Click += new System.EventHandler(this.rMenuCloseTabPage_Click);
             // 
             // tabPage1
             // 
+            this.tabPage1.AccessibleDescription = null;
+            this.tabPage1.AccessibleName = null;
+            resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.BackgroundImage = null;
             this.tabPage1.Controls.Add(this.webBrowser);
-            this.tabPage1.ImageIndex = 8;
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.tabPage1.Font = null;
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(710, 168);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "soukey采摘";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // webBrowser
             // 
-            this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser.AccessibleDescription = null;
+            this.webBrowser.AccessibleName = null;
+            resources.ApplyResources(this.webBrowser, "webBrowser");
             this.webBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowser.Location = new System.Drawing.Point(0, 0);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 22);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(710, 168);
-            this.webBrowser.TabIndex = 14;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AccessibleDescription = null;
+            this.toolStrip1.AccessibleName = null;
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
+            this.toolStrip1.BackgroundImage = null;
+            this.toolStrip1.Font = null;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolManage,
+            this.toolStripSeparator9,
+            this.toolNewTask,
+            this.toolCopyTask,
+            this.toolPasteTask,
+            this.toolDelTask,
+            this.toolStripSeparator1,
+            this.toolStartTask,
+            this.toolStopTask,
+            this.toolRestartTask,
+            this.toolStripButton5,
+            this.toolBrowserData,
+            this.toolExportData,
+            this.toolStripSeparator8,
+            this.toolStripButton2});
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            // 
+            // toolManage
+            // 
+            this.toolManage.AccessibleDescription = null;
+            this.toolManage.AccessibleName = null;
+            resources.ApplyResources(this.toolManage, "toolManage");
+            this.toolManage.BackgroundImage = null;
+            this.toolManage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolUpgradeTask,
+            this.toolImportTask,
+            this.toolStripSeparator17,
+            this.toolUrlEncoding,
+            this.toolManageDict,
+            this.toolStripSeparator10,
+            this.toolWebbrowser,
+            this.toolStripSeparator11,
+            this.toolLookInfo});
+            this.toolManage.Name = "toolManage";
+            // 
+            // toolUpgradeTask
+            // 
+            this.toolUpgradeTask.AccessibleDescription = null;
+            this.toolUpgradeTask.AccessibleName = null;
+            resources.ApplyResources(this.toolUpgradeTask, "toolUpgradeTask");
+            this.toolUpgradeTask.BackgroundImage = null;
+            this.toolUpgradeTask.Name = "toolUpgradeTask";
+            this.toolUpgradeTask.ShortcutKeyDisplayString = null;
+            this.toolUpgradeTask.Click += new System.EventHandler(this.toolUpgradeTask_Click);
+            // 
+            // toolImportTask
+            // 
+            this.toolImportTask.AccessibleDescription = null;
+            this.toolImportTask.AccessibleName = null;
+            resources.ApplyResources(this.toolImportTask, "toolImportTask");
+            this.toolImportTask.BackgroundImage = null;
+            this.toolImportTask.Name = "toolImportTask";
+            this.toolImportTask.ShortcutKeyDisplayString = null;
+            this.toolImportTask.Click += new System.EventHandler(this.toolImportTask_Click);
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.AccessibleDescription = null;
+            this.toolStripSeparator17.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator17, "toolStripSeparator17");
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            // 
+            // toolUrlEncoding
+            // 
+            this.toolUrlEncoding.AccessibleDescription = null;
+            this.toolUrlEncoding.AccessibleName = null;
+            resources.ApplyResources(this.toolUrlEncoding, "toolUrlEncoding");
+            this.toolUrlEncoding.BackgroundImage = null;
+            this.toolUrlEncoding.Name = "toolUrlEncoding";
+            this.toolUrlEncoding.ShortcutKeyDisplayString = null;
+            this.toolUrlEncoding.Click += new System.EventHandler(this.toolUrlEncoding_Click);
+            // 
+            // toolManageDict
+            // 
+            this.toolManageDict.AccessibleDescription = null;
+            this.toolManageDict.AccessibleName = null;
+            resources.ApplyResources(this.toolManageDict, "toolManageDict");
+            this.toolManageDict.BackgroundImage = null;
+            this.toolManageDict.Name = "toolManageDict";
+            this.toolManageDict.ShortcutKeyDisplayString = null;
+            this.toolManageDict.Click += new System.EventHandler(this.toolManageDict_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.AccessibleDescription = null;
+            this.toolStripSeparator10.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            // 
+            // toolWebbrowser
+            // 
+            this.toolWebbrowser.AccessibleDescription = null;
+            this.toolWebbrowser.AccessibleName = null;
+            resources.ApplyResources(this.toolWebbrowser, "toolWebbrowser");
+            this.toolWebbrowser.BackgroundImage = null;
+            this.toolWebbrowser.Name = "toolWebbrowser";
+            this.toolWebbrowser.ShortcutKeyDisplayString = null;
+            this.toolWebbrowser.Click += new System.EventHandler(this.toolWebbrowser_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.AccessibleDescription = null;
+            this.toolStripSeparator11.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator11, "toolStripSeparator11");
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            // 
+            // toolLookInfo
+            // 
+            this.toolLookInfo.AccessibleDescription = null;
+            this.toolLookInfo.AccessibleName = null;
+            resources.ApplyResources(this.toolLookInfo, "toolLookInfo");
+            this.toolLookInfo.BackgroundImage = null;
+            this.toolLookInfo.Checked = true;
+            this.toolLookInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolLookInfo.Name = "toolLookInfo";
+            this.toolLookInfo.ShortcutKeyDisplayString = null;
+            this.toolLookInfo.Click += new System.EventHandler(this.toolLookInfo_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.AccessibleDescription = null;
+            this.toolStripSeparator9.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator9, "toolStripSeparator9");
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            // 
+            // toolNewTask
+            // 
+            this.toolNewTask.AccessibleDescription = null;
+            this.toolNewTask.AccessibleName = null;
+            resources.ApplyResources(this.toolNewTask, "toolNewTask");
+            this.toolNewTask.BackgroundImage = null;
+            this.toolNewTask.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolmenuNewTask,
+            this.toolMenuNewTaskPlan,
+            this.toolStripSeparator14,
+            this.toolmenuNewTaskClass});
+            this.toolNewTask.Image = global::SoukeyNetget.Properties.Resources.file;
+            this.toolNewTask.Name = "toolNewTask";
+            // 
+            // toolmenuNewTask
+            // 
+            this.toolmenuNewTask.AccessibleDescription = null;
+            this.toolmenuNewTask.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuNewTask, "toolmenuNewTask");
+            this.toolmenuNewTask.BackgroundImage = null;
+            this.toolmenuNewTask.Name = "toolmenuNewTask";
+            this.toolmenuNewTask.ShortcutKeyDisplayString = null;
+            this.toolmenuNewTask.Click += new System.EventHandler(this.toolmenuNewTask_Click);
+            // 
+            // toolMenuNewTaskPlan
+            // 
+            this.toolMenuNewTaskPlan.AccessibleDescription = null;
+            this.toolMenuNewTaskPlan.AccessibleName = null;
+            resources.ApplyResources(this.toolMenuNewTaskPlan, "toolMenuNewTaskPlan");
+            this.toolMenuNewTaskPlan.BackgroundImage = null;
+            this.toolMenuNewTaskPlan.Name = "toolMenuNewTaskPlan";
+            this.toolMenuNewTaskPlan.ShortcutKeyDisplayString = null;
+            this.toolMenuNewTaskPlan.Click += new System.EventHandler(this.toolMenuNewTaskPlan_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.AccessibleDescription = null;
+            this.toolStripSeparator14.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator14, "toolStripSeparator14");
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            // 
+            // toolmenuNewTaskClass
+            // 
+            this.toolmenuNewTaskClass.AccessibleDescription = null;
+            this.toolmenuNewTaskClass.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuNewTaskClass, "toolmenuNewTaskClass");
+            this.toolmenuNewTaskClass.BackgroundImage = null;
+            this.toolmenuNewTaskClass.Name = "toolmenuNewTaskClass";
+            this.toolmenuNewTaskClass.ShortcutKeyDisplayString = null;
+            this.toolmenuNewTaskClass.Click += new System.EventHandler(this.toolmenuNewTaskClass_Click);
+            // 
+            // toolCopyTask
+            // 
+            this.toolCopyTask.AccessibleDescription = null;
+            this.toolCopyTask.AccessibleName = null;
+            resources.ApplyResources(this.toolCopyTask, "toolCopyTask");
+            this.toolCopyTask.BackgroundImage = null;
+            this.toolCopyTask.Name = "toolCopyTask";
+            this.toolCopyTask.Click += new System.EventHandler(this.toolCopyTask_Click);
+            // 
+            // toolPasteTask
+            // 
+            this.toolPasteTask.AccessibleDescription = null;
+            this.toolPasteTask.AccessibleName = null;
+            resources.ApplyResources(this.toolPasteTask, "toolPasteTask");
+            this.toolPasteTask.BackgroundImage = null;
+            this.toolPasteTask.Name = "toolPasteTask";
+            this.toolPasteTask.Click += new System.EventHandler(this.toolPasteT_Click);
+            // 
+            // toolDelTask
+            // 
+            this.toolDelTask.AccessibleDescription = null;
+            this.toolDelTask.AccessibleName = null;
+            resources.ApplyResources(this.toolDelTask, "toolDelTask");
+            this.toolDelTask.BackgroundImage = null;
+            this.toolDelTask.Name = "toolDelTask";
+            this.toolDelTask.Click += new System.EventHandler(this.toolDelTask_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.AccessibleDescription = null;
+            this.toolStripSeparator1.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            // 
+            // toolStartTask
+            // 
+            this.toolStartTask.AccessibleDescription = null;
+            this.toolStartTask.AccessibleName = null;
+            resources.ApplyResources(this.toolStartTask, "toolStartTask");
+            this.toolStartTask.BackgroundImage = null;
+            this.toolStartTask.Name = "toolStartTask";
+            this.toolStartTask.Click += new System.EventHandler(this.toolStartTask_Click);
+            // 
+            // toolStopTask
+            // 
+            this.toolStopTask.AccessibleDescription = null;
+            this.toolStopTask.AccessibleName = null;
+            resources.ApplyResources(this.toolStopTask, "toolStopTask");
+            this.toolStopTask.BackgroundImage = null;
+            this.toolStopTask.Name = "toolStopTask";
+            this.toolStopTask.Click += new System.EventHandler(this.toolStopTask_Click);
+            // 
+            // toolRestartTask
+            // 
+            this.toolRestartTask.AccessibleDescription = null;
+            this.toolRestartTask.AccessibleName = null;
+            resources.ApplyResources(this.toolRestartTask, "toolRestartTask");
+            this.toolRestartTask.BackgroundImage = null;
+            this.toolRestartTask.Name = "toolRestartTask";
+            this.toolRestartTask.Click += new System.EventHandler(this.toolRestartTask_Click);
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.AccessibleDescription = null;
+            this.toolStripButton5.AccessibleName = null;
+            resources.ApplyResources(this.toolStripButton5, "toolStripButton5");
+            this.toolStripButton5.Name = "toolStripButton5";
+            // 
+            // toolBrowserData
+            // 
+            this.toolBrowserData.AccessibleDescription = null;
+            this.toolBrowserData.AccessibleName = null;
+            resources.ApplyResources(this.toolBrowserData, "toolBrowserData");
+            this.toolBrowserData.BackgroundImage = null;
+            this.toolBrowserData.Name = "toolBrowserData";
+            this.toolBrowserData.Click += new System.EventHandler(this.toolBrowserData_Click);
+            // 
+            // toolExportData
+            // 
+            this.toolExportData.AccessibleDescription = null;
+            this.toolExportData.AccessibleName = null;
+            resources.ApplyResources(this.toolExportData, "toolExportData");
+            this.toolExportData.BackgroundImage = null;
+            this.toolExportData.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolExportTxt,
+            this.toolExportExcel});
+            this.toolExportData.Name = "toolExportData";
+            this.toolExportData.ButtonClick += new System.EventHandler(this.toolExportData_ButtonClick);
+            // 
+            // toolExportTxt
+            // 
+            this.toolExportTxt.AccessibleDescription = null;
+            this.toolExportTxt.AccessibleName = null;
+            resources.ApplyResources(this.toolExportTxt, "toolExportTxt");
+            this.toolExportTxt.BackgroundImage = null;
+            this.toolExportTxt.Name = "toolExportTxt";
+            this.toolExportTxt.ShortcutKeyDisplayString = null;
+            this.toolExportTxt.Click += new System.EventHandler(this.toolExportTxt_Click);
+            // 
+            // toolExportExcel
+            // 
+            this.toolExportExcel.AccessibleDescription = null;
+            this.toolExportExcel.AccessibleName = null;
+            resources.ApplyResources(this.toolExportExcel, "toolExportExcel");
+            this.toolExportExcel.BackgroundImage = null;
+            this.toolExportExcel.Name = "toolExportExcel";
+            this.toolExportExcel.ShortcutKeyDisplayString = null;
+            this.toolExportExcel.Click += new System.EventHandler(this.toolExportExcel_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.AccessibleDescription = null;
+            this.toolStripSeparator8.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator8, "toolStripSeparator8");
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.AccessibleDescription = null;
+            this.toolStripButton2.AccessibleName = null;
+            resources.ApplyResources(this.toolStripButton2, "toolStripButton2");
+            this.toolStripButton2.BackgroundImage = null;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.AccessibleDescription = null;
+            this.statusStrip1.AccessibleName = null;
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
+            this.statusStrip1.BackgroundImage = null;
+            this.statusStrip1.Font = null;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.staIsInternet,
+            this.StateInfo,
+            this.toolStripStatusLabel1,
+            this.ExportProbar,
+            this.PrograBarTxt,
+            this.toolStripStatusLabel2});
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            // 
+            // staIsInternet
+            // 
+            this.staIsInternet.AccessibleDescription = null;
+            this.staIsInternet.AccessibleName = null;
+            resources.ApplyResources(this.staIsInternet, "staIsInternet");
+            this.staIsInternet.BackgroundImage = null;
+            this.staIsInternet.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.staIsInternet.Name = "staIsInternet";
+            // 
+            // StateInfo
+            // 
+            this.StateInfo.AccessibleDescription = null;
+            this.StateInfo.AccessibleName = null;
+            resources.ApplyResources(this.StateInfo, "StateInfo");
+            this.StateInfo.BackgroundImage = null;
+            this.StateInfo.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.StateInfo.Name = "StateInfo";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.AccessibleDescription = null;
+            this.toolStripStatusLabel1.AccessibleName = null;
+            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
+            this.toolStripStatusLabel1.BackgroundImage = null;
+            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            // 
+            // ExportProbar
+            // 
+            this.ExportProbar.AccessibleDescription = null;
+            this.ExportProbar.AccessibleName = null;
+            resources.ApplyResources(this.ExportProbar, "ExportProbar");
+            this.ExportProbar.Name = "ExportProbar";
+            // 
+            // PrograBarTxt
+            // 
+            this.PrograBarTxt.AccessibleDescription = null;
+            this.PrograBarTxt.AccessibleName = null;
+            resources.ApplyResources(this.PrograBarTxt, "PrograBarTxt");
+            this.PrograBarTxt.BackgroundImage = null;
+            this.PrograBarTxt.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.PrograBarTxt.Name = "PrograBarTxt";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.AccessibleDescription = null;
+            this.toolStripStatusLabel2.AccessibleName = null;
+            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
+            this.toolStripStatusLabel2.BackgroundImage = null;
+            this.toolStripStatusLabel2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Spring = true;
             // 
             // notifyIcon1
             // 
+            resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip3;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "soukey采摘";
-            this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseMove);
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             // 
             // contextMenuStrip3
             // 
+            this.contextMenuStrip3.AccessibleDescription = null;
+            this.contextMenuStrip3.AccessibleName = null;
+            resources.ApplyResources(this.contextMenuStrip3, "contextMenuStrip3");
+            this.contextMenuStrip3.BackgroundImage = null;
+            this.contextMenuStrip3.Font = null;
             this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sToolStripMenuItem,
             this.menuMailto,
@@ -1046,59 +1177,80 @@
             this.MenuOpenMainfrm,
             this.MenuCloseSystem});
             this.contextMenuStrip3.Name = "contextMenuStrip3";
-            this.contextMenuStrip3.Size = new System.Drawing.Size(167, 98);
             // 
             // sToolStripMenuItem
             // 
+            this.sToolStripMenuItem.AccessibleDescription = null;
+            this.sToolStripMenuItem.AccessibleName = null;
+            resources.ApplyResources(this.sToolStripMenuItem, "sToolStripMenuItem");
+            this.sToolStripMenuItem.BackgroundImage = null;
             this.sToolStripMenuItem.Name = "sToolStripMenuItem";
-            this.sToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.sToolStripMenuItem.Text = "Soukey采摘主页";
+            this.sToolStripMenuItem.ShortcutKeyDisplayString = null;
             this.sToolStripMenuItem.Click += new System.EventHandler(this.sToolStripMenuItem_Click);
             // 
             // menuMailto
             // 
+            this.menuMailto.AccessibleDescription = null;
+            this.menuMailto.AccessibleName = null;
+            resources.ApplyResources(this.menuMailto, "menuMailto");
+            this.menuMailto.BackgroundImage = null;
             this.menuMailto.Name = "menuMailto";
-            this.menuMailto.Size = new System.Drawing.Size(166, 22);
-            this.menuMailto.Text = "给一孑发Email";
+            this.menuMailto.ShortcutKeyDisplayString = null;
             this.menuMailto.Click += new System.EventHandler(this.menuMailto_Click);
             // 
             // toolStripSeparator7
             // 
+            this.toolStripSeparator7.AccessibleDescription = null;
+            this.toolStripSeparator7.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(163, 6);
             // 
             // MenuOpenMainfrm
             // 
-            this.MenuOpenMainfrm.Image = ((System.Drawing.Image)(resources.GetObject("MenuOpenMainfrm.Image")));
+            this.MenuOpenMainfrm.AccessibleDescription = null;
+            this.MenuOpenMainfrm.AccessibleName = null;
+            resources.ApplyResources(this.MenuOpenMainfrm, "MenuOpenMainfrm");
+            this.MenuOpenMainfrm.BackgroundImage = null;
             this.MenuOpenMainfrm.Name = "MenuOpenMainfrm";
-            this.MenuOpenMainfrm.Size = new System.Drawing.Size(166, 22);
-            this.MenuOpenMainfrm.Text = "打开主窗口";
+            this.MenuOpenMainfrm.ShortcutKeyDisplayString = null;
             this.MenuOpenMainfrm.Click += new System.EventHandler(this.MenuOpenMainfrm_Click);
             // 
             // MenuCloseSystem
             // 
+            this.MenuCloseSystem.AccessibleDescription = null;
+            this.MenuCloseSystem.AccessibleName = null;
+            resources.ApplyResources(this.MenuCloseSystem, "MenuCloseSystem");
+            this.MenuCloseSystem.BackgroundImage = null;
             this.MenuCloseSystem.Name = "MenuCloseSystem";
-            this.MenuCloseSystem.Size = new System.Drawing.Size(166, 22);
-            this.MenuCloseSystem.Text = "退出";
+            this.MenuCloseSystem.ShortcutKeyDisplayString = null;
             this.MenuCloseSystem.Click += new System.EventHandler(this.MenuCloseSystem_Click);
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // saveFileDialog1
+            // 
+            resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
+            // 
             // menuStrip1
             // 
+            this.menuStrip1.AccessibleDescription = null;
+            this.menuStrip1.AccessibleName = null;
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
+            this.menuStrip1.BackgroundImage = null;
+            this.menuStrip1.Font = null;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.服务ToolStripMenuItem,
             this.Soukey采摘ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(891, 25);
-            this.menuStrip1.TabIndex = 6;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // 服务ToolStripMenuItem
             // 
+            this.服务ToolStripMenuItem.AccessibleDescription = null;
+            this.服务ToolStripMenuItem.AccessibleName = null;
+            resources.ApplyResources(this.服务ToolStripMenuItem, "服务ToolStripMenuItem");
+            this.服务ToolStripMenuItem.BackgroundImage = null;
             this.服务ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolMenuDownloadTask,
             this.toolStripSeparator12,
@@ -1107,58 +1259,111 @@
             this.toolStripSeparator13,
             this.toolMenuExit});
             this.服务ToolStripMenuItem.Name = "服务ToolStripMenuItem";
-            this.服务ToolStripMenuItem.Size = new System.Drawing.Size(101, 21);
-            this.服务ToolStripMenuItem.Text = "Soukey采摘(&S)";
+            this.服务ToolStripMenuItem.ShortcutKeyDisplayString = null;
             // 
             // toolMenuDownloadTask
             // 
+            this.toolMenuDownloadTask.AccessibleDescription = null;
+            this.toolMenuDownloadTask.AccessibleName = null;
+            resources.ApplyResources(this.toolMenuDownloadTask, "toolMenuDownloadTask");
+            this.toolMenuDownloadTask.BackgroundImage = null;
             this.toolMenuDownloadTask.Name = "toolMenuDownloadTask";
-            this.toolMenuDownloadTask.Size = new System.Drawing.Size(165, 22);
-            this.toolMenuDownloadTask.Text = "下载任务模板(&D)";
+            this.toolMenuDownloadTask.ShortcutKeyDisplayString = null;
             this.toolMenuDownloadTask.Click += new System.EventHandler(this.toolMenuDownloadTask_Click);
             // 
             // toolStripSeparator12
             // 
+            this.toolStripSeparator12.AccessibleDescription = null;
+            this.toolStripSeparator12.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator12, "toolStripSeparator12");
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(162, 6);
             // 
             // toolmenuConfig
             // 
+            this.toolmenuConfig.AccessibleDescription = null;
+            this.toolmenuConfig.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuConfig, "toolmenuConfig");
+            this.toolmenuConfig.BackgroundImage = null;
             this.toolmenuConfig.Name = "toolmenuConfig";
-            this.toolmenuConfig.Size = new System.Drawing.Size(165, 22);
-            this.toolmenuConfig.Text = "参数设置(&S)";
+            this.toolmenuConfig.ShortcutKeyDisplayString = null;
             this.toolmenuConfig.Click += new System.EventHandler(this.toolmenuConfig_Click);
             // 
             // toolMenuLanguage
             // 
+            this.toolMenuLanguage.AccessibleDescription = null;
+            this.toolMenuLanguage.AccessibleName = null;
+            resources.ApplyResources(this.toolMenuLanguage, "toolMenuLanguage");
+            this.toolMenuLanguage.BackgroundImage = null;
             this.toolMenuLanguage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.中文简体ToolStripMenuItem});
+            this.toolmenuAuto,
+            this.toolStripSeparator19,
+            this.toolmenuEnglish,
+            this.toolmenuCHS});
             this.toolMenuLanguage.Name = "toolMenuLanguage";
-            this.toolMenuLanguage.Size = new System.Drawing.Size(165, 22);
-            this.toolMenuLanguage.Text = "Language(&L)";
+            this.toolMenuLanguage.ShortcutKeyDisplayString = null;
             // 
-            // 中文简体ToolStripMenuItem
+            // toolmenuAuto
             // 
-            this.中文简体ToolStripMenuItem.Checked = true;
-            this.中文简体ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.中文简体ToolStripMenuItem.Name = "中文简体ToolStripMenuItem";
-            this.中文简体ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.中文简体ToolStripMenuItem.Text = "中文简体";
+            this.toolmenuAuto.AccessibleDescription = null;
+            this.toolmenuAuto.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuAuto, "toolmenuAuto");
+            this.toolmenuAuto.BackgroundImage = null;
+            this.toolmenuAuto.Checked = true;
+            this.toolmenuAuto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolmenuAuto.Name = "toolmenuAuto";
+            this.toolmenuAuto.ShortcutKeyDisplayString = null;
+            this.toolmenuAuto.Click += new System.EventHandler(this.toolmenuAuto_Click);
+            // 
+            // toolStripSeparator19
+            // 
+            this.toolStripSeparator19.AccessibleDescription = null;
+            this.toolStripSeparator19.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator19, "toolStripSeparator19");
+            this.toolStripSeparator19.Name = "toolStripSeparator19";
+            // 
+            // toolmenuEnglish
+            // 
+            this.toolmenuEnglish.AccessibleDescription = null;
+            this.toolmenuEnglish.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuEnglish, "toolmenuEnglish");
+            this.toolmenuEnglish.BackgroundImage = null;
+            this.toolmenuEnglish.Name = "toolmenuEnglish";
+            this.toolmenuEnglish.ShortcutKeyDisplayString = null;
+            this.toolmenuEnglish.Click += new System.EventHandler(this.toolmenuEnglish_Click);
+            // 
+            // toolmenuCHS
+            // 
+            this.toolmenuCHS.AccessibleDescription = null;
+            this.toolmenuCHS.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuCHS, "toolmenuCHS");
+            this.toolmenuCHS.BackgroundImage = null;
+            this.toolmenuCHS.Name = "toolmenuCHS";
+            this.toolmenuCHS.ShortcutKeyDisplayString = null;
+            this.toolmenuCHS.Click += new System.EventHandler(this.toolmenuCHS_Click);
             // 
             // toolStripSeparator13
             // 
+            this.toolStripSeparator13.AccessibleDescription = null;
+            this.toolStripSeparator13.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator13, "toolStripSeparator13");
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(162, 6);
             // 
             // toolMenuExit
             // 
+            this.toolMenuExit.AccessibleDescription = null;
+            this.toolMenuExit.AccessibleName = null;
+            resources.ApplyResources(this.toolMenuExit, "toolMenuExit");
+            this.toolMenuExit.BackgroundImage = null;
             this.toolMenuExit.Name = "toolMenuExit";
-            this.toolMenuExit.Size = new System.Drawing.Size(165, 22);
-            this.toolMenuExit.Text = "退出(&E)";
+            this.toolMenuExit.ShortcutKeyDisplayString = null;
             this.toolMenuExit.Click += new System.EventHandler(this.toolMenuExit_Click);
             // 
             // Soukey采摘ToolStripMenuItem
             // 
+            this.Soukey采摘ToolStripMenuItem.AccessibleDescription = null;
+            this.Soukey采摘ToolStripMenuItem.AccessibleName = null;
+            resources.ApplyResources(this.Soukey采摘ToolStripMenuItem, "Soukey采摘ToolStripMenuItem");
+            this.Soukey采摘ToolStripMenuItem.BackgroundImage = null;
             this.Soukey采摘ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolMenuProgram,
             this.toolStripSeparator2,
@@ -1167,45 +1372,60 @@
             this.toolStripSeparator6,
             this.toolMenuAbout});
             this.Soukey采摘ToolStripMenuItem.Name = "Soukey采摘ToolStripMenuItem";
-            this.Soukey采摘ToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
-            this.Soukey采摘ToolStripMenuItem.Text = "帮助(&H)";
+            this.Soukey采摘ToolStripMenuItem.ShortcutKeyDisplayString = null;
             // 
             // toolMenuProgram
             // 
+            this.toolMenuProgram.AccessibleDescription = null;
+            this.toolMenuProgram.AccessibleName = null;
+            resources.ApplyResources(this.toolMenuProgram, "toolMenuProgram");
+            this.toolMenuProgram.BackgroundImage = null;
             this.toolMenuProgram.Name = "toolMenuProgram";
-            this.toolMenuProgram.Size = new System.Drawing.Size(182, 22);
-            this.toolMenuProgram.Text = "加入开发联盟(&P)";
+            this.toolMenuProgram.ShortcutKeyDisplayString = null;
             this.toolMenuProgram.Click += new System.EventHandler(this.toolMenuProgram_Click);
             // 
             // toolStripSeparator2
             // 
+            this.toolStripSeparator2.AccessibleDescription = null;
+            this.toolStripSeparator2.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(179, 6);
             // 
             // toolMenuVisityijie
             // 
+            this.toolMenuVisityijie.AccessibleDescription = null;
+            this.toolMenuVisityijie.AccessibleName = null;
+            resources.ApplyResources(this.toolMenuVisityijie, "toolMenuVisityijie");
+            this.toolMenuVisityijie.BackgroundImage = null;
             this.toolMenuVisityijie.Name = "toolMenuVisityijie";
-            this.toolMenuVisityijie.Size = new System.Drawing.Size(182, 22);
-            this.toolMenuVisityijie.Text = "访问Soukey官方(&V)";
+            this.toolMenuVisityijie.ShortcutKeyDisplayString = null;
             this.toolMenuVisityijie.Click += new System.EventHandler(this.toolMenuVisityijie_Click);
             // 
             // toolMenuUpdate
             // 
+            this.toolMenuUpdate.AccessibleDescription = null;
+            this.toolMenuUpdate.AccessibleName = null;
+            resources.ApplyResources(this.toolMenuUpdate, "toolMenuUpdate");
+            this.toolMenuUpdate.BackgroundImage = null;
             this.toolMenuUpdate.Name = "toolMenuUpdate";
-            this.toolMenuUpdate.Size = new System.Drawing.Size(182, 22);
-            this.toolMenuUpdate.Text = "检查更新(&U)";
+            this.toolMenuUpdate.ShortcutKeyDisplayString = null;
             this.toolMenuUpdate.Click += new System.EventHandler(this.toolMenuUpdate_Click);
             // 
             // toolStripSeparator6
             // 
+            this.toolStripSeparator6.AccessibleDescription = null;
+            this.toolStripSeparator6.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(179, 6);
             // 
             // toolMenuAbout
             // 
+            this.toolMenuAbout.AccessibleDescription = null;
+            this.toolMenuAbout.AccessibleName = null;
+            resources.ApplyResources(this.toolMenuAbout, "toolMenuAbout");
+            this.toolMenuAbout.BackgroundImage = null;
             this.toolMenuAbout.Name = "toolMenuAbout";
-            this.toolMenuAbout.Size = new System.Drawing.Size(182, 22);
-            this.toolMenuAbout.Text = "关于...(&A)";
+            this.toolMenuAbout.ShortcutKeyDisplayString = null;
             this.toolMenuAbout.Click += new System.EventHandler(this.toolMenuAbout_Click);
             // 
             // timer2
@@ -1214,42 +1434,49 @@
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // openFileDialog1
+            // 
+            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
+            // 
             // contextMenuStrip5
             // 
+            this.contextMenuStrip5.AccessibleDescription = null;
+            this.contextMenuStrip5.AccessibleName = null;
+            resources.ApplyResources(this.contextMenuStrip5, "contextMenuStrip5");
+            this.contextMenuStrip5.BackgroundImage = null;
+            this.contextMenuStrip5.Font = null;
             this.contextMenuStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rmenuSaveLog});
             this.contextMenuStrip5.Name = "contextMenuStrip5";
-            this.contextMenuStrip5.Size = new System.Drawing.Size(173, 26);
             // 
             // rmenuSaveLog
             // 
-            this.rmenuSaveLog.Image = ((System.Drawing.Image)(resources.GetObject("rmenuSaveLog.Image")));
+            this.rmenuSaveLog.AccessibleDescription = null;
+            this.rmenuSaveLog.AccessibleName = null;
+            resources.ApplyResources(this.rmenuSaveLog, "rmenuSaveLog");
+            this.rmenuSaveLog.BackgroundImage = null;
             this.rmenuSaveLog.Name = "rmenuSaveLog";
-            this.rmenuSaveLog.Size = new System.Drawing.Size(172, 22);
-            this.rmenuSaveLog.Text = "保存数据采集日志";
+            this.rmenuSaveLog.ShortcutKeyDisplayString = null;
             this.rmenuSaveLog.Click += new System.EventHandler(this.rmenuSaveLog_Click);
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(891, 478);
+            this.BackgroundImage = null;
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Font = null;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
-            this.Text = "Soukey采摘 V1.60 [免费 开源]";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
@@ -1270,6 +1497,10 @@
             this.tabControl1.ResumeLayout(false);
             this.contextMenuStrip4.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.contextMenuStrip3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -1367,7 +1598,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolMenuLanguage;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripMenuItem toolMenuExit;
-        private System.Windows.Forms.ToolStripMenuItem 中文简体ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolmenuCHS;
         private System.Windows.Forms.ToolStripDropDownButton toolNewTask;
         private System.Windows.Forms.ToolStripMenuItem toolmenuNewTask;
         private System.Windows.Forms.ToolStripMenuItem toolMenuNewTaskPlan;
@@ -1389,5 +1620,9 @@
         private System.Windows.Forms.ToolStripMenuItem rmenuPasteTask;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
         private System.Windows.Forms.DataGridView  dataTask;
+        private System.Windows.Forms.ToolStripMenuItem toolUrlEncoding;
+        private System.Windows.Forms.ToolStripMenuItem toolmenuEnglish;
+        private System.Windows.Forms.ToolStripMenuItem toolmenuAuto;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
     }
 }

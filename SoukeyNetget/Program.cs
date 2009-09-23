@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Threading;
+using System.Globalization;
+using System.Resources;
+using System.Reflection;
 
 //程序入口类
 namespace SoukeyNetget
@@ -16,6 +20,39 @@ namespace SoukeyNetget
         [STAThread]
         static void Main()
         {
+            //检测是否指定了界面语言
+            CultureInfo cLanguage=null ;
+
+            try
+            {
+                cXmlSConfig Config = new cXmlSConfig();
+                cGlobalParas.CurLanguage cl=Config.CurrentLanguage ;
+                switch (cl)
+                {
+                    case cGlobalParas.CurLanguage .Auto :
+                        break ;
+                    case cGlobalParas.CurLanguage .enUS :
+                       cLanguage =new CultureInfo ("en-US");
+                        break ;
+                    case cGlobalParas.CurLanguage .zhCN :
+                        cLanguage =new CultureInfo ("zh-CN");
+                        break ;
+                    default :
+                        break ;
+                }
+                Config = null;
+            }
+            catch (System.Exception)
+            {
+                
+            }
+
+            if (cLanguage != null)
+            {
+                Thread.CurrentThread.CurrentUICulture = cLanguage;
+                Thread.CurrentThread.CurrentCulture = cLanguage;
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -32,24 +69,27 @@ namespace SoukeyNetget
             Application.Idle -= new EventHandler(Application_Idle);
             if (context.MainForm == null)
             {
+                ResourceManager rm =new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
                 frmMain mf = new frmMain ();
                 context.MainForm = mf;
                 frmStart sf = (frmStart)context.Tag;
 
                 //初始化界面信息
-                sf.label3.Text = "正在初始化主程序应用信息，请等待......";
+                sf.label3.Text = rm.GetString ("Info69");
                 Application.DoEvents();
                 mf.IniForm();
 
                 //初始化对象并开始启动运行区的任务
-                sf.label3.Text = "正在初始化运行区任务信息，请等待......";
+                sf.label3.Text =  rm.GetString ("Info70");
                 Application.DoEvents();
                 mf.UserIni();
 
-                sf.label3.Text = "正在启动自动运行任务监听器，请等待......";
+                sf.label3.Text = rm.GetString ("Info71");
                 Application.DoEvents();
                 mf.StartListen();
 
+                rm = null;
                 //mf.IniForm();
 
                 sf.Close();                                 //关闭启动窗体

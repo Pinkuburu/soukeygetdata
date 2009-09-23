@@ -8,6 +8,8 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using System.Reflection ;
+using System.Resources ;
 
 namespace SoukeyNetget
 {
@@ -16,6 +18,8 @@ namespace SoukeyNetget
 
         public delegate void ReturnRunTask(cGlobalParas.RunTaskType rType,string TaskName,string Para);
         public ReturnRunTask RTask;
+
+        private ResourceManager rm;
 
         public frmAddPlanTask()
         {
@@ -42,6 +46,8 @@ namespace SoukeyNetget
                 this.comTaskClass.Items.Add(TaskClass);
             }
             xmlTClass = null;
+
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
         }
 
         private void comTaskClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,12 +88,12 @@ namespace SoukeyNetget
 
             catch (System.IO.IOException)
             {
-                MessageBox.Show("分类下的索引文件丢失，请返回主界面通过点击丢失文件的任务分类自动创建", "询问", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(rm.GetString("Info72"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
             catch (System.Exception)
             {
-                MessageBox.Show("加载的任务分类索引文件非法，请返回主界面通过点击此任务分类校验文件是否合法。", "系统信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(rm.GetString("Info73"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return ;
             }
         
@@ -97,7 +103,7 @@ namespace SoukeyNetget
         {
             if (this.raSoukeyTask.Checked == true)
             {
-                this.groupBox1.Text = "Soukey采摘任务";
+                this.groupBox1.Text = rm.GetString("Label16");
                 this.panel1.Visible = true;
                 this.panel2.Visible = false;
                 this.panel3.Visible = false;
@@ -108,7 +114,7 @@ namespace SoukeyNetget
         {
             if (this.raOtherTask.Checked == true)
             {
-                this.groupBox1.Text = "其他任务";
+                this.groupBox1.Text = rm.GetString("Label17");
                 this.panel1.Visible = false;
                 this.panel2.Visible = true;
                 this.panel3.Visible = false;
@@ -119,7 +125,7 @@ namespace SoukeyNetget
         {
             if (this.raDataTask.Checked == true)
             {
-                this.groupBox1.Text = "数据库任务";
+                this.groupBox1.Text = rm.GetString("Label18");
                 this.panel1.Visible = false;
                 this.panel2.Visible = false;
                 this.panel3.Visible = true;
@@ -129,7 +135,7 @@ namespace SoukeyNetget
         private void button1_Click(object sender, EventArgs e)
         {
 
-            this.openFileDialog1.Title = "请选择需要运行的程序或脚本";
+            this.openFileDialog1.Title = rm.GetString("Info74");
 
             openFileDialog1.InitialDirectory = Program.getPrjPath();
             openFileDialog1.Filter = "All Files(*.*)|*.*";
@@ -235,7 +241,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info75") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -265,7 +271,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info75") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -293,7 +299,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info75") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -305,6 +311,11 @@ namespace SoukeyNetget
                 this.comTableName.Items.Add(r[3].ToString());
 
             }
+        }
+
+        private void frmAddPlanTask_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
 
     }

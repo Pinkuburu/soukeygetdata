@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using SoukeyNetget.Plan;
+using System.Reflection;
+using System.Resources;
 
 namespace SoukeyNetget
 {
@@ -16,6 +18,7 @@ namespace SoukeyNetget
         //和“取消”按钮的判断上
         private bool IsSaveTask = false;
 
+        private ResourceManager rm;
 
         public frmTaskPlan()
         {
@@ -308,14 +311,14 @@ namespace SoukeyNetget
 
             if (this.txtPlanName.Text.ToString() == null || this.txtPlanName.Text.Trim().ToString() == "")
             {
-                this.errorProvider1.SetError(this.txtPlanName, "计划名称不能为空!");
+                this.errorProvider1.SetError(this.txtPlanName, rm.GetString ("Error18"));
                 return false;
             }
             
             if (this.listTask.Items.Count ==0)
             {
                 this.tabControl1.SelectedTab = this.tabControl1.TabPages[1];
-                this.errorProvider1.SetError(this.listTask, "至少应该有一任务被执行");
+                this.errorProvider1.SetError(this.listTask, rm.GetString ("Error19"));
                 return false;
             }
 
@@ -324,7 +327,7 @@ namespace SoukeyNetget
                 if (!(this.DisabledRunNum .Value.ToString () =="1" && this.raOneTime.Checked ==true ))
                 {
                     this.tabControl1.SelectedTab = this.tabControl1.TabPages[0];
-                    this.errorProvider1.SetError(this.DisabledRunNum, "如果您选择了计划1次便失效，则必须选择执行计划中的仅“运行一次”选项");
+                    this.errorProvider1.SetError(this.DisabledRunNum, rm.GetString("Error20"));
                     return false;
                 }
             }
@@ -376,7 +379,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("计划保存时失败，出错原因是：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info89") + ex.Message, rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false ;
             }
 
@@ -391,7 +394,7 @@ namespace SoukeyNetget
 
             if (Nid == 0)
             {
-                throw new cSoukeyException("保存任务发生了错误，初步判断原因是系统错误，请与一孑工作室联系！");
+                throw new cSoukeyException(rm.GetString ("Error21"));
             }
 
             NewPlan.PlanID = Nid;
@@ -657,10 +660,12 @@ namespace SoukeyNetget
 
         private void frmTaskPlan_Load(object sender, EventArgs e)
         {
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
             switch (this.FormState)
             {
                 case cGlobalParas.FormState.New:
-                    this.txtPlanState.Text = "有效";
+                    this.txtPlanState.Text = rm.GetString ("Label22");
                     break;
                 case cGlobalParas.FormState.Edit:
                     //编辑状态进来不能修改分类

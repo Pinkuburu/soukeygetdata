@@ -8,11 +8,15 @@ using System.Windows.Forms;
 using SoukeyNetget.Task;
 using System.Threading;
 using System.IO;
+using System.Reflection;
+using System.Resources;
 
 namespace SoukeyNetget
 {
     public partial class frmUpgradeTask : Form
     {
+        private ResourceManager rm;
+
         //定义一个代理用于更新界面的信息，进度条和文字
         delegate void ShowProgressDelegate(int total, int CurI, ListViewItem Litem, bool statusDone);
 
@@ -66,16 +70,16 @@ namespace SoukeyNetget
             if (Litem != null)
             {
                 this.listTask.Items.Add(Litem);
-                this.stalabel.Text = "找到待升级任务：" + Litem.SubItems[1].Text;
+                this.stalabel.Text = rm.GetString ("Info103") + Litem.SubItems[1].Text;
             }
             else
             {
-                this.stalabel.Text = "正在查找...";
+                this.stalabel.Text = rm.GetString("Info104");
             }
 
             if (done)
             {
-                this.stalabel.Text = "当前状态：就绪";
+                this.stalabel.Text = rm.GetString("State8");
                 this.ProBar.Visible = false;
 
                 this.tmenuAddTask.Enabled = true ;
@@ -103,7 +107,7 @@ namespace SoukeyNetget
 
         private void tmenuAddTask_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.Title = "请指定需要导入任务的文件名";
+            this.openFileDialog1.Title = rm.GetString ("Info105");
 
             openFileDialog1.InitialDirectory = Program.getPrjPath() + "tasks";
             openFileDialog1.Filter = "Soukey Task Files(*.xml)|*.xml";
@@ -130,7 +134,7 @@ namespace SoukeyNetget
             {
                 t.LoadTask(FileName);
                 t = null;
-                MessageBox.Show("此任务版本为最新，无需升级！" , "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString("Info106"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             catch (cSoukeyException)
@@ -149,7 +153,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("新增待升级任务发生错误，错误信息为：" + ex.Message, "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString("Info107") + ex.Message, rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }
@@ -158,7 +162,7 @@ namespace SoukeyNetget
         {
             if (this.listTask.Items.Count == 0)
             {
-                this.stalabel.Text = "没有待升级的任务";
+                this.stalabel.Text = rm.GetString ("Info108");
                 return;
             }
 
@@ -172,7 +176,7 @@ namespace SoukeyNetget
 
             for (int i =0;i<this.listTask.Items.Count ;i++)
             {
-                this.listTask.Items[i].Text = "正在升级";
+                this.listTask.Items[i].Text = rm.GetString("Info109");
                 this.listTask.Items[i].ImageIndex = 1;
                 Application.DoEvents();
                 try
@@ -186,7 +190,7 @@ namespace SoukeyNetget
                         cu.UpdradeTask(this.listTask.Items[i].SubItems[4].Text + "\\" + this.listTask.Items[i].SubItems[1].Text + ".xml", this.IsAutoBackup.Checked,true );
                     }
                     this.listTask.Items[i].ImageIndex = 2;
-                    this.listTask.Items[i].Text = "升级成功";
+                    this.listTask.Items[i].Text = rm.GetString("Info110");
                     this.listTask.Items[i].SubItems[2].Text = "1.3";
                     Application.DoEvents();
 
@@ -194,8 +198,8 @@ namespace SoukeyNetget
                 catch (System.Exception ex)
                 {
                     this.listTask.Items[i].ImageIndex = 3;
-                    this.listTask.Items[i].Text = "升级失败";
-                    this.listTask.Items[i].SubItems[5].Text = "有可能任务已经已被破坏，错误信息为：" + ex.Message;
+                    this.listTask.Items[i].Text = rm.GetString("Info111");
+                    this.listTask.Items[i].SubItems[5].Text = rm.GetString("Info112") +ex.Message;
                     Application.DoEvents();
                 }
                 
@@ -207,6 +211,16 @@ namespace SoukeyNetget
 
             this.tmenuExit.Enabled = true ;
             this.tmenuResetTask.Enabled = true ;
+        }
+
+        private void frmUpgradeTask_Load(object sender, EventArgs e)
+        {
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+        }
+
+        private void frmUpgradeTask_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
 
     }

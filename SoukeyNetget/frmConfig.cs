@@ -5,11 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
+using System.Resources;
 
 namespace SoukeyNetget
 {
     public partial class frmConfig : Form
     {
+        private ResourceManager rm;
+
         public frmConfig()
         {
             InitializeComponent();
@@ -56,6 +60,13 @@ namespace SoukeyNetget
                 else
                     Config.AutoSaveLog = false;
 
+                if (this.comUILanguage.SelectedIndex == 0)
+                    Config.CurrentLanguage = cGlobalParas.CurLanguage.Auto;
+                else if (this.comUILanguage.SelectedIndex == 1)
+                    Config.CurrentLanguage = cGlobalParas.CurLanguage.enUS;
+                else if (this.comUILanguage.SelectedIndex == 2)
+                    Config.CurrentLanguage = cGlobalParas.CurLanguage.zhCN;
+
                 Config.Save();
 
                 Config = null;
@@ -64,12 +75,18 @@ namespace SoukeyNetget
             }
             catch (System.Exception)
             {
-                MessageBox.Show("系统配置文件加载失败，可从安装文件中拷贝文件：SoukeyConfig.xml 到Soukey采摘安装目录！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info76"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void frmConfig_Load(object sender, EventArgs e)
         {
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
+            this.comUILanguage.Items.Add(rm.GetString ("Label24"));
+            this.comUILanguage.Items.Add(rm.GetString("Label25"));
+            this.comUILanguage.Items.Add(rm.GetString("Label26"));
+
             this.txtLogPath.Text = Program.getPrjPath() + "log";
 
             try
@@ -87,6 +104,21 @@ namespace SoukeyNetget
                     this.checkBox1.Checked = false;
 
                 this.IsAutoSystemLog.Checked = Config.AutoSaveLog;
+
+                switch (Config.CurrentLanguage)
+                {
+                    case cGlobalParas.CurLanguage .Auto :
+                        this.comUILanguage.SelectedIndex = 0;
+                        break;
+                    case cGlobalParas.CurLanguage .enUS :
+                        this.comUILanguage.SelectedIndex=1;
+                        break ;
+                    case cGlobalParas.CurLanguage .zhCN :
+                        this.comUILanguage.SelectedIndex =2;
+                        break;
+                    default :
+                        break ;
+                }
                 
                 Config = null;
 
@@ -96,7 +128,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception)
             {
-                MessageBox.Show("系统配置文件加载失败，可从安装文件中拷贝文件：SoukeyConfig.xml 到Soukey采摘安装目录，配置文件损坏并不影响系统运行，但您做的系统配置可能无法保存！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info76"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -149,6 +181,16 @@ namespace SoukeyNetget
                 SaveConfigData();
 
             this.Close();
+        }
+
+        private void frmConfig_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
+        }
+
+        private void comUILanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.IsSave.Text = "true";
         }
 
       

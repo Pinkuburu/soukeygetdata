@@ -33,9 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmdCancel = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -50,7 +48,6 @@
             this.label24 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label42 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
             this.cmdOpenFolder = new System.Windows.Forms.Button();
             this.txtSavePath = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,12 +61,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.TaskType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cmdUrlEncoding = new System.Windows.Forms.Button();
             this.label47 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.dataNRule = new System.Windows.Forms.DataGridView();
+            this.nRuleLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nRule = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.cmdDelNRule = new System.Windows.Forms.Button();
             this.cmdAddNRule = new System.Windows.Forms.Button();
@@ -178,7 +179,6 @@
             this.raExportTxt = new System.Windows.Forms.RadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.labWaiting = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.dataTestGather = new System.Windows.Forms.DataGridView();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -210,24 +210,25 @@
             this.menuLettAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLettDec = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.pOST前缀POSTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pOST后缀ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rmenuPostPrefix = new System.Windows.Forms.ToolStripMenuItem();
+            this.rmenuPostSuffix = new System.Windows.Forms.ToolStripMenuItem();
             this.rmenuGetPostData = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.DictMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuOpenDict = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.cmdOK = new System.Windows.Forms.Button();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.rmenuGetFormat = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolmenuPost1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolmenuPost2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolmenuPostData = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.cmdApply = new System.Windows.Forms.Button();
             this.IsSave = new System.Windows.Forms.TextBox();
             this.cmdWizard = new System.Windows.Forms.Button();
+            this.cmdApply = new System.Windows.Forms.Button();
+            this.cmdCancel = new System.Windows.Forms.Button();
+            this.cmdOK = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -259,27 +260,16 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(3, 510);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBox1.AccessibleDescription = null;
+            this.groupBox1.AccessibleName = null;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.BackgroundImage = null;
+            this.errorProvider1.SetError(this.groupBox1, resources.GetString("groupBox1.Error"));
+            this.groupBox1.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox1, ((int)(resources.GetObject("groupBox1.IconPadding"))));
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(672, 5);
-            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            // 
-            // cmdCancel
-            // 
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Image = ((System.Drawing.Image)(resources.GetObject("cmdCancel.Image")));
-            this.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.cmdCancel.Location = new System.Drawing.Point(514, 528);
-            this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(65, 24);
-            this.cmdCancel.TabIndex = 3;
-            this.cmdCancel.Text = "取 消";
-            this.cmdCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmdCancel.UseVisualStyleBackColor = true;
-            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // imageList1
             // 
@@ -300,36 +290,46 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tabControl1.AccessibleDescription = null;
+            this.tabControl1.AccessibleName = null;
+            resources.ApplyResources(this.tabControl1, "tabControl1");
+            this.tabControl1.BackgroundImage = null;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage6);
+            this.errorProvider1.SetError(this.tabControl1, resources.GetString("tabControl1.Error"));
+            this.tabControl1.Font = null;
             this.tabControl1.HotTrack = true;
+            this.errorProvider1.SetIconAlignment(this.tabControl1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabControl1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabControl1, ((int)(resources.GetObject("tabControl1.IconPadding"))));
             this.tabControl1.ImageList = this.imageList1;
-            this.tabControl1.Location = new System.Drawing.Point(12, 36);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(658, 476);
-            this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
+            this.tabPage1.AccessibleDescription = null;
+            this.tabPage1.AccessibleName = null;
+            resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.BackgroundImage = null;
             this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.ImageIndex = 0;
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage1, resources.GetString("tabPage1.Error"));
+            this.tabPage1.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage1, ((int)(resources.GetObject("tabPage1.IconPadding"))));
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(650, 446);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "基本设置";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
+            this.groupBox7.AccessibleDescription = null;
+            this.groupBox7.AccessibleName = null;
+            resources.ApplyResources(this.groupBox7, "groupBox7");
+            this.groupBox7.BackgroundImage = null;
             this.groupBox7.Controls.Add(this.txtLoginUrl);
             this.groupBox7.Controls.Add(this.IsLogin);
             this.groupBox7.Controls.Add(this.button10);
@@ -338,98 +338,126 @@
             this.groupBox7.Controls.Add(this.label25);
             this.groupBox7.Controls.Add(this.comWebCode);
             this.groupBox7.Controls.Add(this.label24);
-            this.groupBox7.Location = new System.Drawing.Point(1, 278);
+            this.errorProvider1.SetError(this.groupBox7, resources.GetString("groupBox7.Error"));
+            this.groupBox7.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox7.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox7, ((int)(resources.GetObject("groupBox7.IconPadding"))));
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(641, 138);
-            this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "采集设置";
             // 
             // txtLoginUrl
             // 
+            this.txtLoginUrl.AccessibleDescription = null;
+            this.txtLoginUrl.AccessibleName = null;
+            resources.ApplyResources(this.txtLoginUrl, "txtLoginUrl");
+            this.txtLoginUrl.BackgroundImage = null;
             this.txtLoginUrl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLoginUrl.Enabled = false;
-            this.txtLoginUrl.Location = new System.Drawing.Point(92, 97);
+            this.errorProvider1.SetError(this.txtLoginUrl, resources.GetString("txtLoginUrl.Error"));
+            this.txtLoginUrl.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtLoginUrl, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtLoginUrl.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtLoginUrl, ((int)(resources.GetObject("txtLoginUrl.IconPadding"))));
             this.txtLoginUrl.Name = "txtLoginUrl";
-            this.txtLoginUrl.Size = new System.Drawing.Size(540, 20);
-            this.txtLoginUrl.TabIndex = 3;
             this.txtLoginUrl.TextChanged += new System.EventHandler(this.txtLoginUrl_TextChanged);
             // 
             // IsLogin
             // 
-            this.IsLogin.AutoSize = true;
-            this.IsLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.IsLogin.Location = new System.Drawing.Point(14, 73);
+            this.IsLogin.AccessibleDescription = null;
+            this.IsLogin.AccessibleName = null;
+            resources.ApplyResources(this.IsLogin, "IsLogin");
+            this.IsLogin.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsLogin, resources.GetString("IsLogin.Error"));
+            this.IsLogin.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsLogin, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsLogin.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsLogin, ((int)(resources.GetObject("IsLogin.IconPadding"))));
             this.IsLogin.Name = "IsLogin";
-            this.IsLogin.Size = new System.Drawing.Size(167, 17);
-            this.IsLogin.TabIndex = 7;
-            this.IsLogin.Text = "需要人工登录，登录地址：";
             this.IsLogin.UseVisualStyleBackColor = true;
             this.IsLogin.CheckedChanged += new System.EventHandler(this.IsLogin_CheckedChanged);
             // 
             // button10
             // 
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Location = new System.Drawing.Point(551, 44);
+            this.button10.AccessibleDescription = null;
+            this.button10.AccessibleName = null;
+            resources.ApplyResources(this.button10, "button10");
+            this.button10.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button10, resources.GetString("button10.Error"));
+            this.button10.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button10, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button10.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button10, ((int)(resources.GetObject("button10.IconPadding"))));
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(81, 23);
-            this.button10.TabIndex = 2;
-            this.button10.Text = "获取Cookie";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // txtCookie
             // 
+            this.txtCookie.AccessibleDescription = null;
+            this.txtCookie.AccessibleName = null;
+            resources.ApplyResources(this.txtCookie, "txtCookie");
             this.txtCookie.BackColor = System.Drawing.Color.White;
+            this.txtCookie.BackgroundImage = null;
             this.txtCookie.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCookie.Location = new System.Drawing.Point(92, 44);
+            this.errorProvider1.SetError(this.txtCookie, resources.GetString("txtCookie.Error"));
+            this.txtCookie.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtCookie, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtCookie.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtCookie, ((int)(resources.GetObject("txtCookie.IconPadding"))));
             this.txtCookie.Name = "txtCookie";
-            this.txtCookie.Size = new System.Drawing.Size(460, 20);
-            this.txtCookie.TabIndex = 1;
             this.txtCookie.TextChanged += new System.EventHandler(this.txtCookie_TextChanged);
             // 
             // label30
             // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(45, 47);
+            this.label30.AccessibleDescription = null;
+            this.label30.AccessibleName = null;
+            resources.ApplyResources(this.label30, "label30");
+            this.errorProvider1.SetError(this.label30, resources.GetString("label30.Error"));
+            this.label30.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label30, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label30.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label30, ((int)(resources.GetObject("label30.IconPadding"))));
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(52, 13);
-            this.label30.TabIndex = 4;
-            this.label30.Text = "Cookie：";
             // 
             // label25
             // 
+            this.label25.AccessibleDescription = null;
+            this.label25.AccessibleName = null;
+            resources.ApplyResources(this.label25, "label25");
+            this.errorProvider1.SetError(this.label25, resources.GetString("label25.Error"));
+            this.label25.Font = null;
             this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label25.Location = new System.Drawing.Point(220, 13);
+            this.errorProvider1.SetIconAlignment(this.label25, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label25.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label25, ((int)(resources.GetObject("label25.IconPadding"))));
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(399, 28);
-            this.label25.TabIndex = 2;
-            this.label25.Text = "通常情况下系统会自动判断网页编码，如果采集出现乱码则表示系统判断出错，请手工指定网页编码格式。";
             // 
             // comWebCode
             // 
+            this.comWebCode.AccessibleDescription = null;
+            this.comWebCode.AccessibleName = null;
+            resources.ApplyResources(this.comWebCode, "comWebCode");
+            this.comWebCode.BackgroundImage = null;
             this.comWebCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comWebCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.errorProvider1.SetError(this.comWebCode, resources.GetString("comWebCode.Error"));
+            this.comWebCode.Font = null;
             this.comWebCode.FormattingEnabled = true;
-            this.comWebCode.Location = new System.Drawing.Point(94, 15);
+            this.errorProvider1.SetIconAlignment(this.comWebCode, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comWebCode.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comWebCode, ((int)(resources.GetObject("comWebCode.IconPadding"))));
             this.comWebCode.Name = "comWebCode";
-            this.comWebCode.Size = new System.Drawing.Size(120, 21);
-            this.comWebCode.TabIndex = 0;
             this.comWebCode.TextChanged += new System.EventHandler(this.comWebCode_TextChanged);
             // 
             // label24
             // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(30, 18);
+            this.label24.AccessibleDescription = null;
+            this.label24.AccessibleName = null;
+            resources.ApplyResources(this.label24, "label24");
+            this.errorProvider1.SetError(this.label24, resources.GetString("label24.Error"));
+            this.label24.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label24, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label24.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label24, ((int)(resources.GetObject("label24.IconPadding"))));
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(67, 13);
-            this.label24.TabIndex = 0;
-            this.label24.Text = "网页编码：";
             // 
             // groupBox3
             // 
+            this.groupBox3.AccessibleDescription = null;
+            this.groupBox3.AccessibleName = null;
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.BackgroundImage = null;
             this.groupBox3.Controls.Add(this.label42);
-            this.groupBox3.Controls.Add(this.label34);
             this.groupBox3.Controls.Add(this.cmdOpenFolder);
             this.groupBox3.Controls.Add(this.txtSavePath);
             this.groupBox3.Controls.Add(this.label3);
@@ -443,84 +471,100 @@
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.TaskType);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(1, 3);
+            this.groupBox3.Controls.Add(this.label34);
+            this.errorProvider1.SetError(this.groupBox3, resources.GetString("groupBox3.Error"));
+            this.groupBox3.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox3, ((int)(resources.GetObject("groupBox3.IconPadding"))));
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(641, 269);
-            this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "基本信息";
             // 
             // label42
             // 
+            this.label42.AccessibleDescription = null;
+            this.label42.AccessibleName = null;
+            resources.ApplyResources(this.label42, "label42");
+            this.errorProvider1.SetError(this.label42, resources.GetString("label42.Error"));
+            this.label42.Font = null;
             this.label42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label42.Location = new System.Drawing.Point(338, 147);
+            this.errorProvider1.SetIconAlignment(this.label42, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label42.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label42, ((int)(resources.GetObject("label42.IconPadding"))));
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(294, 44);
-            this.label42.TabIndex = 29;
-            this.label42.Text = "采集Ajax网页数据与采集普通网页数据原理一样，但您需要借助第三方工具（譬如：Fiddler）获取真实的Url地址及参数。";
-            // 
-            // label34
-            // 
-            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label34.Location = new System.Drawing.Point(91, 231);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(486, 27);
-            this.label34.TabIndex = 28;
-            this.label34.Text = "无论您是否选择数据发布，所采集的数据系统都会进行保存操作，默认为XML文件，这样做的目的是便于您对采集数据进行后续操作。通常情况下，不建议非专业用户修改此地址。";
             // 
             // cmdOpenFolder
             // 
-            this.cmdOpenFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOpenFolder.Location = new System.Drawing.Point(560, 205);
+            this.cmdOpenFolder.AccessibleDescription = null;
+            this.cmdOpenFolder.AccessibleName = null;
+            resources.ApplyResources(this.cmdOpenFolder, "cmdOpenFolder");
+            this.cmdOpenFolder.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdOpenFolder, resources.GetString("cmdOpenFolder.Error"));
+            this.cmdOpenFolder.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdOpenFolder, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdOpenFolder.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdOpenFolder, ((int)(resources.GetObject("cmdOpenFolder.IconPadding"))));
             this.cmdOpenFolder.Name = "cmdOpenFolder";
-            this.cmdOpenFolder.Size = new System.Drawing.Size(72, 23);
-            this.cmdOpenFolder.TabIndex = 6;
-            this.cmdOpenFolder.Text = "浏览...";
             this.cmdOpenFolder.UseVisualStyleBackColor = true;
             this.cmdOpenFolder.Click += new System.EventHandler(this.cmdOpenFolder_Click);
             // 
             // txtSavePath
             // 
+            this.txtSavePath.AccessibleDescription = null;
+            this.txtSavePath.AccessibleName = null;
+            resources.ApplyResources(this.txtSavePath, "txtSavePath");
+            this.txtSavePath.BackgroundImage = null;
             this.txtSavePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSavePath.Location = new System.Drawing.Point(92, 205);
+            this.errorProvider1.SetError(this.txtSavePath, resources.GetString("txtSavePath.Error"));
+            this.txtSavePath.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtSavePath, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtSavePath.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtSavePath, ((int)(resources.GetObject("txtSavePath.IconPadding"))));
             this.txtSavePath.Name = "txtSavePath";
-            this.txtSavePath.Size = new System.Drawing.Size(472, 20);
-            this.txtSavePath.TabIndex = 5;
             this.txtSavePath.TextChanged += new System.EventHandler(this.txtSavePath_TextChanged);
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 207);
+            this.label3.AccessibleDescription = null;
+            this.label3.AccessibleName = null;
+            resources.ApplyResources(this.label3, "label3");
+            this.errorProvider1.SetError(this.label3, resources.GetString("label3.Error"));
+            this.label3.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label3, ((int)(resources.GetObject("label3.IconPadding"))));
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
-            this.label3.TabIndex = 25;
-            this.label3.Text = "数据保存地址：";
             // 
             // txtTaskDemo
             // 
+            this.txtTaskDemo.AccessibleDescription = null;
+            this.txtTaskDemo.AccessibleName = null;
+            resources.ApplyResources(this.txtTaskDemo, "txtTaskDemo");
+            this.txtTaskDemo.BackgroundImage = null;
             this.txtTaskDemo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTaskDemo.Location = new System.Drawing.Point(92, 15);
-            this.txtTaskDemo.Multiline = true;
+            this.errorProvider1.SetError(this.txtTaskDemo, resources.GetString("txtTaskDemo.Error"));
+            this.txtTaskDemo.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtTaskDemo, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtTaskDemo.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtTaskDemo, ((int)(resources.GetObject("txtTaskDemo.IconPadding"))));
             this.txtTaskDemo.Name = "txtTaskDemo";
-            this.txtTaskDemo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTaskDemo.Size = new System.Drawing.Size(540, 98);
-            this.txtTaskDemo.TabIndex = 0;
             this.txtTaskDemo.TextChanged += new System.EventHandler(this.txtTaskDemo_TextChanged);
             // 
             // label26
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(30, 18);
+            this.label26.AccessibleDescription = null;
+            this.label26.AccessibleName = null;
+            resources.ApplyResources(this.label26, "label26");
+            this.errorProvider1.SetError(this.label26, resources.GetString("label26.Error"));
+            this.label26.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label26, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label26.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label26, ((int)(resources.GetObject("label26.IconPadding"))));
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(67, 13);
-            this.label26.TabIndex = 23;
-            this.label26.Text = "任务备注：";
             // 
             // udThread
             // 
+            this.udThread.AccessibleDescription = null;
+            this.udThread.AccessibleName = null;
+            resources.ApplyResources(this.udThread, "udThread");
             this.udThread.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.udThread.Location = new System.Drawing.Point(92, 179);
+            this.errorProvider1.SetError(this.udThread, resources.GetString("udThread.Error"));
+            this.udThread.Font = null;
+            this.errorProvider1.SetIconAlignment(this.udThread, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("udThread.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.udThread, ((int)(resources.GetObject("udThread.IconPadding"))));
             this.udThread.Maximum = new decimal(new int[] {
             10,
             0,
@@ -532,8 +576,6 @@
             0,
             0});
             this.udThread.Name = "udThread";
-            this.udThread.Size = new System.Drawing.Size(43, 20);
-            this.udThread.TabIndex = 4;
             this.udThread.Value = new decimal(new int[] {
             3,
             0,
@@ -543,89 +585,128 @@
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(25, 182);
+            this.label11.AccessibleDescription = null;
+            this.label11.AccessibleName = null;
+            resources.ApplyResources(this.label11, "label11");
+            this.errorProvider1.SetError(this.label11, resources.GetString("label11.Error"));
+            this.label11.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label11, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label11.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label11, ((int)(resources.GetObject("label11.IconPadding"))));
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(61, 13);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "线 程 数：";
             // 
             // comTaskClass
             // 
+            this.comTaskClass.AccessibleDescription = null;
+            this.comTaskClass.AccessibleName = null;
+            resources.ApplyResources(this.comTaskClass, "comTaskClass");
+            this.comTaskClass.BackgroundImage = null;
             this.comTaskClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comTaskClass.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.errorProvider1.SetError(this.comTaskClass, resources.GetString("comTaskClass.Error"));
+            this.comTaskClass.Font = null;
             this.comTaskClass.FormattingEnabled = true;
-            this.comTaskClass.Location = new System.Drawing.Point(92, 122);
+            this.errorProvider1.SetIconAlignment(this.comTaskClass, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comTaskClass.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comTaskClass, ((int)(resources.GetObject("comTaskClass.IconPadding"))));
             this.comTaskClass.Name = "comTaskClass";
-            this.comTaskClass.Size = new System.Drawing.Size(219, 21);
-            this.comTaskClass.TabIndex = 1;
             this.comTaskClass.TextChanged += new System.EventHandler(this.comTaskClass_TextChanged);
             // 
             // label21
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(30, 126);
+            this.label21.AccessibleDescription = null;
+            this.label21.AccessibleName = null;
+            resources.ApplyResources(this.label21, "label21");
+            this.errorProvider1.SetError(this.label21, resources.GetString("label21.Error"));
+            this.label21.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label21, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label21.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label21, ((int)(resources.GetObject("label21.IconPadding"))));
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(67, 13);
-            this.label21.TabIndex = 18;
-            this.label21.Text = "任务分类：";
             // 
             // comRunType
             // 
+            this.comRunType.AccessibleDescription = null;
+            this.comRunType.AccessibleName = null;
+            resources.ApplyResources(this.comRunType, "comRunType");
+            this.comRunType.BackgroundImage = null;
             this.comRunType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comRunType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.errorProvider1.SetError(this.comRunType, resources.GetString("comRunType.Error"));
+            this.comRunType.Font = null;
             this.comRunType.FormattingEnabled = true;
-            this.comRunType.Location = new System.Drawing.Point(92, 152);
+            this.errorProvider1.SetIconAlignment(this.comRunType, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comRunType.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comRunType, ((int)(resources.GetObject("comRunType.IconPadding"))));
             this.comRunType.Name = "comRunType";
-            this.comRunType.Size = new System.Drawing.Size(219, 21);
-            this.comRunType.TabIndex = 3;
             this.comRunType.SelectedIndexChanged += new System.EventHandler(this.comRunType_SelectedIndexChanged);
             this.comRunType.TextChanged += new System.EventHandler(this.comRunType_TextChanged);
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 155);
+            this.label4.AccessibleDescription = null;
+            this.label4.AccessibleName = null;
+            resources.ApplyResources(this.label4, "label4");
+            this.errorProvider1.SetError(this.label4, resources.GetString("label4.Error"));
+            this.label4.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label4, ((int)(resources.GetObject("label4.IconPadding"))));
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "执行类型：";
             // 
             // TaskType
             // 
+            this.TaskType.AccessibleDescription = null;
+            this.TaskType.AccessibleName = null;
+            resources.ApplyResources(this.TaskType, "TaskType");
+            this.TaskType.BackgroundImage = null;
             this.TaskType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TaskType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.errorProvider1.SetError(this.TaskType, resources.GetString("TaskType.Error"));
+            this.TaskType.Font = null;
             this.TaskType.FormattingEnabled = true;
-            this.TaskType.Location = new System.Drawing.Point(413, 123);
+            this.errorProvider1.SetIconAlignment(this.TaskType, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("TaskType.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.TaskType, ((int)(resources.GetObject("TaskType.IconPadding"))));
             this.TaskType.Name = "TaskType";
-            this.TaskType.Size = new System.Drawing.Size(219, 21);
-            this.TaskType.TabIndex = 2;
             this.TaskType.SelectedIndexChanged += new System.EventHandler(this.TaskType_SelectedIndexChanged);
             this.TaskType.TextChanged += new System.EventHandler(this.TaskType_TextChanged);
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 126);
+            this.label2.AccessibleDescription = null;
+            this.label2.AccessibleName = null;
+            resources.ApplyResources(this.label2, "label2");
+            this.errorProvider1.SetError(this.label2, resources.GetString("label2.Error"));
+            this.label2.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "任务类型：";
+            // 
+            // label34
+            // 
+            this.label34.AccessibleDescription = null;
+            this.label34.AccessibleName = null;
+            resources.ApplyResources(this.label34, "label34");
+            this.errorProvider1.SetError(this.label34, resources.GetString("label34.Error"));
+            this.label34.Font = null;
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.errorProvider1.SetIconAlignment(this.label34, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label34.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label34, ((int)(resources.GetObject("label34.IconPadding"))));
+            this.label34.Name = "label34";
             // 
             // tabPage2
             // 
+            this.tabPage2.AccessibleDescription = null;
+            this.tabPage2.AccessibleName = null;
+            resources.ApplyResources(this.tabPage2, "tabPage2");
+            this.tabPage2.BackgroundImage = null;
             this.tabPage2.Controls.Add(this.groupBox6);
-            this.tabPage2.ImageIndex = 1;
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage2, resources.GetString("tabPage2.Error"));
+            this.tabPage2.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage2, ((int)(resources.GetObject("tabPage2.IconPadding"))));
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(650, 446);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "采集网址";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
+            this.groupBox6.AccessibleDescription = null;
+            this.groupBox6.AccessibleName = null;
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.BackgroundImage = null;
+            this.groupBox6.Controls.Add(this.cmdUrlEncoding);
             this.groupBox6.Controls.Add(this.label47);
             this.groupBox6.Controls.Add(this.button6);
             this.groupBox6.Controls.Add(this.groupBox14);
@@ -646,36 +727,59 @@
             this.groupBox6.Controls.Add(this.listWeblink);
             this.groupBox6.Controls.Add(this.cmdAddWeblink);
             this.groupBox6.Controls.Add(this.label20);
-            this.groupBox6.Location = new System.Drawing.Point(1, 3);
+            this.errorProvider1.SetError(this.groupBox6, resources.GetString("groupBox6.Error"));
+            this.groupBox6.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox6, ((int)(resources.GetObject("groupBox6.IconPadding"))));
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(641, 433);
-            this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "网址列表";
+            // 
+            // cmdUrlEncoding
+            // 
+            this.cmdUrlEncoding.AccessibleDescription = null;
+            this.cmdUrlEncoding.AccessibleName = null;
+            resources.ApplyResources(this.cmdUrlEncoding, "cmdUrlEncoding");
+            this.cmdUrlEncoding.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdUrlEncoding, resources.GetString("cmdUrlEncoding.Error"));
+            this.cmdUrlEncoding.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdUrlEncoding, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdUrlEncoding.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdUrlEncoding, ((int)(resources.GetObject("cmdUrlEncoding.IconPadding"))));
+            this.cmdUrlEncoding.Name = "cmdUrlEncoding";
+            this.cmdUrlEncoding.UseVisualStyleBackColor = true;
+            this.cmdUrlEncoding.Click += new System.EventHandler(this.cmdUrlEncoding_Click);
             // 
             // label47
             // 
-            this.label47.AutoSize = true;
+            this.label47.AccessibleDescription = null;
+            this.label47.AccessibleName = null;
+            resources.ApplyResources(this.label47, "label47");
+            this.errorProvider1.SetError(this.label47, resources.GetString("label47.Error"));
+            this.label47.Font = null;
             this.label47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label47.Location = new System.Drawing.Point(168, 126);
+            this.errorProvider1.SetIconAlignment(this.label47, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label47.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label47, ((int)(resources.GetObject("label47.IconPadding"))));
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(235, 13);
-            this.label47.TabIndex = 50;
-            this.label47.Text = "系统支持多层导航，但只采集最终页数据。";
             // 
             // button6
             // 
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(533, 123);
+            this.button6.AccessibleDescription = null;
+            this.button6.AccessibleName = null;
+            resources.ApplyResources(this.button6, "button6");
+            this.button6.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button6, resources.GetString("button6.Error"));
+            this.button6.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button6, ((int)(resources.GetObject("button6.IconPadding"))));
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(92, 23);
-            this.button6.TabIndex = 9;
-            this.button6.Text = "测试导航规则";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // groupBox14
             // 
+            this.groupBox14.AccessibleDescription = null;
+            this.groupBox14.AccessibleName = null;
+            resources.ApplyResources(this.groupBox14, "groupBox14");
+            this.groupBox14.BackgroundImage = null;
             this.groupBox14.Controls.Add(this.dataNRule);
             this.groupBox14.Controls.Add(this.groupBox15);
             this.groupBox14.Controls.Add(this.cmdDelNRule);
@@ -683,254 +787,314 @@
             this.groupBox14.Controls.Add(this.txtNag);
             this.groupBox14.Controls.Add(this.label10);
             this.groupBox14.Controls.Add(this.label22);
-            this.groupBox14.Enabled = false;
-            this.groupBox14.Location = new System.Drawing.Point(14, 145);
+            this.errorProvider1.SetError(this.groupBox14, resources.GetString("groupBox14.Error"));
+            this.groupBox14.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox14, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox14.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox14, ((int)(resources.GetObject("groupBox14.IconPadding"))));
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(611, 115);
-            this.groupBox14.TabIndex = 49;
             this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "导航规则";
             // 
             // dataNRule
             // 
+            this.dataNRule.AccessibleDescription = null;
+            this.dataNRule.AccessibleName = null;
             this.dataNRule.AllowUserToAddRows = false;
-            this.dataNRule.AllowUserToOrderColumns = true;
-            this.dataNRule.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataNRule, "dataNRule");
             this.dataNRule.BackgroundColor = System.Drawing.Color.White;
-            this.dataNRule.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataNRule.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataNRule.Location = new System.Drawing.Point(296, 15);
+            this.dataNRule.BackgroundImage = null;
+            this.dataNRule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataNRule.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nRuleLevel,
+            this.nRule});
+            this.errorProvider1.SetError(this.dataNRule, resources.GetString("dataNRule.Error"));
+            this.dataNRule.Font = null;
+            this.errorProvider1.SetIconAlignment(this.dataNRule, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dataNRule.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.dataNRule, ((int)(resources.GetObject("dataNRule.IconPadding"))));
             this.dataNRule.Name = "dataNRule";
             this.dataNRule.RowHeadersVisible = false;
-            this.dataNRule.RowHeadersWidth = 20;
-            this.dataNRule.RowTemplate.Height = 19;
-            this.dataNRule.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataNRule.Size = new System.Drawing.Size(305, 93);
-            this.dataNRule.TabIndex = 30;
+            // 
+            // nRuleLevel
+            // 
+            resources.ApplyResources(this.nRuleLevel, "nRuleLevel");
+            this.nRuleLevel.Name = "nRuleLevel";
+            // 
+            // nRule
+            // 
+            resources.ApplyResources(this.nRule, "nRule");
+            this.nRule.Name = "nRule";
             // 
             // groupBox15
             // 
-            this.groupBox15.Location = new System.Drawing.Point(208, 10);
+            this.groupBox15.AccessibleDescription = null;
+            this.groupBox15.AccessibleName = null;
+            resources.ApplyResources(this.groupBox15, "groupBox15");
+            this.groupBox15.BackgroundImage = null;
+            this.errorProvider1.SetError(this.groupBox15, resources.GetString("groupBox15.Error"));
+            this.groupBox15.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox15, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox15.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox15, ((int)(resources.GetObject("groupBox15.IconPadding"))));
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(2, 98);
-            this.groupBox15.TabIndex = 29;
             this.groupBox15.TabStop = false;
             // 
             // cmdDelNRule
             // 
-            this.cmdDelNRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelNRule.Location = new System.Drawing.Point(226, 70);
+            this.cmdDelNRule.AccessibleDescription = null;
+            this.cmdDelNRule.AccessibleName = null;
+            resources.ApplyResources(this.cmdDelNRule, "cmdDelNRule");
+            this.cmdDelNRule.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdDelNRule, resources.GetString("cmdDelNRule.Error"));
+            this.cmdDelNRule.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdDelNRule, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdDelNRule.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdDelNRule, ((int)(resources.GetObject("cmdDelNRule.IconPadding"))));
             this.cmdDelNRule.Name = "cmdDelNRule";
-            this.cmdDelNRule.Size = new System.Drawing.Size(52, 23);
-            this.cmdDelNRule.TabIndex = 10;
-            this.cmdDelNRule.Text = "移除";
             this.cmdDelNRule.UseVisualStyleBackColor = true;
             this.cmdDelNRule.Click += new System.EventHandler(this.cmdDelNRule_Click);
             // 
             // cmdAddNRule
             // 
-            this.cmdAddNRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddNRule.Location = new System.Drawing.Point(226, 36);
+            this.cmdAddNRule.AccessibleDescription = null;
+            this.cmdAddNRule.AccessibleName = null;
+            resources.ApplyResources(this.cmdAddNRule, "cmdAddNRule");
+            this.cmdAddNRule.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdAddNRule, resources.GetString("cmdAddNRule.Error"));
+            this.cmdAddNRule.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdAddNRule, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdAddNRule.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdAddNRule, ((int)(resources.GetObject("cmdAddNRule.IconPadding"))));
             this.cmdAddNRule.Name = "cmdAddNRule";
-            this.cmdAddNRule.Size = new System.Drawing.Size(52, 23);
-            this.cmdAddNRule.TabIndex = 9;
-            this.cmdAddNRule.Text = "添加";
             this.cmdAddNRule.UseVisualStyleBackColor = true;
             this.cmdAddNRule.Click += new System.EventHandler(this.cmdAddNRule_Click);
             // 
             // txtNag
             // 
+            this.txtNag.AccessibleDescription = null;
+            this.txtNag.AccessibleName = null;
+            resources.ApplyResources(this.txtNag, "txtNag");
+            this.txtNag.BackgroundImage = null;
             this.txtNag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNag.Location = new System.Drawing.Point(13, 40);
+            this.errorProvider1.SetError(this.txtNag, resources.GetString("txtNag.Error"));
+            this.txtNag.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtNag, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtNag.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtNag, ((int)(resources.GetObject("txtNag.IconPadding"))));
             this.txtNag.Name = "txtNag";
-            this.txtNag.Size = new System.Drawing.Size(182, 20);
-            this.txtNag.TabIndex = 8;
             this.txtNag.TextChanged += new System.EventHandler(this.txtNag_TextChanged);
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 22);
+            this.label10.AccessibleDescription = null;
+            this.label10.AccessibleName = null;
+            resources.ApplyResources(this.label10, "label10");
+            this.errorProvider1.SetError(this.label10, resources.GetString("label10.Error"));
+            this.label10.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label10, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label10.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label10, ((int)(resources.GetObject("label10.IconPadding"))));
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 13);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "导航规则：";
             // 
             // label22
             // 
+            this.label22.AccessibleDescription = null;
+            this.label22.AccessibleName = null;
+            resources.ApplyResources(this.label22, "label22");
+            this.errorProvider1.SetError(this.label22, resources.GetString("label22.Error"));
+            this.label22.Font = null;
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(10, 67);
+            this.errorProvider1.SetIconAlignment(this.label22, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label22.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label22, ((int)(resources.GetObject("label22.IconPadding"))));
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(207, 29);
-            this.label22.TabIndex = 26;
-            this.label22.Text = "直接填写导航网址的前缀（共有部分）即可, 需填写完整";
             // 
             // IsNavigPage
             // 
-            this.IsNavigPage.AutoSize = true;
-            this.IsNavigPage.Location = new System.Drawing.Point(20, 124);
+            this.IsNavigPage.AccessibleDescription = null;
+            this.IsNavigPage.AccessibleName = null;
+            resources.ApplyResources(this.IsNavigPage, "IsNavigPage");
+            this.IsNavigPage.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsNavigPage, resources.GetString("IsNavigPage.Error"));
+            this.IsNavigPage.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsNavigPage, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsNavigPage.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsNavigPage, ((int)(resources.GetObject("IsNavigPage.IconPadding"))));
             this.IsNavigPage.Name = "IsNavigPage";
-            this.IsNavigPage.Size = new System.Drawing.Size(140, 17);
-            this.IsNavigPage.TabIndex = 7;
-            this.IsNavigPage.Text = "导航页(需要导航规则)";
             this.IsNavigPage.UseVisualStyleBackColor = true;
             this.IsNavigPage.CheckedChanged += new System.EventHandler(this.IsNavigPage_CheckedChanged);
             // 
             // label31
             // 
-            this.label31.AutoSize = true;
+            this.label31.AccessibleDescription = null;
+            this.label31.AccessibleName = null;
+            resources.ApplyResources(this.label31, "label31");
+            this.errorProvider1.SetError(this.label31, resources.GetString("label31.Error"));
+            this.label31.Font = null;
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label31.Location = new System.Drawing.Point(524, 103);
+            this.errorProvider1.SetIconAlignment(this.label31, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label31.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label31, ((int)(resources.GetObject("label31.IconPadding"))));
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(91, 13);
-            this.label31.TabIndex = 32;
-            this.label31.Text = "暂不支持JS跳转";
             // 
             // comUrlEncode
             // 
+            this.comUrlEncode.AccessibleDescription = null;
+            this.comUrlEncode.AccessibleName = null;
+            resources.ApplyResources(this.comUrlEncode, "comUrlEncode");
+            this.comUrlEncode.BackgroundImage = null;
             this.comUrlEncode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comUrlEncode.Enabled = false;
-            this.comUrlEncode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.errorProvider1.SetError(this.comUrlEncode, resources.GetString("comUrlEncode.Error"));
+            this.comUrlEncode.Font = null;
             this.comUrlEncode.FormattingEnabled = true;
-            this.comUrlEncode.Location = new System.Drawing.Point(256, 16);
+            this.errorProvider1.SetIconAlignment(this.comUrlEncode, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comUrlEncode.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comUrlEncode, ((int)(resources.GetObject("comUrlEncode.IconPadding"))));
             this.comUrlEncode.Name = "comUrlEncode";
-            this.comUrlEncode.Size = new System.Drawing.Size(281, 21);
-            this.comUrlEncode.TabIndex = 1;
             this.comUrlEncode.TextChanged += new System.EventHandler(this.comUrlEncode_TextChanged);
             // 
             // txtWebLink
             // 
+            this.txtWebLink.AccessibleDescription = null;
+            this.txtWebLink.AccessibleName = null;
+            resources.ApplyResources(this.txtWebLink, "txtWebLink");
+            this.txtWebLink.BackgroundImage = null;
             this.txtWebLink.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtWebLink.Location = new System.Drawing.Point(83, 43);
-            this.txtWebLink.Multiline = true;
+            this.errorProvider1.SetError(this.txtWebLink, resources.GetString("txtWebLink.Error"));
+            this.txtWebLink.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtWebLink, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtWebLink.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtWebLink, ((int)(resources.GetObject("txtWebLink.IconPadding"))));
             this.txtWebLink.Name = "txtWebLink";
-            this.txtWebLink.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtWebLink.Size = new System.Drawing.Size(454, 48);
-            this.txtWebLink.TabIndex = 2;
-            this.txtWebLink.Text = "http://";
             this.txtWebLink.TextChanged += new System.EventHandler(this.txtWebLink_TextChanged);
             // 
             // cmdEditWeblink
             // 
-            this.cmdEditWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdEditWeblink.Image = ((System.Drawing.Image)(resources.GetObject("cmdEditWeblink.Image")));
-            this.cmdEditWeblink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdEditWeblink.Location = new System.Drawing.Point(495, 269);
+            this.cmdEditWeblink.AccessibleDescription = null;
+            this.cmdEditWeblink.AccessibleName = null;
+            resources.ApplyResources(this.cmdEditWeblink, "cmdEditWeblink");
+            this.cmdEditWeblink.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdEditWeblink, resources.GetString("cmdEditWeblink.Error"));
+            this.cmdEditWeblink.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdEditWeblink, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdEditWeblink.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdEditWeblink, ((int)(resources.GetObject("cmdEditWeblink.IconPadding"))));
             this.cmdEditWeblink.Name = "cmdEditWeblink";
-            this.cmdEditWeblink.Size = new System.Drawing.Size(60, 23);
-            this.cmdEditWeblink.TabIndex = 12;
-            this.cmdEditWeblink.Text = "修 改";
-            this.cmdEditWeblink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdEditWeblink.UseVisualStyleBackColor = true;
             this.cmdEditWeblink.Click += new System.EventHandler(this.cmdEditWeblink_Click);
             // 
             // IsUrlEncode
             // 
-            this.IsUrlEncode.AutoSize = true;
-            this.IsUrlEncode.Location = new System.Drawing.Point(20, 18);
+            this.IsUrlEncode.AccessibleDescription = null;
+            this.IsUrlEncode.AccessibleName = null;
+            resources.ApplyResources(this.IsUrlEncode, "IsUrlEncode");
+            this.IsUrlEncode.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsUrlEncode, resources.GetString("IsUrlEncode.Error"));
+            this.IsUrlEncode.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsUrlEncode, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsUrlEncode.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsUrlEncode, ((int)(resources.GetObject("IsUrlEncode.IconPadding"))));
             this.IsUrlEncode.Name = "IsUrlEncode";
-            this.IsUrlEncode.Size = new System.Drawing.Size(230, 17);
-            this.IsUrlEncode.TabIndex = 0;
-            this.IsUrlEncode.Text = "网址中含有中文参数，需指定编码格式";
             this.IsUrlEncode.UseVisualStyleBackColor = true;
             this.IsUrlEncode.CheckedChanged += new System.EventHandler(this.IsUrlEncode_CheckedChanged);
             // 
             // button4
             // 
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(543, 96);
+            this.button4.AccessibleDescription = null;
+            this.button4.AccessibleName = null;
+            resources.ApplyResources(this.button4, "button4");
+            this.button4.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button4, resources.GetString("button4.Error"));
+            this.button4.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button4, ((int)(resources.GetObject("button4.IconPadding"))));
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(82, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "自动识别";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // txtNextPage
             // 
+            this.txtNextPage.AccessibleDescription = null;
+            this.txtNextPage.AccessibleName = null;
+            resources.ApplyResources(this.txtNextPage, "txtNextPage");
+            this.txtNextPage.BackgroundImage = null;
             this.txtNextPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNextPage.Enabled = false;
-            this.txtNextPage.Location = new System.Drawing.Point(247, 99);
+            this.errorProvider1.SetError(this.txtNextPage, resources.GetString("txtNextPage.Error"));
+            this.txtNextPage.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtNextPage, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtNextPage.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtNextPage, ((int)(resources.GetObject("txtNextPage.IconPadding"))));
             this.txtNextPage.Name = "txtNextPage";
-            this.txtNextPage.Size = new System.Drawing.Size(273, 20);
-            this.txtNextPage.TabIndex = 6;
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Enabled = false;
-            this.label13.Location = new System.Drawing.Point(171, 101);
+            this.label13.AccessibleDescription = null;
+            this.label13.AccessibleName = null;
+            resources.ApplyResources(this.label13, "label13");
+            this.errorProvider1.SetError(this.label13, resources.GetString("label13.Error"));
+            this.label13.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label13, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label13.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label13, ((int)(resources.GetObject("label13.IconPadding"))));
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(79, 13);
-            this.label13.TabIndex = 22;
-            this.label13.Text = "下一页标识：";
             // 
             // IsAutoNextPage
             // 
-            this.IsAutoNextPage.AutoSize = true;
-            this.IsAutoNextPage.Location = new System.Drawing.Point(20, 100);
+            this.IsAutoNextPage.AccessibleDescription = null;
+            this.IsAutoNextPage.AccessibleName = null;
+            resources.ApplyResources(this.IsAutoNextPage, "IsAutoNextPage");
+            this.IsAutoNextPage.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsAutoNextPage, resources.GetString("IsAutoNextPage.Error"));
+            this.IsAutoNextPage.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsAutoNextPage, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsAutoNextPage.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsAutoNextPage, ((int)(resources.GetObject("IsAutoNextPage.IconPadding"))));
             this.IsAutoNextPage.Name = "IsAutoNextPage";
-            this.IsAutoNextPage.Size = new System.Drawing.Size(158, 17);
-            this.IsAutoNextPage.TabIndex = 5;
-            this.IsAutoNextPage.Text = "根据下一页标识自动翻页";
             this.IsAutoNextPage.UseVisualStyleBackColor = true;
             this.IsAutoNextPage.CheckedChanged += new System.EventHandler(this.IsAutoNextPage_CheckedChanged);
             // 
             // button3
             // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(543, 68);
+            this.button3.AccessibleDescription = null;
+            this.button3.AccessibleName = null;
+            resources.ApplyResources(this.button3, "button3");
+            this.button3.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button3, resources.GetString("button3.Error"));
+            this.button3.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button3, ((int)(resources.GetObject("button3.IconPadding"))));
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(82, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "字典表参数";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // button2
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(543, 43);
+            this.button2.AccessibleDescription = null;
+            this.button2.AccessibleName = null;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button2, resources.GetString("button2.Error"));
+            this.button2.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button2, ((int)(resources.GetObject("button2.IconPadding"))));
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "参数/变量";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 46);
+            this.label9.AccessibleDescription = null;
+            this.label9.AccessibleName = null;
+            resources.ApplyResources(this.label9, "label9");
+            this.errorProvider1.SetError(this.label9, resources.GetString("label9.Error"));
+            this.label9.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label9, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label9.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label9, ((int)(resources.GetObject("label9.IconPadding"))));
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(67, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "网页地址：";
             // 
             // cmdDelWeblink
             // 
-            this.cmdDelWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelWeblink.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelWeblink.Image")));
-            this.cmdDelWeblink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDelWeblink.Location = new System.Drawing.Point(565, 269);
+            this.cmdDelWeblink.AccessibleDescription = null;
+            this.cmdDelWeblink.AccessibleName = null;
+            resources.ApplyResources(this.cmdDelWeblink, "cmdDelWeblink");
+            this.cmdDelWeblink.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdDelWeblink, resources.GetString("cmdDelWeblink.Error"));
+            this.cmdDelWeblink.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdDelWeblink, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdDelWeblink.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdDelWeblink, ((int)(resources.GetObject("cmdDelWeblink.IconPadding"))));
             this.cmdDelWeblink.Name = "cmdDelWeblink";
-            this.cmdDelWeblink.Size = new System.Drawing.Size(60, 23);
-            this.cmdDelWeblink.TabIndex = 13;
-            this.cmdDelWeblink.Text = "删 除";
-            this.cmdDelWeblink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDelWeblink.UseVisualStyleBackColor = true;
             this.cmdDelWeblink.Click += new System.EventHandler(this.cmdDelWeblink_Click);
             // 
             // listWeblink
             // 
+            this.listWeblink.AccessibleDescription = null;
+            this.listWeblink.AccessibleName = null;
+            resources.ApplyResources(this.listWeblink, "listWeblink");
+            this.listWeblink.BackgroundImage = null;
             this.listWeblink.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listWeblink.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
@@ -938,13 +1102,14 @@
             this.columnHeader8,
             this.columnHeader6,
             this.columnHeader7});
+            this.errorProvider1.SetError(this.listWeblink, resources.GetString("listWeblink.Error"));
+            this.listWeblink.Font = null;
             this.listWeblink.FullRowSelect = true;
             this.listWeblink.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listWeblink.Location = new System.Drawing.Point(14, 298);
+            this.errorProvider1.SetIconAlignment(this.listWeblink, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("listWeblink.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.listWeblink, ((int)(resources.GetObject("listWeblink.IconPadding"))));
             this.listWeblink.Name = "listWeblink";
             this.listWeblink.ShowItemToolTips = true;
-            this.listWeblink.Size = new System.Drawing.Size(611, 129);
-            this.listWeblink.TabIndex = 14;
             this.listWeblink.UseCompatibleStateImageBehavior = false;
             this.listWeblink.View = System.Windows.Forms.View.Details;
             this.listWeblink.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listWeblink_KeyDown);
@@ -952,66 +1117,71 @@
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "网址";
-            this.columnHeader1.Width = 286;
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "是否导航";
-            this.columnHeader2.Width = 83;
+            resources.ApplyResources(this.columnHeader2, "columnHeader2");
             // 
             // columnHeader8
             // 
-            this.columnHeader8.Text = "导航深度";
-            this.columnHeader8.Width = 80;
+            resources.ApplyResources(this.columnHeader8, "columnHeader8");
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "下一页标识";
-            this.columnHeader6.Width = 80;
+            resources.ApplyResources(this.columnHeader6, "columnHeader6");
             // 
             // columnHeader7
             // 
-            this.columnHeader7.Text = "网址数";
+            resources.ApplyResources(this.columnHeader7, "columnHeader7");
             // 
             // cmdAddWeblink
             // 
-            this.cmdAddWeblink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddWeblink.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddWeblink.Image")));
-            this.cmdAddWeblink.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAddWeblink.Location = new System.Drawing.Point(424, 269);
+            this.cmdAddWeblink.AccessibleDescription = null;
+            this.cmdAddWeblink.AccessibleName = null;
+            resources.ApplyResources(this.cmdAddWeblink, "cmdAddWeblink");
+            this.cmdAddWeblink.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdAddWeblink, resources.GetString("cmdAddWeblink.Error"));
+            this.cmdAddWeblink.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdAddWeblink, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdAddWeblink.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdAddWeblink, ((int)(resources.GetObject("cmdAddWeblink.IconPadding"))));
             this.cmdAddWeblink.Name = "cmdAddWeblink";
-            this.cmdAddWeblink.Size = new System.Drawing.Size(60, 23);
-            this.cmdAddWeblink.TabIndex = 11;
-            this.cmdAddWeblink.Text = "增 加";
-            this.cmdAddWeblink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdAddWeblink.UseVisualStyleBackColor = true;
             this.cmdAddWeblink.Click += new System.EventHandler(this.cmdAddWeblink_Click);
             // 
             // label20
             // 
+            this.label20.AccessibleDescription = null;
+            this.label20.AccessibleName = null;
+            resources.ApplyResources(this.label20, "label20");
+            this.errorProvider1.SetError(this.label20, resources.GetString("label20.Error"));
+            this.label20.Font = null;
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label20.Location = new System.Drawing.Point(17, 263);
+            this.errorProvider1.SetIconAlignment(this.label20, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label20.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label20, ((int)(resources.GetObject("label20.IconPadding"))));
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(350, 29);
-            this.label20.TabIndex = 48;
-            this.label20.Text = "采集内容仅针对非导航页进行采集，由导航规则打开内容页，并根据采集规则进行数据采集";
             // 
             // tabPage3
             // 
+            this.tabPage3.AccessibleDescription = null;
+            this.tabPage3.AccessibleName = null;
+            resources.ApplyResources(this.tabPage3, "tabPage3");
+            this.tabPage3.BackgroundImage = null;
             this.tabPage3.Controls.Add(this.groupBox8);
             this.tabPage3.Controls.Add(this.groupBox5);
-            this.tabPage3.ImageIndex = 2;
-            this.tabPage3.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage3, resources.GetString("tabPage3.Error"));
+            this.tabPage3.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage3, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage3.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage3, ((int)(resources.GetObject("tabPage3.IconPadding"))));
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(650, 446);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "采集规则";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
+            this.groupBox8.AccessibleDescription = null;
+            this.groupBox8.AccessibleName = null;
+            resources.ApplyResources(this.groupBox8, "groupBox8");
+            this.groupBox8.BackgroundImage = null;
             this.groupBox8.Controls.Add(this.cmdDown);
             this.groupBox8.Controls.Add(this.cmdUp);
             this.groupBox8.Controls.Add(this.label5);
@@ -1037,261 +1207,314 @@
             this.groupBox8.Controls.Add(this.label17);
             this.groupBox8.Controls.Add(this.listWebGetFlag);
             this.groupBox8.Controls.Add(this.label18);
-            this.groupBox8.Location = new System.Drawing.Point(1, 106);
+            this.errorProvider1.SetError(this.groupBox8, resources.GetString("groupBox8.Error"));
+            this.groupBox8.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox8, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox8.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox8, ((int)(resources.GetObject("groupBox8.IconPadding"))));
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(641, 338);
-            this.groupBox8.TabIndex = 15;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "数据采集规则";
             // 
             // cmdDown
             // 
-            this.cmdDown.Enabled = false;
-            this.cmdDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDown.Image = ((System.Drawing.Image)(resources.GetObject("cmdDown.Image")));
-            this.cmdDown.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDown.Location = new System.Drawing.Point(178, 180);
+            this.cmdDown.AccessibleDescription = null;
+            this.cmdDown.AccessibleName = null;
+            resources.ApplyResources(this.cmdDown, "cmdDown");
+            this.cmdDown.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdDown, resources.GetString("cmdDown.Error"));
+            this.cmdDown.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdDown, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdDown.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdDown, ((int)(resources.GetObject("cmdDown.IconPadding"))));
             this.cmdDown.Name = "cmdDown";
-            this.cmdDown.Size = new System.Drawing.Size(60, 23);
-            this.cmdDown.TabIndex = 64;
-            this.cmdDown.Text = "下移";
-            this.cmdDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDown.UseVisualStyleBackColor = true;
             this.cmdDown.Click += new System.EventHandler(this.cmdDown_Click);
             // 
             // cmdUp
             // 
-            this.cmdUp.Enabled = false;
-            this.cmdUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdUp.Image = ((System.Drawing.Image)(resources.GetObject("cmdUp.Image")));
-            this.cmdUp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdUp.Location = new System.Drawing.Point(112, 180);
+            this.cmdUp.AccessibleDescription = null;
+            this.cmdUp.AccessibleName = null;
+            resources.ApplyResources(this.cmdUp, "cmdUp");
+            this.cmdUp.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdUp, resources.GetString("cmdUp.Error"));
+            this.cmdUp.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdUp, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdUp.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdUp, ((int)(resources.GetObject("cmdUp.IconPadding"))));
             this.cmdUp.Name = "cmdUp";
-            this.cmdUp.Size = new System.Drawing.Size(60, 23);
-            this.cmdUp.TabIndex = 63;
-            this.cmdUp.Text = "上移";
-            this.cmdUp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdUp.UseVisualStyleBackColor = true;
             this.cmdUp.Click += new System.EventHandler(this.cmdUp_Click);
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
+            this.label5.AccessibleDescription = null;
+            this.label5.AccessibleName = null;
+            resources.ApplyResources(this.label5, "label5");
+            this.errorProvider1.SetError(this.label5, resources.GetString("label5.Error"));
+            this.label5.Font = null;
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(102, 164);
+            this.errorProvider1.SetIconAlignment(this.label5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label5, ((int)(resources.GetObject("label5.IconPadding"))));
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(412, 13);
-            this.label5.TabIndex = 62;
-            this.label5.Text = "\"数据输出加工”可以提高采集数据的精确性及有效性，但也会降低采集性能。";
             // 
             // txtExpression
             // 
+            this.txtExpression.AccessibleDescription = null;
+            this.txtExpression.AccessibleName = null;
+            resources.ApplyResources(this.txtExpression, "txtExpression");
+            this.txtExpression.BackgroundImage = null;
             this.txtExpression.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtExpression.Enabled = false;
-            this.txtExpression.Location = new System.Drawing.Point(406, 138);
+            this.errorProvider1.SetError(this.txtExpression, resources.GetString("txtExpression.Error"));
+            this.txtExpression.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtExpression, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtExpression.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtExpression, ((int)(resources.GetObject("txtExpression.IconPadding"))));
             this.txtExpression.Name = "txtExpression";
-            this.txtExpression.Size = new System.Drawing.Size(229, 20);
-            this.txtExpression.TabIndex = 61;
             // 
             // txtRegion
             // 
+            this.txtRegion.AccessibleDescription = null;
+            this.txtRegion.AccessibleName = null;
+            resources.ApplyResources(this.txtRegion, "txtRegion");
+            this.txtRegion.BackgroundImage = null;
             this.txtRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRegion.Enabled = false;
-            this.txtRegion.Location = new System.Drawing.Point(406, 111);
+            this.errorProvider1.SetError(this.txtRegion, resources.GetString("txtRegion.Error"));
+            this.txtRegion.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtRegion, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtRegion.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtRegion, ((int)(resources.GetObject("txtRegion.IconPadding"))));
             this.txtRegion.Name = "txtRegion";
-            this.txtRegion.Size = new System.Drawing.Size(229, 20);
-            this.txtRegion.TabIndex = 60;
             // 
             // label37
             // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(321, 142);
+            this.label37.AccessibleDescription = null;
+            this.label37.AccessibleName = null;
+            resources.ApplyResources(this.label37, "label37");
+            this.errorProvider1.SetError(this.label37, resources.GetString("label37.Error"));
+            this.label37.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label37, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label37.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label37, ((int)(resources.GetObject("label37.IconPadding"))));
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(67, 13);
-            this.label37.TabIndex = 59;
-            this.label37.Text = "加工条件：";
             // 
             // comExportLimit
             // 
+            this.comExportLimit.AccessibleDescription = null;
+            this.comExportLimit.AccessibleName = null;
+            resources.ApplyResources(this.comExportLimit, "comExportLimit");
+            this.comExportLimit.BackgroundImage = null;
             this.comExportLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comExportLimit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.errorProvider1.SetError(this.comExportLimit, resources.GetString("comExportLimit.Error"));
+            this.comExportLimit.Font = null;
             this.comExportLimit.FormattingEnabled = true;
-            this.comExportLimit.Location = new System.Drawing.Point(104, 138);
+            this.errorProvider1.SetIconAlignment(this.comExportLimit, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comExportLimit.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comExportLimit, ((int)(resources.GetObject("comExportLimit.IconPadding"))));
             this.comExportLimit.Name = "comExportLimit";
-            this.comExportLimit.Size = new System.Drawing.Size(213, 21);
-            this.comExportLimit.TabIndex = 5;
             this.comExportLimit.SelectedIndexChanged += new System.EventHandler(this.comExportLimit_SelectedIndexChanged);
             // 
             // label36
             // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(8, 142);
+            this.label36.AccessibleDescription = null;
+            this.label36.AccessibleName = null;
+            resources.ApplyResources(this.label36, "label36");
+            this.errorProvider1.SetError(this.label36, resources.GetString("label36.Error"));
+            this.label36.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label36, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label36.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label36, ((int)(resources.GetObject("label36.IconPadding"))));
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(91, 13);
-            this.label36.TabIndex = 57;
-            this.label36.Text = "数据输出加工：";
             // 
             // label35
             // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(321, 114);
+            this.label35.AccessibleDescription = null;
+            this.label35.AccessibleName = null;
+            resources.ApplyResources(this.label35, "label35");
+            this.errorProvider1.SetError(this.label35, resources.GetString("label35.Error"));
+            this.label35.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label35, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label35.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label35, ((int)(resources.GetObject("label35.IconPadding"))));
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(79, 13);
-            this.label35.TabIndex = 56;
-            this.label35.Text = "正则表达式：";
             // 
             // label28
             // 
-            this.label28.AutoSize = true;
+            this.label28.AccessibleDescription = null;
+            this.label28.AccessibleName = null;
+            resources.ApplyResources(this.label28, "label28");
+            this.errorProvider1.SetError(this.label28, resources.GetString("label28.Error"));
+            this.label28.Font = null;
             this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label28.Location = new System.Drawing.Point(102, 41);
+            this.errorProvider1.SetIconAlignment(this.label28, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label28.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label28, ((int)(resources.GetObject("label28.IconPadding"))));
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(507, 13);
-            this.label28.TabIndex = 55;
-            this.label28.Text = "采集数据类型为非文本时，系统将进行文件下载操作，下载文件存储在您指定的“数据保存地址”";
             // 
             // comGetType
             // 
+            this.comGetType.AccessibleDescription = null;
+            this.comGetType.AccessibleName = null;
+            resources.ApplyResources(this.comGetType, "comGetType");
+            this.comGetType.BackgroundImage = null;
             this.comGetType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comGetType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.errorProvider1.SetError(this.comGetType, resources.GetString("comGetType.Error"));
+            this.comGetType.Font = null;
             this.comGetType.FormattingEnabled = true;
-            this.comGetType.Location = new System.Drawing.Point(406, 16);
+            this.errorProvider1.SetIconAlignment(this.comGetType, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comGetType.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comGetType, ((int)(resources.GetObject("comGetType.IconPadding"))));
             this.comGetType.Name = "comGetType";
-            this.comGetType.Size = new System.Drawing.Size(229, 21);
-            this.comGetType.TabIndex = 1;
             this.comGetType.SelectedIndexChanged += new System.EventHandler(this.comGetType_SelectedIndexChanged);
             // 
             // label32
             // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(321, 19);
+            this.label32.AccessibleDescription = null;
+            this.label32.AccessibleName = null;
+            resources.ApplyResources(this.label32, "label32");
+            this.errorProvider1.SetError(this.label32, resources.GetString("label32.Error"));
+            this.label32.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label32, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label32.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label32, ((int)(resources.GetObject("label32.IconPadding"))));
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(91, 13);
-            this.label32.TabIndex = 53;
-            this.label32.Text = "采集数据类型：";
             // 
             // comLimit
             // 
+            this.comLimit.AccessibleDescription = null;
+            this.comLimit.AccessibleName = null;
+            resources.ApplyResources(this.comLimit, "comLimit");
+            this.comLimit.BackgroundImage = null;
             this.comLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comLimit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.errorProvider1.SetError(this.comLimit, resources.GetString("comLimit.Error"));
+            this.comLimit.Font = null;
             this.comLimit.FormattingEnabled = true;
-            this.comLimit.Location = new System.Drawing.Point(104, 111);
+            this.errorProvider1.SetIconAlignment(this.comLimit, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comLimit.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comLimit, ((int)(resources.GetObject("comLimit.IconPadding"))));
             this.comLimit.Name = "comLimit";
-            this.comLimit.Size = new System.Drawing.Size(213, 21);
-            this.comLimit.TabIndex = 4;
             this.comLimit.SelectedIndexChanged += new System.EventHandler(this.comLimit_SelectedIndexChanged);
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(32, 116);
+            this.label19.AccessibleDescription = null;
+            this.label19.AccessibleName = null;
+            resources.ApplyResources(this.label19, "label19");
+            this.errorProvider1.SetError(this.label19, resources.GetString("label19.Error"));
+            this.label19.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label19, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label19.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label19, ((int)(resources.GetObject("label19.IconPadding"))));
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(67, 13);
-            this.label19.TabIndex = 51;
-            this.label19.Text = "限制条件：";
             // 
             // button8
             // 
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
-            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(506, 180);
+            this.button8.AccessibleDescription = null;
+            this.button8.AccessibleName = null;
+            resources.ApplyResources(this.button8, "button8");
+            this.button8.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button8, resources.GetString("button8.Error"));
+            this.button8.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button8, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button8.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button8, ((int)(resources.GetObject("button8.IconPadding"))));
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(60, 23);
-            this.button8.TabIndex = 7;
-            this.button8.Text = "修 改";
-            this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // txtGetEnd
             // 
+            this.txtGetEnd.AccessibleDescription = null;
+            this.txtGetEnd.AccessibleName = null;
+            resources.ApplyResources(this.txtGetEnd, "txtGetEnd");
+            this.txtGetEnd.BackgroundImage = null;
             this.txtGetEnd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGetEnd.Location = new System.Drawing.Point(406, 62);
-            this.txtGetEnd.Multiline = true;
+            this.errorProvider1.SetError(this.txtGetEnd, resources.GetString("txtGetEnd.Error"));
+            this.txtGetEnd.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtGetEnd, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtGetEnd.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtGetEnd, ((int)(resources.GetObject("txtGetEnd.IconPadding"))));
             this.txtGetEnd.Name = "txtGetEnd";
-            this.txtGetEnd.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtGetEnd.Size = new System.Drawing.Size(229, 42);
-            this.txtGetEnd.TabIndex = 3;
             // 
             // txtGetStart
             // 
+            this.txtGetStart.AccessibleDescription = null;
+            this.txtGetStart.AccessibleName = null;
+            resources.ApplyResources(this.txtGetStart, "txtGetStart");
+            this.txtGetStart.BackgroundImage = null;
             this.txtGetStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGetStart.Location = new System.Drawing.Point(104, 62);
-            this.txtGetStart.Multiline = true;
+            this.errorProvider1.SetError(this.txtGetStart, resources.GetString("txtGetStart.Error"));
+            this.txtGetStart.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtGetStart, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtGetStart.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtGetStart, ((int)(resources.GetObject("txtGetStart.IconPadding"))));
             this.txtGetStart.Name = "txtGetStart";
-            this.txtGetStart.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtGetStart.Size = new System.Drawing.Size(213, 42);
-            this.txtGetStart.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(12, 180);
+            this.button1.AccessibleDescription = null;
+            this.button1.AccessibleName = null;
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button1, resources.GetString("button1.Error"));
+            this.button1.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button1, ((int)(resources.GetObject("button1.IconPadding"))));
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "测试采集数据";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // cmdDelCutFlag
             // 
-            this.cmdDelCutFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelCutFlag.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelCutFlag.Image")));
-            this.cmdDelCutFlag.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDelCutFlag.Location = new System.Drawing.Point(575, 180);
+            this.cmdDelCutFlag.AccessibleDescription = null;
+            this.cmdDelCutFlag.AccessibleName = null;
+            resources.ApplyResources(this.cmdDelCutFlag, "cmdDelCutFlag");
+            this.cmdDelCutFlag.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdDelCutFlag, resources.GetString("cmdDelCutFlag.Error"));
+            this.cmdDelCutFlag.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdDelCutFlag, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdDelCutFlag.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdDelCutFlag, ((int)(resources.GetObject("cmdDelCutFlag.IconPadding"))));
             this.cmdDelCutFlag.Name = "cmdDelCutFlag";
-            this.cmdDelCutFlag.Size = new System.Drawing.Size(60, 23);
-            this.cmdDelCutFlag.TabIndex = 8;
-            this.cmdDelCutFlag.Text = "删 除";
-            this.cmdDelCutFlag.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDelCutFlag.UseVisualStyleBackColor = true;
             this.cmdDelCutFlag.Click += new System.EventHandler(this.cmdDelCutFlag_Click);
             // 
             // cmdAddCutFlag
             // 
-            this.cmdAddCutFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddCutFlag.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddCutFlag.Image")));
-            this.cmdAddCutFlag.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAddCutFlag.Location = new System.Drawing.Point(437, 180);
+            this.cmdAddCutFlag.AccessibleDescription = null;
+            this.cmdAddCutFlag.AccessibleName = null;
+            resources.ApplyResources(this.cmdAddCutFlag, "cmdAddCutFlag");
+            this.cmdAddCutFlag.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdAddCutFlag, resources.GetString("cmdAddCutFlag.Error"));
+            this.cmdAddCutFlag.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdAddCutFlag, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdAddCutFlag.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdAddCutFlag, ((int)(resources.GetObject("cmdAddCutFlag.IconPadding"))));
             this.cmdAddCutFlag.Name = "cmdAddCutFlag";
-            this.cmdAddCutFlag.Size = new System.Drawing.Size(60, 23);
-            this.cmdAddCutFlag.TabIndex = 6;
-            this.cmdAddCutFlag.Text = "增 加";
-            this.cmdAddCutFlag.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdAddCutFlag.UseVisualStyleBackColor = true;
             this.cmdAddCutFlag.Click += new System.EventHandler(this.cmdAddCutFlag_Click);
             // 
             // txtGetTitleName
             // 
-            this.txtGetTitleName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.txtGetTitleName.AccessibleDescription = null;
+            this.txtGetTitleName.AccessibleName = null;
+            resources.ApplyResources(this.txtGetTitleName, "txtGetTitleName");
+            this.txtGetTitleName.BackgroundImage = null;
+            this.errorProvider1.SetError(this.txtGetTitleName, resources.GetString("txtGetTitleName.Error"));
+            this.txtGetTitleName.Font = null;
             this.txtGetTitleName.FormattingEnabled = true;
-            this.txtGetTitleName.Location = new System.Drawing.Point(104, 16);
+            this.errorProvider1.SetIconAlignment(this.txtGetTitleName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtGetTitleName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtGetTitleName, ((int)(resources.GetObject("txtGetTitleName.IconPadding"))));
             this.txtGetTitleName.Name = "txtGetTitleName";
-            this.txtGetTitleName.Size = new System.Drawing.Size(211, 21);
-            this.txtGetTitleName.TabIndex = 0;
             // 
             // label16
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(33, 68);
+            this.label16.AccessibleDescription = null;
+            this.label16.AccessibleName = null;
+            resources.ApplyResources(this.label16, "label16");
+            this.errorProvider1.SetError(this.label16, resources.GetString("label16.Error"));
+            this.label16.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label16, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label16.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label16, ((int)(resources.GetObject("label16.IconPadding"))));
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(67, 13);
-            this.label16.TabIndex = 39;
-            this.label16.Text = "起始位置：";
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(333, 68);
+            this.label17.AccessibleDescription = null;
+            this.label17.AccessibleName = null;
+            resources.ApplyResources(this.label17, "label17");
+            this.errorProvider1.SetError(this.label17, resources.GetString("label17.Error"));
+            this.label17.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label17, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label17.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label17, ((int)(resources.GetObject("label17.IconPadding"))));
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(67, 13);
-            this.label17.TabIndex = 40;
-            this.label17.Text = "终止位置：";
             // 
             // listWebGetFlag
             // 
+            this.listWebGetFlag.AccessibleDescription = null;
+            this.listWebGetFlag.AccessibleName = null;
+            resources.ApplyResources(this.listWebGetFlag, "listWebGetFlag");
+            this.listWebGetFlag.BackgroundImage = null;
             this.listWebGetFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listWebGetFlag.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
@@ -1302,15 +1525,16 @@
             this.columnHeader11,
             this.columnHeader12,
             this.columnHeader13});
+            this.errorProvider1.SetError(this.listWebGetFlag, resources.GetString("listWebGetFlag.Error"));
+            this.listWebGetFlag.Font = null;
             this.listWebGetFlag.FullRowSelect = true;
             this.listWebGetFlag.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listWebGetFlag.HideSelection = false;
-            this.listWebGetFlag.Location = new System.Drawing.Point(12, 207);
+            this.errorProvider1.SetIconAlignment(this.listWebGetFlag, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("listWebGetFlag.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.listWebGetFlag, ((int)(resources.GetObject("listWebGetFlag.IconPadding"))));
             this.listWebGetFlag.MultiSelect = false;
             this.listWebGetFlag.Name = "listWebGetFlag";
             this.listWebGetFlag.ShowItemToolTips = true;
-            this.listWebGetFlag.Size = new System.Drawing.Size(623, 125);
-            this.listWebGetFlag.TabIndex = 8;
             this.listWebGetFlag.UseCompatibleStateImageBehavior = false;
             this.listWebGetFlag.View = System.Windows.Forms.View.Details;
             this.listWebGetFlag.SelectedIndexChanged += new System.EventHandler(this.listWebGetFlag_SelectedIndexChanged);
@@ -1320,55 +1544,53 @@
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "采集数据名称";
-            this.columnHeader3.Width = 90;
+            resources.ApplyResources(this.columnHeader3, "columnHeader3");
             // 
             // columnHeader10
             // 
-            this.columnHeader10.Text = "类型";
-            this.columnHeader10.Width = 40;
+            resources.ApplyResources(this.columnHeader10, "columnHeader10");
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "起始位置";
-            this.columnHeader4.Width = 80;
+            resources.ApplyResources(this.columnHeader4, "columnHeader4");
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "结束位置";
-            this.columnHeader5.Width = 80;
+            resources.ApplyResources(this.columnHeader5, "columnHeader5");
             // 
             // columnHeader9
             // 
-            this.columnHeader9.Text = "限制条件";
-            this.columnHeader9.Width = 70;
+            resources.ApplyResources(this.columnHeader9, "columnHeader9");
             // 
             // columnHeader11
             // 
-            this.columnHeader11.Text = "正则表达式";
-            this.columnHeader11.Width = 80;
+            resources.ApplyResources(this.columnHeader11, "columnHeader11");
             // 
             // columnHeader12
             // 
-            this.columnHeader12.Text = "数据输出加工";
-            this.columnHeader12.Width = 90;
+            resources.ApplyResources(this.columnHeader12, "columnHeader12");
             // 
             // columnHeader13
             // 
-            this.columnHeader13.Text = "加工条件";
-            this.columnHeader13.Width = 80;
+            resources.ApplyResources(this.columnHeader13, "columnHeader13");
             // 
             // label18
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(9, 19);
+            this.label18.AccessibleDescription = null;
+            this.label18.AccessibleName = null;
+            resources.ApplyResources(this.label18, "label18");
+            this.errorProvider1.SetError(this.label18, resources.GetString("label18.Error"));
+            this.label18.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label18, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label18.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label18, ((int)(resources.GetObject("label18.IconPadding"))));
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(91, 13);
-            this.label18.TabIndex = 41;
-            this.label18.Text = "采集数据名称：";
             // 
             // groupBox5
             // 
+            this.groupBox5.AccessibleDescription = null;
+            this.groupBox5.AccessibleName = null;
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.BackgroundImage = null;
             this.groupBox5.Controls.Add(this.label44);
             this.groupBox5.Controls.Add(this.button7);
             this.groupBox5.Controls.Add(this.label33);
@@ -1379,146 +1601,189 @@
             this.groupBox5.Controls.Add(this.cmdWebSource);
             this.groupBox5.Controls.Add(this.txtWeblinkDemo);
             this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Location = new System.Drawing.Point(1, 3);
+            this.errorProvider1.SetError(this.groupBox5, resources.GetString("groupBox5.Error"));
+            this.groupBox5.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox5, ((int)(resources.GetObject("groupBox5.IconPadding"))));
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(641, 97);
-            this.groupBox5.TabIndex = 14;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "页面采集范围";
             // 
             // label44
             // 
-            this.label44.AutoSize = true;
+            this.label44.AccessibleDescription = null;
+            this.label44.AccessibleName = null;
+            resources.ApplyResources(this.label44, "label44");
+            this.errorProvider1.SetError(this.label44, resources.GetString("label44.Error"));
+            this.label44.Font = null;
             this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label44.Location = new System.Drawing.Point(101, 40);
+            this.errorProvider1.SetIconAlignment(this.label44, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label44.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label44, ((int)(resources.GetObject("label44.IconPadding"))));
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(295, 13);
-            this.label44.TabIndex = 35;
-            this.label44.Text = "原则上是必须自动获取的，否则会导致测试采集失败！";
             // 
             // button7
             // 
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(485, 17);
+            this.button7.AccessibleDescription = null;
+            this.button7.AccessibleName = null;
+            resources.ApplyResources(this.button7, "button7");
+            this.button7.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button7, resources.GetString("button7.Error"));
+            this.button7.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button7.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button7, ((int)(resources.GetObject("button7.IconPadding"))));
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(74, 23);
-            this.button7.TabIndex = 1;
-            this.button7.Text = "自动获取";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label33
             // 
-            this.label33.AutoSize = true;
+            this.label33.AccessibleDescription = null;
+            this.label33.AccessibleName = null;
+            resources.ApplyResources(this.label33, "label33");
+            this.errorProvider1.SetError(this.label33, resources.GetString("label33.Error"));
+            this.label33.Font = null;
             this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label33.Location = new System.Drawing.Point(100, 78);
+            this.errorProvider1.SetIconAlignment(this.label33, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label33.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label33, ((int)(resources.GetObject("label33.IconPadding"))));
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(487, 13);
-            this.label33.TabIndex = 34;
-            this.label33.Text = "填写页面采集范围有利于数据精确采集，如果不填写将根据页面完整内容进行采集数据分析";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(356, 59);
+            this.label15.AccessibleDescription = null;
+            this.label15.AccessibleName = null;
+            resources.ApplyResources(this.label15, "label15");
+            this.errorProvider1.SetError(this.label15, resources.GetString("label15.Error"));
+            this.label15.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label15, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label15.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label15, ((int)(resources.GetObject("label15.IconPadding"))));
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(19, 13);
-            this.label15.TabIndex = 29;
-            this.label15.Text = "到";
             // 
             // txtEndPos
             // 
+            this.txtEndPos.AccessibleDescription = null;
+            this.txtEndPos.AccessibleName = null;
+            resources.ApplyResources(this.txtEndPos, "txtEndPos");
+            this.txtEndPos.BackgroundImage = null;
             this.txtEndPos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEndPos.Location = new System.Drawing.Point(381, 56);
+            this.errorProvider1.SetError(this.txtEndPos, resources.GetString("txtEndPos.Error"));
+            this.txtEndPos.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtEndPos, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtEndPos.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtEndPos, ((int)(resources.GetObject("txtEndPos.IconPadding"))));
             this.txtEndPos.Name = "txtEndPos";
-            this.txtEndPos.Size = new System.Drawing.Size(251, 20);
-            this.txtEndPos.TabIndex = 4;
             this.txtEndPos.TextChanged += new System.EventHandler(this.txtEndPos_TextChanged);
             // 
             // txtStartPos
             // 
+            this.txtStartPos.AccessibleDescription = null;
+            this.txtStartPos.AccessibleName = null;
+            resources.ApplyResources(this.txtStartPos, "txtStartPos");
+            this.txtStartPos.BackgroundImage = null;
             this.txtStartPos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtStartPos.Location = new System.Drawing.Point(99, 56);
+            this.errorProvider1.SetError(this.txtStartPos, resources.GetString("txtStartPos.Error"));
+            this.txtStartPos.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtStartPos, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtStartPos.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtStartPos, ((int)(resources.GetObject("txtStartPos.IconPadding"))));
             this.txtStartPos.Name = "txtStartPos";
-            this.txtStartPos.Size = new System.Drawing.Size(251, 20);
-            this.txtStartPos.TabIndex = 3;
             this.txtStartPos.TextChanged += new System.EventHandler(this.txtStartPos_TextChanged);
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 59);
+            this.label14.AccessibleDescription = null;
+            this.label14.AccessibleName = null;
+            resources.ApplyResources(this.label14, "label14");
+            this.errorProvider1.SetError(this.label14, resources.GetString("label14.Error"));
+            this.label14.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label14, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label14.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label14, ((int)(resources.GetObject("label14.IconPadding"))));
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(91, 13);
-            this.label14.TabIndex = 26;
-            this.label14.Text = "页面采集范围：";
             // 
             // cmdWebSource
             // 
-            this.cmdWebSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdWebSource.Location = new System.Drawing.Point(558, 17);
+            this.cmdWebSource.AccessibleDescription = null;
+            this.cmdWebSource.AccessibleName = null;
+            resources.ApplyResources(this.cmdWebSource, "cmdWebSource");
+            this.cmdWebSource.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdWebSource, resources.GetString("cmdWebSource.Error"));
+            this.cmdWebSource.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdWebSource, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdWebSource.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdWebSource, ((int)(resources.GetObject("cmdWebSource.IconPadding"))));
             this.cmdWebSource.Name = "cmdWebSource";
-            this.cmdWebSource.Size = new System.Drawing.Size(74, 23);
-            this.cmdWebSource.TabIndex = 2;
-            this.cmdWebSource.Text = "查看源码";
             this.cmdWebSource.UseVisualStyleBackColor = true;
             this.cmdWebSource.Click += new System.EventHandler(this.cmdWebSource_Click);
             // 
             // txtWeblinkDemo
             // 
+            this.txtWeblinkDemo.AccessibleDescription = null;
+            this.txtWeblinkDemo.AccessibleName = null;
+            resources.ApplyResources(this.txtWeblinkDemo, "txtWeblinkDemo");
             this.txtWeblinkDemo.BackColor = System.Drawing.Color.White;
+            this.txtWeblinkDemo.BackgroundImage = null;
             this.txtWeblinkDemo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtWeblinkDemo.Location = new System.Drawing.Point(99, 17);
+            this.errorProvider1.SetError(this.txtWeblinkDemo, resources.GetString("txtWeblinkDemo.Error"));
+            this.txtWeblinkDemo.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtWeblinkDemo, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtWeblinkDemo.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtWeblinkDemo, ((int)(resources.GetObject("txtWeblinkDemo.IconPadding"))));
             this.txtWeblinkDemo.Name = "txtWeblinkDemo";
-            this.txtWeblinkDemo.Size = new System.Drawing.Size(385, 20);
-            this.txtWeblinkDemo.TabIndex = 0;
             this.txtWeblinkDemo.TextChanged += new System.EventHandler(this.txtWeblinkDemo_TextChanged);
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(30, 22);
+            this.label12.AccessibleDescription = null;
+            this.label12.AccessibleName = null;
+            resources.ApplyResources(this.label12, "label12");
+            this.errorProvider1.SetError(this.label12, resources.GetString("label12.Error"));
+            this.label12.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label12, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label12.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label12, ((int)(resources.GetObject("label12.IconPadding"))));
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(67, 13);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "示例网址：";
             // 
             // tabPage5
             // 
+            this.tabPage5.AccessibleDescription = null;
+            this.tabPage5.AccessibleName = null;
+            resources.ApplyResources(this.tabPage5, "tabPage5");
+            this.tabPage5.BackgroundImage = null;
             this.tabPage5.Controls.Add(this.label41);
             this.tabPage5.Controls.Add(this.label39);
             this.tabPage5.Controls.Add(this.groupBox10);
             this.tabPage5.Controls.Add(this.groupBox9);
             this.tabPage5.Controls.Add(this.groupBox4);
-            this.tabPage5.ImageIndex = 10;
-            this.tabPage5.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage5, resources.GetString("tabPage5.Error"));
+            this.tabPage5.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage5, ((int)(resources.GetObject("tabPage5.IconPadding"))));
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(650, 446);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "发布数据";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // label41
             // 
+            this.label41.AccessibleDescription = null;
+            this.label41.AccessibleName = null;
+            resources.ApplyResources(this.label41, "label41");
+            this.errorProvider1.SetError(this.label41, resources.GetString("label41.Error"));
+            this.label41.Font = null;
             this.label41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label41.Location = new System.Drawing.Point(11, 413);
+            this.errorProvider1.SetIconAlignment(this.label41, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label41.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label41, ((int)(resources.GetObject("label41.IconPadding"))));
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(537, 32);
-            this.label41.TabIndex = 7;
-            this.label41.Text = "注意：数据发布是一次完整的自动事务操作，用户无法进行干预，系统在数据发布时会忽略错误，错误信息可查看输出的日志。";
             // 
             // label39
             // 
-            this.label39.AutoSize = true;
+            this.label39.AccessibleDescription = null;
+            this.label39.AccessibleName = null;
+            resources.ApplyResources(this.label39, "label39");
+            this.errorProvider1.SetError(this.label39, resources.GetString("label39.Error"));
+            this.label39.Font = null;
             this.label39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label39.Location = new System.Drawing.Point(11, 399);
+            this.errorProvider1.SetIconAlignment(this.label39, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label39.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label39, ((int)(resources.GetObject("label39.IconPadding"))));
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(391, 13);
-            this.label39.TabIndex = 6;
-            this.label39.Text = "如果需要发布数据，请在“基本设置”页中“执行类型”选择“采集并发布数据”";
             // 
             // groupBox10
             // 
+            this.groupBox10.AccessibleDescription = null;
+            this.groupBox10.AccessibleName = null;
+            resources.ApplyResources(this.groupBox10, "groupBox10");
+            this.groupBox10.BackgroundImage = null;
             this.groupBox10.Controls.Add(this.button9);
             this.groupBox10.Controls.Add(this.comExportUrlCode);
             this.groupBox10.Controls.Add(this.label27);
@@ -1528,113 +1793,138 @@
             this.groupBox10.Controls.Add(this.label29);
             this.groupBox10.Controls.Add(this.txtExportUrl);
             this.groupBox10.Controls.Add(this.raExportWeb);
-            this.groupBox10.Location = new System.Drawing.Point(1, 239);
+            this.errorProvider1.SetError(this.groupBox10, resources.GetString("groupBox10.Error"));
+            this.groupBox10.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox10, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox10.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox10, ((int)(resources.GetObject("groupBox10.IconPadding"))));
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(639, 157);
-            this.groupBox10.TabIndex = 5;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "发布到网站";
             // 
             // button9
             // 
-            this.button9.Enabled = false;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Location = new System.Drawing.Point(546, 43);
+            this.button9.AccessibleDescription = null;
+            this.button9.AccessibleName = null;
+            resources.ApplyResources(this.button9, "button9");
+            this.button9.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button9, resources.GetString("button9.Error"));
+            this.button9.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button9, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button9.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button9, ((int)(resources.GetObject("button9.IconPadding"))));
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(80, 23);
-            this.button9.TabIndex = 14;
-            this.button9.Text = "插入参数";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // comExportUrlCode
             // 
+            this.comExportUrlCode.AccessibleDescription = null;
+            this.comExportUrlCode.AccessibleName = null;
+            resources.ApplyResources(this.comExportUrlCode, "comExportUrlCode");
+            this.comExportUrlCode.BackgroundImage = null;
             this.comExportUrlCode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comExportUrlCode.Enabled = false;
-            this.comExportUrlCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.errorProvider1.SetError(this.comExportUrlCode, resources.GetString("comExportUrlCode.Error"));
+            this.comExportUrlCode.Font = null;
             this.comExportUrlCode.FormattingEnabled = true;
-            this.comExportUrlCode.Location = new System.Drawing.Point(183, 17);
+            this.errorProvider1.SetIconAlignment(this.comExportUrlCode, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comExportUrlCode.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comExportUrlCode, ((int)(resources.GetObject("comExportUrlCode.IconPadding"))));
             this.comExportUrlCode.Name = "comExportUrlCode";
-            this.comExportUrlCode.Size = new System.Drawing.Size(135, 21);
-            this.comExportUrlCode.TabIndex = 12;
             this.comExportUrlCode.SelectedIndexChanged += new System.EventHandler(this.comExportUrlCode_SelectedIndexChanged);
             // 
             // label27
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(119, 21);
+            this.label27.AccessibleDescription = null;
+            this.label27.AccessibleName = null;
+            resources.ApplyResources(this.label27, "label27");
+            this.errorProvider1.SetError(this.label27, resources.GetString("label27.Error"));
+            this.label27.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label27, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label27.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label27, ((int)(resources.GetObject("label27.IconPadding"))));
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(67, 13);
-            this.label27.TabIndex = 39;
-            this.label27.Text = "网址编码：";
             // 
             // button11
             // 
-            this.button11.Enabled = false;
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Location = new System.Drawing.Point(546, 129);
+            this.button11.AccessibleDescription = null;
+            this.button11.AccessibleName = null;
+            resources.ApplyResources(this.button11, "button11");
+            this.button11.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button11, resources.GetString("button11.Error"));
+            this.button11.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button11, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button11.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button11, ((int)(resources.GetObject("button11.IconPadding"))));
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(80, 23);
-            this.button11.TabIndex = 16;
-            this.button11.Text = "获取Cookie";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // txtExportCookie
             // 
+            this.txtExportCookie.AccessibleDescription = null;
+            this.txtExportCookie.AccessibleName = null;
+            resources.ApplyResources(this.txtExportCookie, "txtExportCookie");
+            this.txtExportCookie.BackgroundImage = null;
             this.txtExportCookie.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtExportCookie.Enabled = false;
-            this.txtExportCookie.Location = new System.Drawing.Point(82, 129);
+            this.errorProvider1.SetError(this.txtExportCookie, resources.GetString("txtExportCookie.Error"));
+            this.txtExportCookie.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtExportCookie, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtExportCookie.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtExportCookie, ((int)(resources.GetObject("txtExportCookie.IconPadding"))));
             this.txtExportCookie.Name = "txtExportCookie";
-            this.txtExportCookie.Size = new System.Drawing.Size(465, 20);
-            this.txtExportCookie.TabIndex = 15;
             this.txtExportCookie.TextChanged += new System.EventHandler(this.txtExportCookie_TextChanged);
             // 
             // label38
             // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(24, 129);
+            this.label38.AccessibleDescription = null;
+            this.label38.AccessibleName = null;
+            resources.ApplyResources(this.label38, "label38");
+            this.errorProvider1.SetError(this.label38, resources.GetString("label38.Error"));
+            this.label38.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label38, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label38.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label38, ((int)(resources.GetObject("label38.IconPadding"))));
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(52, 13);
-            this.label38.TabIndex = 36;
-            this.label38.Text = "Cookie：";
             // 
             // label29
             // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(10, 46);
+            this.label29.AccessibleDescription = null;
+            this.label29.AccessibleName = null;
+            resources.ApplyResources(this.label29, "label29");
+            this.errorProvider1.SetError(this.label29, resources.GetString("label29.Error"));
+            this.label29.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label29, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label29.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label29, ((int)(resources.GetObject("label29.IconPadding"))));
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(67, 13);
-            this.label29.TabIndex = 35;
-            this.label29.Text = "目标地址：";
             // 
             // txtExportUrl
             // 
+            this.txtExportUrl.AccessibleDescription = null;
+            this.txtExportUrl.AccessibleName = null;
+            resources.ApplyResources(this.txtExportUrl, "txtExportUrl");
+            this.txtExportUrl.BackgroundImage = null;
             this.txtExportUrl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtExportUrl.Enabled = false;
-            this.txtExportUrl.Location = new System.Drawing.Point(83, 43);
-            this.txtExportUrl.Multiline = true;
+            this.errorProvider1.SetError(this.txtExportUrl, resources.GetString("txtExportUrl.Error"));
+            this.txtExportUrl.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtExportUrl, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtExportUrl.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtExportUrl, ((int)(resources.GetObject("txtExportUrl.IconPadding"))));
             this.txtExportUrl.Name = "txtExportUrl";
-            this.txtExportUrl.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtExportUrl.Size = new System.Drawing.Size(464, 80);
-            this.txtExportUrl.TabIndex = 13;
             this.txtExportUrl.TextChanged += new System.EventHandler(this.txtExportUrl_TextChanged);
             // 
             // raExportWeb
             // 
-            this.raExportWeb.AutoSize = true;
-            this.raExportWeb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raExportWeb.Location = new System.Drawing.Point(9, 19);
+            this.raExportWeb.AccessibleDescription = null;
+            this.raExportWeb.AccessibleName = null;
+            resources.ApplyResources(this.raExportWeb, "raExportWeb");
+            this.raExportWeb.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raExportWeb, resources.GetString("raExportWeb.Error"));
+            this.raExportWeb.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raExportWeb, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raExportWeb.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raExportWeb, ((int)(resources.GetObject("raExportWeb.IconPadding"))));
             this.raExportWeb.Name = "raExportWeb";
-            this.raExportWeb.Size = new System.Drawing.Size(84, 17);
-            this.raExportWeb.TabIndex = 11;
             this.raExportWeb.TabStop = true;
-            this.raExportWeb.Text = "发布到网站";
             this.raExportWeb.UseVisualStyleBackColor = true;
             this.raExportWeb.CheckedChanged += new System.EventHandler(this.raExportWeb_CheckedChanged);
             // 
             // groupBox9
             // 
+            this.groupBox9.AccessibleDescription = null;
+            this.groupBox9.AccessibleName = null;
+            resources.ApplyResources(this.groupBox9, "groupBox9");
+            this.groupBox9.BackgroundImage = null;
             this.groupBox9.Controls.Add(this.label40);
             this.groupBox9.Controls.Add(this.comTableName);
             this.groupBox9.Controls.Add(this.txtInsertSql);
@@ -1646,498 +1936,591 @@
             this.groupBox9.Controls.Add(this.raExportAccess);
             this.groupBox9.Controls.Add(this.label8);
             this.groupBox9.Controls.Add(this.label6);
-            this.groupBox9.Location = new System.Drawing.Point(1, 71);
+            this.errorProvider1.SetError(this.groupBox9, resources.GetString("groupBox9.Error"));
+            this.groupBox9.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox9, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox9.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox9, ((int)(resources.GetObject("groupBox9.IconPadding"))));
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(639, 167);
-            this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "发布到数据库";
             // 
             // label40
             // 
+            this.label40.AccessibleDescription = null;
+            this.label40.AccessibleName = null;
+            resources.ApplyResources(this.label40, "label40");
+            this.errorProvider1.SetError(this.label40, resources.GetString("label40.Error"));
+            this.label40.Font = null;
             this.label40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label40.Location = new System.Drawing.Point(80, 134);
+            this.errorProvider1.SetIconAlignment(this.label40, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label40.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label40, ((int)(resources.GetObject("label40.IconPadding"))));
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(546, 27);
-            this.label40.TabIndex = 40;
-            this.label40.Text = "如果选择已有的数据表，您需调整sql语句以适应表结构，如果新建表则按照采集格式进行表结构建立，请务必确保sql语句正确否则会发布失败，非专业人员可通过发布建立新表" +
-                "进行数据发布。";
             // 
             // comTableName
             // 
-            this.comTableName.Enabled = false;
-            this.comTableName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comTableName.AccessibleDescription = null;
+            this.comTableName.AccessibleName = null;
+            resources.ApplyResources(this.comTableName, "comTableName");
+            this.comTableName.BackgroundImage = null;
+            this.errorProvider1.SetError(this.comTableName, resources.GetString("comTableName.Error"));
+            this.comTableName.Font = null;
             this.comTableName.FormattingEnabled = true;
-            this.comTableName.Location = new System.Drawing.Point(83, 66);
+            this.errorProvider1.SetIconAlignment(this.comTableName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("comTableName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.comTableName, ((int)(resources.GetObject("comTableName.IconPadding"))));
             this.comTableName.Name = "comTableName";
-            this.comTableName.Size = new System.Drawing.Size(225, 21);
-            this.comTableName.TabIndex = 9;
             this.comTableName.SelectedIndexChanged += new System.EventHandler(this.comTableName_SelectedIndexChanged);
             this.comTableName.DropDown += new System.EventHandler(this.comTableName_DropDown);
             this.comTableName.TextChanged += new System.EventHandler(this.comTableName_TextChanged);
             // 
             // txtInsertSql
             // 
+            this.txtInsertSql.AccessibleDescription = null;
+            this.txtInsertSql.AccessibleName = null;
+            resources.ApplyResources(this.txtInsertSql, "txtInsertSql");
+            this.txtInsertSql.BackgroundImage = null;
             this.txtInsertSql.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtInsertSql.Enabled = false;
-            this.txtInsertSql.Location = new System.Drawing.Point(83, 93);
-            this.txtInsertSql.Multiline = true;
+            this.errorProvider1.SetError(this.txtInsertSql, resources.GetString("txtInsertSql.Error"));
+            this.txtInsertSql.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtInsertSql, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtInsertSql.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtInsertSql, ((int)(resources.GetObject("txtInsertSql.IconPadding"))));
             this.txtInsertSql.Name = "txtInsertSql";
-            this.txtInsertSql.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtInsertSql.Size = new System.Drawing.Size(543, 39);
-            this.txtInsertSql.TabIndex = 10;
             this.txtInsertSql.TextChanged += new System.EventHandler(this.txtInsertSql_TextChanged);
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(20, 93);
+            this.label7.AccessibleDescription = null;
+            this.label7.AccessibleName = null;
+            resources.ApplyResources(this.label7, "label7");
+            this.errorProvider1.SetError(this.label7, resources.GetString("label7.Error"));
+            this.label7.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label7.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label7, ((int)(resources.GetObject("label7.IconPadding"))));
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 13);
-            this.label7.TabIndex = 37;
-            this.label7.Text = "sql语句：";
             // 
             // button12
             // 
-            this.button12.Enabled = false;
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(546, 39);
+            this.button12.AccessibleDescription = null;
+            this.button12.AccessibleName = null;
+            resources.ApplyResources(this.button12, "button12");
+            this.button12.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button12, resources.GetString("button12.Error"));
+            this.button12.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button12, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button12.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button12, ((int)(resources.GetObject("button12.IconPadding"))));
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(80, 23);
-            this.button12.TabIndex = 8;
-            this.button12.Text = "设 置";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // txtDataSource
             // 
+            this.txtDataSource.AccessibleDescription = null;
+            this.txtDataSource.AccessibleName = null;
+            resources.ApplyResources(this.txtDataSource, "txtDataSource");
+            this.txtDataSource.BackgroundImage = null;
             this.txtDataSource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDataSource.Enabled = false;
-            this.txtDataSource.Location = new System.Drawing.Point(83, 39);
+            this.errorProvider1.SetError(this.txtDataSource, resources.GetString("txtDataSource.Error"));
+            this.txtDataSource.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtDataSource, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtDataSource.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtDataSource, ((int)(resources.GetObject("txtDataSource.IconPadding"))));
             this.txtDataSource.Name = "txtDataSource";
-            this.txtDataSource.Size = new System.Drawing.Size(464, 20);
-            this.txtDataSource.TabIndex = 7;
             this.txtDataSource.TextChanged += new System.EventHandler(this.txtDataSource_TextChanged);
             // 
             // raExportMySql
             // 
-            this.raExportMySql.AutoSize = true;
-            this.raExportMySql.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raExportMySql.Location = new System.Drawing.Point(265, 19);
+            this.raExportMySql.AccessibleDescription = null;
+            this.raExportMySql.AccessibleName = null;
+            resources.ApplyResources(this.raExportMySql, "raExportMySql");
+            this.raExportMySql.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raExportMySql, resources.GetString("raExportMySql.Error"));
+            this.raExportMySql.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raExportMySql, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raExportMySql.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raExportMySql, ((int)(resources.GetObject("raExportMySql.IconPadding"))));
             this.raExportMySql.Name = "raExportMySql";
-            this.raExportMySql.Size = new System.Drawing.Size(89, 17);
-            this.raExportMySql.TabIndex = 6;
             this.raExportMySql.TabStop = true;
-            this.raExportMySql.Text = "发布到MySql";
             this.raExportMySql.UseVisualStyleBackColor = true;
             this.raExportMySql.CheckedChanged += new System.EventHandler(this.raExportMySql_CheckedChanged);
             // 
             // raExportMSSQL
             // 
-            this.raExportMSSQL.AutoSize = true;
-            this.raExportMSSQL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raExportMSSQL.Location = new System.Drawing.Point(122, 19);
+            this.raExportMSSQL.AccessibleDescription = null;
+            this.raExportMSSQL.AccessibleName = null;
+            resources.ApplyResources(this.raExportMSSQL, "raExportMSSQL");
+            this.raExportMSSQL.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raExportMSSQL, resources.GetString("raExportMSSQL.Error"));
+            this.raExportMSSQL.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raExportMSSQL, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raExportMSSQL.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raExportMSSQL, ((int)(resources.GetObject("raExportMSSQL.IconPadding"))));
             this.raExportMSSQL.Name = "raExportMSSQL";
-            this.raExportMSSQL.Size = new System.Drawing.Size(125, 17);
-            this.raExportMSSQL.TabIndex = 5;
             this.raExportMSSQL.TabStop = true;
-            this.raExportMSSQL.Text = "发布到MS SqlServer";
             this.raExportMSSQL.UseVisualStyleBackColor = true;
             this.raExportMSSQL.CheckedChanged += new System.EventHandler(this.raExportMSSQL_CheckedChanged);
             // 
             // raExportAccess
             // 
-            this.raExportAccess.AutoSize = true;
-            this.raExportAccess.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raExportAccess.Location = new System.Drawing.Point(9, 19);
+            this.raExportAccess.AccessibleDescription = null;
+            this.raExportAccess.AccessibleName = null;
+            resources.ApplyResources(this.raExportAccess, "raExportAccess");
+            this.raExportAccess.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raExportAccess, resources.GetString("raExportAccess.Error"));
+            this.raExportAccess.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raExportAccess, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raExportAccess.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raExportAccess, ((int)(resources.GetObject("raExportAccess.IconPadding"))));
             this.raExportAccess.Name = "raExportAccess";
-            this.raExportAccess.Size = new System.Drawing.Size(95, 17);
-            this.raExportAccess.TabIndex = 4;
-            this.raExportAccess.Text = "发布到Access";
             this.raExportAccess.UseVisualStyleBackColor = true;
             this.raExportAccess.CheckedChanged += new System.EventHandler(this.raExportAccess_CheckedChanged);
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(22, 67);
+            this.label8.AccessibleDescription = null;
+            this.label8.AccessibleName = null;
+            resources.ApplyResources(this.label8, "label8");
+            this.errorProvider1.SetError(this.label8, resources.GetString("label8.Error"));
+            this.label8.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label8, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label8.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label8, ((int)(resources.GetObject("label8.IconPadding"))));
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(55, 13);
-            this.label8.TabIndex = 28;
-            this.label8.Text = "数据表：";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 42);
+            this.label6.AccessibleDescription = null;
+            this.label6.AccessibleName = null;
+            resources.ApplyResources(this.label6, "label6");
+            this.errorProvider1.SetError(this.label6, resources.GetString("label6.Error"));
+            this.label6.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label6, ((int)(resources.GetObject("label6.IconPadding"))));
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "数据库：";
             // 
             // groupBox4
             // 
+            this.groupBox4.AccessibleDescription = null;
+            this.groupBox4.AccessibleName = null;
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.BackgroundImage = null;
             this.groupBox4.Controls.Add(this.IsIncludeHeader);
-            this.groupBox4.Controls.Add(this.label23);
             this.groupBox4.Controls.Add(this.txtFileName);
             this.groupBox4.Controls.Add(this.cmdBrowser);
             this.groupBox4.Controls.Add(this.raExportExcel);
             this.groupBox4.Controls.Add(this.raExportTxt);
-            this.groupBox4.Location = new System.Drawing.Point(1, 3);
+            this.groupBox4.Controls.Add(this.label23);
+            this.errorProvider1.SetError(this.groupBox4, resources.GetString("groupBox4.Error"));
+            this.groupBox4.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox4, ((int)(resources.GetObject("groupBox4.IconPadding"))));
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(641, 67);
-            this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "发布到文件";
             // 
             // IsIncludeHeader
             // 
-            this.IsIncludeHeader.AutoSize = true;
+            this.IsIncludeHeader.AccessibleDescription = null;
+            this.IsIncludeHeader.AccessibleName = null;
+            resources.ApplyResources(this.IsIncludeHeader, "IsIncludeHeader");
+            this.IsIncludeHeader.BackgroundImage = null;
             this.IsIncludeHeader.Checked = true;
             this.IsIncludeHeader.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IsIncludeHeader.Location = new System.Drawing.Point(238, 19);
+            this.errorProvider1.SetError(this.IsIncludeHeader, resources.GetString("IsIncludeHeader.Error"));
+            this.IsIncludeHeader.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsIncludeHeader, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsIncludeHeader.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsIncludeHeader, ((int)(resources.GetObject("IsIncludeHeader.IconPadding"))));
             this.IsIncludeHeader.Name = "IsIncludeHeader";
-            this.IsIncludeHeader.Size = new System.Drawing.Size(340, 17);
-            this.IsIncludeHeader.TabIndex = 26;
-            this.IsIncludeHeader.Text = "数据发布类型如果是文件（文本或Excel），则需要包含表头";
             this.IsIncludeHeader.UseVisualStyleBackColor = true;
             // 
             // label23
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(22, 41);
+            this.label23.AccessibleDescription = null;
+            this.label23.AccessibleName = null;
+            resources.ApplyResources(this.label23, "label23");
+            this.errorProvider1.SetError(this.label23, resources.GetString("label23.Error"));
+            this.label23.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label23, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label23.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label23, ((int)(resources.GetObject("label23.IconPadding"))));
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(55, 13);
-            this.label23.TabIndex = 25;
-            this.label23.Text = "文件名：";
             // 
             // txtFileName
             // 
+            this.txtFileName.AccessibleDescription = null;
+            this.txtFileName.AccessibleName = null;
+            resources.ApplyResources(this.txtFileName, "txtFileName");
+            this.txtFileName.BackgroundImage = null;
             this.txtFileName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFileName.Location = new System.Drawing.Point(83, 39);
+            this.errorProvider1.SetError(this.txtFileName, resources.GetString("txtFileName.Error"));
+            this.txtFileName.Font = null;
+            this.errorProvider1.SetIconAlignment(this.txtFileName, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("txtFileName.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.txtFileName, ((int)(resources.GetObject("txtFileName.IconPadding"))));
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(464, 20);
-            this.txtFileName.TabIndex = 2;
             this.txtFileName.TextChanged += new System.EventHandler(this.txtFileName_TextChanged);
             // 
             // cmdBrowser
             // 
-            this.cmdBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdBrowser.Location = new System.Drawing.Point(546, 39);
+            this.cmdBrowser.AccessibleDescription = null;
+            this.cmdBrowser.AccessibleName = null;
+            resources.ApplyResources(this.cmdBrowser, "cmdBrowser");
+            this.cmdBrowser.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdBrowser, resources.GetString("cmdBrowser.Error"));
+            this.cmdBrowser.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdBrowser, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdBrowser.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdBrowser, ((int)(resources.GetObject("cmdBrowser.IconPadding"))));
             this.cmdBrowser.Name = "cmdBrowser";
-            this.cmdBrowser.Size = new System.Drawing.Size(80, 23);
-            this.cmdBrowser.TabIndex = 3;
-            this.cmdBrowser.Text = "浏览...";
             this.cmdBrowser.UseVisualStyleBackColor = true;
             this.cmdBrowser.Click += new System.EventHandler(this.cmdBrowser_Click);
             // 
             // raExportExcel
             // 
-            this.raExportExcel.AutoSize = true;
-            this.raExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raExportExcel.Location = new System.Drawing.Point(122, 17);
+            this.raExportExcel.AccessibleDescription = null;
+            this.raExportExcel.AccessibleName = null;
+            resources.ApplyResources(this.raExportExcel, "raExportExcel");
+            this.raExportExcel.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raExportExcel, resources.GetString("raExportExcel.Error"));
+            this.raExportExcel.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raExportExcel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raExportExcel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raExportExcel, ((int)(resources.GetObject("raExportExcel.IconPadding"))));
             this.raExportExcel.Name = "raExportExcel";
-            this.raExportExcel.Size = new System.Drawing.Size(110, 17);
-            this.raExportExcel.TabIndex = 1;
-            this.raExportExcel.Text = "发布到Excel文件";
             this.raExportExcel.UseVisualStyleBackColor = true;
             this.raExportExcel.CheckedChanged += new System.EventHandler(this.raExportExcel_CheckedChanged);
             // 
             // raExportTxt
             // 
-            this.raExportTxt.AutoSize = true;
+            this.raExportTxt.AccessibleDescription = null;
+            this.raExportTxt.AccessibleName = null;
+            resources.ApplyResources(this.raExportTxt, "raExportTxt");
+            this.raExportTxt.BackgroundImage = null;
             this.raExportTxt.Checked = true;
-            this.raExportTxt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raExportTxt.Location = new System.Drawing.Point(9, 17);
+            this.errorProvider1.SetError(this.raExportTxt, resources.GetString("raExportTxt.Error"));
+            this.raExportTxt.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raExportTxt, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raExportTxt.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raExportTxt, ((int)(resources.GetObject("raExportTxt.IconPadding"))));
             this.raExportTxt.Name = "raExportTxt";
-            this.raExportTxt.Size = new System.Drawing.Size(108, 17);
-            this.raExportTxt.TabIndex = 0;
             this.raExportTxt.TabStop = true;
-            this.raExportTxt.Text = "发布到文本文件";
             this.raExportTxt.UseVisualStyleBackColor = true;
             this.raExportTxt.CheckedChanged += new System.EventHandler(this.raExportTxt_CheckedChanged);
             // 
             // tabPage4
             // 
+            this.tabPage4.AccessibleDescription = null;
+            this.tabPage4.AccessibleName = null;
+            resources.ApplyResources(this.tabPage4, "tabPage4");
+            this.tabPage4.BackgroundImage = null;
             this.tabPage4.Controls.Add(this.groupBox2);
-            this.tabPage4.ImageIndex = 9;
-            this.tabPage4.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage4, resources.GetString("tabPage4.Error"));
+            this.tabPage4.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage4, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage4.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage4, ((int)(resources.GetObject("tabPage4.IconPadding"))));
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(650, 446);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "测试采集";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.labWaiting);
+            this.groupBox2.AccessibleDescription = null;
+            this.groupBox2.AccessibleName = null;
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.BackgroundImage = null;
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.dataTestGather);
-            this.groupBox2.Location = new System.Drawing.Point(1, 3);
+            this.errorProvider1.SetError(this.groupBox2, resources.GetString("groupBox2.Error"));
+            this.groupBox2.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox2, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox2.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox2, ((int)(resources.GetObject("groupBox2.IconPadding"))));
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(641, 430);
-            this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "测试采集数据内容";
-            // 
-            // labWaiting
-            // 
-            this.labWaiting.Image = ((System.Drawing.Image)(resources.GetObject("labWaiting.Image")));
-            this.labWaiting.Location = new System.Drawing.Point(237, 203);
-            this.labWaiting.Name = "labWaiting";
-            this.labWaiting.Size = new System.Drawing.Size(162, 50);
-            this.labWaiting.TabIndex = 2;
-            this.labWaiting.Visible = false;
             // 
             // button5
             // 
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(554, 24);
+            this.button5.AccessibleDescription = null;
+            this.button5.AccessibleName = null;
+            resources.ApplyResources(this.button5, "button5");
+            this.button5.BackgroundImage = null;
+            this.errorProvider1.SetError(this.button5, resources.GetString("button5.Error"));
+            this.button5.Font = null;
+            this.errorProvider1.SetIconAlignment(this.button5, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("button5.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.button5, ((int)(resources.GetObject("button5.IconPadding"))));
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(81, 23);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "启动测试";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click_1);
             // 
             // dataTestGather
             // 
+            this.dataTestGather.AccessibleDescription = null;
+            this.dataTestGather.AccessibleName = null;
             this.dataTestGather.AllowUserToAddRows = false;
             this.dataTestGather.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataTestGather, "dataTestGather");
+            this.dataTestGather.BackgroundImage = null;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTestGather.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataTestGather.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTestGather.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataTestGather.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataTestGather.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataTestGather.Location = new System.Drawing.Point(6, 53);
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataTestGather.DefaultCellStyle = dataGridViewCellStyle2;
+            this.errorProvider1.SetError(this.dataTestGather, resources.GetString("dataTestGather.Error"));
+            this.dataTestGather.Font = null;
+            this.errorProvider1.SetIconAlignment(this.dataTestGather, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dataTestGather.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.dataTestGather, ((int)(resources.GetObject("dataTestGather.IconPadding"))));
             this.dataTestGather.Name = "dataTestGather";
             this.dataTestGather.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataTestGather.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataTestGather.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataTestGather.RowTemplate.Height = 23;
-            this.dataTestGather.Size = new System.Drawing.Size(629, 371);
-            this.dataTestGather.TabIndex = 0;
             // 
             // tabPage6
             // 
+            this.tabPage6.AccessibleDescription = null;
+            this.tabPage6.AccessibleName = null;
+            resources.ApplyResources(this.tabPage6, "tabPage6");
+            this.tabPage6.BackgroundImage = null;
             this.tabPage6.Controls.Add(this.IsStartTrigger);
             this.tabPage6.Controls.Add(this.label46);
             this.tabPage6.Controls.Add(this.groupBox13);
             this.tabPage6.Controls.Add(this.groupBox11);
-            this.tabPage6.ImageIndex = 11;
-            this.tabPage6.Location = new System.Drawing.Point(4, 26);
+            this.errorProvider1.SetError(this.tabPage6, resources.GetString("tabPage6.Error"));
+            this.tabPage6.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tabPage6, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tabPage6.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tabPage6, ((int)(resources.GetObject("tabPage6.IconPadding"))));
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(650, 446);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "高级设置";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // IsStartTrigger
             // 
-            this.IsStartTrigger.AutoSize = true;
-            this.IsStartTrigger.Location = new System.Drawing.Point(11, 114);
+            this.IsStartTrigger.AccessibleDescription = null;
+            this.IsStartTrigger.AccessibleName = null;
+            resources.ApplyResources(this.IsStartTrigger, "IsStartTrigger");
+            this.IsStartTrigger.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsStartTrigger, resources.GetString("IsStartTrigger.Error"));
+            this.IsStartTrigger.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsStartTrigger, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsStartTrigger.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsStartTrigger, ((int)(resources.GetObject("IsStartTrigger.IconPadding"))));
             this.IsStartTrigger.Name = "IsStartTrigger";
-            this.IsStartTrigger.Size = new System.Drawing.Size(86, 17);
-            this.IsStartTrigger.TabIndex = 0;
-            this.IsStartTrigger.Text = "启动触发器";
             this.IsStartTrigger.UseVisualStyleBackColor = true;
             this.IsStartTrigger.CheckedChanged += new System.EventHandler(this.IsStartTrigger_CheckedChanged);
             // 
             // label46
             // 
+            this.label46.AccessibleDescription = null;
+            this.label46.AccessibleName = null;
+            resources.ApplyResources(this.label46, "label46");
+            this.errorProvider1.SetError(this.label46, resources.GetString("label46.Error"));
+            this.label46.Font = null;
             this.label46.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label46.Location = new System.Drawing.Point(3, 327);
+            this.errorProvider1.SetIconAlignment(this.label46, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label46.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label46, ((int)(resources.GetObject("label46.IconPadding"))));
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(639, 45);
-            this.label46.TabIndex = 3;
-            this.label46.Text = "触发器是一种自动化操作方式，通过触发器的配置可以在任务执行结束后自动执行某个程序或其他任务。";
             // 
             // groupBox13
             // 
+            this.groupBox13.AccessibleDescription = null;
+            this.groupBox13.AccessibleName = null;
+            resources.ApplyResources(this.groupBox13, "groupBox13");
+            this.groupBox13.BackgroundImage = null;
             this.groupBox13.Controls.Add(this.raPublishedRun);
             this.groupBox13.Controls.Add(this.raGatheredRun);
             this.groupBox13.Controls.Add(this.cmdDelTask);
             this.groupBox13.Controls.Add(this.cmdAddTask);
             this.groupBox13.Controls.Add(this.listTask);
-            this.groupBox13.Enabled = false;
-            this.groupBox13.Location = new System.Drawing.Point(1, 137);
+            this.errorProvider1.SetError(this.groupBox13, resources.GetString("groupBox13.Error"));
+            this.groupBox13.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox13, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox13.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox13, ((int)(resources.GetObject("groupBox13.IconPadding"))));
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(641, 185);
-            this.groupBox13.TabIndex = 2;
             this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "触发器";
             // 
             // raPublishedRun
             // 
-            this.raPublishedRun.AutoSize = true;
-            this.raPublishedRun.Location = new System.Drawing.Point(125, 20);
+            this.raPublishedRun.AccessibleDescription = null;
+            this.raPublishedRun.AccessibleName = null;
+            resources.ApplyResources(this.raPublishedRun, "raPublishedRun");
+            this.raPublishedRun.BackgroundImage = null;
+            this.errorProvider1.SetError(this.raPublishedRun, resources.GetString("raPublishedRun.Error"));
+            this.raPublishedRun.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raPublishedRun, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raPublishedRun.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raPublishedRun, ((int)(resources.GetObject("raPublishedRun.IconPadding"))));
             this.raPublishedRun.Name = "raPublishedRun";
-            this.raPublishedRun.Size = new System.Drawing.Size(109, 17);
-            this.raPublishedRun.TabIndex = 1;
-            this.raPublishedRun.Text = "发布完成后出发";
             this.raPublishedRun.UseVisualStyleBackColor = true;
             // 
             // raGatheredRun
             // 
-            this.raGatheredRun.AutoSize = true;
+            this.raGatheredRun.AccessibleDescription = null;
+            this.raGatheredRun.AccessibleName = null;
+            resources.ApplyResources(this.raGatheredRun, "raGatheredRun");
+            this.raGatheredRun.BackgroundImage = null;
             this.raGatheredRun.Checked = true;
-            this.raGatheredRun.Location = new System.Drawing.Point(10, 19);
+            this.errorProvider1.SetError(this.raGatheredRun, resources.GetString("raGatheredRun.Error"));
+            this.raGatheredRun.Font = null;
+            this.errorProvider1.SetIconAlignment(this.raGatheredRun, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("raGatheredRun.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.raGatheredRun, ((int)(resources.GetObject("raGatheredRun.IconPadding"))));
             this.raGatheredRun.Name = "raGatheredRun";
-            this.raGatheredRun.Size = new System.Drawing.Size(109, 17);
-            this.raGatheredRun.TabIndex = 0;
             this.raGatheredRun.TabStop = true;
-            this.raGatheredRun.Text = "采集完成后触发";
             this.raGatheredRun.UseVisualStyleBackColor = true;
             // 
             // cmdDelTask
             // 
-            this.cmdDelTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdDelTask.Image")));
-            this.cmdDelTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdDelTask.Location = new System.Drawing.Point(575, 16);
+            this.cmdDelTask.AccessibleDescription = null;
+            this.cmdDelTask.AccessibleName = null;
+            resources.ApplyResources(this.cmdDelTask, "cmdDelTask");
+            this.cmdDelTask.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdDelTask, resources.GetString("cmdDelTask.Error"));
+            this.cmdDelTask.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdDelTask, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdDelTask.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdDelTask, ((int)(resources.GetObject("cmdDelTask.IconPadding"))));
             this.cmdDelTask.Name = "cmdDelTask";
-            this.cmdDelTask.Size = new System.Drawing.Size(60, 23);
-            this.cmdDelTask.TabIndex = 3;
-            this.cmdDelTask.Text = "删  除";
-            this.cmdDelTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdDelTask.UseVisualStyleBackColor = true;
             this.cmdDelTask.Click += new System.EventHandler(this.cmdDelTask_Click);
             // 
             // cmdAddTask
             // 
-            this.cmdAddTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddTask.Image = ((System.Drawing.Image)(resources.GetObject("cmdAddTask.Image")));
-            this.cmdAddTask.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdAddTask.Location = new System.Drawing.Point(506, 16);
+            this.cmdAddTask.AccessibleDescription = null;
+            this.cmdAddTask.AccessibleName = null;
+            resources.ApplyResources(this.cmdAddTask, "cmdAddTask");
+            this.cmdAddTask.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdAddTask, resources.GetString("cmdAddTask.Error"));
+            this.cmdAddTask.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdAddTask, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdAddTask.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdAddTask, ((int)(resources.GetObject("cmdAddTask.IconPadding"))));
             this.cmdAddTask.Name = "cmdAddTask";
-            this.cmdAddTask.Size = new System.Drawing.Size(60, 23);
-            this.cmdAddTask.TabIndex = 2;
-            this.cmdAddTask.Text = "添  加";
-            this.cmdAddTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdAddTask.UseVisualStyleBackColor = true;
             this.cmdAddTask.Click += new System.EventHandler(this.cmdAddTask_Click);
             // 
             // listTask
             // 
+            this.listTask.AccessibleDescription = null;
+            this.listTask.AccessibleName = null;
+            resources.ApplyResources(this.listTask, "listTask");
+            this.listTask.BackgroundImage = null;
             this.listTask.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader14,
             this.columnHeader15,
             this.columnHeader16});
+            this.errorProvider1.SetError(this.listTask, resources.GetString("listTask.Error"));
+            this.listTask.Font = null;
             this.listTask.FullRowSelect = true;
-            this.listTask.Location = new System.Drawing.Point(10, 43);
+            this.errorProvider1.SetIconAlignment(this.listTask, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("listTask.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.listTask, ((int)(resources.GetObject("listTask.IconPadding"))));
             this.listTask.Name = "listTask";
-            this.listTask.Size = new System.Drawing.Size(625, 131);
-            this.listTask.TabIndex = 4;
             this.listTask.UseCompatibleStateImageBehavior = false;
             this.listTask.View = System.Windows.Forms.View.Details;
             this.listTask.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listTask_KeyDown);
             // 
             // columnHeader14
             // 
-            this.columnHeader14.Text = "任务类型";
-            this.columnHeader14.Width = 120;
+            resources.ApplyResources(this.columnHeader14, "columnHeader14");
             // 
             // columnHeader15
             // 
-            this.columnHeader15.Text = "任务";
-            this.columnHeader15.Width = 300;
+            resources.ApplyResources(this.columnHeader15, "columnHeader15");
             // 
             // columnHeader16
             // 
-            this.columnHeader16.Text = "参数";
-            this.columnHeader16.Width = 180;
+            resources.ApplyResources(this.columnHeader16, "columnHeader16");
             // 
             // groupBox11
             // 
+            this.groupBox11.AccessibleDescription = null;
+            this.groupBox11.AccessibleName = null;
+            resources.ApplyResources(this.groupBox11, "groupBox11");
+            this.groupBox11.BackgroundImage = null;
             this.groupBox11.Controls.Add(this.labLogSavePath);
             this.groupBox11.Controls.Add(this.IsSaveErrorLog);
             this.groupBox11.Controls.Add(this.IsDelRepRow);
             this.groupBox11.Controls.Add(this.IsIgnore404);
             this.groupBox11.Controls.Add(this.label43);
             this.groupBox11.Controls.Add(this.udAgainNumber);
-            this.groupBox11.Location = new System.Drawing.Point(1, 3);
+            this.errorProvider1.SetError(this.groupBox11, resources.GetString("groupBox11.Error"));
+            this.groupBox11.Font = null;
+            this.errorProvider1.SetIconAlignment(this.groupBox11, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox11.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.groupBox11, ((int)(resources.GetObject("groupBox11.IconPadding"))));
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(641, 105);
-            this.groupBox11.TabIndex = 0;
             this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "高级设置";
             // 
             // labLogSavePath
             // 
-            this.labLogSavePath.AutoSize = true;
+            this.labLogSavePath.AccessibleDescription = null;
+            this.labLogSavePath.AccessibleName = null;
+            resources.ApplyResources(this.labLogSavePath, "labLogSavePath");
+            this.errorProvider1.SetError(this.labLogSavePath, resources.GetString("labLogSavePath.Error"));
+            this.labLogSavePath.Font = null;
             this.labLogSavePath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labLogSavePath.Location = new System.Drawing.Point(7, 76);
+            this.errorProvider1.SetIconAlignment(this.labLogSavePath, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("labLogSavePath.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.labLogSavePath, ((int)(resources.GetObject("labLogSavePath.IconPadding"))));
             this.labLogSavePath.Name = "labLogSavePath";
-            this.labLogSavePath.Size = new System.Drawing.Size(79, 13);
-            this.labLogSavePath.TabIndex = 8;
-            this.labLogSavePath.Text = "日志存储在：";
             // 
             // IsSaveErrorLog
             // 
-            this.IsSaveErrorLog.AutoSize = true;
-            this.IsSaveErrorLog.Location = new System.Drawing.Point(126, 47);
+            this.IsSaveErrorLog.AccessibleDescription = null;
+            this.IsSaveErrorLog.AccessibleName = null;
+            resources.ApplyResources(this.IsSaveErrorLog, "IsSaveErrorLog");
+            this.IsSaveErrorLog.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsSaveErrorLog, resources.GetString("IsSaveErrorLog.Error"));
+            this.IsSaveErrorLog.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsSaveErrorLog, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsSaveErrorLog.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsSaveErrorLog, ((int)(resources.GetObject("IsSaveErrorLog.IconPadding"))));
             this.IsSaveErrorLog.Name = "IsSaveErrorLog";
-            this.IsSaveErrorLog.Size = new System.Drawing.Size(290, 17);
-            this.IsSaveErrorLog.TabIndex = 5;
-            this.IsSaveErrorLog.Text = "自动保存出错信息（采集错误及发布错误）到日志";
             this.IsSaveErrorLog.UseVisualStyleBackColor = true;
             this.IsSaveErrorLog.CheckedChanged += new System.EventHandler(this.IsSaveErrorLog_CheckedChanged);
             // 
             // IsDelRepRow
             // 
-            this.IsDelRepRow.AutoSize = true;
-            this.IsDelRepRow.Location = new System.Drawing.Point(10, 47);
+            this.IsDelRepRow.AccessibleDescription = null;
+            this.IsDelRepRow.AccessibleName = null;
+            resources.ApplyResources(this.IsDelRepRow, "IsDelRepRow");
+            this.IsDelRepRow.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsDelRepRow, resources.GetString("IsDelRepRow.Error"));
+            this.IsDelRepRow.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsDelRepRow, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsDelRepRow.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsDelRepRow, ((int)(resources.GetObject("IsDelRepRow.IconPadding"))));
             this.IsDelRepRow.Name = "IsDelRepRow";
-            this.IsDelRepRow.Size = new System.Drawing.Size(110, 17);
-            this.IsDelRepRow.TabIndex = 4;
-            this.IsDelRepRow.Text = "是否去除重复行";
             this.IsDelRepRow.UseVisualStyleBackColor = true;
             this.IsDelRepRow.CheckedChanged += new System.EventHandler(this.IsDelRepRow_CheckedChanged);
             // 
             // IsIgnore404
             // 
-            this.IsIgnore404.AutoSize = true;
+            this.IsIgnore404.AccessibleDescription = null;
+            this.IsIgnore404.AccessibleName = null;
+            resources.ApplyResources(this.IsIgnore404, "IsIgnore404");
+            this.IsIgnore404.BackgroundImage = null;
             this.IsIgnore404.Checked = true;
             this.IsIgnore404.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IsIgnore404.Location = new System.Drawing.Point(222, 20);
+            this.errorProvider1.SetError(this.IsIgnore404, resources.GetString("IsIgnore404.Error"));
+            this.IsIgnore404.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsIgnore404, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsIgnore404.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsIgnore404, ((int)(resources.GetObject("IsIgnore404.IconPadding"))));
             this.IsIgnore404.Name = "IsIgnore404";
-            this.IsIgnore404.Size = new System.Drawing.Size(194, 17);
-            this.IsIgnore404.TabIndex = 2;
-            this.IsIgnore404.Text = "如果是网址无效错误则忽略重试";
             this.IsIgnore404.UseVisualStyleBackColor = true;
             this.IsIgnore404.CheckedChanged += new System.EventHandler(this.IsIgnore404_CheckedChanged);
             // 
             // label43
             // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(7, 21);
+            this.label43.AccessibleDescription = null;
+            this.label43.AccessibleName = null;
+            resources.ApplyResources(this.label43, "label43");
+            this.errorProvider1.SetError(this.label43, resources.GetString("label43.Error"));
+            this.label43.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label43, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label43.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label43, ((int)(resources.GetObject("label43.IconPadding"))));
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(139, 13);
-            this.label43.TabIndex = 0;
-            this.label43.Text = "网址访问失败重试次数：";
             // 
             // udAgainNumber
             // 
-            this.udAgainNumber.Location = new System.Drawing.Point(152, 19);
+            this.udAgainNumber.AccessibleDescription = null;
+            this.udAgainNumber.AccessibleName = null;
+            resources.ApplyResources(this.udAgainNumber, "udAgainNumber");
+            this.errorProvider1.SetError(this.udAgainNumber, resources.GetString("udAgainNumber.Error"));
+            this.udAgainNumber.Font = null;
+            this.errorProvider1.SetIconAlignment(this.udAgainNumber, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("udAgainNumber.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.udAgainNumber, ((int)(resources.GetObject("udAgainNumber.IconPadding"))));
             this.udAgainNumber.Maximum = new decimal(new int[] {
             10,
             0,
@@ -2149,8 +2532,6 @@
             0,
             0});
             this.udAgainNumber.Name = "udAgainNumber";
-            this.udAgainNumber.Size = new System.Drawing.Size(52, 20);
-            this.udAgainNumber.TabIndex = 1;
             this.udAgainNumber.Value = new decimal(new int[] {
             3,
             0,
@@ -2160,30 +2541,44 @@
             // 
             // tTask
             // 
+            this.tTask.AccessibleDescription = null;
+            this.tTask.AccessibleName = null;
+            resources.ApplyResources(this.tTask, "tTask");
+            this.tTask.BackgroundImage = null;
             this.tTask.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tTask.Location = new System.Drawing.Point(83, 7);
+            this.errorProvider1.SetError(this.tTask, resources.GetString("tTask.Error"));
+            this.tTask.Font = null;
+            this.errorProvider1.SetIconAlignment(this.tTask, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("tTask.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.tTask, ((int)(resources.GetObject("tTask.IconPadding"))));
             this.tTask.Name = "tTask";
-            this.tTask.Size = new System.Drawing.Size(424, 20);
-            this.tTask.TabIndex = 0;
             this.tTask.TextChanged += new System.EventHandler(this.tTask_TextChanged);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.AccessibleDescription = null;
+            this.label1.AccessibleName = null;
+            resources.ApplyResources(this.label1, "label1");
+            this.errorProvider1.SetError(this.label1, resources.GetString("label1.Error"));
             this.label1.ForeColor = System.Drawing.Color.Navy;
-            this.label1.Location = new System.Drawing.Point(12, 10);
+            this.errorProvider1.SetIconAlignment(this.label1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label1, ((int)(resources.GetObject("label1.IconPadding"))));
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "任务名称：";
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.AccessibleDescription = null;
+            this.contextMenuStrip1.AccessibleName = null;
+            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
+            this.contextMenuStrip1.BackgroundImage = null;
+            this.errorProvider1.SetError(this.contextMenuStrip1, resources.GetString("contextMenuStrip1.Error"));
+            this.contextMenuStrip1.Font = null;
+            this.errorProvider1.SetIconAlignment(this.contextMenuStrip1, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("contextMenuStrip1.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.contextMenuStrip1, ((int)(resources.GetObject("contextMenuStrip1.IconPadding"))));
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuNumAdd,
             this.menuNumDec,
@@ -2191,181 +2586,267 @@
             this.menuLettAdd,
             this.menuLettDec,
             this.toolStripSeparator2,
-            this.pOST前缀POSTToolStripMenuItem,
-            this.pOST后缀ToolStripMenuItem,
+            this.rmenuPostPrefix,
+            this.rmenuPostSuffix,
             this.rmenuGetPostData,
             this.toolStripSeparator4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(210, 176);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // menuNumAdd
             // 
+            this.menuNumAdd.AccessibleDescription = null;
+            this.menuNumAdd.AccessibleName = null;
+            resources.ApplyResources(this.menuNumAdd, "menuNumAdd");
+            this.menuNumAdd.BackgroundImage = null;
             this.menuNumAdd.Name = "menuNumAdd";
-            this.menuNumAdd.Size = new System.Drawing.Size(209, 22);
-            this.menuNumAdd.Text = "递增变量{Num:1,100,1}";
+            this.menuNumAdd.ShortcutKeyDisplayString = null;
             // 
             // menuNumDec
             // 
+            this.menuNumDec.AccessibleDescription = null;
+            this.menuNumDec.AccessibleName = null;
+            resources.ApplyResources(this.menuNumDec, "menuNumDec");
+            this.menuNumDec.BackgroundImage = null;
             this.menuNumDec.Name = "menuNumDec";
-            this.menuNumDec.Size = new System.Drawing.Size(209, 22);
-            this.menuNumDec.Text = "递减变量{Num:100,1,-1}";
+            this.menuNumDec.ShortcutKeyDisplayString = null;
             // 
             // toolStripSeparator1
             // 
+            this.toolStripSeparator1.AccessibleDescription = null;
+            this.toolStripSeparator1.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(206, 6);
             // 
             // menuLettAdd
             // 
+            this.menuLettAdd.AccessibleDescription = null;
+            this.menuLettAdd.AccessibleName = null;
+            resources.ApplyResources(this.menuLettAdd, "menuLettAdd");
+            this.menuLettAdd.BackgroundImage = null;
             this.menuLettAdd.Name = "menuLettAdd";
-            this.menuLettAdd.Size = new System.Drawing.Size(209, 22);
-            this.menuLettAdd.Text = "字母递增{Letter:a,z}";
+            this.menuLettAdd.ShortcutKeyDisplayString = null;
             // 
             // menuLettDec
             // 
+            this.menuLettDec.AccessibleDescription = null;
+            this.menuLettDec.AccessibleName = null;
+            resources.ApplyResources(this.menuLettDec, "menuLettDec");
+            this.menuLettDec.BackgroundImage = null;
             this.menuLettDec.Name = "menuLettDec";
-            this.menuLettDec.Size = new System.Drawing.Size(209, 22);
-            this.menuLettDec.Text = "字母递减{Letter:z,a}";
+            this.menuLettDec.ShortcutKeyDisplayString = null;
             // 
             // toolStripSeparator2
             // 
+            this.toolStripSeparator2.AccessibleDescription = null;
+            this.toolStripSeparator2.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(206, 6);
             // 
-            // pOST前缀POSTToolStripMenuItem
+            // rmenuPostPrefix
             // 
-            this.pOST前缀POSTToolStripMenuItem.Name = "pOST前缀POSTToolStripMenuItem";
-            this.pOST前缀POSTToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.pOST前缀POSTToolStripMenuItem.Text = "POST前缀<POST>";
+            this.rmenuPostPrefix.AccessibleDescription = null;
+            this.rmenuPostPrefix.AccessibleName = null;
+            resources.ApplyResources(this.rmenuPostPrefix, "rmenuPostPrefix");
+            this.rmenuPostPrefix.BackgroundImage = null;
+            this.rmenuPostPrefix.Name = "rmenuPostPrefix";
+            this.rmenuPostPrefix.ShortcutKeyDisplayString = null;
             // 
-            // pOST后缀ToolStripMenuItem
+            // rmenuPostSuffix
             // 
-            this.pOST后缀ToolStripMenuItem.Name = "pOST后缀ToolStripMenuItem";
-            this.pOST后缀ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.pOST后缀ToolStripMenuItem.Text = "POST后缀</POST>";
+            this.rmenuPostSuffix.AccessibleDescription = null;
+            this.rmenuPostSuffix.AccessibleName = null;
+            resources.ApplyResources(this.rmenuPostSuffix, "rmenuPostSuffix");
+            this.rmenuPostSuffix.BackgroundImage = null;
+            this.rmenuPostSuffix.Name = "rmenuPostSuffix";
+            this.rmenuPostSuffix.ShortcutKeyDisplayString = null;
             // 
             // rmenuGetPostData
             // 
+            this.rmenuGetPostData.AccessibleDescription = null;
+            this.rmenuGetPostData.AccessibleName = null;
+            resources.ApplyResources(this.rmenuGetPostData, "rmenuGetPostData");
+            this.rmenuGetPostData.BackgroundImage = null;
             this.rmenuGetPostData.Name = "rmenuGetPostData";
-            this.rmenuGetPostData.Size = new System.Drawing.Size(209, 22);
-            this.rmenuGetPostData.Text = "手工捕获POST数据";
+            this.rmenuGetPostData.ShortcutKeyDisplayString = null;
             // 
             // toolStripSeparator4
             // 
+            this.toolStripSeparator4.AccessibleDescription = null;
+            this.toolStripSeparator4.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(206, 6);
             // 
             // DictMenu
             // 
+            this.DictMenu.AccessibleDescription = null;
+            this.DictMenu.AccessibleName = null;
+            resources.ApplyResources(this.DictMenu, "DictMenu");
+            this.DictMenu.BackgroundImage = null;
+            this.errorProvider1.SetError(this.DictMenu, resources.GetString("DictMenu.Error"));
+            this.DictMenu.Font = null;
+            this.errorProvider1.SetIconAlignment(this.DictMenu, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("DictMenu.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.DictMenu, ((int)(resources.GetObject("DictMenu.IconPadding"))));
             this.DictMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuOpenDict,
             this.toolStripSeparator3});
             this.DictMenu.Name = "DictMenu";
-            this.DictMenu.Size = new System.Drawing.Size(161, 32);
             // 
             // menuOpenDict
             // 
+            this.menuOpenDict.AccessibleDescription = null;
+            this.menuOpenDict.AccessibleName = null;
+            resources.ApplyResources(this.menuOpenDict, "menuOpenDict");
+            this.menuOpenDict.BackgroundImage = null;
             this.menuOpenDict.Name = "menuOpenDict";
-            this.menuOpenDict.Size = new System.Drawing.Size(160, 22);
-            this.menuOpenDict.Text = "自定义字典参数";
+            this.menuOpenDict.ShortcutKeyDisplayString = null;
             this.menuOpenDict.Click += new System.EventHandler(this.menuOpenDict_Click);
             // 
             // toolStripSeparator3
             // 
+            this.toolStripSeparator3.AccessibleDescription = null;
+            this.toolStripSeparator3.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(157, 6);
-            // 
-            // cmdOK
-            // 
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Image = ((System.Drawing.Image)(resources.GetObject("cmdOK.Image")));
-            this.cmdOK.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.cmdOK.Location = new System.Drawing.Point(436, 528);
-            this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(65, 24);
-            this.cmdOK.TabIndex = 2;
-            this.cmdOK.Text = "确 定";
-            this.cmdOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmdOK.UseVisualStyleBackColor = true;
-            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // rmenuGetFormat
             // 
+            this.rmenuGetFormat.AccessibleDescription = null;
+            this.rmenuGetFormat.AccessibleName = null;
+            resources.ApplyResources(this.rmenuGetFormat, "rmenuGetFormat");
+            this.rmenuGetFormat.BackgroundImage = null;
+            this.errorProvider1.SetError(this.rmenuGetFormat, resources.GetString("rmenuGetFormat.Error"));
+            this.rmenuGetFormat.Font = null;
+            this.errorProvider1.SetIconAlignment(this.rmenuGetFormat, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("rmenuGetFormat.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.rmenuGetFormat, ((int)(resources.GetObject("rmenuGetFormat.IconPadding"))));
             this.rmenuGetFormat.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolmenuPost1,
             this.toolmenuPost2,
             this.toolmenuPostData,
             this.toolStripSeparator5});
             this.rmenuGetFormat.Name = "rmenuGetFormat";
-            this.rmenuGetFormat.Size = new System.Drawing.Size(186, 76);
             this.rmenuGetFormat.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.rmenuGetFormat_ItemClicked);
             this.rmenuGetFormat.Opening += new System.ComponentModel.CancelEventHandler(this.rmenuGetFormat_Opening);
             // 
             // toolmenuPost1
             // 
+            this.toolmenuPost1.AccessibleDescription = null;
+            this.toolmenuPost1.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuPost1, "toolmenuPost1");
+            this.toolmenuPost1.BackgroundImage = null;
             this.toolmenuPost1.Name = "toolmenuPost1";
-            this.toolmenuPost1.Size = new System.Drawing.Size(185, 22);
-            this.toolmenuPost1.Text = "POST前缀<POST>";
+            this.toolmenuPost1.ShortcutKeyDisplayString = null;
             // 
             // toolmenuPost2
             // 
+            this.toolmenuPost2.AccessibleDescription = null;
+            this.toolmenuPost2.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuPost2, "toolmenuPost2");
+            this.toolmenuPost2.BackgroundImage = null;
             this.toolmenuPost2.Name = "toolmenuPost2";
-            this.toolmenuPost2.Size = new System.Drawing.Size(185, 22);
-            this.toolmenuPost2.Text = "POST后缀</POST>";
+            this.toolmenuPost2.ShortcutKeyDisplayString = null;
             // 
             // toolmenuPostData
             // 
+            this.toolmenuPostData.AccessibleDescription = null;
+            this.toolmenuPostData.AccessibleName = null;
+            resources.ApplyResources(this.toolmenuPostData, "toolmenuPostData");
+            this.toolmenuPostData.BackgroundImage = null;
             this.toolmenuPostData.Name = "toolmenuPostData";
-            this.toolmenuPostData.Size = new System.Drawing.Size(185, 22);
-            this.toolmenuPostData.Text = "手工捕获POST数据";
+            this.toolmenuPostData.ShortcutKeyDisplayString = null;
             // 
             // toolStripSeparator5
             // 
+            this.toolStripSeparator5.AccessibleDescription = null;
+            this.toolStripSeparator5.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(182, 6);
-            // 
-            // cmdApply
-            // 
-            this.cmdApply.Enabled = false;
-            this.cmdApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdApply.Image = ((System.Drawing.Image)(resources.GetObject("cmdApply.Image")));
-            this.cmdApply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdApply.Location = new System.Drawing.Point(593, 528);
-            this.cmdApply.Name = "cmdApply";
-            this.cmdApply.Size = new System.Drawing.Size(65, 24);
-            this.cmdApply.TabIndex = 4;
-            this.cmdApply.Text = "应 用";
-            this.cmdApply.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cmdApply.UseVisualStyleBackColor = true;
-            this.cmdApply.Click += new System.EventHandler(this.cmdApply_Click);
             // 
             // IsSave
             // 
-            this.IsSave.Location = new System.Drawing.Point(348, 528);
+            this.IsSave.AccessibleDescription = null;
+            this.IsSave.AccessibleName = null;
+            resources.ApplyResources(this.IsSave, "IsSave");
+            this.IsSave.BackgroundImage = null;
+            this.errorProvider1.SetError(this.IsSave, resources.GetString("IsSave.Error"));
+            this.IsSave.Font = null;
+            this.errorProvider1.SetIconAlignment(this.IsSave, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("IsSave.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.IsSave, ((int)(resources.GetObject("IsSave.IconPadding"))));
             this.IsSave.Name = "IsSave";
-            this.IsSave.Size = new System.Drawing.Size(43, 20);
-            this.IsSave.TabIndex = 5;
-            this.IsSave.Visible = false;
             this.IsSave.TextChanged += new System.EventHandler(this.IsSave_TextChanged);
             // 
             // cmdWizard
             // 
-            this.cmdWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdWizard.Location = new System.Drawing.Point(506, 7);
+            this.cmdWizard.AccessibleDescription = null;
+            this.cmdWizard.AccessibleName = null;
+            resources.ApplyResources(this.cmdWizard, "cmdWizard");
+            this.cmdWizard.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdWizard, resources.GetString("cmdWizard.Error"));
+            this.cmdWizard.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdWizard, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdWizard.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdWizard, ((int)(resources.GetObject("cmdWizard.IconPadding"))));
             this.cmdWizard.Name = "cmdWizard";
-            this.cmdWizard.Size = new System.Drawing.Size(152, 23);
-            this.cmdWizard.TabIndex = 6;
-            this.cmdWizard.Text = "配置太复杂，我需要向导";
             this.cmdWizard.UseVisualStyleBackColor = true;
             this.cmdWizard.Click += new System.EventHandler(this.cmdWizard_Click);
             // 
+            // cmdApply
+            // 
+            this.cmdApply.AccessibleDescription = null;
+            this.cmdApply.AccessibleName = null;
+            resources.ApplyResources(this.cmdApply, "cmdApply");
+            this.cmdApply.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdApply, resources.GetString("cmdApply.Error"));
+            this.cmdApply.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdApply, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdApply.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdApply, ((int)(resources.GetObject("cmdApply.IconPadding"))));
+            this.cmdApply.Name = "cmdApply";
+            this.cmdApply.UseVisualStyleBackColor = true;
+            this.cmdApply.Click += new System.EventHandler(this.cmdApply_Click);
+            // 
+            // cmdCancel
+            // 
+            this.cmdCancel.AccessibleDescription = null;
+            this.cmdCancel.AccessibleName = null;
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
+            this.cmdCancel.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdCancel, resources.GetString("cmdCancel.Error"));
+            this.cmdCancel.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdCancel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdCancel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdCancel, ((int)(resources.GetObject("cmdCancel.IconPadding"))));
+            this.cmdCancel.Name = "cmdCancel";
+            this.cmdCancel.UseVisualStyleBackColor = true;
+            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            // 
+            // cmdOK
+            // 
+            this.cmdOK.AccessibleDescription = null;
+            this.cmdOK.AccessibleName = null;
+            resources.ApplyResources(this.cmdOK, "cmdOK");
+            this.cmdOK.BackgroundImage = null;
+            this.errorProvider1.SetError(this.cmdOK, resources.GetString("cmdOK.Error"));
+            this.cmdOK.Font = null;
+            this.errorProvider1.SetIconAlignment(this.cmdOK, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cmdOK.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.cmdOK, ((int)(resources.GetObject("cmdOK.IconPadding"))));
+            this.cmdOK.Name = "cmdOK";
+            this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
+            // 
+            // saveFileDialog1
+            // 
+            resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
+            // 
+            // folderBrowserDialog1
+            // 
+            resources.ApplyResources(this.folderBrowserDialog1, "folderBrowserDialog1");
+            // 
             // frmTask
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(679, 564);
+            this.BackgroundImage = null;
             this.Controls.Add(this.IsSave);
             this.Controls.Add(this.cmdApply);
             this.Controls.Add(this.tTask);
@@ -2375,15 +2856,14 @@
             this.Controls.Add(this.cmdWizard);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmTask";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "采集任务信息维护";
             this.Load += new System.EventHandler(this.frmTask_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmTask_FormClosed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTask_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -2493,7 +2973,6 @@
         private System.Windows.Forms.NumericUpDown udThread;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label labWaiting;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridView dataTestGather;
         private System.Windows.Forms.ColumnHeader columnHeader8;
@@ -2504,8 +2983,8 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.TextBox txtCookie;
-        private System.Windows.Forms.ToolStripMenuItem pOST前缀POSTToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pOST后缀ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rmenuPostPrefix;
+        private System.Windows.Forms.ToolStripMenuItem rmenuPostSuffix;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.CheckBox IsLogin;
         private System.Windows.Forms.TextBox txtLoginUrl;
@@ -2607,7 +3086,6 @@
         private System.Windows.Forms.Button cmdDelNRule;
         private System.Windows.Forms.Button cmdAddNRule;
         private System.Windows.Forms.GroupBox groupBox15;
-        private System.Windows.Forms.DataGridView dataNRule;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.ListView listTask;
         private System.Windows.Forms.ColumnHeader columnHeader14;
@@ -2626,6 +3104,10 @@
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Button cmdDown;
         private System.Windows.Forms.Button cmdUp;
+        private System.Windows.Forms.Button cmdUrlEncoding;
+        private System.Windows.Forms.DataGridView dataNRule;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nRuleLevel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nRule;
 
 
     }

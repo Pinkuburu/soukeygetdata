@@ -44,44 +44,46 @@
             // 
             // panel1
             // 
+            this.panel1.AccessibleDescription = null;
+            this.panel1.AccessibleName = null;
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.BackgroundImage = null;
             this.panel1.Controls.Add(this.labDelay);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 90);
+            this.panel1.Font = null;
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(455, 48);
-            this.panel1.TabIndex = 0;
             // 
             // labDelay
             // 
-            this.labDelay.AutoSize = true;
-            this.labDelay.Location = new System.Drawing.Point(20, 17);
+            this.labDelay.AccessibleDescription = null;
+            this.labDelay.AccessibleName = null;
+            resources.ApplyResources(this.labDelay, "labDelay");
+            this.labDelay.Font = null;
             this.labDelay.Name = "labDelay";
-            this.labDelay.Size = new System.Drawing.Size(208, 13);
-            this.labDelay.TabIndex = 2;
-            this.labDelay.Text = "自动响应：8 秒 系统默认选择为“是(Y)”";
             // 
             // button2
             // 
+            this.button2.AccessibleDescription = null;
+            this.button2.AccessibleName = null;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.BackgroundImage = null;
             this.button2.DialogResult = System.Windows.Forms.DialogResult.No;
-            this.button2.Location = new System.Drawing.Point(363, 9);
+            this.button2.Font = null;
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(80, 29);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "否(&N)";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
+            this.button1.AccessibleDescription = null;
+            this.button1.AccessibleName = null;
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.BackgroundImage = null;
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.button1.Location = new System.Drawing.Point(271, 9);
+            this.button1.Font = null;
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 29);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "是(&Y)";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -95,20 +97,22 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(23, 28);
+            this.pictureBox1.AccessibleDescription = null;
+            this.pictureBox1.AccessibleName = null;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.BackgroundImage = null;
+            this.pictureBox1.Font = null;
+            this.pictureBox1.ImageLocation = null;
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // labMessage
             // 
-            this.labMessage.Location = new System.Drawing.Point(63, 31);
+            this.labMessage.AccessibleDescription = null;
+            this.labMessage.AccessibleName = null;
+            resources.ApplyResources(this.labMessage, "labMessage");
+            this.labMessage.Font = null;
             this.labMessage.Name = "labMessage";
-            this.labMessage.Size = new System.Drawing.Size(380, 32);
-            this.labMessage.TabIndex = 2;
-            this.labMessage.Text = "您选择启动的任务已经在运行区存在或者已经有相同名称的任务在运行\r\n区，您是否确认此任务需要运行第二个（或更多）采集实例？";
             // 
             // timer1
             // 
@@ -118,25 +122,27 @@
             // frmMessageBox
             // 
             this.AcceptButton = this.button1;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = null;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(455, 138);
             this.ControlBox = false;
             this.Controls.Add(this.labMessage);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = null;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmMessageBox";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Soukey采摘 系统询问";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMessageBox_FormClosed);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

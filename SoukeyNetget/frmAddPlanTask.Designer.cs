@@ -56,10 +56,10 @@
             this.txtFileName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cmdCancel = new System.Windows.Forms.Button();
-            this.cmdOK = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.raDataTask = new System.Windows.Forms.RadioButton();
+            this.cmdCancel = new System.Windows.Forms.Button();
+            this.cmdOK = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -68,109 +68,114 @@
             // 
             // raSoukeyTask
             // 
-            this.raSoukeyTask.AutoSize = true;
+            this.raSoukeyTask.AccessibleDescription = null;
+            this.raSoukeyTask.AccessibleName = null;
+            resources.ApplyResources(this.raSoukeyTask, "raSoukeyTask");
+            this.raSoukeyTask.BackgroundImage = null;
             this.raSoukeyTask.Checked = true;
-            this.raSoukeyTask.Location = new System.Drawing.Point(14, 12);
+            this.raSoukeyTask.Font = null;
             this.raSoukeyTask.Name = "raSoukeyTask";
-            this.raSoukeyTask.Size = new System.Drawing.Size(109, 17);
-            this.raSoukeyTask.TabIndex = 0;
             this.raSoukeyTask.TabStop = true;
-            this.raSoukeyTask.Text = "Soukey采摘任务";
             this.raSoukeyTask.UseVisualStyleBackColor = true;
             this.raSoukeyTask.CheckedChanged += new System.EventHandler(this.raSoukeyTask_CheckedChanged);
             // 
             // raOtherTask
             // 
-            this.raOtherTask.AutoSize = true;
-            this.raOtherTask.Location = new System.Drawing.Point(252, 12);
+            this.raOtherTask.AccessibleDescription = null;
+            this.raOtherTask.AccessibleName = null;
+            resources.ApplyResources(this.raOtherTask, "raOtherTask");
+            this.raOtherTask.BackgroundImage = null;
+            this.raOtherTask.Font = null;
             this.raOtherTask.Name = "raOtherTask";
-            this.raOtherTask.Size = new System.Drawing.Size(73, 17);
-            this.raOtherTask.TabIndex = 1;
-            this.raOtherTask.Text = "其他任务";
             this.raOtherTask.UseVisualStyleBackColor = true;
             this.raOtherTask.CheckedChanged += new System.EventHandler(this.raOtherTask_CheckedChanged);
             // 
             // panel1
             // 
+            this.panel1.AccessibleDescription = null;
+            this.panel1.AccessibleName = null;
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.BackgroundImage = null;
             this.panel1.Controls.Add(this.listTask);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.comTaskClass);
-            this.panel1.Location = new System.Drawing.Point(6, 20);
+            this.panel1.Font = null;
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(443, 177);
-            this.panel1.TabIndex = 2;
             // 
             // listTask
             // 
+            this.listTask.AccessibleDescription = null;
+            this.listTask.AccessibleName = null;
+            resources.ApplyResources(this.listTask, "listTask");
+            this.listTask.BackgroundImage = null;
             this.listTask.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
+            this.listTask.Font = null;
             this.listTask.FullRowSelect = true;
-            this.listTask.Location = new System.Drawing.Point(15, 37);
             this.listTask.MultiSelect = false;
             this.listTask.Name = "listTask";
-            this.listTask.Size = new System.Drawing.Size(412, 132);
-            this.listTask.TabIndex = 11;
             this.listTask.UseCompatibleStateImageBehavior = false;
             this.listTask.View = System.Windows.Forms.View.Details;
             this.listTask.DoubleClick += new System.EventHandler(this.listTask_DoubleClick);
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "任务名称";
-            this.columnHeader1.Width = 80;
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "所属分类";
-            this.columnHeader2.Width = 80;
+            resources.ApplyResources(this.columnHeader2, "columnHeader2");
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "任务类型";
-            this.columnHeader3.Width = 120;
+            resources.ApplyResources(this.columnHeader3, "columnHeader3");
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "执行类型";
-            this.columnHeader4.Width = 120;
+            resources.ApplyResources(this.columnHeader4, "columnHeader4");
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 10);
+            this.label1.AccessibleDescription = null;
+            this.label1.AccessibleName = null;
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Font = null;
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "任务分类：";
             // 
             // comTaskClass
             // 
+            this.comTaskClass.AccessibleDescription = null;
+            this.comTaskClass.AccessibleName = null;
+            resources.ApplyResources(this.comTaskClass, "comTaskClass");
+            this.comTaskClass.BackgroundImage = null;
             this.comTaskClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comTaskClass.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comTaskClass.Font = null;
             this.comTaskClass.FormattingEnabled = true;
-            this.comTaskClass.Location = new System.Drawing.Point(83, 7);
             this.comTaskClass.Name = "comTaskClass";
-            this.comTaskClass.Size = new System.Drawing.Size(344, 21);
-            this.comTaskClass.TabIndex = 9;
             this.comTaskClass.SelectedIndexChanged += new System.EventHandler(this.comTaskClass_SelectedIndexChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.AccessibleDescription = null;
+            this.groupBox1.AccessibleName = null;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.BackgroundImage = null;
+            this.groupBox1.Controls.Add(this.panel2);
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.panel3);
-            this.groupBox1.Controls.Add(this.panel2);
-            this.groupBox1.Location = new System.Drawing.Point(14, 35);
+            this.groupBox1.Font = null;
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(455, 202);
-            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Soukey采摘任务";
             // 
             // panel3
             // 
+            this.panel3.AccessibleDescription = null;
+            this.panel3.AccessibleName = null;
+            resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.BackgroundImage = null;
             this.panel3.Controls.Add(this.comTableName);
             this.panel3.Controls.Add(this.button12);
             this.panel3.Controls.Add(this.txtDataSource);
@@ -179,209 +184,205 @@
             this.panel3.Controls.Add(this.raAccessTask);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.label6);
-            this.panel3.Location = new System.Drawing.Point(6, 20);
+            this.panel3.Font = null;
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(443, 177);
-            this.panel3.TabIndex = 4;
-            this.panel3.Visible = false;
             // 
             // comTableName
             // 
-            this.comTableName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comTableName.AccessibleDescription = null;
+            this.comTableName.AccessibleName = null;
+            resources.ApplyResources(this.comTableName, "comTableName");
+            this.comTableName.BackgroundImage = null;
+            this.comTableName.Font = null;
             this.comTableName.FormattingEnabled = true;
-            this.comTableName.Location = new System.Drawing.Point(66, 137);
             this.comTableName.Name = "comTableName";
-            this.comTableName.Size = new System.Drawing.Size(309, 21);
-            this.comTableName.TabIndex = 55;
             this.comTableName.DropDown += new System.EventHandler(this.comTableName_DropDown);
             // 
             // button12
             // 
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(374, 46);
+            this.button12.AccessibleDescription = null;
+            this.button12.AccessibleName = null;
+            resources.ApplyResources(this.button12, "button12");
+            this.button12.BackgroundImage = null;
+            this.button12.Font = null;
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(60, 23);
-            this.button12.TabIndex = 54;
-            this.button12.Text = "设 置";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // txtDataSource
             // 
+            this.txtDataSource.AccessibleDescription = null;
+            this.txtDataSource.AccessibleName = null;
+            resources.ApplyResources(this.txtDataSource, "txtDataSource");
+            this.txtDataSource.BackgroundImage = null;
             this.txtDataSource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDataSource.Location = new System.Drawing.Point(66, 46);
-            this.txtDataSource.Multiline = true;
+            this.txtDataSource.Font = null;
             this.txtDataSource.Name = "txtDataSource";
-            this.txtDataSource.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDataSource.Size = new System.Drawing.Size(309, 55);
-            this.txtDataSource.TabIndex = 53;
             // 
             // raMySqlTask
             // 
-            this.raMySqlTask.AutoSize = true;
-            this.raMySqlTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raMySqlTask.Location = new System.Drawing.Point(240, 11);
+            this.raMySqlTask.AccessibleDescription = null;
+            this.raMySqlTask.AccessibleName = null;
+            resources.ApplyResources(this.raMySqlTask, "raMySqlTask");
+            this.raMySqlTask.BackgroundImage = null;
+            this.raMySqlTask.Font = null;
             this.raMySqlTask.Name = "raMySqlTask";
-            this.raMySqlTask.Size = new System.Drawing.Size(89, 17);
-            this.raMySqlTask.TabIndex = 52;
-            this.raMySqlTask.Text = "MySql数据库";
             this.raMySqlTask.UseVisualStyleBackColor = true;
             // 
             // raMSSQLTask
             // 
-            this.raMSSQLTask.AutoSize = true;
-            this.raMSSQLTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raMSSQLTask.Location = new System.Drawing.Point(109, 11);
+            this.raMSSQLTask.AccessibleDescription = null;
+            this.raMSSQLTask.AccessibleName = null;
+            resources.ApplyResources(this.raMSSQLTask, "raMSSQLTask");
+            this.raMSSQLTask.BackgroundImage = null;
+            this.raMSSQLTask.Font = null;
             this.raMSSQLTask.Name = "raMSSQLTask";
-            this.raMSSQLTask.Size = new System.Drawing.Size(125, 17);
-            this.raMSSQLTask.TabIndex = 51;
-            this.raMSSQLTask.Text = "MS SqlServer数据库";
             this.raMSSQLTask.UseVisualStyleBackColor = true;
             // 
             // raAccessTask
             // 
-            this.raAccessTask.AutoSize = true;
+            this.raAccessTask.AccessibleDescription = null;
+            this.raAccessTask.AccessibleName = null;
+            resources.ApplyResources(this.raAccessTask, "raAccessTask");
+            this.raAccessTask.BackgroundImage = null;
             this.raAccessTask.Checked = true;
-            this.raAccessTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raAccessTask.Location = new System.Drawing.Point(8, 11);
+            this.raAccessTask.Font = null;
             this.raAccessTask.Name = "raAccessTask";
-            this.raAccessTask.Size = new System.Drawing.Size(95, 17);
-            this.raAccessTask.TabIndex = 50;
             this.raAccessTask.TabStop = true;
-            this.raAccessTask.Text = "Access数据库";
             this.raAccessTask.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 112);
+            this.label8.AccessibleDescription = null;
+            this.label8.AccessibleName = null;
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Font = null;
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 13);
-            this.label8.TabIndex = 49;
-            this.label8.Text = "查询或存储过程：";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 48);
+            this.label6.AccessibleDescription = null;
+            this.label6.AccessibleName = null;
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Font = null;
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
-            this.label6.TabIndex = 48;
-            this.label6.Text = "数据库：";
             // 
             // panel2
             // 
+            this.panel2.AccessibleDescription = null;
+            this.panel2.AccessibleName = null;
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.BackgroundImage = null;
             this.panel2.Controls.Add(this.txtPara);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.txtFileName);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(6, 20);
+            this.panel2.Font = null;
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(443, 177);
-            this.panel2.TabIndex = 3;
-            this.panel2.Visible = false;
             // 
             // txtPara
             // 
+            this.txtPara.AccessibleDescription = null;
+            this.txtPara.AccessibleName = null;
+            resources.ApplyResources(this.txtPara, "txtPara");
+            this.txtPara.BackgroundImage = null;
             this.txtPara.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPara.Location = new System.Drawing.Point(61, 43);
-            this.txtPara.Multiline = true;
+            this.txtPara.Font = null;
             this.txtPara.Name = "txtPara";
-            this.txtPara.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPara.Size = new System.Drawing.Size(326, 67);
-            this.txtPara.TabIndex = 4;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 43);
+            this.label3.AccessibleDescription = null;
+            this.label3.AccessibleName = null;
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Font = null;
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "参数：";
             // 
             // button1
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(369, 12);
+            this.button1.AccessibleDescription = null;
+            this.button1.AccessibleName = null;
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.BackgroundImage = null;
+            this.button1.Font = null;
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(62, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "浏览...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtFileName
             // 
+            this.txtFileName.AccessibleDescription = null;
+            this.txtFileName.AccessibleName = null;
+            resources.ApplyResources(this.txtFileName, "txtFileName");
+            this.txtFileName.BackgroundImage = null;
             this.txtFileName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFileName.Location = new System.Drawing.Point(61, 12);
+            this.txtFileName.Font = null;
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(309, 20);
-            this.txtFileName.TabIndex = 1;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 15);
+            this.label2.AccessibleDescription = null;
+            this.label2.AccessibleName = null;
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Font = null;
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "程序：";
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(0, 243);
+            this.groupBox2.AccessibleDescription = null;
+            this.groupBox2.AccessibleName = null;
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.BackgroundImage = null;
+            this.groupBox2.Font = null;
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(501, 5);
-            this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
+            // 
+            // openFileDialog1
+            // 
+            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
+            // 
+            // raDataTask
+            // 
+            this.raDataTask.AccessibleDescription = null;
+            this.raDataTask.AccessibleName = null;
+            resources.ApplyResources(this.raDataTask, "raDataTask");
+            this.raDataTask.BackgroundImage = null;
+            this.raDataTask.Font = null;
+            this.raDataTask.Name = "raDataTask";
+            this.raDataTask.TabStop = true;
+            this.raDataTask.UseVisualStyleBackColor = true;
+            this.raDataTask.CheckedChanged += new System.EventHandler(this.raDataTask_CheckedChanged);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdCancel.Image = ((System.Drawing.Image)(resources.GetObject("cmdCancel.Image")));
-            this.cmdCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdCancel.Location = new System.Drawing.Point(394, 254);
+            this.cmdCancel.AccessibleDescription = null;
+            this.cmdCancel.AccessibleName = null;
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
+            this.cmdCancel.BackgroundImage = null;
+            this.cmdCancel.Font = null;
             this.cmdCancel.Name = "cmdCancel";
-            this.cmdCancel.Size = new System.Drawing.Size(60, 23);
-            this.cmdCancel.TabIndex = 9;
-            this.cmdCancel.Text = "取 消";
-            this.cmdCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
             // 
             // cmdOK
             // 
-            this.cmdOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdOK.Image = ((System.Drawing.Image)(resources.GetObject("cmdOK.Image")));
-            this.cmdOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdOK.Location = new System.Drawing.Point(321, 254);
+            this.cmdOK.AccessibleDescription = null;
+            this.cmdOK.AccessibleName = null;
+            resources.ApplyResources(this.cmdOK, "cmdOK");
+            this.cmdOK.BackgroundImage = null;
+            this.cmdOK.Font = null;
             this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(60, 23);
-            this.cmdOK.TabIndex = 8;
-            this.cmdOK.Text = "确 定";
-            this.cmdOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
-            // raDataTask
-            // 
-            this.raDataTask.AutoSize = true;
-            this.raDataTask.Location = new System.Drawing.Point(143, 12);
-            this.raDataTask.Name = "raDataTask";
-            this.raDataTask.Size = new System.Drawing.Size(85, 17);
-            this.raDataTask.TabIndex = 10;
-            this.raDataTask.TabStop = true;
-            this.raDataTask.Text = "数据库任务";
-            this.raDataTask.UseVisualStyleBackColor = true;
-            this.raDataTask.CheckedChanged += new System.EventHandler(this.raDataTask_CheckedChanged);
-            // 
             // frmAddPlanTask
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 286);
+            this.BackgroundImage = null;
             this.Controls.Add(this.raDataTask);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdOK);
@@ -389,14 +390,13 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.raOtherTask);
             this.Controls.Add(this.raSoukeyTask);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAddPlanTask";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "添加计划任务";
             this.Load += new System.EventHandler(this.frmAddPlanTask_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmAddPlanTask_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

@@ -134,26 +134,11 @@
     <Compile Include="frmHelpInfo.Designer.cs">
       <DependentUpon>frmHelpInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmImportTask.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmImportTask.Designer.cs">
-      <DependentUpon>frmImportTask.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmInfo.Designer.cs">
-      <DependentUpon>frmInfo.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMessageBox.Designer.cs">
       <DependentUpon>frmMessageBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmNotifyWindow.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSelectTask.cs">
       <SubType>Form</SubType>
@@ -185,6 +170,12 @@
     <Compile Include="frmUpgradeTask.Designer.cs">
       <DependentUpon>frmUpgradeTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmUrlEncoding.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUrlEncoding.Designer.cs">
+      <DependentUpon>frmUrlEncoding.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gather\cEventProxy.cs" />
     <Compile Include="Gather\cExport.cs" />
     <Compile Include="Gather\cGatherControl.cs" />
@@ -214,6 +205,16 @@
     <Compile Include="publish\cPublishManage.cs" />
     <Compile Include="publish\cPublishTask.cs" />
     <Compile Include="publish\cPublishTaskData.cs" />
+    <Compile Include="Resources\globalPara.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>globalPara.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\globalUI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>globalUI.resx</DependentUpon>
+    </Compile>
     <Compile Include="Task\cNavigRule.cs" />
     <Compile Include="Task\cNavigRules.cs" />
     <Compile Include="Task\cTaskClass.cs" />
@@ -275,9 +276,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAbout.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddGatherRule.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddGatherRule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddGatherRule.resx">
       <SubType>Designer</SubType>
@@ -287,6 +296,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmAddGatherUrl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAddPlanTask.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddPlanTask.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddPlanTask.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmAddPlanTask.cs</DependentUpon>
@@ -295,13 +308,25 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmAddTaskWizard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmClose.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmClose.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmClose.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmClose.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmConfig.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConfig.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDict.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmDict.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDict.resx">
       <SubType>Designer</SubType>
@@ -311,70 +336,130 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmHelpInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmImportTask.resx">
+    <EmbeddedResource Include="frmMain.en-US.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>frmImportTask.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmInfo.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmInfo.cs</DependentUpon>
+      <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMessageBox.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMessageBox.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmNotifyWindow.resx">
+    <EmbeddedResource Include="frmSelectTask.en-US.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>frmNotifyWindow.cs</DependentUpon>
+      <DependentUpon>frmSelectTask.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectTask.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmSelectTask.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSetData.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSetData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSetData.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmSetData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStart.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmStart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStart.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmStart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmTask.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmTask.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTask.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTaskClass.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmTaskClass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTaskClass.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmTaskClass.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmTaskPlan.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmTaskPlan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTaskPlan.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmTaskPlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdate.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpdate.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmUpdate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmUpgradeTask.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmUpgradeTask.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUpgradeTask.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmUpgradeTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUrlEncoding.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmUrlEncoding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUrlEncoding.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmUrlEncoding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWaiting.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmWaiting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWaiting.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmWaiting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmWeblink.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmWeblink.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmWeblink.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmWeblink.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\globalPara.en-US.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\globalPara.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>globalPara.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\globalUI.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\globalUI.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>globalUI.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="WebBrowser\frmAbourMyWebbrowser.resx">
       <SubType>Designer</SubType>

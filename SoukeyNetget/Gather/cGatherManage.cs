@@ -104,29 +104,36 @@ namespace SoukeyNetget.Gather
         /// 向采集任务队列中增加一个采集任务
         public void Add(cTaskData tData)
         {
-            //新建一个采集任务,并把采集任务的数据传入此采集任务中
-            cGatherTask gTask = new cGatherTask(this, tData);
-
-            //初始化此采集任务,主要是注册此任务的相关事件
-            TaskInit(gTask);
-
-            //判断此任务是否已经加入此任务数据集合,如果没有加入,则加入集合
-            if (!m_TaskDataList.TaskDataList.Contains(tData))
+            try
             {
-                m_TaskDataList.TaskDataList.Add(tData);
+                //新建一个采集任务,并把采集任务的数据传入此采集任务中
+                cGatherTask gTask = new cGatherTask(this, tData);
+
+                //初始化此采集任务,主要是注册此任务的相关事件
+                TaskInit(gTask);
+
+                //判断此任务是否已经加入此任务数据集合,如果没有加入,则加入集合
+                if (!m_TaskDataList.TaskDataList.Contains(tData))
+                {
+                    m_TaskDataList.TaskDataList.Add(tData);
+                }
+
+                //将此采集任务添加到采集任务队列中
+                m_list_Task.Add(gTask);
+
+                //根据添加的任务状态,自动维护队列的信息
+                m_GatherTaskList.AutoList(gTask);
+
+                //如果任务增加后就是完成的任务，则需要出发完成的
+                //事件
+                if (gTask.TaskState == cGlobalParas.TaskState.Completed)
+                {
+                    e_TaskCompleted(gTask, new cTaskEventArgs(gTask.TaskID, gTask.TaskName, false));
+                }
             }
-
-            //将此采集任务添加到采集任务队列中
-            m_list_Task.Add(gTask);
-
-            //根据添加的任务状态,自动维护队列的信息
-            m_GatherTaskList.AutoList(gTask);
-
-            //如果任务增加后就是完成的任务，则需要出发完成的
-            //事件
-            if (gTask.TaskState == cGlobalParas.TaskState.Completed)
+            catch (System.Exception ex)
             {
-                e_TaskCompleted  (gTask, new cTaskEventArgs(gTask.TaskID,gTask.TaskName, false));
+                throw ex;
             }
         }
 

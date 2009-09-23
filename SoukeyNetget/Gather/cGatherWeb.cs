@@ -318,6 +318,8 @@ namespace SoukeyNetget.Gather
             //判断传入的Url是否正确，如果不正确，则返回空数据
             if (Regex.IsMatch(Url, "[\"\\s]"))
             {
+                Match aa = Regex.Match(Url, "[\"\\s]");
+
                 tempData = null;
                 return tempData;
             }

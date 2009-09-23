@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Resources;
+using System.Reflection;
 
 namespace SoukeyNetget
 {
@@ -12,6 +14,7 @@ namespace SoukeyNetget
     {
         public delegate void ReturnExitPara(cGlobalParas.ExitPara ePara);
         public ReturnExitPara RExitPara;
+        private ResourceManager rm;
 
         public frmClose()
         {
@@ -59,12 +62,14 @@ namespace SoukeyNetget
             }
             catch (System.Exception)
             {
-                MessageBox.Show("系统配置文件加载失败，可从安装文件中拷贝文件：SoukeyConfig.xml 到Soukey采摘安装目录，配置文件损坏并不影响系统运行，但您做的系统配置可能无法保存！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info76"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void frmClose_Load(object sender, EventArgs e)
         {
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
             try
             {
                 cXmlSConfig Config = new cXmlSConfig();
@@ -82,7 +87,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception)
             {
-                MessageBox.Show("系统配置文件加载失败，可从安装文件中拷贝文件：SoukeyConfig.xml 到Soukey采摘安装目录，配置文件损坏并不影响系统运行，但您做的系统配置可能无法保存！", "Soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info76"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
+using System.Resources;
 
 namespace SoukeyNetget
 {
@@ -12,6 +14,7 @@ namespace SoukeyNetget
     {
 
         private string DelContent = "DictClass";
+        private ResourceManager rm;
         
         public frmDict()
         {
@@ -58,6 +61,8 @@ namespace SoukeyNetget
         private void frmDict_Load(object sender, EventArgs e)
         {
             IniData();
+
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
         }
      
         private void AddDictClass()
@@ -67,7 +72,7 @@ namespace SoukeyNetget
             TreeNode newNode;
             newNode = new TreeNode();
             newNode.Name = this.treeDict.Nodes.Count.ToString ();
-            newNode.Text = "新建字典分类";
+            newNode.Text = rm.GetString ("Label19");
             newNode.ImageIndex = 1;
             newNode.SelectedImageIndex = 1;
             this.treeDict.Nodes["nodDict"].Nodes.Add(newNode);
@@ -84,13 +89,13 @@ namespace SoukeyNetget
         {
             if (this.treeDict.SelectedNode.Name =="nodDict")
             {
-                MessageBox.Show("请先选择字典分类再进行字典内容的添加", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString("Info77"), rm.GetString ("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             this.listDict.LabelEdit = true;
             ListViewItem item = new ListViewItem();
-            item.Text = "新建字典内容";
+            item.Text = rm.GetString ("Label20");
             this.listDict.Items.Add(item);
             item.BeginEdit();
             item = null;
@@ -135,7 +140,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("修改字典名称出错，错误信息为：" + ex.Message, "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Info78") + ex.Message, rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 e.CancelEdit = true;
             }
 
@@ -221,11 +226,12 @@ namespace SoukeyNetget
         {
             if (this.treeDict.SelectedNode.Name == "nodDict")
             {
-                MessageBox.Show("根节点无法删除！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString("Info79"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            if (MessageBox.Show("您确认删除“" + this.treeDict.SelectedNode.Text  + "”？如果此字典内容已被用于网址参数，则网址采集接续会失效，是否继续？", "删除询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(rm.GetString("Delete") + "“" + this.treeDict.SelectedNode.Text + "”？" + rm.GetString ("Quaere21"),
+               rm.GetString("MessageboxQuaere"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 cDict d = new cDict();
 
@@ -241,11 +247,12 @@ namespace SoukeyNetget
         {
             if (this.listDict.Items.Count == 0 || this.listDict.SelectedItems.Count ==0)
             {
-                MessageBox.Show("无删除的字典内容或为选中删除的内容！", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString ("Info80"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            if (MessageBox.Show("您确认删除“" + this.listDict.SelectedItems[0].Text + "”？如果此字典内容已被用于网址参数，则网址采集接续会失效，是否继续？", "删除询问", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(rm.GetString("Delete") + "“" + this.listDict.SelectedItems[0].Text + "”？" + rm.GetString("Quaere22"),
+                rm.GetString("MessageboxQuaere"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 cDict d = new cDict();
 
@@ -307,6 +314,11 @@ namespace SoukeyNetget
         private void toolAddDict_Click(object sender, EventArgs e)
         {
             AddDictContent();
+        }
+
+        private void frmDict_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
 
        

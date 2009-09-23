@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
+using System.Resources;
 
 
 ///功能：采集任务分类信息处理
@@ -26,6 +28,8 @@ namespace SoukeyNetget
 
         private string  DefaultPath="";
 
+        private ResourceManager rm;
+
         public frmTaskClass()
         {
             InitializeComponent();
@@ -38,6 +42,8 @@ namespace SoukeyNetget
 
         private void frmTaskClass_Load(object sender, EventArgs e)
         {
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
             this.textBox2.Text = Program.getPrjPath() + "tasks\\";
             DefaultPath = this.textBox2.Text;
         }
@@ -48,7 +54,7 @@ namespace SoukeyNetget
 
             if (this.textBox1.Text.Trim().ToString() == "")
             {
-                MessageBox.Show("分类名称需要填写");
+                MessageBox.Show(rm.GetString ("Info88"), rm.GetString("MessageboxError"),MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             try
@@ -60,12 +66,12 @@ namespace SoukeyNetget
             }
             catch (cSoukeyException ex)
             {
-                MessageBox.Show (ex.Message, "Soukey采摘 错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, rm.GetString ("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             catch (System.Exception  ex)
             {
-                MessageBox.Show(ex.Message, "Soukey采摘 错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -93,6 +99,11 @@ namespace SoukeyNetget
             this.textBox2.Text = DefaultPath + this.textBox1.Text;
             this.textBox2.Select(this.textBox2.Text.Length, 0);
             this.textBox2.ScrollToCaret();
+        }
+
+        private void frmTaskClass_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
 
       

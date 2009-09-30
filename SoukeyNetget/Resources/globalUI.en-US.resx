@@ -139,7 +139,7 @@
     <value>Save the task failed, error message：</value>
   </data>
   <data name="Error14" xml:space="preserve">
-    <value>SoukeyExtractor the destruction of classified documents, not load, please copy the installation files in the "TaskClass.xml" file to the system root directory to fix this task!</value>
+    <value>SoukeyMiner the destruction of classified documents, not load, please copy the installation files in the "TaskClass.xml" file to the system root directory to fix this task!</value>
   </data>
   <data name="Error15" xml:space="preserve">
     <value>Run the task loading error, first delete the task is running, quit the system, enter the system in the Tasks directory, delete taskrun.xml, restart you can! Error message is:</value>
@@ -421,7 +421,7 @@
     <value>In this task does not define the collection of required data collection rules, can not be collected test!</value>
   </data>
   <data name="Info40" xml:space="preserve">
-    <value>System configuration file failed to load, can copy files from the installation file: SoukeyConfig.xml to SoukeyExtractor installation directory, configuration file is corrupted does not affect system operation, but you do system configuration may not be able to save!</value>
+    <value>System configuration file failed to load, can copy files from the installation file: SoukeyConfig.xml to SoukeyMiner installation directory, configuration file is corrupted does not affect system operation, but you do system configuration may not be able to save!</value>
   </data>
   <data name="Info41" xml:space="preserve">
     <value>You have selected to reset the task:</value>
@@ -463,7 +463,7 @@
     <value>Close "System Information"</value>
   </data>
   <data name="Info53" xml:space="preserve">
-    <value>SoukeyExtractor Task Options</value>
+    <value>SoukeyMiner Task Options</value>
   </data>
   <data name="Info54" xml:space="preserve">
     <value>The task of loading the file to run monitor illegal, please delete the Windows file browser, and re-click this node is automatically created by the system! File:</value>
@@ -472,7 +472,7 @@
     <value>Has completed the task load index file illegal, please delete the Windows file browser, and re-click this node is automatically created by the system! File:</value>
   </data>
   <data name="Info56" xml:space="preserve">
-    <value>Task error loading system, the system considers: SoukeyExtractor the latest version to download.</value>
+    <value>Task error loading system, the system considers: SoukeyMiner the latest version to download.</value>
   </data>
   <data name="Info57" xml:space="preserve">
     <value>Load mission implementation plans have gone wrong, an error message as follows:</value>
@@ -592,7 +592,7 @@
     <value>The local version number is:</value>
   </data>
   <data name="Info92" xml:space="preserve">
-    <value>Start connecting SoukeyExtractor Official website:：http://www.yijie.net ......</value>
+    <value>Start connecting SoukeyMiner Official website:：http://www.yijie.net ......</value>
   </data>
   <data name="Info93" xml:space="preserve">
     <value>Connection fails, make sure that is connected to the Internet.</value>
@@ -604,10 +604,10 @@
     <value>Connection successful!</value>
   </data>
   <data name="Info96" xml:space="preserve">
-    <value>Begin to obtain the latest version SoukeyExtractor.......</value>
+    <value>Begin to obtain the latest version SoukeyMiner.......</value>
   </data>
   <data name="Info97" xml:space="preserve">
-    <value>SoukeyExtractor the latest version number:</value>
+    <value>SoukeyMiner the latest version number:</value>
   </data>
   <data name="Info98" xml:space="preserve">
     <value>Found a new version, version as follows:</value>
@@ -640,7 +640,7 @@
     <value>Tasks are released</value>
   </data>
   <data name="Label16" xml:space="preserve">
-    <value>SoukeyExtractor task</value>
+    <value>SoukeyMiner task</value>
   </data>
   <data name="Label17" xml:space="preserve">
     <value>Other tasks</value>
@@ -690,6 +690,9 @@
   <data name="Label30" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Label31" xml:space="preserve">
+    <value>saved to the default path</value>
+  </data>
   <data name="Label4" xml:space="preserve">
     <value>Interception of the number of characters:</value>
   </data>
@@ -721,16 +724,16 @@
     <value>Log saved successfully</value>
   </data>
   <data name="MessageboxError" xml:space="preserve">
-    <value>SoukeyExtractor Error</value>
+    <value>SoukeyMiner Error</value>
   </data>
   <data name="MessageboxInfo" xml:space="preserve">
-    <value>SoukeyExtractor Information</value>
+    <value>SoukeyMiner Information</value>
   </data>
   <data name="MessageboxQuaere" xml:space="preserve">
-    <value>SoukeyExtractor Quaere</value>
+    <value>SoukeyMiner Quaere</value>
   </data>
   <data name="MessageboxWarning" xml:space="preserve">
-    <value>SoukeyExtractor Warning</value>
+    <value>SoukeyMiner Warning</value>
   </data>
   <data name="NaviLevel" xml:space="preserve">
     <value>Level</value>
@@ -907,7 +910,7 @@
     <value>Task to start</value>
   </data>
   <data name="TrayTitle" xml:space="preserve">
-    <value>SoukeyExtractor [OpenSource]</value>
+    <value>SoukeyMiner [OpenSource]</value>
   </data>
   <data name="W0" xml:space="preserve">
     <value>Sunday</value>

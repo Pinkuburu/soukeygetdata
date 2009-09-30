@@ -1780,6 +1780,15 @@ namespace SoukeyNetget.Resources {
         }
         
         /// <summary>
+        ///   查找类似 此任务不分类，直接保存到默认路径 的本地化字符串。
+        /// </summary>
+        internal static string Label31 {
+            get {
+                return ResourceManager.GetString("Label31", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 截取字符数： 的本地化字符串。
         /// </summary>
         internal static string Label4 {

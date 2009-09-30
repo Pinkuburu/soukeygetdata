@@ -690,6 +690,9 @@
   <data name="Label30" xml:space="preserve">
     <value>保  存</value>
   </data>
+  <data name="Label31" xml:space="preserve">
+    <value>此任务不分类，直接保存到默认路径</value>
+  </data>
   <data name="Label4" xml:space="preserve">
     <value>截取字符数：</value>
   </data>

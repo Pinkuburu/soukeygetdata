@@ -109,7 +109,7 @@ namespace SoukeyNetget
 
             //初始化任务分类
             //开始初始化树形结构,取xml中的数据,读取任务分类
-            this.comTaskClass.Items.Add("此任务不分类，直接保存到默认路径");
+            this.comTaskClass.Items.Add(rm.GetString ("Label31"));
             Task.cTaskClass xmlTClass = new Task.cTaskClass();
 
             int TClassCount = xmlTClass.GetTaskClassCount();

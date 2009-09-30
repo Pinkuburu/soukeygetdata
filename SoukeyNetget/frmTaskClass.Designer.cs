@@ -43,21 +43,15 @@
             // 
             // label1
             // 
-            this.label1.AccessibleDescription = null;
-            this.label1.AccessibleName = null;
             resources.ApplyResources(this.label1, "label1");
-            this.label1.Font = null;
+            this.label1.ForeColor = System.Drawing.Color.Navy;
             this.label1.Name = "label1";
             // 
             // textBox1
             // 
-            this.textBox1.AccessibleDescription = null;
-            this.textBox1.AccessibleName = null;
-            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.BackgroundImage = null;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = null;
+            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -73,57 +67,34 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.AccessibleDescription = null;
-            this.groupBox1.AccessibleName = null;
             resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.BackgroundImage = null;
-            this.groupBox1.Font = null;
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // label2
             // 
-            this.label2.AccessibleDescription = null;
-            this.label2.AccessibleName = null;
             resources.ApplyResources(this.label2, "label2");
-            this.label2.Font = null;
             this.label2.Name = "label2";
             // 
             // textBox2
             // 
-            this.textBox2.AccessibleDescription = null;
-            this.textBox2.AccessibleName = null;
-            resources.ApplyResources(this.textBox2, "textBox2");
             this.textBox2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.textBox2.BackgroundImage = null;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Font = null;
+            resources.ApplyResources(this.textBox2, "textBox2");
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             // 
-            // folderBrowserDialog1
-            // 
-            resources.ApplyResources(this.folderBrowserDialog1, "folderBrowserDialog1");
-            // 
             // cmdOK
             // 
-            this.cmdOK.AccessibleDescription = null;
-            this.cmdOK.AccessibleName = null;
             resources.ApplyResources(this.cmdOK, "cmdOK");
-            this.cmdOK.BackgroundImage = null;
-            this.cmdOK.Font = null;
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.AccessibleDescription = null;
-            this.cmdCancel.AccessibleName = null;
-            resources.ApplyResources(this.cmdCancel, "cmdCancel");
-            this.cmdCancel.BackgroundImage = null;
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Font = null;
+            resources.ApplyResources(this.cmdCancel, "cmdCancel");
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
@@ -131,11 +102,8 @@
             // frmTaskClass
             // 
             this.AcceptButton = this.cmdOK;
-            this.AccessibleDescription = null;
-            this.AccessibleName = null;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = null;
             this.CancelButton = this.cmdCancel;
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
@@ -144,7 +112,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

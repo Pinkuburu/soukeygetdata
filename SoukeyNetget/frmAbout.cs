@@ -33,11 +33,7 @@ namespace SoukeyNetget
         {
             System.Diagnostics.Process.Start("http://www.yijie.net"); 
         }
-
-        private void frmAbout_Load(object sender, EventArgs e)
-        {
-        }
-
+      
        
     }
 }

@@ -625,17 +625,24 @@ namespace SoukeyNetget
                 this.rmenuPasteTask.Visible = false;
                 this.toolStripSeparator18.Visible = false;
 
-                if (IsClipboardSoukeyData())
+                if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
                 {
-                    
-                    this.rmenuPasteTask.Visible = true;
-                    this.rmenuPasteTask.Enabled = true;
+                    if (IsClipboardSoukeyData())
+                    {
+
+                        this.rmenuPasteTask.Visible = true;
+                        this.rmenuPasteTask.Enabled = true;
+                    }
+                    else
+                    {
+                        this.rmenuPasteTask.Visible = false;
+                    }
                 }
                 else
                 {
-                    this.rmenuPasteTask.Visible = false ;
-                }
+                    this.rmenuPasteTask.Visible = false;
 
+                }
                 return;
             }
 
@@ -4350,6 +4357,8 @@ namespace SoukeyNetget
 
         private void ImportTask()
         {
+            //支持同时导入多个任务
+
             this.openFileDialog1.Title = rm.GetString ("Info44");
 
             openFileDialog1.InitialDirectory = Program.getPrjPath() + "tasks";
@@ -5044,9 +5053,8 @@ namespace SoukeyNetget
             IAsyncResult ir = sd.BeginInvoke(e.Node.Text, e.Label  , null, null); 
 
             //显示等待的窗口 
-            frmWaiting fWait = new frmWaiting();
+            frmWaiting fWait = new frmWaiting(rm.GetString("Info62"));
             fWait.Text = rm.GetString ("Info62");
-            fWait.labTxt.Text = rm.GetString("Info62");
 
             fWait.Show(this); 
             //刷新这个等待的窗口 
@@ -5170,9 +5178,8 @@ namespace SoukeyNetget
                 IAsyncResult ir = sd.BeginInvoke(OldName, this.dataTask.CurrentCell.Value.ToString(), null, null);
 
                 //显示等待的窗口 
-                frmWaiting fWait = new frmWaiting();
+                frmWaiting fWait = new frmWaiting(rm.GetString("Info66"));
                 fWait.Text = rm.GetString("Info66");
-                fWait.labTxt.Text = rm.GetString("Info66");
 
                 fWait.Show(this);
                 //刷新这个等待的窗口 
@@ -5210,9 +5217,8 @@ namespace SoukeyNetget
                     ir = sd.BeginInvoke(this.treeMenu.SelectedNode.Text, OldName, this.dataTask.CurrentCell.Value.ToString(), null, null);
                
                 //显示等待的窗口 
-                frmWaiting fWait = new frmWaiting();
+                frmWaiting fWait = new frmWaiting(rm.GetString("Info67"));
                 fWait.Text = rm.GetString("Info67");
-                fWait.labTxt.Text = rm.GetString("Info67");
 
                 fWait.Show(this);
                 //刷新这个等待的窗口 

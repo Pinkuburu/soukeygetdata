@@ -399,12 +399,11 @@ namespace SoukeyNetget
 
             this.labLogSavePath.Text = rm.GetString("Info2") + "：" + Program.getPrjPath() + "Log";
 
-
             //初始化页面加载时各个控件的状态
 
             //初始化任务分类
             //开始初始化树形结构,取xml中的数据,读取任务分类
-            this.comTaskClass.Items.Add("此任务不分类，直接保存到默认路径");
+            this.comTaskClass.Items.Add(rm.GetString ("Label31"));
             Task.cTaskClass xmlTClass = new Task.cTaskClass();
 
             int TClassCount = xmlTClass.GetTaskClassCount();
@@ -416,7 +415,6 @@ namespace SoukeyNetget
             xmlTClass = null;
 
             this.comTaskClass.SelectedIndex = 0;
-
             
         }
 
@@ -2736,7 +2734,7 @@ namespace SoukeyNetget
             if (this.txtNag.Text == "" || this.txtNag.Text == null)
             {
                 this.txtNag.Focus();
-                MessageBox.Show(rm.GetString ("Info8"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(rm.GetString("Info8"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 

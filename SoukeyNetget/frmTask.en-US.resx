@@ -287,10 +287,6 @@
   <data name="groupBox3.Text" xml:space="preserve">
     <value>Base</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tabPage1.ImageIndex" type="System.Int32, mscorlib">
-    <value>-1</value>
-  </data>
   <data name="tabPage1.Text" xml:space="preserve">
     <value>General</value>
   </data>
@@ -306,6 +302,7 @@
   <data name="cmdUrlEncoding.Text" xml:space="preserve">
     <value>Encoding/Decoding</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label47.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -348,9 +345,6 @@
   <data name="cmdDelNRule.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="cmdDelNRule.Location" type="System.Drawing.Point, System.Drawing">
-    <value>223, 70</value>
-  </data>
   <data name="cmdDelNRule.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 23</value>
   </data>
@@ -359,9 +353,6 @@
   </data>
   <data name="cmdAddNRule.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
-  </data>
-  <data name="cmdAddNRule.Location" type="System.Drawing.Point, System.Drawing">
-    <value>223, 36</value>
   </data>
   <data name="cmdAddNRule.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 23</value>
@@ -382,10 +373,10 @@
     <value>NoControl</value>
   </data>
   <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 45</value>
+    <value>207, 53</value>
   </data>
   <data name="label22.Text" xml:space="preserve">
-    <value>Direct Navigation websites fill prefix (a total part) can be required to fill out a complete</value>
+    <value>Direct Navigation Website fill prefix (the same part) can be required to fill in the full. </value>
   </data>
   <data name="groupBox14.Text" xml:space="preserve">
     <value>Navigation Rules</value>
@@ -552,8 +543,14 @@
   <data name="label20.Text" xml:space="preserve">
     <value>Capture the content only for non-navigation pages is collected by the navigation rules to open the content page, and in accordance with the rules of data collection collected</value>
   </data>
+  <data name="groupBox6.Text" xml:space="preserve">
+    <value>Collection Urls</value>
+  </data>
   <data name="tabPage2.ImageIndex" type="System.Int32, mscorlib">
     <value>-1</value>
+  </data>
+  <data name="tabPage2.ImageKey" xml:space="preserve">
+    <value>Table.ico</value>
   </data>
   <data name="tabPage2.Text" xml:space="preserve">
     <value>Collection Urls</value>
@@ -806,6 +803,12 @@
   <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 13</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>To</value>
+  </data>
   <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -839,8 +842,11 @@
   <data name="tabPage3.ImageIndex" type="System.Int32, mscorlib">
     <value>-1</value>
   </data>
+  <data name="tabPage3.ImageKey" xml:space="preserve">
+    <value>tree.gif</value>
+  </data>
   <data name="tabPage3.Text" xml:space="preserve">
-    <value>Extraction Rules</value>
+    <value>Collection Rules</value>
   </data>
   <data name="label41.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1034,6 +1040,9 @@
   <data name="tabPage5.ImageIndex" type="System.Int32, mscorlib">
     <value>-1</value>
   </data>
+  <data name="tabPage5.ImageKey" xml:space="preserve">
+    <value>A17.gif</value>
+  </data>
   <data name="tabPage5.Text" xml:space="preserve">
     <value>Publish</value>
   </data>
@@ -1054,6 +1063,9 @@
   </data>
   <data name="tabPage4.ImageIndex" type="System.Int32, mscorlib">
     <value>-1</value>
+  </data>
+  <data name="tabPage4.ImageKey" xml:space="preserve">
+    <value>Cur.ico</value>
   </data>
   <data name="tabPage4.Text" xml:space="preserve">
     <value>Testing</value>
@@ -1189,6 +1201,9 @@
   <data name="tabPage6.ImageIndex" type="System.Int32, mscorlib">
     <value>-1</value>
   </data>
+  <data name="tabPage6.ImageKey" xml:space="preserve">
+    <value>A21.gif</value>
+  </data>
   <data name="tabPage6.Text" xml:space="preserve">
     <value>Advanced</value>
   </data>
@@ -1197,7 +1212,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABy
-        FQAAAk1TRnQBSQFMAgEBDAEAAQQBBQEEAQUBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        FQAAAk1TRnQBSQFMAgEBDAEAASwBBQEsAQUBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAAUADAAEBAQABCAYAARAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA

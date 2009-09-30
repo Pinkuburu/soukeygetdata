@@ -41,84 +41,82 @@
             // 
             // panel1
             // 
+            this.panel1.AccessibleDescription = null;
+            this.panel1.AccessibleName = null;
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackgroundImage = null;
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.labTitle);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Font = null;
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(475, 54);
-            this.panel1.TabIndex = 0;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(425, 11);
+            this.pictureBox1.AccessibleDescription = null;
+            this.pictureBox1.AccessibleName = null;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.BackgroundImage = null;
+            this.pictureBox1.Font = null;
+            this.pictureBox1.ImageLocation = null;
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // labTitle
             // 
-            this.labTitle.AutoSize = true;
-            this.labTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labTitle.AccessibleDescription = null;
+            this.labTitle.AccessibleName = null;
+            resources.ApplyResources(this.labTitle, "labTitle");
             this.labTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.labTitle.Location = new System.Drawing.Point(12, 14);
             this.labTitle.Name = "labTitle";
-            this.labTitle.Size = new System.Drawing.Size(259, 24);
-            this.labTitle.TabIndex = 0;
-            this.labTitle.Text = "Soukey采摘首次运行须知：";
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 237);
+            this.groupBox1.AccessibleDescription = null;
+            this.groupBox1.AccessibleName = null;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.BackgroundImage = null;
+            this.groupBox1.Font = null;
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(485, 5);
-            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
             // button1
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(392, 249);
+            this.button1.AccessibleDescription = null;
+            this.button1.AccessibleName = null;
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.BackgroundImage = null;
+            this.button1.Font = null;
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(65, 24);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "关  闭";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // richTextBox1
             // 
+            this.richTextBox1.AccessibleDescription = null;
+            this.richTextBox1.AccessibleName = null;
+            resources.ApplyResources(this.richTextBox1, "richTextBox1");
+            this.richTextBox1.BackgroundImage = null;
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox1.EnableAutoDragDrop = true;
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.richTextBox1.Location = new System.Drawing.Point(16, 60);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(441, 171);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // frmHelpInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 285);
+            this.BackgroundImage = null;
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmHelpInfo";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Soukey采摘 帮助信息";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

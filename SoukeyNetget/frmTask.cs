@@ -2844,11 +2844,11 @@ namespace SoukeyNetget
             {
                 this.label13.Enabled = true;
                 this.txtNextPage.Enabled = true;
-                this.txtNextPage.Text = rm.GetString ("Label7");
+                this.txtNextPage.Text = rm.GetString("NextPage");
             }
             else
             {
-                if (this.txtNextPage.Text == rm.GetString("Label7"))
+                if (this.txtNextPage.Text == rm.GetString("NextPage"))
                 {
                     this.txtNextPage.Text = "";
                 }

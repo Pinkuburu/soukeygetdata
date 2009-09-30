@@ -514,6 +514,7 @@
             this.dataTask.DoubleClick += new System.EventHandler(this.dataTask_DoubleClick);
             this.dataTask.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTask_CellEndEdit);
             this.dataTask.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTask_CellClick);
+            this.dataTask.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataTask_EditingControlShowing);
             this.dataTask.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataTask_KeyDown);
             this.dataTask.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataTask_CellContentClick);
             // 

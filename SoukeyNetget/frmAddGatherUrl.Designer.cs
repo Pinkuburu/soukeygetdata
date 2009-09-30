@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddGatherUrl));
             this.label47 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
@@ -64,6 +63,10 @@
             this.rmenuGetPostData = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nRuleLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nRule = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataNRule)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -71,27 +74,30 @@
             // 
             // label47
             // 
-            this.label47.AutoSize = true;
+            this.label47.AccessibleDescription = null;
+            this.label47.AccessibleName = null;
+            resources.ApplyResources(this.label47, "label47");
+            this.label47.Font = null;
             this.label47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label47.Location = new System.Drawing.Point(164, 96);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(235, 13);
-            this.label47.TabIndex = 63;
-            this.label47.Text = "系统支持多层导航，但只采集最终页数据。";
             // 
             // button6
             // 
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(529, 93);
+            this.button6.AccessibleDescription = null;
+            this.button6.AccessibleName = null;
+            resources.ApplyResources(this.button6, "button6");
+            this.button6.BackgroundImage = null;
+            this.button6.Font = null;
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(92, 23);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "测试导航规则";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // groupBox14
             // 
+            this.groupBox14.AccessibleDescription = null;
+            this.groupBox14.AccessibleName = null;
+            resources.ApplyResources(this.groupBox14, "groupBox14");
+            this.groupBox14.BackgroundImage = null;
             this.groupBox14.Controls.Add(this.dataNRule);
             this.groupBox14.Controls.Add(this.groupBox15);
             this.groupBox14.Controls.Add(this.cmdDelNRule);
@@ -99,214 +105,207 @@
             this.groupBox14.Controls.Add(this.txtNag);
             this.groupBox14.Controls.Add(this.label10);
             this.groupBox14.Controls.Add(this.label22);
-            this.groupBox14.Enabled = false;
-            this.groupBox14.Location = new System.Drawing.Point(10, 115);
+            this.groupBox14.Font = null;
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(611, 118);
-            this.groupBox14.TabIndex = 62;
             this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "导航规则";
             // 
             // dataNRule
             // 
+            this.dataNRule.AccessibleDescription = null;
+            this.dataNRule.AccessibleName = null;
             this.dataNRule.AllowUserToAddRows = false;
-            this.dataNRule.AllowUserToOrderColumns = true;
             this.dataNRule.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataNRule, "dataNRule");
             this.dataNRule.BackgroundColor = System.Drawing.Color.White;
+            this.dataNRule.BackgroundImage = null;
             this.dataNRule.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataNRule.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataNRule.Location = new System.Drawing.Point(296, 15);
+            this.dataNRule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataNRule.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nRuleLevel,
+            this.nRule});
+            this.dataNRule.Font = null;
+            this.dataNRule.MultiSelect = false;
             this.dataNRule.Name = "dataNRule";
             this.dataNRule.RowHeadersVisible = false;
-            this.dataNRule.RowHeadersWidth = 20;
-            this.dataNRule.RowTemplate.Height = 19;
+            this.dataNRule.RowTemplate.Height = 20;
             this.dataNRule.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataNRule.Size = new System.Drawing.Size(305, 93);
-            this.dataNRule.TabIndex = 3;
             // 
             // groupBox15
             // 
-            this.groupBox15.Location = new System.Drawing.Point(208, 10);
+            this.groupBox15.AccessibleDescription = null;
+            this.groupBox15.AccessibleName = null;
+            resources.ApplyResources(this.groupBox15, "groupBox15");
+            this.groupBox15.BackgroundImage = null;
+            this.groupBox15.Font = null;
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(2, 98);
-            this.groupBox15.TabIndex = 29;
             this.groupBox15.TabStop = false;
             // 
             // cmdDelNRule
             // 
-            this.cmdDelNRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdDelNRule.Location = new System.Drawing.Point(226, 70);
+            this.cmdDelNRule.AccessibleDescription = null;
+            this.cmdDelNRule.AccessibleName = null;
+            resources.ApplyResources(this.cmdDelNRule, "cmdDelNRule");
+            this.cmdDelNRule.BackgroundImage = null;
+            this.cmdDelNRule.Font = null;
             this.cmdDelNRule.Name = "cmdDelNRule";
-            this.cmdDelNRule.Size = new System.Drawing.Size(52, 23);
-            this.cmdDelNRule.TabIndex = 2;
-            this.cmdDelNRule.Text = "移除";
             this.cmdDelNRule.UseVisualStyleBackColor = true;
             this.cmdDelNRule.Click += new System.EventHandler(this.cmdDelNRule_Click);
             // 
             // cmdAddNRule
             // 
-            this.cmdAddNRule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdAddNRule.Location = new System.Drawing.Point(226, 36);
+            this.cmdAddNRule.AccessibleDescription = null;
+            this.cmdAddNRule.AccessibleName = null;
+            resources.ApplyResources(this.cmdAddNRule, "cmdAddNRule");
+            this.cmdAddNRule.BackgroundImage = null;
+            this.cmdAddNRule.Font = null;
             this.cmdAddNRule.Name = "cmdAddNRule";
-            this.cmdAddNRule.Size = new System.Drawing.Size(52, 23);
-            this.cmdAddNRule.TabIndex = 1;
-            this.cmdAddNRule.Text = "添加";
             this.cmdAddNRule.UseVisualStyleBackColor = true;
             this.cmdAddNRule.Click += new System.EventHandler(this.cmdAddNRule_Click);
             // 
             // txtNag
             // 
+            this.txtNag.AccessibleDescription = null;
+            this.txtNag.AccessibleName = null;
+            resources.ApplyResources(this.txtNag, "txtNag");
+            this.txtNag.BackgroundImage = null;
             this.txtNag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNag.Location = new System.Drawing.Point(13, 40);
+            this.txtNag.Font = null;
             this.txtNag.Name = "txtNag";
-            this.txtNag.Size = new System.Drawing.Size(182, 20);
-            this.txtNag.TabIndex = 0;
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 22);
+            this.label10.AccessibleDescription = null;
+            this.label10.AccessibleName = null;
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Font = null;
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 13);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "导航规则：";
             // 
             // label22
             // 
+            this.label22.AccessibleDescription = null;
+            this.label22.AccessibleName = null;
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.Font = null;
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label22.Location = new System.Drawing.Point(10, 67);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(207, 29);
-            this.label22.TabIndex = 26;
-            this.label22.Text = "直接填写导航网址的前缀（共有部分）即可, 需填写完整";
             // 
             // IsNavigPage
             // 
-            this.IsNavigPage.AutoSize = true;
-            this.IsNavigPage.Location = new System.Drawing.Point(16, 94);
+            this.IsNavigPage.AccessibleDescription = null;
+            this.IsNavigPage.AccessibleName = null;
+            resources.ApplyResources(this.IsNavigPage, "IsNavigPage");
+            this.IsNavigPage.BackgroundImage = null;
+            this.IsNavigPage.Font = null;
             this.IsNavigPage.Name = "IsNavigPage";
-            this.IsNavigPage.Size = new System.Drawing.Size(140, 17);
-            this.IsNavigPage.TabIndex = 4;
-            this.IsNavigPage.Text = "导航页(需要导航规则)";
             this.IsNavigPage.UseVisualStyleBackColor = true;
             this.IsNavigPage.CheckedChanged += new System.EventHandler(this.IsNavigPage_CheckedChanged);
             // 
             // label31
             // 
-            this.label31.AutoSize = true;
+            this.label31.AccessibleDescription = null;
+            this.label31.AccessibleName = null;
+            resources.ApplyResources(this.label31, "label31");
+            this.label31.Font = null;
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label31.Location = new System.Drawing.Point(530, 71);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(91, 13);
-            this.label31.TabIndex = 61;
-            this.label31.Text = "暂不支持JS跳转";
             // 
             // txtWebLink
             // 
+            this.txtWebLink.AccessibleDescription = null;
+            this.txtWebLink.AccessibleName = null;
+            resources.ApplyResources(this.txtWebLink, "txtWebLink");
+            this.txtWebLink.BackgroundImage = null;
             this.txtWebLink.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtWebLink.Location = new System.Drawing.Point(79, 13);
-            this.txtWebLink.Multiline = true;
+            this.txtWebLink.Font = null;
             this.txtWebLink.Name = "txtWebLink";
-            this.txtWebLink.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtWebLink.Size = new System.Drawing.Size(454, 48);
-            this.txtWebLink.TabIndex = 0;
-            this.txtWebLink.Text = "http://";
             // 
             // txtNextPage
             // 
+            this.txtNextPage.AccessibleDescription = null;
+            this.txtNextPage.AccessibleName = null;
+            resources.ApplyResources(this.txtNextPage, "txtNextPage");
+            this.txtNextPage.BackgroundImage = null;
             this.txtNextPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNextPage.Enabled = false;
-            this.txtNextPage.Location = new System.Drawing.Point(243, 69);
+            this.txtNextPage.Font = null;
             this.txtNextPage.Name = "txtNextPage";
-            this.txtNextPage.Size = new System.Drawing.Size(273, 20);
-            this.txtNextPage.TabIndex = 3;
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Enabled = false;
-            this.label13.Location = new System.Drawing.Point(167, 71);
+            this.label13.AccessibleDescription = null;
+            this.label13.AccessibleName = null;
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Font = null;
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(79, 13);
-            this.label13.TabIndex = 60;
-            this.label13.Text = "下一页标识：";
             // 
             // IsAutoNextPage
             // 
-            this.IsAutoNextPage.AutoSize = true;
-            this.IsAutoNextPage.Location = new System.Drawing.Point(16, 70);
+            this.IsAutoNextPage.AccessibleDescription = null;
+            this.IsAutoNextPage.AccessibleName = null;
+            resources.ApplyResources(this.IsAutoNextPage, "IsAutoNextPage");
+            this.IsAutoNextPage.BackgroundImage = null;
+            this.IsAutoNextPage.Font = null;
             this.IsAutoNextPage.Name = "IsAutoNextPage";
-            this.IsAutoNextPage.Size = new System.Drawing.Size(158, 17);
-            this.IsAutoNextPage.TabIndex = 2;
-            this.IsAutoNextPage.Text = "根据下一页标识自动翻页";
             this.IsAutoNextPage.UseVisualStyleBackColor = true;
             this.IsAutoNextPage.CheckedChanged += new System.EventHandler(this.IsAutoNextPage_CheckedChanged);
             // 
             // button2
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(539, 13);
+            this.button2.AccessibleDescription = null;
+            this.button2.AccessibleName = null;
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.BackgroundImage = null;
+            this.button2.Font = null;
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "参数/变量";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 16);
+            this.label9.AccessibleDescription = null;
+            this.label9.AccessibleName = null;
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Font = null;
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(67, 13);
-            this.label9.TabIndex = 51;
-            this.label9.Text = "网页地址：";
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(0, 260);
+            this.groupBox1.AccessibleDescription = null;
+            this.groupBox1.AccessibleName = null;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.BackgroundImage = null;
+            this.groupBox1.Font = null;
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(642, 5);
-            this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             // 
             // button1
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(486, 279);
+            this.button1.AccessibleDescription = null;
+            this.button1.AccessibleName = null;
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.BackgroundImage = null;
+            this.button1.Font = null;
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(60, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "确 定";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button5
             // 
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(561, 279);
+            this.button5.AccessibleDescription = null;
+            this.button5.AccessibleName = null;
+            resources.ApplyResources(this.button5, "button5");
+            this.button5.BackgroundImage = null;
+            this.button5.Font = null;
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(60, 23);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "取 消";
-            this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.AccessibleDescription = null;
+            this.contextMenuStrip1.AccessibleName = null;
+            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
+            this.contextMenuStrip1.BackgroundImage = null;
+            this.contextMenuStrip1.Font = null;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuNumAdd,
             this.menuNumDec,
@@ -319,87 +318,133 @@
             this.rmenuGetPostData,
             this.toolStripSeparator4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(210, 176);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // menuNumAdd
             // 
+            this.menuNumAdd.AccessibleDescription = null;
+            this.menuNumAdd.AccessibleName = null;
+            resources.ApplyResources(this.menuNumAdd, "menuNumAdd");
+            this.menuNumAdd.BackgroundImage = null;
             this.menuNumAdd.Name = "menuNumAdd";
-            this.menuNumAdd.Size = new System.Drawing.Size(209, 22);
-            this.menuNumAdd.Text = "递增变量{Num:1,100,1}";
+            this.menuNumAdd.ShortcutKeyDisplayString = null;
             // 
             // menuNumDec
             // 
+            this.menuNumDec.AccessibleDescription = null;
+            this.menuNumDec.AccessibleName = null;
+            resources.ApplyResources(this.menuNumDec, "menuNumDec");
+            this.menuNumDec.BackgroundImage = null;
             this.menuNumDec.Name = "menuNumDec";
-            this.menuNumDec.Size = new System.Drawing.Size(209, 22);
-            this.menuNumDec.Text = "递减变量{Num:100,1,-1}";
+            this.menuNumDec.ShortcutKeyDisplayString = null;
             // 
             // toolStripSeparator1
             // 
+            this.toolStripSeparator1.AccessibleDescription = null;
+            this.toolStripSeparator1.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(206, 6);
             // 
             // menuLettAdd
             // 
+            this.menuLettAdd.AccessibleDescription = null;
+            this.menuLettAdd.AccessibleName = null;
+            resources.ApplyResources(this.menuLettAdd, "menuLettAdd");
+            this.menuLettAdd.BackgroundImage = null;
             this.menuLettAdd.Name = "menuLettAdd";
-            this.menuLettAdd.Size = new System.Drawing.Size(209, 22);
-            this.menuLettAdd.Text = "字母递增{Letter:a,z}";
+            this.menuLettAdd.ShortcutKeyDisplayString = null;
             // 
             // menuLettDec
             // 
+            this.menuLettDec.AccessibleDescription = null;
+            this.menuLettDec.AccessibleName = null;
+            resources.ApplyResources(this.menuLettDec, "menuLettDec");
+            this.menuLettDec.BackgroundImage = null;
             this.menuLettDec.Name = "menuLettDec";
-            this.menuLettDec.Size = new System.Drawing.Size(209, 22);
-            this.menuLettDec.Text = "字母递减{Letter:z,a}";
+            this.menuLettDec.ShortcutKeyDisplayString = null;
             // 
             // toolStripSeparator2
             // 
+            this.toolStripSeparator2.AccessibleDescription = null;
+            this.toolStripSeparator2.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(206, 6);
             // 
             // pOST前缀POSTToolStripMenuItem
             // 
+            this.pOST前缀POSTToolStripMenuItem.AccessibleDescription = null;
+            this.pOST前缀POSTToolStripMenuItem.AccessibleName = null;
+            resources.ApplyResources(this.pOST前缀POSTToolStripMenuItem, "pOST前缀POSTToolStripMenuItem");
+            this.pOST前缀POSTToolStripMenuItem.BackgroundImage = null;
             this.pOST前缀POSTToolStripMenuItem.Name = "pOST前缀POSTToolStripMenuItem";
-            this.pOST前缀POSTToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.pOST前缀POSTToolStripMenuItem.Text = "POST前缀<POST>";
+            this.pOST前缀POSTToolStripMenuItem.ShortcutKeyDisplayString = null;
             // 
             // pOST后缀ToolStripMenuItem
             // 
+            this.pOST后缀ToolStripMenuItem.AccessibleDescription = null;
+            this.pOST后缀ToolStripMenuItem.AccessibleName = null;
+            resources.ApplyResources(this.pOST后缀ToolStripMenuItem, "pOST后缀ToolStripMenuItem");
+            this.pOST后缀ToolStripMenuItem.BackgroundImage = null;
             this.pOST后缀ToolStripMenuItem.Name = "pOST后缀ToolStripMenuItem";
-            this.pOST后缀ToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.pOST后缀ToolStripMenuItem.Text = "POST后缀</POST>";
+            this.pOST后缀ToolStripMenuItem.ShortcutKeyDisplayString = null;
             // 
             // rmenuGetPostData
             // 
+            this.rmenuGetPostData.AccessibleDescription = null;
+            this.rmenuGetPostData.AccessibleName = null;
+            resources.ApplyResources(this.rmenuGetPostData, "rmenuGetPostData");
+            this.rmenuGetPostData.BackgroundImage = null;
             this.rmenuGetPostData.Name = "rmenuGetPostData";
-            this.rmenuGetPostData.Size = new System.Drawing.Size(209, 22);
-            this.rmenuGetPostData.Text = "手工捕获POST数据";
+            this.rmenuGetPostData.ShortcutKeyDisplayString = null;
             // 
             // toolStripSeparator4
             // 
+            this.toolStripSeparator4.AccessibleDescription = null;
+            this.toolStripSeparator4.AccessibleName = null;
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(206, 6);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
+            this.label1.AccessibleDescription = null;
+            this.label1.AccessibleName = null;
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Font = null;
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(15, 239);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(607, 13);
-            this.label1.TabIndex = 68;
-            this.label1.Text = "多层导航只采集最后一层网址的数据，同时需要了解，导航层级越多，系统解析的时间就越长网址数量也就越多。";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // nRuleLevel
+            // 
+            resources.ApplyResources(this.nRuleLevel, "nRuleLevel");
+            this.nRuleLevel.Name = "nRuleLevel";
+            // 
+            // nRule
+            // 
+            resources.ApplyResources(this.nRule, "nRule");
+            this.nRule.Name = "nRule";
             // 
             // frmAddGatherUrl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AccessibleDescription = null;
+            this.AccessibleName = null;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 316);
-            this.Controls.Add(this.button5);
+            this.BackgroundImage = null;
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label47);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.groupBox14);
             this.Controls.Add(this.IsNavigPage);
@@ -410,14 +455,14 @@
             this.Controls.Add(this.IsAutoNextPage);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label9);
+            this.Controls.Add(this.label47);
+            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAddGatherUrl";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "添加需要采集的网址信息";
             this.Load += new System.EventHandler(this.frmAddGatherUrl_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmAddGatherUrl_FormClosed);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataNRule)).EndInit();
@@ -432,7 +477,6 @@
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.DataGridView dataNRule;
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.Button cmdDelNRule;
         private System.Windows.Forms.Button cmdAddNRule;
@@ -462,5 +506,10 @@
         private System.Windows.Forms.ToolStripMenuItem rmenuGetPostData;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataNRule;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nRuleLevel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nRule;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }

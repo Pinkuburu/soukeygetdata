@@ -336,7 +336,7 @@ namespace SoukeyNetget
             m_GatherControl.Start(t);
            
             //任务启动成功显示消息
-            InvokeMethod(this, "ShowInfo", new object[] { rm.GetString ("TaskStarted"), TaskName });
+            InvokeMethod(this, "ShowInfo", new object[] {TaskName ,rm.GetString ("TaskStarted")  });
 
             t = null;
         }
@@ -462,7 +462,7 @@ namespace SoukeyNetget
 
            
             //任务启动成功显示消息
-            ShowInfo(rm.GetString("TaskStarted"), TaskName);
+            ShowInfo(TaskName,rm.GetString("TaskStarted"));
 
             t = null;
         }
@@ -1044,6 +1044,8 @@ namespace SoukeyNetget
                                   
             }
 
+            this.dataTask.Sort(this.dataTask.Columns[4], ListSortDirection.Ascending);
+
             this.dataTask.ClearSelection();
 
         }
@@ -1064,6 +1066,8 @@ namespace SoukeyNetget
                                    t.GetUrlCount(i), cGlobalParas.ConvertName((int)t.GetTaskRunType(i)),
                                    cGlobalParas.ConvertName((int)t.GetPublishType(i)) );
             }
+
+            this.dataTask.Sort(this.dataTask.Columns[4], ListSortDirection.Ascending);
 
             this.dataTask.ClearSelection();
 
@@ -1141,6 +1145,8 @@ namespace SoukeyNetget
 
                 }
             }
+
+            this.dataTask.Sort(this.dataTask.Columns[4], ListSortDirection.Ascending);
 
             this.dataTask.ClearSelection();
 
@@ -1222,7 +1228,7 @@ namespace SoukeyNetget
                         runPlan += " " + p.Plans[i].RunWeeklyTime ;
                         break;
                     case (int)cGlobalParas.RunTaskPlanType.Custom :
-                        runPlan = rm.GetString ("Info15") + p.Plans[i].FirstRunTime + " " + rm.GetString ("Info16") + p.Plans[i].RunInterval ;
+                        runPlan = rm.GetString ("Info15") + " " + p.Plans[i].FirstRunTime + " " + rm.GetString ("Info16") + " " + p.Plans[i].RunInterval ;
 
                         break;
                 }
@@ -1258,6 +1264,8 @@ namespace SoukeyNetget
             }
 
             p = null;
+
+            this.dataTask.Sort(this.dataTask.Columns[4], ListSortDirection.Ascending);
 
             this.dataTask.ClearSelection();
 
@@ -1335,6 +1343,9 @@ namespace SoukeyNetget
             }
             xmlTasks = null;
 
+
+            this.dataTask.Sort(this.dataTask.Columns[4], ListSortDirection.Ascending);
+
             this.dataTask.ClearSelection();
 
         }
@@ -1405,12 +1416,14 @@ namespace SoukeyNetget
             for (int i = 0; i < Count; i++)
             {
                 dataTask.Rows.Add(imageList1.Images["log"], rLog.GetPlanID(i), cGlobalParas.ConvertID ( rLog.GetLogType(i)), this.treeMenu.SelectedNode.Name,
-                        rLog.GetTaskType (i), rLog.GetPlanName (i),
+                        rLog.GetPlanName (i),rLog.GetTaskType (i), 
                         rLog.GetFileName (i),
                        rLog.GetFilePara (i),rLog.GetRunTime (i));
             }
 
             rLog = null;
+
+            this.dataTask.Sort(this.dataTask.Columns[4], ListSortDirection.Ascending);
 
             this.dataTask.ClearSelection();
         }
@@ -1745,7 +1758,7 @@ namespace SoukeyNetget
             try
             {
                 cGatherTask t = (cGatherTask)sender;
-                InvokeMethod(this, "ShowInfo", new object[] { rm.GetString("TaskGCompleted"), e.TaskName });
+                InvokeMethod(this, "ShowInfo", new object[] { e.TaskName,  rm.GetString("TaskGCompleted")});
 
                 //任务完成后，无论是否发布都调用此方法，因为要进行临时数据保存
                 InvokeMethod(this, "UpdateTaskPublish", new object[] { e.TaskID, t.TaskData.IsDelRepRow });
@@ -2032,7 +2045,7 @@ namespace SoukeyNetget
         {
             try
             {
-                InvokeMethod(this, "ShowInfo", new object[] {rm.GetString ( "TaskGFailed"), e.TaskName });
+                InvokeMethod(this, "ShowInfo", new object[] { e.TaskName ,rm.GetString ( "TaskGFailed")});
 
                 InvokeMethod(this, "SaveGatherTempData", new object[] { e.TaskID });
 
@@ -2375,7 +2388,7 @@ namespace SoukeyNetget
                 m_GatherControl.Stop(t);
 
                 //任务启动成功显示消息
-                ShowInfo(rm.GetString ( "TaskStoped"), t.TaskName);
+                ShowInfo(t.TaskName,rm.GetString ( "TaskStoped"));
 
             }
         }
@@ -2865,18 +2878,16 @@ namespace SoukeyNetget
             this.dataTask.Columns.Insert(3, tTreeNode);
 
             #endregion
+            
+            DataGridViewTextBoxColumn pName = new DataGridViewTextBoxColumn();
+            pName.Name = rm.GetString("GridPlanName");
+            pName.Width = 220;
+            this.dataTask.Columns.Insert(4, pName);
 
             DataGridViewTextBoxColumn pType = new DataGridViewTextBoxColumn();
             pType.HeaderText = rm.GetString("GridTaskType");
             pType.Width = 150;
-            this.dataTask.Columns.Insert(4, pType);
-
-
-            DataGridViewTextBoxColumn pName = new DataGridViewTextBoxColumn();
-            pName.Name = rm.GetString("GridPlanName");
-            pName.Width = 220;
-            this.dataTask.Columns.Insert(5, pName);
-
+            this.dataTask.Columns.Insert(5, pType);
 
             DataGridViewTextBoxColumn tName = new DataGridViewTextBoxColumn();
             tName.Name = rm.GetString("GridTaskName");
@@ -2913,6 +2924,7 @@ namespace SoukeyNetget
         {
             if (this.dataTask.SelectedRows.Count == 0)
             {
+                ResetToolState();
                 return;
             }
 
@@ -3060,6 +3072,34 @@ namespace SoukeyNetget
             catch (System.Exception  )
             {
 
+            }
+        }
+
+        private void ResetToolState()
+        {
+            //如果grid为空，则置按钮为原始状态
+            this.toolStartTask.Enabled = false;
+            this.toolStopTask.Enabled = false;
+            this.toolRestartTask.Enabled = false;
+            this.toolBrowserData.Enabled = false;
+            this.toolExportData.Enabled = false;
+            this.toolDelTask.Enabled = false;
+            this.toolCopyTask.Enabled = false;
+
+            if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass")
+            {
+                if (!IsClipboardSoukeyData())
+                {
+                    this.toolPasteTask.Enabled = false;
+                }
+                else
+                {
+                    this.toolPasteTask.Enabled = true;
+                }
+            }
+            else
+            {
+                this.toolPasteTask.Enabled = false;
             }
         }
 
@@ -3765,7 +3805,7 @@ namespace SoukeyNetget
             Thread t = new Thread(new ThreadStart(eExcel.RunProcess));
             t.IsBackground = true;
             t.Start();
-            ShowInfo(rm.GetString("Info37"), rm.GetString("Info38"));
+            ShowInfo( rm.GetString("Info38"),rm.GetString("Info37"));
 
             tName = null;
         }
@@ -3782,7 +3822,7 @@ namespace SoukeyNetget
 
             if (done)
             {
-                ShowInfo(rm.GetString("Info37"), rm.GetString("Info39"));
+                ShowInfo(rm.GetString("Info39"),rm.GetString("Info37"));
                 this.ExportProbar.Visible = false;
                 this.PrograBarTxt.Visible = false;
             }
@@ -3989,11 +4029,8 @@ namespace SoukeyNetget
         private void dataTask_Enter(object sender, EventArgs e)
         {
             DelName = this.dataTask.Name;
-            if (IsClipboardSoukeyData())
-                this.toolPasteTask.Enabled = true;
-            else
-                this.toolPasteTask.Enabled = false;
 
+            ResetToolState();
         }
 
         private void rmmenuRestartTask_Click(object sender, EventArgs e)
@@ -4032,31 +4069,31 @@ namespace SoukeyNetget
             switch (tState)
             {
                 case cGlobalParas.TaskState .UnStart :
-                    this.StateInfo.Text = "Label7";
+                    this.StateInfo.Text = rm.GetString ("Label7");
                     break;
                 case cGlobalParas.TaskState .Stopped :
-                    this.StateInfo.Text = "Label8";
+                    this.StateInfo.Text = rm.GetString ("Label8");
                     break;
                 case cGlobalParas.TaskState.Completed :
-                    this.StateInfo.Text = "Label9";
+                    this.StateInfo.Text = rm.GetString ("Label9");
                     break;
                 case cGlobalParas.TaskState.Failed :
-                    this.StateInfo.Text = "Label10";
+                    this.StateInfo.Text = rm.GetString ("Label10");
                     break;
                 case cGlobalParas.TaskState.Pause :
-                    this.StateInfo.Text = "Label11";
+                    this.StateInfo.Text = rm.GetString ("Label11");
                     break;
                 case cGlobalParas.TaskState.Running :
-                    this.StateInfo.Text = "Label12";
+                    this.StateInfo.Text = rm.GetString ("Label12");
                     break;
                 case cGlobalParas.TaskState.Started :
-                    this.StateInfo.Text = "Label13";
+                    this.StateInfo.Text = rm.GetString ("Label13");
                     break;
                 case cGlobalParas.TaskState.Waiting :
-                    this.StateInfo.Text = "Label14";
+                    this.StateInfo.Text = rm.GetString ("Label14");
                     break;
                 case cGlobalParas.TaskState.Publishing :
-                    this.StateInfo.Text = "Label15";
+                    this.StateInfo.Text = rm.GetString ("Label15");
                     break;
                 default:
                     break;
@@ -4099,7 +4136,7 @@ namespace SoukeyNetget
         #region 发布任务的事件处理
         private void Publish_Complete(object sender, PublishCompletedEventArgs e)
         {
-            InvokeMethod(this, "ShowInfo", new object[] { rm.GetString("TaskPulished"), e.TaskName });
+            InvokeMethod(this, "ShowInfo", new object[] { e.TaskName, rm.GetString("TaskPulished")});
 
             InvokeMethod(this, "UpdateTaskPublished", new object[] { e.TaskID ,cGlobalParas.GatherResult.PublishSuccees});
 
@@ -4118,7 +4155,7 @@ namespace SoukeyNetget
         {
             InvokeMethod(this, "UpdateTaskPublished", new object[] { e.TaskID ,cGlobalParas.GatherResult.PublishFailed });
 
-            InvokeMethod(this, "ShowInfo", new object[] { rm.GetString("TaskPublishFailed"), e.TaskName});
+            InvokeMethod(this, "ShowInfo", new object[] {e.TaskName, rm.GetString("TaskPublishFailed")});
 
             InvokeMethod(this, "UpdateStatebarTask", null);
 
@@ -4128,7 +4165,7 @@ namespace SoukeyNetget
         {
             InvokeMethod(this, "UpdateTaskPublished", new object[] { e.TaskID ,cGlobalParas.GatherResult.PublishFailed });
 
-            InvokeMethod(this, "ShowInfo", new object[] { rm.GetString("TaskPublishFailed"), e.TaskName });
+            InvokeMethod(this, "ShowInfo", new object[] { e.TaskName, rm.GetString("TaskPublishFailed")});
 
             InvokeMethod(this, "UpdateStatebarTask", null);
         }
@@ -5011,12 +5048,9 @@ namespace SoukeyNetget
             fWait.Text = rm.GetString ("Info62");
             fWait.labTxt.Text = rm.GetString("Info62");
 
-            //Form   fWait   =   new   Form(); 
-            //fWait.StartPosition   =   FormStartPosition.Manual; 
-            //fWait.Location   =   this.button1.Location; 
             fWait.Show(this); 
             //刷新这个等待的窗口 
-            //Application.DoEvents(); 
+            Application.DoEvents(); 
 
             //循环检测是否完成了异步的操作 
             while   (true) 
@@ -5167,9 +5201,13 @@ namespace SoukeyNetget
 
                 //定义一个修改分类名称的委托
                 delegateRenameTaskName sd = new delegateRenameTaskName(this.RenameTaskName);
+                IAsyncResult ir;
 
                 //开始调用函数,可以带参数 
-                IAsyncResult ir = sd.BeginInvoke(this.treeMenu.SelectedNode.Text, OldName, this.dataTask.CurrentCell.Value.ToString(), null, null);
+                if (this.treeMenu.SelectedNode.Name == "nodTaskClass")
+                    ir = sd.BeginInvoke("", OldName, this.dataTask.CurrentCell.Value.ToString(), null, null);
+                else
+                    ir = sd.BeginInvoke(this.treeMenu.SelectedNode.Text, OldName, this.dataTask.CurrentCell.Value.ToString(), null, null);
                
                 //显示等待的窗口 
                 frmWaiting fWait = new frmWaiting();
@@ -5178,7 +5216,7 @@ namespace SoukeyNetget
 
                 fWait.Show(this);
                 //刷新这个等待的窗口 
-                //Application.DoEvents();
+                Application.DoEvents();
 
                 //循环检测是否完成了异步的操作 
                 while (true)
@@ -5431,6 +5469,39 @@ namespace SoukeyNetget
             this.toolmenuCHS.Checked = true;
 
             MessageBox.Show(rm.GetString("Info113"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void dataTask_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (this.dataTask.CurrentCell.ColumnIndex == 0)
+            {
+
+                if (e.Control is TextBox)
+                {
+
+                    TextBox tb = e.Control as TextBox;
+
+                    tb.KeyPress -= new KeyPressEventHandler(tb_KeyPress);
+
+                    tb.KeyPress += new KeyPressEventHandler(tb_KeyPress);
+
+                }
+
+            }
+        }
+
+        void tb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsDigit(e.KeyChar)))
+            {
+
+                Keys key = (Keys)e.KeyChar;
+
+                if (!(key == Keys.Back || key == Keys.Delete))
+                {
+                    e.Handled = true;
+                }
+            }
         }
 
     }

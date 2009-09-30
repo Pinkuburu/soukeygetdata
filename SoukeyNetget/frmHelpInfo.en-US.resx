@@ -117,148 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 209</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>516, 26</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>"Output Limit：" can improve the accuracy and validity of data collection, but it can also reduce the acquisition performance.</value>
-  </data>
-  <data name="label37.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label37.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 13</value>
-  </data>
-  <data name="label37.Text" xml:space="preserve">
-    <value>Condition：</value>
-  </data>
-  <data name="label36.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label36.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 189</value>
-  </data>
-  <data name="label36.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 13</value>
-  </data>
-  <data name="label36.Text" xml:space="preserve">
-    <value>Output Limit：</value>
-  </data>
-  <data name="label35.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label35.Location" type="System.Drawing.Point, System.Drawing">
-    <value>293, 157</value>
-  </data>
-  <data name="label35.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 13</value>
-  </data>
-  <data name="label35.Text" xml:space="preserve">
-    <value>Regex：</value>
-  </data>
-  <data name="label28.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label28.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 40</value>
-  </data>
-  <data name="label28.Size" type="System.Drawing.Size, System.Drawing">
-    <value>358, 27</value>
-  </data>
-  <data name="label28.Text" xml:space="preserve">
-    <value>Collecting non-text data type, the system will be a file download, download the file stored in your designated "data storage address"</value>
-  </data>
-  <data name="label32.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label32.Location" type="System.Drawing.Point, System.Drawing">
-    <value>297, 15</value>
-  </data>
-  <data name="label32.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 13</value>
-  </data>
-  <data name="label32.Text" xml:space="preserve">
-    <value>Data Type：</value>
-  </data>
-  <data name="label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 157</value>
-  </data>
-  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 13</value>
-  </data>
-  <data name="label19.Text" xml:space="preserve">
-    <value>Limit Condition：</value>
-  </data>
-  <data name="label16.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 13</value>
-  </data>
-  <data name="label16.Text" xml:space="preserve">
-    <value>Start Flag：</value>
-  </data>
-  <data name="label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label17.Text" xml:space="preserve">
-    <value>End Flag：</value>
-  </data>
-  <data name="label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 15</value>
-  </data>
-  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 13</value>
-  </data>
-  <data name="label18.Text" xml:space="preserve">
-    <value>Name：</value>
-  </data>
-  <data name="button5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        R0lGODlhDAANAIU+AEp/4WCQ4JCw8HCg8EBw0KrC8mCQ8EB44GmW8KvA8VCA8HCY8J688o6y8UBgsFl/
-        0rfL85Co8GKCyr7Q9MfT57jH8aW78L3O7p258bnF4bLE6K7D5qG22cLM3qrH8eTq8NDZ9FCA4G5/sGGG
-        wlqH4TBw4KXB8zthpUBgoICo8Ju34ztptFB40DBYsNLh9rbO8nCY4EBosNvj983X8VaAuDBQkLDK8TBg
-        sLTD8LzQ9EBwwOnw+FCI8EBowP///wAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAA+ACwAAAAADAAN
-        AAAIegB9CBTookCCFyAGDiwgAEODBglw+IiwwwcEAQgIxFgBwEKFFDZyCAigo8cIGih4eICxYAACBw44
-        +PhwAgCDAAoMDBBBYWAPmyFKKFgQQIZPEiYOEOhxo0UNnzwuKFTY4YCBqQol8NiAVaAGHg+6+pjBg0UG
-        sRNUKAwIADs=
+        R0lGODlhIAAgAIf9AO3t7Y+Ojqqpqevr6xI7mxQ+oSlLntjX19nZ2cDAwA41kMfGxh5CmDFSpL+/v7Cw
+        sBdApNPT0ytQpm9ubh1AlZWVlZCPj3x7ezpWxaGhofv7+7i3t9ra2jdWq39+fjZdwUVv3zhUyT1bsOnp
+        6Rg9kyJGmixPoD5n0EZu2T5awQ82lzNPzTxkyjNZtztjySxRrWR1oTFWtT1ZxD1mzThgwxM4kD9o1CBE
+        mRE4ljNTpPr5/CdQtD9cu7a1utHR0eHh4TZSyz9ctczN0kJt30RXkzNaujRcvjRbuTdizSpSsiBIrOnp
+        60Jr1y5K0DpYsSpUujpZqz1atihFis/Oz7K2xK60xNTT1bjF6zFRoMTGzF6B2cLCxVRml1pmgz9p2NXU
+        1UBdpD5csTVUrkNt2ShPrR5CnDdWp26R7UFq2SBDlj5buwgxjdrZ2ktnqT9cuC1Utf/+/t7e3i1UsCVM
+        rTthxSRHmV1yo6iqsIWLmerr8jpOfU9god3a2UBr30BcwP7++sC/xHKQ3oaTuVN75aK15jRSusXExzNc
+        vMfJ0dPQ0TdfxThZrmZzljRMurS2vzBYwLKxtzNcwaGmur/AwUx25UhmuXWCo3aIuDhk1KOrxDNRroqa
+        xTZOr0hbirm4uUdan76+xL7CzpihuRxFpMC8vj1n1WqN6HqOwS1Kklh0ufv8/4SZzjVcu0RpxxU8lJqp
+        zl91rff3+XN7jnqHqDxZvvLx9ENVfQw3ocrKyiRKoHmQzxlBnXCFuHKCtn6GpDlWrJKn4a7B8itFybHD
+        8TReyjZPjuvx/8LJ2k513Upimw44nb/I33+Kox9HpdDS2DtkzW51ho6UpVZ83cPDwzBaxrfA2oB/f9HQ
+        1lptoLq6v9jY3p2jtIGe77G1v4WStc/R1zZgxzdj0VNotjhStHiJvjVPk6q42dTa7efq+Hqa7e/u766x
+        uj9cvjhl1qCipm+Dvztn2GB3svLz+Jut34qYvztZu1N1zLvC1Rk/mT1XnTJSq+3s7////////wAAAAAA
+        ACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAD9ACwAAAAAIAAgAAAI/wD7CRxIcMQCAQEuTJhwIYCABSMI
+        Spw4EIEADxkScACgQQMADgkyeBCAgCLFAQ8COBjAYVKVV6fIbcrkiM0ABwEeDDA58ECFDQBwhZpnilKf
+        IX3gYTphj14WABsqHODpw0KEOFkInaEEAgSKMUxsnJiBhBodQXEiWPBB8YCFH1OWcRs0xCuaUpiQIHHB
+        wgWNSE9SLfhhYSrBARUiTLlyBkRdL+1QaAkUSEurR5E+HCqyI0yWCBV2DnywIU61M3VReJEWzBi/16rQ
+        EWr1pkiMGHPAcNjwoGIAAOvSgRiDgkm4Ya+T84Pz51ylJHLkvGgGA0CAkv0EOJgGbBAasDaQXP9RDjsW
+        HHNzXryQIKFMNwcC+o3wMGCbKS9oxM4gduXPsU2nvCIPHDrokAcU67GXCxcDeGBQBgesgkwp+rGgiC68
+        vLDDDkqsokGBsbTBngQmmFCHEBkclMAdWlToAh00PPLEIUe0sEMqS+xTSx5Y7FJGGQzcQAIzCSDEQTQo
+        PDMDCzB+8AErNb4xRwGXJKKNOveQgA8DXFJAQSdsJASAJSe44BcNHxjBSgtJKAHBLW30AMg1ANhRA5dc
+        pnGDFAAopAEMFjppRI1tQlBAAbBAAkk2X3hDwg0lRCopKhospAMj4KRZxBFvuHmoMrCQ0kMPW8BAggGo
+        pooqpQwBwIgRRbT/EEMSoxhaAAGjUGEIIKBwQYEJDWDRwLDEltNnAGzg8cRtZNhKAAEqgCGEEFbMQkEO
+        OZhhRgfccisGERw4lIA7i8jR7KHPQtvGFIl8gY0JZkABhQj0iuCEE2JYUuQCGXyRTLPpEoCDKySYYAcM
+        MOTTAb1hBOFwFBBrEkqK8w0gCwTP4oCDCjU8Cumw+ogQhBtu8MCDGijX88kS1kSknSdSqLCxAgrgQAED
+        YIjiCBXvOFEyO36kIHQKhUhSpEAI/AbNGirQrIArFNQhSgI9kIJIJbQILYMMGHS9h3XY9UMaArasQXPH
+        aZhQhSGgbGGFOBhwHcLcIXDyjSe9DYRYBJPolGF2DVEbcIkVB/CRyTgYhAAEECus0AgVoInW01sO6KFA
+        DWkYgEUO8QjSyy+JM95EE5xUQZhhElUVAQJdSEGBATl0IIYmhXAtujB7OKMWWyb5BNQdXRSTwyJh8OCH
+        DCE4/okkUEnFk0AoqbSEEHh00QkR2HPhCyI35ST58/1YhNEWfHDkEUgikQS+SQcltFBDD0XEU0AAOw==
 </value>
   </data>
-  <data name="button5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>388, 24</value>
   </data>
-  <data name="button5.Text" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="labTitle.Text" xml:space="preserve">
+    <value>SoukeyExtractor first time you run Notes:</value>
   </data>
   <data name="button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        R0lGODlhDQAOAIEBAACAAP///wAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAABACwAAAAADQAO
-        AAAILQADCBxIsKDBgwgDAACQcCFDhAsJRhToUOLEihYdTsyI0aDGhh0PbmyYsOTAgAA7
+        R0lGODlhEAAQAIZpAG+0/1WPtFqb7xddsmmJuhRfslaY7nC0/02HtzyJ4VKP0nKy/F2Lx1iX3mKm8Tlw
+        pk6AtTiG20Jtoomp0EV5qUuCuDF5wVR9qVR2piRWmy1Ui1KU4hNWrUWDwDdvojl9vjZnrHuv32qp7FuN
+        wEuKzTyD02KZwGORxR1juRNhtFSEtWaO0yJ0xmap92uf226n6l6Gt2Gc1Hid1FCGxFOOtm+o1Rdfs2Gk
+        83qo2Vyb4jeG4ix5yUKD0zFlsSRruUmB1kKO5iZnwYOo1Gedy3+u5BtUpThhoXubwWqt8y+A0WOl71yT
+        5WCQ2Fae8FmBx3eh00Bfixluv22PzF+j7leT2U58rkBkelF1qUh/z5qux0pxsjFgilCO4R9ruW+y/0F4
+        uCFitDt+wkh6vzhkh3aWvR1Zoj95p2SDryRwu////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQB
+        AABpACwAAAAAEAAQAAAIoADTCBxIsKDBgwW9tADgYAERhAJvTEEi4sUTgVkOHlASIwSOCQKPCDFooEGN
+        gidcyCgogIqJgjk2MJFCkIuCAGmGjIDBoAmQJSsIDORBgkYaBBWqzIig44cTDGQElghjJg0FFRcg7EiA
+        RcuZgUksPCj4wYeYKwSjoPlS0EMHCQVZdCkDwggUgWO2GExRAEyRHhoEWjloYwAKDkEyQFxsMCAAOw==
 </value>
   </data>
-  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="button1.Text" xml:space="preserve">
-    <value>OK   </value>
+    <value>Close</value>
+  </data>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>1, if you are the first use of Soukey picking, then this section will not be much help to you, if you encounter problems please contact "a larvae" option.
+2, if you previously used Soukey picking, and this time for an upgrade operation, then be sure to check the "Tools" - "" task upgrade "to upgrade the original tasks, otherwise the task will not be able to open and run, at the same time for the Operating Area the existing task instance, also need to delete, until the task upgrade is complete, the task can be run again.
+3, Soukey picking over the original version of the 1.6 version of the new features as follows:
+      1) Regular tasks: automatically according to user needs collection tasks;
+      2) The task of the trigger: can be collected according to user needs in the mission after the completion trigger a new procedure;
+      3) Multi-navigation: support for multi-page navigation rules;
+      4) Advanced Configuration tasks: flexible configuration tasks related to operations;</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -289,6 +212,6 @@
 </value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Add Pick Rule</value>
+    <value>SoukeyExtractor Help</value>
   </data>
 </root>

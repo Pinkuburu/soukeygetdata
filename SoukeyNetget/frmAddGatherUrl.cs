@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using SoukeyNetget.Task;
 using System.Text.RegularExpressions;
+using System.Resources;
+using System.Reflection;
 
 namespace SoukeyNetget
 {
@@ -16,6 +18,8 @@ namespace SoukeyNetget
 
         public delegate void ReturnData(ListViewItem Litem,cNavigRules nRules);
         public ReturnData rData;
+
+        private ResourceManager rm;
 
         public frmAddGatherUrl()
         {
@@ -31,7 +35,7 @@ namespace SoukeyNetget
         {
             if (this.dataNRule.Rows.Count == 0)
             {
-                MessageBox.Show("导航规则为空，无法测试！", "soukey提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString ("Error5"),rm.GetString ("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -52,7 +56,7 @@ namespace SoukeyNetget
 
             if (!Regex.IsMatch(Url, @"(http|https|ftp)+://[^\s]*"))
             {
-                MessageBox.Show("网址无法打开，可能出错，请检查网址及导航规则。", "soukey信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString ("Error6"), rm.GetString ("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -121,7 +125,7 @@ namespace SoukeyNetget
             if (this.txtNag.Text == "" || this.txtNag.Text == null)
             {
                 this.txtNag.Focus();
-                MessageBox.Show("请填写导航规则后再添加", "Soukey采摘 信息信息", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                MessageBox.Show(rm.GetString ("Info8"), rm.GetString ("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -150,16 +154,8 @@ namespace SoukeyNetget
 
         private void frmAddGatherUrl_Load(object sender, EventArgs e)
         {
-            //初始化导航规则的datagrid的表头
-            DataGridViewTextBoxColumn nRuleLevel = new DataGridViewTextBoxColumn();
-            nRuleLevel.HeaderText = "级别";
-            nRuleLevel.Width = 40;
-            this.dataNRule.Columns.Insert(0, nRuleLevel);
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
 
-            DataGridViewTextBoxColumn nRule = new DataGridViewTextBoxColumn();
-            nRule.HeaderText = "导航规则";
-            nRule.Width = 240;
-            this.dataNRule.Columns.Insert(1, nRule);
         }
 
         private void IsAutoNextPage_CheckedChanged(object sender, EventArgs e)
@@ -168,11 +164,11 @@ namespace SoukeyNetget
             {
                 this.label13.Enabled = true;
                 this.txtNextPage.Enabled = true;
-                this.txtNextPage.Text = "下一页";
+                this.txtNextPage.Text = rm.GetString ("NextPage");
             }
             else
             {
-                if (this.txtNextPage.Text == "下一页")
+                if (this.txtNextPage.Text == rm.GetString("NextPage"))
                 {
                     this.txtNextPage.Text = "";
                 }
@@ -200,7 +196,7 @@ namespace SoukeyNetget
 
         private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (e.ClickedItem.Text == "手工捕获POST数据")
+            if (e.ClickedItem.Name == "rmenuGetPostData")
             {
                 frmWeblink wftm = new frmWeblink();
                 wftm.getFlag = 1;
@@ -241,15 +237,15 @@ namespace SoukeyNetget
         {
             this.contextMenuStrip1.Items.Clear();
 
-            this.contextMenuStrip1.Items.Add("递增变量{Num:1,100,1}");
-            this.contextMenuStrip1.Items.Add("递减变量{Num:100,1,-1}");
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString("rmenu1") + "{Num:1,100,1}", null, null, "rmenuAddNum"));
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString("rmenu2") + "{Num:100,1,-1}", null, null, "rmenuDegreNum"));
             this.contextMenuStrip1.Items.Add(new ToolStripSeparator());
-            this.contextMenuStrip1.Items.Add("字母递增{Letter:a,z}");
-            this.contextMenuStrip1.Items.Add("字母递减{Letter:z,a}");
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString("rmenu3") + "{Letter:a,z}", null, null, "rmenuAddLetter"));
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString("rmenu4") + "{Letter:z,a}", null, null, "rmenuDegreLetter"));
             this.contextMenuStrip1.Items.Add(new ToolStripSeparator());
-            this.contextMenuStrip1.Items.Add("POST前缀<POST>");
-            this.contextMenuStrip1.Items.Add("POST后缀</POST>");
-            this.contextMenuStrip1.Items.Add("手工捕获POST数据");
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString("rmenu5") + "<POST>", null, null, "rmenuPostPrefix"));
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString("rmenu6") + "</POST>", null, null, "rmenuPostSuffix"));
+            this.contextMenuStrip1.Items.Add(new ToolStripMenuItem(rm.GetString("rmenu7"), null, null, "rmenuGetPostData"));
             this.contextMenuStrip1.Items.Add(new ToolStripSeparator());
 
             //初始化字典菜单的项目
@@ -259,8 +255,9 @@ namespace SoukeyNetget
 
             for (int i = 0; i < count; i++)
             {
-                this.contextMenuStrip1.Items.Add("字典:{Dict:" + d.GetDictClassName(i).ToString() + "}");
+                this.contextMenuStrip1.Items.Add(rm.GetString("rmenu8") + ":{Dict:" + d.GetDictClassName(i).ToString() + "}");
             }
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -275,7 +272,7 @@ namespace SoukeyNetget
 
             if (this.txtWebLink.Text.ToString() == null || this.txtWebLink.Text.Trim().ToString() == "" || this.txtWebLink.Text.Trim().ToString() == "http://")
             {
-                MessageBox.Show("请输入网址信息", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString ("Error1"), rm.GetString ("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.txtWebLink.Focus();
                 return;
             }
@@ -283,7 +280,7 @@ namespace SoukeyNetget
             {
                 if (!Regex.IsMatch(this.txtWebLink.Text.Trim().ToString(), "http://", RegexOptions.IgnoreCase))
                 {
-                    MessageBox.Show("您输入的网址不合法，请检查", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(rm.GetString("Error2"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.txtWebLink.Focus();
                     return;
                 }
@@ -339,6 +336,11 @@ namespace SoukeyNetget
 
             this.Close();
 
+        }
+
+        private void frmAddGatherUrl_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
     }
 }

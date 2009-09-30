@@ -35,7 +35,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.txtPlanState = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -51,6 +50,7 @@
             this.cboxIsRun = new System.Windows.Forms.CheckBox();
             this.txtPlanDemo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmdDelTask = new System.Windows.Forms.Button();
@@ -205,18 +205,6 @@
             this.errorProvider1.SetIconPadding(this.groupBox3, ((int)(resources.GetObject("groupBox3.IconPadding"))));
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
-            // 
-            // label15
-            // 
-            this.label15.AccessibleDescription = null;
-            this.label15.AccessibleName = null;
-            resources.ApplyResources(this.label15, "label15");
-            this.errorProvider1.SetError(this.label15, resources.GetString("label15.Error"));
-            this.label15.Font = null;
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.errorProvider1.SetIconAlignment(this.label15, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label15.IconAlignment"))));
-            this.errorProvider1.SetIconPadding(this.label15, ((int)(resources.GetObject("label15.IconPadding"))));
-            this.label15.Name = "label15";
             // 
             // txtPlanState
             // 
@@ -430,6 +418,18 @@
             this.errorProvider1.SetIconPadding(this.label2, ((int)(resources.GetObject("label2.IconPadding"))));
             this.label2.Name = "label2";
             // 
+            // label15
+            // 
+            this.label15.AccessibleDescription = null;
+            this.label15.AccessibleName = null;
+            resources.ApplyResources(this.label15, "label15");
+            this.errorProvider1.SetError(this.label15, resources.GetString("label15.Error"));
+            this.label15.Font = null;
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.errorProvider1.SetIconAlignment(this.label15, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label15.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label15, ((int)(resources.GetObject("label15.IconPadding"))));
+            this.label15.Name = "label15";
+            // 
             // tabPage1
             // 
             this.tabPage1.AccessibleDescription = null;
@@ -561,10 +561,10 @@
             this.groupBox7.Controls.Add(this.groupBox6);
             this.groupBox7.Controls.Add(this.raDay);
             this.groupBox7.Controls.Add(this.raWeekly);
+            this.groupBox7.Controls.Add(this.PanelDay);
             this.groupBox7.Controls.Add(this.PanelOne);
             this.groupBox7.Controls.Add(this.panelCustom);
             this.groupBox7.Controls.Add(this.PanelWeekly);
-            this.groupBox7.Controls.Add(this.PanelDay);
             this.errorProvider1.SetError(this.groupBox7, resources.GetString("groupBox7.Error"));
             this.groupBox7.Font = null;
             this.errorProvider1.SetIconAlignment(this.groupBox7, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("groupBox7.IconAlignment"))));

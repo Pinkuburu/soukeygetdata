@@ -172,11 +172,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.IsIncludeHeader = new System.Windows.Forms.CheckBox();
-            this.label23 = new System.Windows.Forms.Label();
             this.txtFileName = new System.Windows.Forms.TextBox();
             this.cmdBrowser = new System.Windows.Forms.Button();
             this.raExportExcel = new System.Windows.Forms.RadioButton();
             this.raExportTxt = new System.Windows.Forms.RadioButton();
+            this.label23 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -229,6 +229,8 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -799,9 +801,11 @@
             this.dataNRule.AccessibleDescription = null;
             this.dataNRule.AccessibleName = null;
             this.dataNRule.AllowUserToAddRows = false;
+            this.dataNRule.AllowUserToResizeRows = false;
             resources.ApplyResources(this.dataNRule, "dataNRule");
             this.dataNRule.BackgroundColor = System.Drawing.Color.White;
             this.dataNRule.BackgroundImage = null;
+            this.dataNRule.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataNRule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataNRule.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nRuleLevel,
@@ -810,8 +814,11 @@
             this.dataNRule.Font = null;
             this.errorProvider1.SetIconAlignment(this.dataNRule, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("dataNRule.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.dataNRule, ((int)(resources.GetObject("dataNRule.IconPadding"))));
+            this.dataNRule.MultiSelect = false;
             this.dataNRule.Name = "dataNRule";
             this.dataNRule.RowHeadersVisible = false;
+            this.dataNRule.RowTemplate.Height = 20;
+            this.dataNRule.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
             // nRuleLevel
             // 
@@ -2124,17 +2131,6 @@
             this.IsIncludeHeader.Name = "IsIncludeHeader";
             this.IsIncludeHeader.UseVisualStyleBackColor = true;
             // 
-            // label23
-            // 
-            this.label23.AccessibleDescription = null;
-            this.label23.AccessibleName = null;
-            resources.ApplyResources(this.label23, "label23");
-            this.errorProvider1.SetError(this.label23, resources.GetString("label23.Error"));
-            this.label23.Font = null;
-            this.errorProvider1.SetIconAlignment(this.label23, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label23.IconAlignment"))));
-            this.errorProvider1.SetIconPadding(this.label23, ((int)(resources.GetObject("label23.IconPadding"))));
-            this.label23.Name = "label23";
-            // 
             // txtFileName
             // 
             this.txtFileName.AccessibleDescription = null;
@@ -2192,6 +2188,17 @@
             this.raExportTxt.TabStop = true;
             this.raExportTxt.UseVisualStyleBackColor = true;
             this.raExportTxt.CheckedChanged += new System.EventHandler(this.raExportTxt_CheckedChanged);
+            // 
+            // label23
+            // 
+            this.label23.AccessibleDescription = null;
+            this.label23.AccessibleName = null;
+            resources.ApplyResources(this.label23, "label23");
+            this.errorProvider1.SetError(this.label23, resources.GetString("label23.Error"));
+            this.label23.Font = null;
+            this.errorProvider1.SetIconAlignment(this.label23, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("label23.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.label23, ((int)(resources.GetObject("label23.IconPadding"))));
+            this.label23.Name = "label23";
             // 
             // tabPage4
             // 
@@ -2840,6 +2847,16 @@
             // 
             resources.ApplyResources(this.folderBrowserDialog1, "folderBrowserDialog1");
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
             // frmTask
             // 
             this.AccessibleDescription = null;
@@ -3108,6 +3125,8 @@
         private System.Windows.Forms.DataGridView dataNRule;
         private System.Windows.Forms.DataGridViewTextBoxColumn nRuleLevel;
         private System.Windows.Forms.DataGridViewTextBoxColumn nRule;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 
 
     }

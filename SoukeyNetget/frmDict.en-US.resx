@@ -119,31 +119,43 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="menuAddDictClass.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 22</value>
+    <value>219, 22</value>
+  </data>
+  <data name="menuAddDictClass.Text" xml:space="preserve">
+    <value>Add Dictionary Category</value>
   </data>
   <data name="menuAddDict.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 22</value>
+    <value>219, 22</value>
+  </data>
+  <data name="menuAddDict.Text" xml:space="preserve">
+    <value>Add Dictionary Word</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 6</value>
+    <value>216, 6</value>
   </data>
   <data name="menuDelDictClass.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 22</value>
+    <value>219, 22</value>
+  </data>
+  <data name="menuDelDictClass.Text" xml:space="preserve">
+    <value>Delete All</value>
   </data>
   <data name="menuDelDict.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 22</value>
+    <value>219, 22</value>
+  </data>
+  <data name="menuDelDict.Text" xml:space="preserve">
+    <value>Delete Dictionary Word</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 98</value>
+    <value>220, 98</value>
   </data>
   <data name="toolAddDictClass.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 22</value>
+    <value>219, 22</value>
   </data>
   <data name="toolAddDictClass.Text" xml:space="preserve">
-    <value>Add Dictionary Class</value>
+    <value>Add Dictionary Category</value>
   </data>
   <data name="toolAddDict.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 22</value>
+    <value>219, 22</value>
   </data>
   <data name="toolAddDict.Text" xml:space="preserve">
     <value>Add Dictionary Word</value>
@@ -157,9 +169,6 @@
         7z37v/Pghf9B2U3/Q1Ja/6/Zfvj/+at3/p+/TIQXYKF98+6T/76Jtf/94ur+X7/9iLDT0aPp3KXb/wMS
         gM4GYpJsJjm+h74GAOWmioxWgeYOAAAAAElFTkSuQmCC
 </value>
-  </data>
-  <data name="toolStripButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 22</value>
   </data>
   <data name="toolStripButton1.Text" xml:space="preserve">
     <value>Add</value>
@@ -241,7 +250,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACU
-        CAAAAk1TRnQBSQFMAgEBAgEAAUABAAFAAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CAAAAk1TRnQBSQFMAgEBAgEAAUgBAAFIAQABEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA

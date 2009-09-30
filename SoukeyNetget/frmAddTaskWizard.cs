@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Reflection;
+using System.Resources;
 
 namespace SoukeyNetget
 {
@@ -19,6 +21,8 @@ namespace SoukeyNetget
         private int CurStep = 1;
 
         private Single m_SupportTaskVersion = Single.Parse("1.3");
+
+        private ResourceManager rm;
 
         //此类别可处理的任务版本号，注意从1.3开始，任务处理不再向前兼容，需升级后方可操作
         public Single SupportTaskVersion
@@ -60,36 +64,41 @@ namespace SoukeyNetget
         private void IniData()
         {
             //初始化页面加载数据
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
 
-            this.TaskType.Items.Add("根据网址采集网页数据");
-            this.TaskType.Items.Add("采集ajax网页数据");
+            //根据当前的区域进行显示信息的加载
+            ResourceManager rmPara = new ResourceManager("SoukeyNetget.Resources.globalPara", Assembly.GetExecutingAssembly());
+
+            this.TaskType.Items.Add(rmPara.GetString("TaskType1"));
+            this.TaskType.Items.Add(rmPara.GetString("TaskType4"));
             this.TaskType.SelectedIndex = 0;
 
-            this.comRunType.Items.Add("采集并发布数据");
-            this.comRunType.Items.Add("仅采集数据");
+            this.comRunType.Items.Add(rmPara.GetString("TaskRunType2"));
+            this.comRunType.Items.Add(rmPara.GetString("TaskRunType1"));
             this.comRunType.SelectedIndex = 1;
 
-            this.comWebCode.Items.Add("自动");
-            this.comWebCode.Items.Add("gb2312");
-            this.comWebCode.Items.Add("UTF-8");
-            this.comWebCode.Items.Add("gbk");
-            this.comWebCode.Items.Add("big5");
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode2"));
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode3"));
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode4"));
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode5"));
+            this.comWebCode.Items.Add(rmPara.GetString("WebCode6"));
 
-            this.comExportUrlCode.Items.Add("不编码");
-            this.comExportUrlCode.Items.Add("gb2312");
-            this.comExportUrlCode.Items.Add("UTF-8");
-            this.comExportUrlCode.Items.Add("gbk");
-            this.comExportUrlCode.Items.Add("big5");
+
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode1"));
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode3"));
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode4"));
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode5"));
+            this.comExportUrlCode.Items.Add(rmPara.GetString("WebCode6"));
             this.comExportUrlCode.SelectedIndex = 0;
 
             this.comWebCode.SelectedIndex = 0;
 
-            this.comUrlEncode.Items.Add("UTF-8");
-            this.comUrlEncode.Items.Add("gb2312");
-            this.comUrlEncode.Items.Add("gbk");
-            this.comUrlEncode.Items.Add("big5");
+            this.comUrlEncode.Items.Add(rmPara.GetString("WebCode3"));
+            this.comUrlEncode.Items.Add(rmPara.GetString("WebCode4"));
+            this.comUrlEncode.Items.Add(rmPara.GetString("WebCode5"));
+            this.comUrlEncode.Items.Add(rmPara.GetString("WebCode6"));
 
-         
+            rmPara = null;
 
             this.txtSavePath.Text = Program.getPrjPath() + "data";
 
@@ -136,18 +145,6 @@ namespace SoukeyNetget
             HelpTip.ToolTipTitle = "";
 
             SetTooltip();
-
-            //初始化导航规则的datagrid的表头
-            DataGridViewTextBoxColumn nRuleLevel = new DataGridViewTextBoxColumn();
-            nRuleLevel.HeaderText = "级别";
-            nRuleLevel.Width = 40;
-            this.dataNRule.Columns.Insert(0, nRuleLevel);
-
-            DataGridViewTextBoxColumn nRule = new DataGridViewTextBoxColumn();
-            nRule.HeaderText = "导航规则";
-            nRule.Width = 340;
-            this.dataNRule.Columns.Insert(1, nRule);
-
 
             switch (this.FormState)
             {
@@ -212,7 +209,7 @@ namespace SoukeyNetget
 
                 if (CurStep == 9)
                 {
-                    this.butNext.Text = "保  存";
+                    this.butNext.Text = rm.GetString ("Label30");
                     this.butNext.TextAlign = ContentAlignment.MiddleRight;
                     this.butNext.Image = global ::SoukeyNetget.Properties.Resources.A10;
                     this.butNext.ImageAlign = ContentAlignment.MiddleLeft;
@@ -255,7 +252,7 @@ namespace SoukeyNetget
             if (CurStep == 10)
             {
                 //表示已经配置结束，可以进行任务信息总结，并保存
-                this.butNext.Text = "下一步";
+                this.butNext.Text = rm.GetString ("Label27");
                 this.butNext.TextAlign = ContentAlignment.MiddleLeft;
                 this.butNext.Image = global ::SoukeyNetget.Properties.Resources.right;
                 this.butNext.ImageAlign = ContentAlignment.MiddleRight;
@@ -469,7 +466,7 @@ namespace SoukeyNetget
 
             for (int j = 0; j < this.listWebGetFlag.Items.Count; j++)
             {
-                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本")
+                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本" || this.listWebGetFlag.Items[j].SubItems[1].Text == "Text")
                     strColumns += this.listWebGetFlag.Items[j].Text + ",";
                 strColumnsValue += "\"{" + this.listWebGetFlag.Items[j].Text + "}\",";
 
@@ -508,7 +505,7 @@ namespace SoukeyNetget
 
             for (int j = 0; j < this.listWebGetFlag.Items.Count; j++)
             {
-                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本")
+                if (this.listWebGetFlag.Items[j].SubItems[1].Text == "文本" || this.listWebGetFlag.Items[j].SubItems[1].Text == "Text")
                     strColumnsValue += "\"{" + this.listWebGetFlag.Items[j].Text + "}\",";
 
             }
@@ -536,7 +533,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Error12") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -567,7 +564,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Error12") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -595,7 +592,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("数据库连接发生错误，错误信息：" + ex.Message, "Soukey采摘 错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString("Error12") + ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -695,14 +692,14 @@ namespace SoukeyNetget
         {
             if (this.raExportTxt.Checked == true)
             {
-                this.saveFileDialog1.Title = "请指定导出的文本文件名";
+                this.saveFileDialog1.Title = rm.GetString("Info12");
 
                 saveFileDialog1.InitialDirectory = Program.getPrjPath();
                 saveFileDialog1.Filter = "txt Files(*.txt)|*.txt|All Files(*.*)|*.*";
             }
             else if (this.raExportExcel.Checked == true)
             {
-                this.saveFileDialog1.Title = "请指定导出的Excel文件名";
+                this.saveFileDialog1.Title = rm.GetString("Info13");
 
                 saveFileDialog1.InitialDirectory = Program.getPrjPath();
                 saveFileDialog1.Filter = "Excel Files(*.xls)|*.xls|All Files(*.*)|*.*";
@@ -1032,7 +1029,7 @@ namespace SoukeyNetget
                     if (this.tTask.Text == "" || this.tTask.Text == null)
                     {
                         this.tTask.Focus();
-                        throw new cSoukeyException("任务名称不能为空，请检查！");
+                        throw new cSoukeyException(rm.GetString ("Error22"));
                     }
                     break;
                 case 2:
@@ -1041,7 +1038,7 @@ namespace SoukeyNetget
                     if (this.listWeblink.Items.Count == 0)
                     {
                         this.cmdAddWeblink.Focus();
-                        throw new cSoukeyException("至少需要提供一个需要采集数据的网址！");
+                        throw new cSoukeyException(rm.GetString ("Error24"));
                     }
                     break;
                 case 4:
@@ -1050,7 +1047,7 @@ namespace SoukeyNetget
                     if (this.listWebGetFlag.Items.Count == 0)
                     {
                         this.cmdAddCutFlag.Focus();
-                        throw new cSoukeyException("至少需要提供一种采集数据的规则！");
+                        throw new cSoukeyException(rm.GetString ("Error25"));
                     }
                     break;
                 case 6:
@@ -1222,7 +1219,7 @@ namespace SoukeyNetget
         {
             if (this.txtWeblinkDemo.Text.Trim().ToString() == "")
             {
-                MessageBox.Show("请首先获取示例网址，再进行源代码查看！", "Soukey提示", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                MessageBox.Show(rm.GetString ("Info6"), rm.GetString ("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Question);
                 this.button7.Focus();
                 return;
             }
@@ -1256,7 +1253,7 @@ namespace SoukeyNetget
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show("获取网页源代码出错，错误信息为：" + ex.Message, "Soukey采摘 错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(rm.GetString ("Error7") + ex.Message, rm.GetString ("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1545,6 +1542,16 @@ namespace SoukeyNetget
 
                 this.IsSave.Text = "true";
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmAddTaskWizard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
     }
 }

@@ -292,6 +292,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmAddGatherRule.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAddGatherUrl.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddGatherUrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddGatherUrl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmAddGatherUrl.cs</DependentUpon>
@@ -303,6 +307,10 @@
     <EmbeddedResource Include="frmAddPlanTask.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmAddPlanTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddTaskWizard.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddTaskWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddTaskWizard.resx">
       <SubType>Designer</SubType>
@@ -331,6 +339,10 @@
     <EmbeddedResource Include="frmDict.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmDict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHelpInfo.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmHelpInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHelpInfo.resx">
       <SubType>Designer</SubType>
@@ -460,6 +472,10 @@
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>globalUI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebBrowser\frmAbourMyWebbrowser.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAbourMyWebbrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WebBrowser\frmAbourMyWebbrowser.resx">
       <SubType>Designer</SubType>

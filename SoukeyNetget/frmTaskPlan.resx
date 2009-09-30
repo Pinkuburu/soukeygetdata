@@ -271,7 +271,7 @@
     <value />
   </data>
   <data name="&gt;&gt;PanelDay.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>8</value>
   </data>
   <data name="&gt;&gt;panelCustom.Name" xml:space="preserve">
     <value>panelCustom</value>
@@ -293,9 +293,6 @@
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 28</value>
-  </data>
-  <data name="DisabledRunNum.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -508,10 +505,10 @@
     <value>9, 41</value>
   </data>
   <data name="&gt;&gt;panelCustom.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;PanelWeekly.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="&gt;&gt;PanelDay.Parent" xml:space="preserve">
     <value>groupBox7</value>
@@ -1210,9 +1207,6 @@
   <data name="raOneTime.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 13</value>
-  </data>
   <data name="raDay.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 17</value>
   </data>
@@ -1811,7 +1805,7 @@
     <value>1</value>
   </data>
   <data name="&gt;&gt;PanelOne.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="PanelWeekly.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -1822,8 +1816,8 @@
   <data name="&gt;&gt;columnHeader1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 13</value>
   </data>
   <data name="label16.Text" xml:space="preserve">
     <value>计划必须在Soukey采摘运行状态下方可执行</value>
@@ -2032,6 +2026,9 @@
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>349, 355</value>
+  </data>
   <data name="cmdOK.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>
   </data>
@@ -2224,6 +2221,9 @@
   <data name="label12.Error" xml:space="preserve">
     <value />
   </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
   <data name="listTask.Error" xml:space="preserve">
     <value />
   </data>
@@ -2266,8 +2266,8 @@
   <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
   </data>
   <data name="&gt;&gt;label14.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2413,7 +2413,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABQ
-        CgAAAk1TRnQBSQFMAgEBAwEAARgBAQFIAQEBEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        CgAAAk1TRnQBSQFMAgEBAwEAARgBAQFQAQEBEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAARADAAEBAQABCAYAAQQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -2742,8 +2742,8 @@
   <data name="raOneTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 17</value>
   </data>
-  <data name="cmdCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>349, 355</value>
+  <data name="DisabledRunNum.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="RunDayTwice2Time.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
     <value>MiddleRight</value>

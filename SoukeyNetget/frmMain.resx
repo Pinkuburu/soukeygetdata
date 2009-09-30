@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;contextMenuStrip2.Name" xml:space="preserve">
+    <value>contextMenuStrip2</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
     <value>162, 6</value>
@@ -129,9 +132,6 @@
   </data>
   <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
     <value>splitContainer2.Panel2</value>
-  </data>
-  <data name="&gt;&gt;MenuOpenMainfrm.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="rmmenuStopTask.Text" xml:space="preserve">
     <value>停止任务</value>
@@ -169,9 +169,6 @@
   <data name="toolNewTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 22</value>
   </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
   <data name="toolStripContainer1.ContentPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>891, 402</value>
   </data>
@@ -180,6 +177,12 @@
   </data>
   <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
     <value>toolStrip1</value>
+  </data>
+  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 6</value>
+  </data>
+  <data name="&gt;&gt;toolStripButton5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
     <value>contextMenuStrip1</value>
@@ -190,9 +193,6 @@
   </data>
   <data name="toolRestartTask.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
-  </data>
-  <data name="&gt;&gt;toolMenuExit.Name" xml:space="preserve">
-    <value>toolMenuExit</value>
   </data>
   <data name="MenuOpenMainfrm.Text" xml:space="preserve">
     <value>打开主窗口</value>
@@ -225,11 +225,12 @@
   <data name="&gt;&gt;statusStrip1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;Soukey采摘ToolStripMenuItem.Name" xml:space="preserve">
-    <value>Soukey采摘ToolStripMenuItem</value>
-  </data>
   <data name="&gt;&gt;treeMenu.Name" xml:space="preserve">
     <value>treeMenu</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="treeMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.ContentPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripContentPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -237,14 +238,11 @@
   <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="webBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>710, 169</value>
-  </data>
   <data name="toolCopyTask.Text" xml:space="preserve">
     <value>复制</value>
   </data>
-  <data name="treeMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 300</value>
+  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>891, 25</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -252,8 +250,8 @@
   <data name="toolBrowserData.Text" xml:space="preserve">
     <value>查看数据</value>
   </data>
-  <data name="toolExportData.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="contextMenuStrip4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 76</value>
   </data>
   <data name="toolStartTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 22</value>
@@ -264,11 +262,11 @@
   <data name="&gt;&gt;rmmenuNewTask.Name" xml:space="preserve">
     <value>rmmenuNewTask</value>
   </data>
+  <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolMenuDownloadTask.Name" xml:space="preserve">
-    <value>toolMenuDownloadTask</value>
   </data>
   <data name="treeMenu.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -297,8 +295,8 @@
   <data name="&gt;&gt;rmmenuNewTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;contextMenuStrip2.Name" xml:space="preserve">
-    <value>contextMenuStrip2</value>
+  <data name="&gt;&gt;toolMenuDownloadTask.Name" xml:space="preserve">
+    <value>toolMenuDownloadTask</value>
   </data>
   <data name="&gt;&gt;toolmenuConfig.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -321,15 +319,25 @@
   <data name="toolRestartTask.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="服务ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 21</value>
   </data>
   <data name="&gt;&gt;toolMenuUpdate.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 6</value>
+  <data name="toolExportData.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAEYSURBVChTtY+hbsMwEIZLSkaG9wBbpaG+wKZJm7TCwkI/
+        QspCJlkaWDUNGBYaTYWGgYZFk2HhwULDsev9l0ROs9Kd9MuSk+++35PJf87s7Y5lP1LG7TIjFvGZqy1C
+        bJxkQ7z+eeUPWmlu3q8L7CMz4pougWVJG5iG4MP3bTGf21rTUkxLS/xUk1oA45ybVEDupnKiujA9+Px1
+        z/OFKVXxLx2Je/Dx80VxnIBQD2c60Dno5IFEAm5aY2iiQlfrqQIwWWmT0ghUo4Jewfw7SJZvyJE57i8Y
+        UaOyXqEQIvtdZDRx26A2tAlxBGbZGKWGATgwwCLXmnjIf0FsRg1Te63U2+zAhja+GRmTPAI1TO06Q1aD
+        JrUJkjF4AuVjkAVELB5UAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 6</value>
   </data>
   <data name="dataTask.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -337,11 +345,11 @@
   <data name="&gt;&gt;rmenuAddTaskClass.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;服务ToolStripMenuItem.Name" xml:space="preserve">
-    <value>服务ToolStripMenuItem</value>
+  <data name="&gt;&gt;toolStripSeparator18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;toolmenuEnglish.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="PrograBarTxt.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -349,23 +357,23 @@
   <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="rmmenuStartTask.Text" xml:space="preserve">
-    <value>启动任务</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>891, 478</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 6</value>
   </data>
-  <data name="toolStripSeparator15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 6</value>
+  <data name="treeMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 300</value>
   </data>
-  <data name="服务ToolStripMenuItem.Text" xml:space="preserve">
-    <value>Soukey采摘(&amp;S)</value>
+  <data name="&gt;&gt;Soukey采摘ToolStripMenuItem.Name" xml:space="preserve">
+    <value>Soukey采摘ToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
+    <value>toolStripSeparator17</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator10.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -418,8 +426,8 @@
   <data name="&gt;&gt;ExportProbar.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripProgressBar, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;txtLog.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;toolStripButton5.Name" xml:space="preserve">
+    <value>toolStripButton5</value>
   </data>
   <data name="webBrowser.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -427,17 +435,14 @@
   <data name="&gt;&gt;toolExportData.Name" xml:space="preserve">
     <value>toolExportData</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
-    <value>toolStripSeparator5</value>
+  <data name="&gt;&gt;toolStripButton2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;menuAddTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>frmMain</value>
-  </data>
-  <data name="toolBrowserData.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel2.Parent" xml:space="preserve">
     <value>splitContainer1</value>
@@ -463,20 +468,28 @@
   <data name="&gt;&gt;toolStripStatusLabel1.Name" xml:space="preserve">
     <value>toolStripStatusLabel1</value>
   </data>
+  <data name="toolDelTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA0AAAAPCAYAAAA/I0V3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAEUSURBVDhPY/iZbf+fgVTw25T5/zdzTtI0vnAS+Q/S+MtR
+        hKDGKyUNqGq+WnD+/+UmiVXj20nV/1/2VWPK3azK/f/MnPv/VzQbvyQ7/n/dmIPbFZ9Xz/7/zorn/3NX
+        2f/vpzb8f5fk8P9ZdwVBZzM8md7+/60R8/9Hhqz/30aaE9YACvmntan/3wM1PQRquu0gRVjTi2T7/3dt
+        xf7f7mv8f3/T2v/3Qoz+33aUwa3xirX0/7smXP/vzJ6IouhmpP3/W45yqBqX6/P9v2fE/v+OOd//m1O7
+        sJp6JSPk/w17aYQcWIMh2/+LMybhdf+lcIf/12EaS6WY/5cq8BL2MDCQ9vg7/b9piz0B4E2+z4LViLIA
+        wxAArZuJteCAG8UAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
     <value>openFileDialog1</value>
   </data>
-  <data name="txtLog.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 21</value>
+  <data name="&gt;&gt;contextMenuStrip4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="splitContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;toolCopyTask.Name" xml:space="preserve">
+    <value>toolCopyTask</value>
   </data>
   <data name="&gt;&gt;splitContainer2.Panel2.Name" xml:space="preserve">
     <value>splitContainer2.Panel2</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="rmenuPasteTask.Text" xml:space="preserve">
     <value>粘贴          Ctrl+V</value>
@@ -487,14 +500,14 @@
   <data name="&gt;&gt;splitContainer1.Parent" xml:space="preserve">
     <value>toolStripContainer1.ContentPanel</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Name" xml:space="preserve">
-    <value>toolStripContainer1.RightToolStripPanel</value>
+  <data name="&gt;&gt;toolMenuExit.Name" xml:space="preserve">
+    <value>toolMenuExit</value>
   </data>
   <data name="&gt;&gt;toolDelTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
-    <value>saveFileDialog1</value>
+  <data name="&gt;&gt;toolmenuEnglish.Name" xml:space="preserve">
+    <value>toolmenuEnglish</value>
   </data>
   <data name="&gt;&gt;toolBrowserData.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -502,20 +515,26 @@
   <data name="dataTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>718, 199</value>
   </data>
-  <data name="&gt;&gt;toolStripStatusLabel2.Name" xml:space="preserve">
-    <value>toolStripStatusLabel2</value>
-  </data>
   <data name="splitContainer2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="notifyIcon1.Visible" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="rmmenuNewTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhEAAQAIUAAAAAAP///7DI2Le4uP7+/f39/Pz8+/v7+vr6+fn5+Pj49/38+/z7+vv6+fr5+Pn4
+        9/j39vf29fb19PX08/Py8fj29vf19fb09PXz8/Ty8vPx8fLw8P38/Pz7+/v6+vr5+fn4+Pj39/f29vb1
+        9fX09PTz8/Py8ubl5eDf3/b29srKysXFxcDAwL+/v76+vr29vby8vLq6uri4uLW1tbOzs7Gxsa2trays
+        rJ2dnZCQkIaGhnp6ev///wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAA8ACwAAAAAEAAQ
+        AAAIuwB58GBBsGBBFwIEKmTRwUCBAgQIGCCgIkZChS0ONHwYkcCKFAMu8niBQKNDiARiyJARQyEMBwg8
+        MDgZ8QSKlgJjPIAp8yRKGQplQHiQ4ENPDj8VzhAxtKiHAwaQEpihkMaICE0/NIC6oAANhTUuXIWgAIRW
+        qAZqKLSBgYQErCHMbu1gQ+GNDG3fVogL88ANhThM4HVrQQRfBDgU5tBAAe8ECYVD7MyhUMcGxhlKPI78
+        QIfCHaBDiw7NIyAAOw==
+</value>
+  </data>
   <data name="toolPasteTask.ToolTipText" xml:space="preserve">
     <value>粘贴任务</value>
-  </data>
-  <data name="toolMenuUpdate.Text" xml:space="preserve">
-    <value>检查更新(&amp;U)</value>
   </data>
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -535,6 +554,9 @@
   <data name="&gt;&gt;rmenuAddTaskClass.Name" xml:space="preserve">
     <value>rmenuAddTaskClass</value>
   </data>
+  <data name="&gt;&gt;splitContainer3.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="splitContainer2.SplitterDistance" type="System.Int32, mscorlib">
     <value>199</value>
   </data>
@@ -544,11 +566,11 @@
   <data name="&gt;&gt;contextMenuStrip5.Name" xml:space="preserve">
     <value>contextMenuStrip5</value>
   </data>
+  <data name="&gt;&gt;dataTask.Name" xml:space="preserve">
+    <value>dataTask</value>
+  </data>
   <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolMenuNewTaskPlan.Text" xml:space="preserve">
-    <value>新建任务执行计划</value>
   </data>
   <data name="statusStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>891, 26</value>
@@ -556,31 +578,14 @@
   <data name="&gt;&gt;toolmenuNewTaskClass.Name" xml:space="preserve">
     <value>toolmenuNewTaskClass</value>
   </data>
-  <data name="rmenuCopyTask.Text" xml:space="preserve">
-    <value>复制          Ctrl+C</value>
+  <data name="webBrowser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
   <data name="&gt;&gt;rmmenuRenameTask.Name" xml:space="preserve">
     <value>rmmenuRenameTask</value>
   </data>
-  <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAHiSURBVDhPzZPdS5NhFMD9HwwkQiIZXRWxm5woZAPBksTs
-        bWVpcx85VHRLytzM1BaTKW2J0teycOXcCzrpbaYW5SblkIo+ZpEIhaO6iNDCi26CX2MXE/Gd7LLn8jm/
-        53cO5zknI+O/OGYJasQ/mIOg9/2mSfpLe+AraRenu7+K9t4ydaOr1Ik/aRz+wfnBaFJwKxDZXGaJZzYM
-        raC7PU/r2Bds/gWc4tvko1ZPGLt/PrVEc2OZ49c/Y/Z/kIUMvS+ov7tIy0AKyQnPCsf6FtDfDMkKKj0x
-        yvtjVF/9RIP71UamzLVEufs9R93BRNA08JKTV0KcckxQ1RNBc+cXatd3Kvu+UeOKUut8vF6itkcp6X7N
-        EdejROBQ1wQllyYpvRCgzPEclWORXEeMA50fqeiMIDT7aL72dE1SEBfkX5xhn3U4cVlkFREujyO0iZR2
-        jLPLOkeBc4ni9jccPCNhtI+tr2BPxzuU1jB5Fp9sD/LanqGon6LYNs3hc+JGZmvjNArLE/a3TMoKcs1e
-        iuwh1A1e+a/MOTvL9niG7Aove00jqHSDFGp7krDK2IWyujv1HGTqgmzRSuzQB9kmDKE8/YDdwpqg0Gjb
-        fBKztA/JqpLINkyRqRllpymMQuNJfxfSXhoZ8B9lvxCNWWr9WQAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="&gt;&gt;splitContainer3.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
-  </data>
-  <data name="&gt;&gt;PrograBarTxt.Name" xml:space="preserve">
-    <value>PrograBarTxt</value>
   </data>
   <data name="&gt;&gt;toolStopTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -588,8 +593,8 @@
   <data name="Soukey采摘ToolStripMenuItem.Text" xml:space="preserve">
     <value>帮助(&amp;H)</value>
   </data>
-  <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="&gt;&gt;StateInfo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;rmmenuRestartTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -600,8 +605,11 @@
   <data name="&gt;&gt;toolMenuProgram.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="statusStrip1.Text" xml:space="preserve">
+    <value>statusStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripContainer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -634,6 +642,9 @@
   <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
     <value>toolStripSeparator4</value>
   </data>
+  <data name="rmenuAddPlan.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
   <data name="&gt;&gt;splitContainer2.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
   </data>
@@ -652,8 +663,8 @@
   <data name="&gt;&gt;staIsInternet.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolExportTxt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
+  <data name="&gt;&gt;toolStripSeparator9.Name" xml:space="preserve">
+    <value>toolStripSeparator9</value>
   </data>
   <data name="toolDelTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 22</value>
@@ -670,7 +681,7 @@
   <data name="toolStartTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAJ2SURBVDhPZZPLT1NhEMXvv6QgGlMkVoyhaMRSK21phSIY
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAJ2SURBVDhPZZPLT1NhEMXvv6QgGlMkVoyhaMRSK21phSIY
         AV+khljkaYQoqAsSYxfiIyoLNj43FLAtyKNSoPSWljYF1JAUwXRhMOqC48x3S19Mchc3ub85M+fMlaSc
         2o4FsDk8iG9POhHtuYhIdy3WHK2If3yBX5EF5H6fev+X2MSmcxCxuwR1WrDcUYlQmwlLtyoQtJ+D3KxD
         oMWI9bcD+PtzI7sRw/E3DkRvn0eki2Ezwu1GRPuuQLbrESDYf0MLf/NZyF21WHneiz9b8XQTVhZwp1ko
@@ -693,11 +704,11 @@
   <data name="rmenuSaveLog.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 22</value>
   </data>
-  <data name="toolmenuCHS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+  <data name="&gt;&gt;toolManageDict.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStripSeparator13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 6</value>
+  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="&gt;&gt;timer2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -739,11 +750,8 @@
   <data name="&gt;&gt;dataTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;toolStripButton2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolMenuUpdate.Text" xml:space="preserve">
+    <value>检查更新(&amp;U)</value>
   </data>
   <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
     <value>718, 199</value>
@@ -756,9 +764,6 @@
   </data>
   <data name="&gt;&gt;timer1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolExportData.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSplitButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="splitContainer2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -793,33 +798,20 @@
   <data name="&gt;&gt;splitContainer3.Panel2.Parent" xml:space="preserve">
     <value>splitContainer3</value>
   </data>
-  <data name="&gt;&gt;toolmenuEnglish.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;rmenuPasteTask.Name" xml:space="preserve">
     <value>rmenuPasteTask</value>
   </data>
   <data name="&gt;&gt;splitContainer3.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>891, 478</value>
-  </data>
   <data name="treeMenu.ImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="toolBrowserData.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAADcSURBVChTvY8tEoMwEEa5QXVvwRGQlT1CZGUkkpkaZGRl
-        ZCUSGVkZiVyJjKz7uptk+CtUNjNPEHj7lqL4+zHPAKERbIB+CARlmJZwbQhVndGEaUHrAMH0mQ48JKFl
-        UB6meGB587O4rqXSdVniSpUp1UJEPtpw6scJb6C8qLko39JIOBRZEMkPtBbP9xOIWGxTUZ738H4jxmIU
-        bRRl+kTgd8IIuNdOUdbQjY3CUbFzGzHwRMdrKBEXBanwdcQNAV+iFGQNVdu40lHR9pui55+Qaao2uRBi
-        IeITHbMVP2YTi2pXBrMhAAAAAElFTkSuQmCC
-</value>
+  <data name="&gt;&gt;toolStripSeparator19.Name" xml:space="preserve">
+    <value>toolStripSeparator19</value>
   </data>
-  <data name="&gt;&gt;contextMenuStrip2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;rmmenuEditTask.Name" xml:space="preserve">
+    <value>rmmenuEditTask</value>
   </data>
   <data name="&gt;&gt;dataTask.Parent" xml:space="preserve">
     <value>splitContainer2.Panel1</value>
@@ -827,26 +819,51 @@
   <data name="&gt;&gt;webBrowser.Type" xml:space="preserve">
     <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolManageDict.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cmdCloseInfo.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="rMenuExportExcel.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 22</value>
   </data>
-  <data name="treeMenu.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="notifyIcon1.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+</value>
+  </data>
+  <data name="&gt;&gt;toolExportExcel.Name" xml:space="preserve">
+    <value>toolExportExcel</value>
   </data>
   <data name="toolStopTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 22</value>
   </data>
   <data name="toolMenuAbout.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 22</value>
+  </data>
+  <data name="toolStripContainer1.Text" xml:space="preserve">
+    <value>toolStripContainer1</value>
   </data>
   <data name="&gt;&gt;splitContainer2.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -893,22 +910,25 @@
   <data name="toolExportData.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 22</value>
   </data>
-  <data name="toolStripContainer1.Text" xml:space="preserve">
-    <value>toolStripContainer1</value>
+  <data name="rMenuExportTxt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 22</value>
   </data>
-  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 6</value>
+  <data name="&gt;&gt;toolImportTask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="rmenuCopyTask.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+  <data name="&gt;&gt;rmenuCopyTask.Name" xml:space="preserve">
+    <value>rmenuCopyTask</value>
+  </data>
+  <data name="&gt;&gt;toolmenuNewTaskClass.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="toolManage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAwAAAANCAYAAACdKY9CAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAIcSURBVChTJZHdSxRRGMbHC0lNiMK6iCCD8L+I8Fboyuii
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAIcSURBVChTJZHdSxRRGMbHC0lNiMK6iCCD8L+I8Fboyuii
         i4QgJCEoCStaK1oJxLLUTLM2ImmNXBVdSxRX/FwwtXJdk03XdFyzdfbD1tbZj5n5dcZ9Xl6eF877g+ec
         I0lC6USEVGwVJRykb3CGV+1O3tg/02TrpuxSGal/m2hxGXN3X1F/J+HvFhpam3D0T7G7ZxCLG+yI7uyb
         xDPWDBtVtLU8ykBaZBHiX/k2/RHZN4C85OSPr5d102UXzhEX96svUnD4bgaIbq9hhB3AGPpeP6hOSDgx
@@ -935,17 +955,11 @@
   <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;StateInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStartTask.Text" xml:space="preserve">
-    <value>开始</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolExportTxt.Name" xml:space="preserve">
-    <value>toolExportTxt</value>
+  <data name="&gt;&gt;toolStripStatusLabel2.Name" xml:space="preserve">
+    <value>toolStripStatusLabel2</value>
   </data>
   <data name="&gt;&gt;rmmenuStopTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -971,14 +985,14 @@
   <data name="toolExportTxt.Text" xml:space="preserve">
     <value>导出文本文件</value>
   </data>
-  <data name="toolNewTask.Text" xml:space="preserve">
-    <value>新建</value>
+  <data name="&gt;&gt;toolmenuNewTask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="menuMailto.Text" xml:space="preserve">
     <value>给一孑发Email</value>
   </data>
-  <data name="&gt;&gt;toolImportTask.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;MenuCloseSystem.Name" xml:space="preserve">
+    <value>MenuCloseSystem</value>
   </data>
   <data name="&gt;&gt;toolUpgradeTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -992,20 +1006,8 @@
   <data name="tabPage1.Text" xml:space="preserve">
     <value>soukey采摘</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator9.Name" xml:space="preserve">
-    <value>toolStripSeparator9</value>
-  </data>
-  <data name="rmmenuNewTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        R0lGODlhEAAQAIUAAAAAAP///7DI2Le4uP7+/f39/Pz8+/v7+vr6+fn5+Pj49/38+/z7+vv6+fr5+Pn4
-        9/j39vf29fb19PX08/Py8fj29vf19fb09PXz8/Ty8vPx8fLw8P38/Pz7+/v6+vr5+fn4+Pj39/f29vb1
-        9fX09PTz8/Py8ubl5eDf3/b29srKysXFxcDAwL+/v76+vr29vby8vLq6uri4uLW1tbOzs7Gxsa2trays
-        rJ2dnZCQkIaGhnp6ev///wAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAA8ACwAAAAAEAAQ
-        AAAIuwB58GBBsGBBFwIEKmTRwUCBAgQIGCCgIkZChS0ONHwYkcCKFAMu8niBQKNDiARiyJARQyEMBwg8
-        MDgZ8QSKlgJjPIAp8yRKGQplQHiQ4ENPDj8VzhAxtKiHAwaQEpihkMaICE0/NIC6oAANhTUuXIWgAIRW
-        qAZqKLSBgYQErCHMbu1gQ+GNDG3fVogL88ANhThM4HVrQQRfBDgU5tBAAe8ECYVD7MyhUMcGxhlKPI78
-        QIfCHaBDiw7NIyAAOw==
-</value>
+  <data name="&gt;&gt;toolMenuDownloadTask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
     <value>145, 6</value>
@@ -1013,11 +1015,17 @@
   <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="rmenuBrowserData.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
+  <data name="rmenuBrowserData.Text" xml:space="preserve">
+    <value>查看数据</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;toolmenuNewTask.Name" xml:space="preserve">
-    <value>toolmenuNewTask</value>
   </data>
   <data name="&gt;&gt;toolMenuProgram.Name" xml:space="preserve">
     <value>toolMenuProgram</value>
@@ -1028,23 +1036,23 @@
   <data name="menuAddTaskPlan.Text" xml:space="preserve">
     <value>新建任务执行计划</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
+    <value>toolStripSeparator5</value>
+  </data>
   <data name="&gt;&gt;cmdCloseInfo.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="StateInfo.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="服务ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 21</value>
-  </data>
   <data name="cmdCloseInfo.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="rmenuAddPlan.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+  <data name="&gt;&gt;toolStripSeparator15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="rmmenuDelTask.Text" xml:space="preserve">
-    <value>删除          Delete</value>
+  <data name="&gt;&gt;rMenuCloseTabPage.Name" xml:space="preserve">
+    <value>rMenuCloseTabPage</value>
   </data>
   <data name="rMenuExportExcel.Text" xml:space="preserve">
     <value>导出Excel</value>
@@ -1058,20 +1066,11 @@
   <data name="rmenuSaveLog.Text" xml:space="preserve">
     <value>保存数据采集日志</value>
   </data>
-  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolExportExcel.Name" xml:space="preserve">
-    <value>toolExportExcel</value>
+  <data name="&gt;&gt;toolExportTxt.Name" xml:space="preserve">
+    <value>toolExportTxt</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator11.Name" xml:space="preserve">
     <value>toolStripSeparator11</value>
-  </data>
-  <data name="&gt;&gt;Soukey采摘ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainer3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="toolmenuNewTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 22</value>
@@ -1079,11 +1078,8 @@
   <data name="toolRestartTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>52, 22</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="toolmenuEnglish.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+  <data name="服务ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Soukey采摘(&amp;S)</value>
   </data>
   <data name="toolDelTask.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -1103,17 +1099,14 @@
   <data name="&gt;&gt;toolStripSeparator12.Name" xml:space="preserve">
     <value>toolStripSeparator12</value>
   </data>
-  <data name="&gt;&gt;rmmenuEditTask.Name" xml:space="preserve">
-    <value>rmmenuEditTask</value>
+  <data name="&gt;&gt;toolmenuCHS.Name" xml:space="preserve">
+    <value>toolmenuCHS</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator18.Name" xml:space="preserve">
     <value>toolStripSeparator18</value>
   </data>
   <data name="&gt;&gt;splitContainer3.Panel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolmenuNewTask.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="treeMenu.Nodes2" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -1140,20 +1133,11 @@
   <data name="rMenuCloseTabPage.Text" xml:space="preserve">
     <value>关闭此选项卡</value>
   </data>
-  <data name="StateInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 21</value>
-  </data>
   <data name="toolMenuDownloadTask.Text" xml:space="preserve">
     <value>下载任务模板(&amp;D)</value>
   </data>
-  <data name="webBrowser.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
-  </data>
-  <data name="&gt;&gt;toolmenuEnglish.Name" xml:space="preserve">
-    <value>toolmenuEnglish</value>
   </data>
   <data name="&gt;&gt;rMenuExportTxt.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1170,11 +1154,8 @@
   <data name="&gt;&gt;toolRestartTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolExportData.ToolTipText" xml:space="preserve">
-    <value>导出采集数据</value>
-  </data>
-  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>891, 25</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator7.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1182,14 +1163,11 @@
   <data name="&gt;&gt;toolManage.Name" xml:space="preserve">
     <value>toolManage</value>
   </data>
-  <data name="treeMenu.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;MenuOpenMainfrm.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolmenuAuto.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="rmmenuStopTask.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 452</value>
   </data>
   <data name="&gt;&gt;MenuCloseSystem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1215,14 +1193,14 @@
   <data name="rmmenuRestartTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 22</value>
   </data>
-  <data name="&gt;&gt;toolMenuUpdate.Name" xml:space="preserve">
-    <value>toolMenuUpdate</value>
-  </data>
   <data name="&gt;&gt;splitContainer3.Name" xml:space="preserve">
     <value>splitContainer3</value>
   </data>
   <data name="toolMenuExit.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 22</value>
+  </data>
+  <data name="toolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>616, 21</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1260,8 +1238,8 @@
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;splitContainer2.Name" xml:space="preserve">
-    <value>splitContainer2</value>
+  <data name="dataTask.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="toolCopyTask.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1272,8 +1250,8 @@
   <data name="toolMenuProgram.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 22</value>
   </data>
-  <data name="&gt;&gt;splitContainer3.Panel1.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;Soukey采摘ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolExportTxt.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1284,31 +1262,39 @@
   <data name="toolLookInfo.Text" xml:space="preserve">
     <value>查看系统信息</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Soukey采摘 V1.60 [免费 开源]</value>
-  </data>
-  <data name="&gt;&gt;toolPasteTask.Name" xml:space="preserve">
-    <value>toolPasteTask</value>
-  </data>
   <data name="txtLog.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 77</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="treeMenu.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQsAAAAEVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4
+        CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQJY2hp
+        bGRyZW4wCWNoaWxkcmVuMQljaGlsZHJlbjIBAQAAAQABAAQEBAEICAgdU3lzdGVtLldpbmRvd3MuRm9y
+        bXMuVHJlZU5vZGUCAAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlAgAAAB1TeXN0ZW0uV2lu
+        ZG93cy5Gb3Jtcy5UcmVlTm9kZQIAAAACAAAABgMAAAAP5Lu75Yqh6L+Q6KGM5Yy6BgQAAAAHbm9kU25h
+        cAD/////BgUAAAAA/////wkFAAAAAwAAAAkGAAAACQcAAAAJCAAAAAUGAAAAHVN5c3RlbS5XaW5kb3dz
+        LkZvcm1zLlRyZWVOb2RlCAAAAARUZXh0BE5hbWUJSXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkS
+        U2VsZWN0ZWRJbWFnZUluZGV4EFNlbGVjdGVkSW1hZ2VLZXkKQ2hpbGRDb3VudAEBAAABAAEAAQgICAIA
+        AAAGCQAAAAzmraPlnKjph4fpm4YGCgAAAApub2RSdW5uaW5nAP////8JBQAAAP////8JBQAAAAAAAAAF
+        BwAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQgAAAAEVGV4dAROYW1lCUlzQ2hlY2tlZApJ
+        bWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxk
+        Q291bnQBAQAAAQABAAEICAgCAAAABgwAAAAM5q2j5Zyo5Y+R5biDBg0AAAAKbm9kUHVibGlzaAD/////
+        CQUAAAD/////CQUAAAAAAAAABQgAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUIAAAABFRl
+        eHQETmFtZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFnZUtleRJTZWxlY3RlZEltYWdlSW5kZXgQU2Vs
+        ZWN0ZWRJbWFnZUtleQpDaGlsZENvdW50AQEAAAEAAQABCAgIAgAAAAYPAAAAFeW3sue7j+WujOaIkOea
+        hOS7u+WKoQYQAAAAC25vZENvbXBsZXRlAP////8JBQAAAP////8JBQAAAAAAAAAL
+</value>
+  </data>
+  <data name="StateInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 21</value>
   </data>
   <data name="rmmenuNewTask.Text" xml:space="preserve">
     <value>新建任务</value>
   </data>
-  <data name="toolDelTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAA0AAAAPCAYAAAA/I0V3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAEUSURBVDhPY/iZbf+fgVTw25T5/zdzTtI0vnAS+Q/S+MtR
-        hKDGKyUNqGq+WnD+/+UmiVXj20nV/1/2VWPK3azK/f/MnPv/VzQbvyQ7/n/dmIPbFZ9Xz/7/zorn/3NX
-        2f/vpzb8f5fk8P9ZdwVBZzM8md7+/60R8/9Hhqz/30aaE9YACvmntan/3wM1PQRquu0gRVjTi2T7/3dt
-        xf7f7mv8f3/T2v/3Qoz+33aUwa3xirX0/7smXP/vzJ6IouhmpP3/W45yqBqX6/P9v2fE/v+OOd//m1O7
-        sJp6JSPk/w17aYQcWIMh2/+LMybhdf+lcIf/12EaS6WY/5cq8BL2MDCQ9vg7/b9piz0B4E2+z4LViLIA
-        wxAArZuJteCAG8UAAAAASUVORK5CYII=
-</value>
+  <data name="&gt;&gt;txtLog.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="toolMenuAbout.Text" xml:space="preserve">
     <value>关于...(&amp;A)</value>
@@ -1361,8 +1347,11 @@
   <data name="&gt;&gt;toolStartTask.Name" xml:space="preserve">
     <value>toolStartTask</value>
   </data>
-  <data name="rmenuBrowserData.Text" xml:space="preserve">
-    <value>查看数据</value>
+  <data name="toolExportData.ToolTipText" xml:space="preserve">
+    <value>导出采集数据</value>
+  </data>
+  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
+    <value>tabPage1</value>
   </data>
   <data name="toolmenuCHS.Text" xml:space="preserve">
     <value>中文简体</value>
@@ -1370,14 +1359,11 @@
   <data name="&gt;&gt;toolStripSeparator13.Name" xml:space="preserve">
     <value>toolStripSeparator13</value>
   </data>
-  <data name="&gt;&gt;toolExportExcel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="dataTask.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="statusStrip1.Text" xml:space="preserve">
-    <value>statusStrip1</value>
-  </data>
-  <data name="&gt;&gt;splitContainer2.Panel2.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="webBrowser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>710, 169</value>
   </data>
   <data name="notifyIcon1.Text" xml:space="preserve">
     <value>SoukeyNetget</value>
@@ -1391,12 +1377,6 @@
   <data name="toolDelTask.Text" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="&gt;&gt;toolMenuDownloadTask.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolCopyTask.Name" xml:space="preserve">
-    <value>toolCopyTask</value>
-  </data>
   <data name="&gt;&gt;toolBrowserData.Name" xml:space="preserve">
     <value>toolBrowserData</value>
   </data>
@@ -1406,20 +1386,24 @@
   <data name="toolStartTask.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="txtLog.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;splitContainer2.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator19.Name" xml:space="preserve">
-    <value>toolStripSeparator19</value>
+  <data name="toolmenuEnglish.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
   </data>
-  <data name="rMenuExportTxt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
+  <data name="toolBrowserData.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAADcSURBVChTvY8tEoMwEEa5QXVvwRGQlT1CZGUkkpkaZGRl
+        ZCUSGVkZiVyJjKz7uptk+CtUNjNPEHj7lqL4+zHPAKERbIB+CARlmJZwbQhVndGEaUHrAMH0mQ48JKFl
+        UB6meGB587O4rqXSdVniSpUp1UJEPtpw6scJb6C8qLko39JIOBRZEMkPtBbP9xOIWGxTUZ738H4jxmIU
+        bRRl+kTgd8IIuNdOUdbQjY3CUbFzGzHwRMdrKBEXBanwdcQNAV+iFGQNVdu40lHR9pui55+Qaao2uRBi
+        IeITHbMVP2YTi2pXBrMhAAAAAElFTkSuQmCC
+</value>
   </data>
-  <data name="dataTask.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;toolMenuUpdate.Name" xml:space="preserve">
+    <value>toolMenuUpdate</value>
   </data>
   <data name="&gt;&gt;toolCopyTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1427,11 +1411,8 @@
   <data name="&gt;&gt;splitContainer3.Panel2.Name" xml:space="preserve">
     <value>splitContainer3.Panel2</value>
   </data>
-  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="dataTask.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="MenuCloseSystem.Text" xml:space="preserve">
+    <value>退出</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel2.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1439,7 +1420,7 @@
   <data name="toolPasteTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAJ3SURBVDhPddNZTxNRHIZxvikYliBIuDMuF6JIxAtvEGNC
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAJ3SURBVDhPddNZTxNRHIZxvikYliBIuDMuF6JIxAtvEGNC
         w1JFRQFJCUrFtiyFKWmrLGVohQJSCqXtTDvTdroSH0+LgRZkkjczmeWX938mp67uhmNdDrDo2WTdJ3PT
         Oxf3DV3h0C9xuO3kQHay5bVhtTmQHFOYzGME1hyExPOQf4VQwMVZMV+L+l0TqBv9qD+e4li0s/nrgMBO
         kHWXFZvLx+jMAsPv3qJ6HhOV7hH2z9cCu+5xCtu9JKQ2xj8O835yir4BE68GR3je10/3i5d09zxAWWgg
@@ -1462,23 +1443,20 @@
   <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
     <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;MenuCloseSystem.Name" xml:space="preserve">
-    <value>MenuCloseSystem</value>
+  <data name="&gt;&gt;服务ToolStripMenuItem.Name" xml:space="preserve">
+    <value>服务ToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator17.Name" xml:space="preserve">
-    <value>toolStripSeparator17</value>
+  <data name="ExportProbar.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;rMenuCloseTabPage.Name" xml:space="preserve">
-    <value>rMenuCloseTabPage</value>
-  </data>
-  <data name="&gt;&gt;toolImportTask.Name" xml:space="preserve">
-    <value>toolImportTask</value>
+  <data name="&gt;&gt;toolPasteTask.Name" xml:space="preserve">
+    <value>toolPasteTask</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.Parent" xml:space="preserve">
     <value>toolStripContainer1</value>
   </data>
-  <data name="toolmenuConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
+  <data name="toolmenuCHS.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
   </data>
   <data name="rmenuAddTaskClass.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 22</value>
@@ -1486,26 +1464,32 @@
   <data name="webBrowser.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="toolLookInfo.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 22</value>
   </data>
   <data name="toolmenuNewTask.Text" xml:space="preserve">
     <value>新建任务</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="treeMenu.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;splitContainer2.Panel1.Name" xml:space="preserve">
     <value>splitContainer2.Panel1</value>
   </data>
-  <data name="toolStopTask.ToolTipText" xml:space="preserve">
-    <value>停止正在运行的任务</value>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <data name="&gt;&gt;panel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>616, 21</value>
+  <data name="&gt;&gt;cmdCloseInfo.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;rmmenuDelTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1516,27 +1500,8 @@
   <data name="&gt;&gt;splitContainer3.Panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="treeMenu.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQsAAAAEVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4
-        CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQJY2hp
-        bGRyZW4wCWNoaWxkcmVuMQljaGlsZHJlbjIBAQAAAQABAAQEBAEICAgdU3lzdGVtLldpbmRvd3MuRm9y
-        bXMuVHJlZU5vZGUCAAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlAgAAAB1TeXN0ZW0uV2lu
-        ZG93cy5Gb3Jtcy5UcmVlTm9kZQIAAAACAAAABgMAAAAP5Lu75Yqh6L+Q6KGM5Yy6BgQAAAAHbm9kU25h
-        cAD/////BgUAAAAA/////wkFAAAAAwAAAAkGAAAACQcAAAAJCAAAAAUGAAAAHVN5c3RlbS5XaW5kb3dz
-        LkZvcm1zLlRyZWVOb2RlCAAAAARUZXh0BE5hbWUJSXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkS
-        U2VsZWN0ZWRJbWFnZUluZGV4EFNlbGVjdGVkSW1hZ2VLZXkKQ2hpbGRDb3VudAEBAAABAAEAAQgICAIA
-        AAAGCQAAAAzmraPlnKjph4fpm4YGCgAAAApub2RSdW5uaW5nAP////8JBQAAAP////8JBQAAAAAAAAAF
-        BwAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQgAAAAEVGV4dAROYW1lCUlzQ2hlY2tlZApJ
-        bWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxk
-        Q291bnQBAQAAAQABAAEICAgCAAAABgwAAAAM5q2j5Zyo5Y+R5biDBg0AAAAKbm9kUHVibGlzaAD/////
-        CQUAAAD/////CQUAAAAAAAAABQgAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUIAAAABFRl
-        eHQETmFtZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFnZUtleRJTZWxlY3RlZEltYWdlSW5kZXgQU2Vs
-        ZWN0ZWRJbWFnZUtleQpDaGlsZENvdW50AQEAAAEAAQABCAgIAgAAAAYPAAAAFeW3sue7j+WujOaIkOea
-        hOS7u+WKoQYQAAAAC25vZENvbXBsZXRlAP////8JBQAAAP////8JBQAAAAAAAAAL
-</value>
+  <data name="&gt;&gt;toolImportTask.Name" xml:space="preserve">
+    <value>toolImportTask</value>
   </data>
   <data name="sToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>166, 22</value>
@@ -1544,13 +1509,28 @@
   <data name="toolExportData.Text" xml:space="preserve">
     <value>导出数据</value>
   </data>
+  <data name="MenuOpenMainfrm.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAIFSURBVDhPpVPPSxthEPVPKggFi5eCEEih5OSPm4dUESmx
+        ehDBS5WKVAVt0NhSTSloLE0kpJAEUqVglJpG0ZKIYZOtq7b+2qrRGBRDn74RF7d79DDwfd/OvHnz3mxZ
+        58cC7hNlLC79K1lCfz2Ew20Nhctz49v/Z9aaAI7zYZye3QAq3V1QIyEUVpdMAF8WdjEZ3cF6OifMTQB/
+        dltBkPzZBo6UbWTG3gkQAVnUH8qibzSCCZ8P2ZxqBUivB5BaGUdmw4lS8QKLLe0IvWiWRBZ5Y34k0iqm
+        I4qMZjBQi4p00f/qSGc6JHLZZWETfOKEp7oJta/8cLk1hKNRrC1kJN8AGNzvQWwvLJHUNrGcciBffAi3
+        zyOFU/ZaCRayCdmZAEidyB8UL7b0POLxOUx/bURdswc1z/1wPmuA+qBc3inyrdAGgyNdQ9uKSwCCq58E
+        ZGR0BN5AByaDDqHOO0HYnfObNCAdbUuDbbMCPbEuUdze9lMYxGerkEy8lK4Uct9mk2LeTTby8UdySUAq
+        15rweLhTupI2WRzoQzJ3f3TKsNayBwShUI8CbtgHnspYdIjxZrgR3BPm0EqOaQFgh4rWQxGNnrcPuIQR
+        3SHlQPCz2Hu7+maAa3F+/T4W1b/NLEoSi+YSKWFTf+IwdsXiApNJjeK9f9t74/MdtXmmFt8T84aFpj24
+        z+98BXD3Spww2bPVAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="sToolStripMenuItem.Text" xml:space="preserve">
     <value>Soukey采摘主页</value>
   </data>
   <data name="toolStripSeparator18.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 6</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator18.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStripSeparator13.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.BottomToolStripPanel.Name" xml:space="preserve">
@@ -1559,7 +1539,7 @@
   <data name="toolCopyTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAFDSURBVDhPpVOhbsMwFOyn5BPyCYGBhYOBg4aDhoOGgQYF
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAFDSURBVDhPpVOhbsMwFOyn5BPyCYGBhYOBg4aDhoOGgQYF
         BZNmtg5UMpimQGsoJZM1tDHDsds7e2ubgKVSTzoS+d3dOzur1bVwPqIwFO4CrAt4ejngIm0Oz2GdR6ct
         HvZvyyJ0ncNsPfwQ0CmzLMLIhB8BSY4QE4x1cEOSlQrtTr65wsfXr2kqxj3iG0gJiJ8yKAJz6G1Cfeux
         2X+cRKzEJewAGHHSLkLZCCvOc6i+CNc3Dpvn9yLCfYmU3VN25xp2V8o1rjCMCZ2JeZis1vZXQPbl8J8z
@@ -1574,24 +1554,11 @@
   <data name="toolStripSeparator16.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 6</value>
   </data>
-  <data name="rmenuDelTaskClass.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        R0lGODlhDQAPAIUAAPs1A94yB+8yA9g/G+ExBdwxBtk9Gdc/G900CnUgDemOe+aLePRjQe5iQHUaA95U
-        MvpGGeuBbN09FvVBFNuOgfY3CehCFNGYkuZTJuhjP9+yrdmViu46DOY3C7xPQttBHO0yA+2Se/Orm/U4
-        CdJXQNRoVNybkfpBFNl6bdw3DqcvDuIxBdQ7G+V9Ze1ZN9R0gNlZP9pBHvlrP+dFHeSXh++VgNtAGv//
-        /wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAA3ACwAAAAADQAP
-        AAAIZgBl3BhIsOBAABUMKrQA4ITCgS8IjoBgMISCgig6TCDIIIJCERxm1Giw4OENGiBWuDB5o4UAAjZM
-        ZpBAQcODDwpZIDBBEEYMgioCpNhgsMSAgQEKXHhI4sANBwlYejDAkiCGqgQDAgA7
-</value>
-  </data>
-  <data name="&gt;&gt;treeMenu.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolStartTask.Text" xml:space="preserve">
+    <value>开始</value>
   </data>
   <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 26</value>
-  </data>
-  <data name="&gt;&gt;timer2.Name" xml:space="preserve">
-    <value>timer2</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel1.Name" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
@@ -1599,26 +1566,23 @@
   <data name="&gt;&gt;toolUpgradeTask.Name" xml:space="preserve">
     <value>toolUpgradeTask</value>
   </data>
-  <data name="&gt;&gt;sToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="ExportProbar.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="toolPasteTask.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 22</value>
+  <data name="&gt;&gt;splitContainer1.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="rmenuBrowserData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 22</value>
+  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
+    <value>menuStrip1</value>
   </data>
   <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="MenuCloseSystem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 22</value>
+  </data>
   <data name="&gt;&gt;rmenuDelTaskClass.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MenuCloseSystem.Text" xml:space="preserve">
-    <value>退出</value>
   </data>
   <data name="toolPasteTask.Text" xml:space="preserve">
     <value>粘贴</value>
@@ -1626,14 +1590,14 @@
   <data name="&gt;&gt;contextMenuStrip4.Name" xml:space="preserve">
     <value>contextMenuStrip4</value>
   </data>
-  <data name="MenuCloseSystem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 22</value>
+  <data name="rmmenuStartTask.Text" xml:space="preserve">
+    <value>启动任务</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
-    <value>toolStripSeparator15</value>
+  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 6</value>
   </data>
-  <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 452</value>
+  <data name="&gt;&gt;toolmenuNewTask.Name" xml:space="preserve">
+    <value>toolmenuNewTask</value>
   </data>
   <data name="rmmenuEditTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 22</value>
@@ -1641,23 +1605,32 @@
   <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
     <value>toolStripSeparator2</value>
   </data>
+  <data name="toolStopTask.ToolTipText" xml:space="preserve">
+    <value>停止正在运行的任务</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Name" xml:space="preserve">
+    <value>toolStripContainer1.RightToolStripPanel</value>
+  </data>
   <data name="&gt;&gt;rmenuAddPlan.Name" xml:space="preserve">
     <value>rmenuAddPlan</value>
   </data>
-  <data name="&gt;&gt;treeMenu.Parent" xml:space="preserve">
-    <value>splitContainer3.Panel1</value>
+  <data name="toolBrowserData.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
-  <data name="&gt;&gt;contextMenuStrip4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="rmmenuStopTask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
   </data>
   <data name="splitContainer2.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="toolStrip1.Text" xml:space="preserve">
     <value>toolStrip1</value>
+  </data>
+  <data name="toolStripButton2.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
   <data name="&gt;&gt;rmmenuDelTask.Name" xml:space="preserve">
     <value>rmmenuDelTask</value>
@@ -1665,17 +1638,14 @@
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 4</value>
   </data>
-  <data name="toolRestartTask.ToolTipText" xml:space="preserve">
-    <value>重置任务 将已运行的任务重置初始状态</value>
-  </data>
   <data name="&gt;&gt;rmmenuEditTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
   <data name="&gt;&gt;splitContainer1.Name" xml:space="preserve">
     <value>splitContainer1</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;splitContainer1.Panel1.Parent" xml:space="preserve">
     <value>splitContainer1</value>
@@ -1695,20 +1665,31 @@
   <data name="rmenuDelTaskClass.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 22</value>
   </data>
-  <data name="cmdCloseInfo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
+  <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAHiSURBVDhPzZPdS5NhFMD9HwwkQiIZXRWxm5woZAPBksTs
+        bWVpcx85VHRLytzM1BaTKW2J0teycOXcCzrpbaYW5SblkIo+ZpEIhaO6iNDCi26CX2MXE/Gd7LLn8jm/
+        53cO5zknI+O/OGYJasQ/mIOg9/2mSfpLe+AraRenu7+K9t4ydaOr1Ik/aRz+wfnBaFJwKxDZXGaJZzYM
+        raC7PU/r2Bds/gWc4tvko1ZPGLt/PrVEc2OZ49c/Y/Z/kIUMvS+ov7tIy0AKyQnPCsf6FtDfDMkKKj0x
+        yvtjVF/9RIP71UamzLVEufs9R93BRNA08JKTV0KcckxQ1RNBc+cXatd3Kvu+UeOKUut8vF6itkcp6X7N
+        EdejROBQ1wQllyYpvRCgzPEclWORXEeMA50fqeiMIDT7aL72dE1SEBfkX5xhn3U4cVlkFREujyO0iZR2
+        jLPLOkeBc4ni9jccPCNhtI+tr2BPxzuU1jB5Fp9sD/LanqGon6LYNs3hc+JGZmvjNArLE/a3TMoKcs1e
+        iuwh1A1e+a/MOTvL9niG7Aove00jqHSDFGp7krDK2IWyujv1HGTqgmzRSuzQB9kmDKE8/YDdwpqg0Gjb
+        fBKztA/JqpLINkyRqRllpymMQuNJfxfSXhoZ8B9lvxCNWWr9WQAAAABJRU5ErkJggg==
+</value>
   </data>
   <data name="&gt;&gt;menuAddTask.Name" xml:space="preserve">
     <value>menuAddTask</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="&gt;&gt;splitContainer3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.Name" xml:space="preserve">
-    <value>toolStripContainer1</value>
+  <data name="toolMenuNewTaskPlan.Text" xml:space="preserve">
+    <value>新建任务执行计划</value>
   </data>
   <data name="toolStripButton2.ToolTipText" xml:space="preserve">
     <value>退出 Soukey采摘</value>
@@ -1716,8 +1697,8 @@
   <data name="staIsInternet.Text" xml:space="preserve">
     <value>在线</value>
   </data>
-  <data name="toolMenuProgram.Text" xml:space="preserve">
-    <value>加入开发联盟(&amp;P)</value>
+  <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;rmmenuStartTask.Name" xml:space="preserve">
     <value>rmmenuStartTask</value>
@@ -1755,20 +1736,14 @@
   <data name="toolStripSeparator17.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 6</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 13</value>
-  </data>
-  <data name="toolMenuLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 22</value>
-  </data>
   <data name="&gt;&gt;splitContainer2.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;sToolStripMenuItem.Name" xml:space="preserve">
     <value>sToolStripMenuItem</value>
   </data>
-  <data name="cmdCloseInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 21</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 13</value>
   </data>
   <data name="toolStopTask.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1794,8 +1769,8 @@
         ADs=
 </value>
   </data>
-  <data name="&gt;&gt;rmenuCopyTask.Name" xml:space="preserve">
-    <value>rmenuCopyTask</value>
+  <data name="&gt;&gt;toolExportExcel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="rmenuSaveLog.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1812,17 +1787,23 @@
         oLgRJEgOCDZWRDjCGYMPHwUIEIBgIiAAOw==
 </value>
   </data>
-  <data name="&gt;&gt;cmdCloseInfo.Parent" xml:space="preserve">
-    <value>panel1</value>
+  <data name="&gt;&gt;saveFileDialog1.Name" xml:space="preserve">
+    <value>saveFileDialog1</value>
+  </data>
+  <data name="&gt;&gt;toolExportData.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSplitButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 21</value>
   </data>
-  <data name="menuMailto.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 22</value>
+  <data name="rmenuAddTaskClass.Text" xml:space="preserve">
+    <value>添加分类</value>
   </data>
-  <data name="toolManage.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="toolMenuLanguage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
   </data>
   <data name="&gt;&gt;statusStrip1.Name" xml:space="preserve">
     <value>statusStrip1</value>
@@ -1848,8 +1829,8 @@
   <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;splitContainer2.Panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;treeMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1857,7 +1838,7 @@
   <data name="toolStopTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAJSSURBVDhPddPrT1JxGAfw81dZmYZmSmVe5gUVuUwBIUtn
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAJSSURBVDhPddPrT1JxGAfw81dZmYZmSmVe5gUVuUwBIUtn
         dlFTSHHL2mq5ttqoucra6EVtrVYvagoht0QRBLwcIozNhiNnm6tVb749v3MAQ3d+79j4PN/neX7nx3H7
         zs9EBJn3dqSmrPg8YQQ/0YWNBxak3z3FLh/G/v/nf//dySDzwY7ETUJWDdbH1Fi/1o5VsxIrI62IXVUg
         Zlbh25vH+LO9VViI4fQrG+Lj2jxey+HhFsSGFIgMNGH5cgOW+uuw8ew2FUnvFWHJe1gFEbdhhXB0qJlw
@@ -1876,7 +1857,7 @@
   <data name="&gt;&gt;toolUrlEncoding.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="toolManageDict.Text" xml:space="preserve">
@@ -1893,7 +1874,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAQ
-        FgAAAk1TRnQBSQFMAgEBDwEAASABBQEkAQUBEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        FgAAAk1TRnQBSQFMAgEBDwEAASwBBQFYAQUBEAEAARABAAT/AQkBEAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAAUADAAEBAQABCAYAARAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -1990,8 +1971,8 @@
         AfwBBwP/AccK/xYACw==
 </value>
   </data>
-  <data name="&gt;&gt;toolmenuCHS.Name" xml:space="preserve">
-    <value>toolmenuCHS</value>
+  <data name="&gt;&gt;treeMenu.Parent" xml:space="preserve">
+    <value>splitContainer3.Panel1</value>
   </data>
   <data name="rmmenuRestartTask.Text" xml:space="preserve">
     <value>重置任务</value>
@@ -2008,11 +1989,14 @@
   <data name="toolExportData.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="&gt;&gt;toolMenuNewTaskPlan.Name" xml:space="preserve">
-    <value>toolMenuNewTaskPlan</value>
+  <data name="&gt;&gt;sToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
-    <value>toolStripSeparator7</value>
+  <data name="cmdCloseInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 21</value>
+  </data>
+  <data name="&gt;&gt;splitContainer2.Name" xml:space="preserve">
+    <value>splitContainer2</value>
   </data>
   <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>891, 25</value>
@@ -2059,6 +2043,9 @@
   <data name="&gt;&gt;rMenuExportExcel.Name" xml:space="preserve">
     <value>rMenuExportExcel</value>
   </data>
+  <data name="rmenuCopyTask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 22</value>
+  </data>
   <data name="&gt;&gt;splitContainer3.Panel1.Name" xml:space="preserve">
     <value>splitContainer3.Panel1</value>
   </data>
@@ -2073,8 +2060,8 @@
         sRNUKAwIADs=
 </value>
   </data>
-  <data name="toolManage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 22</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Soukey采摘 V1.60 [免费 开源]</value>
   </data>
   <data name="toolStartTask.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -2082,26 +2069,26 @@
   <data name="&gt;&gt;splitContainer3.Panel2.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="rmenuAddTaskClass.Text" xml:space="preserve">
-    <value>添加分类</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+  <data name="&gt;&gt;splitContainer1.Panel2.Name" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.ContentPanel.Parent" xml:space="preserve">
     <value>toolStripContainer1</value>
   </data>
+  <data name="&gt;&gt;splitContainer2.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="&gt;&gt;toolMenuVisityijie.Name" xml:space="preserve">
     <value>toolMenuVisityijie</value>
   </data>
-  <data name="toolStopTask.Text" xml:space="preserve">
-    <value>停止</value>
+  <data name="toolManage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 22</value>
   </data>
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
+  <data name="toolExportTxt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 22</value>
   </data>
   <data name="&gt;&gt;toolStripStatusLabel2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2130,6 +2117,9 @@
   <data name="toolWebbrowser.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 22</value>
   </data>
+  <data name="txtLog.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 21</value>
+  </data>
   <data name="&gt;&gt;dataTask.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -2139,11 +2129,23 @@
   <data name="&gt;&gt;toolStripContainer1.TopToolStripPanel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="toolPasteTask.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 22</value>
+  </data>
   <data name="toolManage.Text" xml:space="preserve">
     <value>工具</value>
   </data>
   <data name="&gt;&gt;splitContainer3.Panel1.Parent" xml:space="preserve">
     <value>splitContainer3</value>
+  </data>
+  <data name="menuMailto.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 22</value>
+  </data>
+  <data name="cmdCloseInfo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
     <value>710, 169</value>
@@ -2151,14 +2153,17 @@
   <data name="toolUrlEncoding.Text" xml:space="preserve">
     <value>网址编码/解码</value>
   </data>
-  <data name="toolPasteTask.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="toolmenuConfig.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
   </data>
   <data name="toolStripContainer1.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="contextMenuStrip4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 76</value>
+  <data name="toolStopTask.Text" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="splitContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="toolBrowserData.ToolTipText" xml:space="preserve">
     <value>查看已采集的数据</value>
@@ -2169,13 +2174,16 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="rmenuCopyTask.Text" xml:space="preserve">
+    <value>复制          Ctrl+C</value>
+  </data>
   <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="toolRestartTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAwAAAANCAYAAACdKY9CAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAE8SURBVChThZE7S8NQGIbzk7J3yeyUSdQpdbKLZOyW4KBO
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAE8SURBVChThZE7S8NQGIbzk7J3yeyUSdQpdbKLZOyW4KBO
         kkkKotShIBXkUEovWCWmSqFqCXWQIkhCxdsgJ2lRt9fznagoaWngDEme5/0uR1EmPP3wHWUvxqEbodaL
         4Q/GmMTJbwQ6jGO3GWGrkhwSq22eSM4Bxwv/lC/1y5GEc9scmulDW2HI5KqYs0KUjjkanQiKLQTWjdDy
         xxI2nEDAroBdZNc9zNsNaEYR+iZHmQSzEMAscJjF72SDCYBhvzaQVR9eOTLZkqyy14qhUKJuU3IirVoM
@@ -2207,20 +2215,8 @@
   <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Name" xml:space="preserve">
     <value>toolStripContainer1.LeftToolStripPanel</value>
   </data>
-  <data name="MenuOpenMainfrm.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAIFSURBVDhPpVPPSxthEPVPKggFi5eCEEih5OSPm4dUESmx
-        ehDBS5WKVAVt0NhSTSloLE0kpJAEUqVglJpG0ZKIYZOtq7b+2qrRGBRDn74RF7d79DDwfd/OvHnz3mxZ
-        58cC7hNlLC79K1lCfz2Ew20Nhctz49v/Z9aaAI7zYZye3QAq3V1QIyEUVpdMAF8WdjEZ3cF6OifMTQB/
-        dltBkPzZBo6UbWTG3gkQAVnUH8qibzSCCZ8P2ZxqBUivB5BaGUdmw4lS8QKLLe0IvWiWRBZ5Y34k0iqm
-        I4qMZjBQi4p00f/qSGc6JHLZZWETfOKEp7oJta/8cLk1hKNRrC1kJN8AGNzvQWwvLJHUNrGcciBffAi3
-        zyOFU/ZaCRayCdmZAEidyB8UL7b0POLxOUx/bURdswc1z/1wPmuA+qBc3inyrdAGgyNdQ9uKSwCCq58E
-        ZGR0BN5AByaDDqHOO0HYnfObNCAdbUuDbbMCPbEuUdze9lMYxGerkEy8lK4Uct9mk2LeTTby8UdySUAq
-        15rweLhTupI2WRzoQzJ3f3TKsNayBwShUI8CbtgHnspYdIjxZrgR3BPm0EqOaQFgh4rWQxGNnrcPuIQR
-        3SHlQPCz2Hu7+maAa3F+/T4W1b/NLEoSi+YSKWFTf+IwdsXiApNJjeK9f9t74/MdtXmmFt8T84aFpj24
-        z+98BXD3Spww2bPVAAAAAElFTkSuQmCC
-</value>
+  <data name="&gt;&gt;toolMenuNewTaskPlan.Name" xml:space="preserve">
+    <value>toolMenuNewTaskPlan</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>190, 120</value>
@@ -2228,8 +2224,8 @@
   <data name="&gt;&gt;timer1.Name" xml:space="preserve">
     <value>timer1</value>
   </data>
-  <data name="&gt;&gt;toolStripButton5.Name" xml:space="preserve">
-    <value>toolStripButton5</value>
+  <data name="toolPasteTask.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;toolLookInfo.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2261,11 +2257,11 @@
   <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;dataTask.Name" xml:space="preserve">
-    <value>dataTask</value>
+  <data name="&gt;&gt;PrograBarTxt.Name" xml:space="preserve">
+    <value>PrograBarTxt</value>
   </data>
-  <data name="toolStripButton2.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="toolmenuAuto.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
   </data>
   <data name="rmenuAddPlan.Text" xml:space="preserve">
     <value>新建任务执行计划</value>
@@ -2275,6 +2271,12 @@
   </data>
   <data name="&gt;&gt;rmenuSaveLog.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rmmenuDelTask.Text" xml:space="preserve">
+    <value>删除          Delete</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
   </data>
   <data name="rmmenuStartTask.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2287,11 +2289,17 @@
         swYDAgA7
 </value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
+    <value>toolStripSeparator7</value>
+  </data>
   <data name="&gt;&gt;toolDelTask.Name" xml:space="preserve">
     <value>toolDelTask</value>
   </data>
-  <data name="&gt;&gt;toolStripButton5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 6</value>
+  </data>
+  <data name="&gt;&gt;toolStripContainer1.Name" xml:space="preserve">
+    <value>toolStripContainer1</value>
   </data>
   <data name="toolImportTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 22</value>
@@ -2308,8 +2316,8 @@
   <data name="toolUpgradeTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 22</value>
   </data>
-  <data name="&gt;&gt;toolmenuNewTaskClass.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolMenuProgram.Text" xml:space="preserve">
+    <value>加入开发联盟(&amp;P)</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.RightToolStripPanel.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -2320,40 +2328,54 @@
   <data name="toolMenuLanguage.Text" xml:space="preserve">
     <value>Language(&amp;L)</value>
   </data>
-  <data name="PrograBarTxt.Text" xml:space="preserve">
-    <value>当前正在导出：</value>
+  <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <data name="ExportProbar.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="toolNewTask.Text" xml:space="preserve">
+    <value>新建</value>
   </data>
-  <data name="splitContainer3.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>300</value>
+  <data name="rmenuDelTaskClass.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        R0lGODlhDQAPAIUAAPs1A94yB+8yA9g/G+ExBdwxBtk9Gdc/G900CnUgDemOe+aLePRjQe5iQHUaA95U
+        MvpGGeuBbN09FvVBFNuOgfY3CehCFNGYkuZTJuhjP9+yrdmViu46DOY3C7xPQttBHO0yA+2Se/Orm/U4
+        CdJXQNRoVNybkfpBFNl6bdw3DqcvDuIxBdQ7G+V9Ze1ZN9R0gNlZP9pBHvlrP+dFHeSXh++VgNtAGv//
+        /wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEBAAAh+QQBAAA3ACwAAAAADQAP
+        AAAIZgBl3BhIsOBAABUMKrQA4ITCgS8IjoBgMISCgig6TCDIIIJCERxm1Giw4OENGiBWuDB5o4UAAjZM
+        ZpBAQcODDwpZIDBBEEYMgioCpNhgsMSAgQEKXHhI4sANBwlYejDAkiCGqgQDAgA7
+</value>
   </data>
-  <data name="&gt;&gt;toolStripContainer1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripContainer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="toolManage.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
-  <data name="staIsInternet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 21</value>
+  <data name="&gt;&gt;timer2.Name" xml:space="preserve">
+    <value>timer2</value>
   </data>
   <data name="&gt;&gt;toolStripContainer1.LeftToolStripPanel.Parent" xml:space="preserve">
     <value>toolStripContainer1</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator15.Name" xml:space="preserve">
+    <value>toolStripSeparator15</value>
+  </data>
+  <data name="toolExportData.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="staIsInternet.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 21</value>
+  </data>
+  <data name="PrograBarTxt.Text" xml:space="preserve">
+    <value>当前正在导出：</value>
+  </data>
   <data name="toolStripContainer1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 50</value>
+  </data>
+  <data name="toolRestartTask.ToolTipText" xml:space="preserve">
+    <value>重置任务 将已运行的任务重置初始状态</value>
   </data>
   <data name="contextMenuStrip3.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 98</value>
   </data>
-  <data name="toolExportData.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAEYSURBVChTtY+hbsMwEIZLSkaG9wBbpaG+wKZJm7TCwkI/
-        QspCJlkaWDUNGBYaTYWGgYZFk2HhwULDsev9l0ROs9Kd9MuSk+++35PJf87s7Y5lP1LG7TIjFvGZqy1C
-        bJxkQ7z+eeUPWmlu3q8L7CMz4pougWVJG5iG4MP3bTGf21rTUkxLS/xUk1oA45ybVEDupnKiujA9+Px1
-        z/OFKVXxLx2Je/Dx80VxnIBQD2c60Dno5IFEAm5aY2iiQlfrqQIwWWmT0ghUo4Jewfw7SJZvyJE57i8Y
-        UaOyXqEQIvtdZDRx26A2tAlxBGbZGKWGATgwwCLXmnjIf0FsRg1Te63U2+zAhja+GRmTPAI1TO06Q1aD
-        JrUJkjF4AuVjkAVELB5UAAAAAElFTkSuQmCC
-</value>
+  <data name="&gt;&gt;cmdCloseInfo.Parent" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <data name="rmmenuRenameTask.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 22</value>
@@ -2376,42 +2398,23 @@
   <data name="&gt;&gt;toolNewTask.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="notifyIcon1.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
-</value>
+  <data name="txtLog.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;splitContainer1.Panel2.Name" xml:space="preserve">
-    <value>splitContainer1.Panel2</value>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
   </data>
   <data name="treeMenu.SelectedImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <data name="splitContainer3.Panel1MinSize" type="System.Int32, mscorlib">
+    <value>300</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="contextMenuStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>157, 56</value>
   </metadata>
   <metadata name="contextMenuStrip5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>107, 95</value>
@@ -2427,6 +2430,9 @@
   </metadata>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>467, 56</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>English (United States)</value>
   </metadata>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>18, 50</value>
@@ -2447,10 +2453,7 @@
     <value>142</value>
   </metadata>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>0, 24</value>
-  </metadata>
-  <metadata name="contextMenuStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>157, 56</value>
+    <value>0, 25</value>
   </metadata>
   <metadata name="timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 95</value>

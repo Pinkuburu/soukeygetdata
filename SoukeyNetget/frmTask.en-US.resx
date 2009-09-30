@@ -287,6 +287,10 @@
   <data name="groupBox3.Text" xml:space="preserve">
     <value>Base</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tabPage1.ImageIndex" type="System.Int32, mscorlib">
+    <value>-1</value>
+  </data>
   <data name="tabPage1.Text" xml:space="preserve">
     <value>General</value>
   </data>
@@ -302,7 +306,6 @@
   <data name="cmdUrlEncoding.Text" xml:space="preserve">
     <value>Encoding/Decoding</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label47.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -335,6 +338,12 @@
   </data>
   <data name="nRule.HeaderText" xml:space="preserve">
     <value>NavigationRule</value>
+  </data>
+  <data name="dataNRule.Location" type="System.Drawing.Point, System.Drawing">
+    <value>298, 17</value>
+  </data>
+  <data name="dataNRule.Size" type="System.Drawing.Size, System.Drawing">
+    <value>302, 90</value>
   </data>
   <data name="cmdDelNRule.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -385,10 +394,10 @@
     <value>NoControl</value>
   </data>
   <data name="IsNavigPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 17</value>
+    <value>105, 17</value>
   </data>
   <data name="IsNavigPage.Text" xml:space="preserve">
-    <value>Is Navigation Page</value>
+    <value>Navigation Page</value>
   </data>
   <data name="label31.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -542,6 +551,9 @@
   </data>
   <data name="label20.Text" xml:space="preserve">
     <value>Capture the content only for non-navigation pages is collected by the navigation rules to open the content page, and in accordance with the rules of data collection collected</value>
+  </data>
+  <data name="tabPage2.ImageIndex" type="System.Int32, mscorlib">
+    <value>-1</value>
   </data>
   <data name="tabPage2.Text" xml:space="preserve">
     <value>Collection Urls</value>
@@ -759,7 +771,7 @@
     <value>Pick Name：</value>
   </data>
   <data name="groupBox8.Text" xml:space="preserve">
-    <value>Pick Rules</value>
+    <value>Collection Rules</value>
   </data>
   <data name="label44.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -797,11 +809,14 @@
   <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 58</value>
+  </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 13</value>
+    <value>79, 13</value>
   </data>
   <data name="label14.Text" xml:space="preserve">
-    <value>Picking Range：</value>
+    <value>Page Range：</value>
   </data>
   <data name="cmdWebSource.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -817,6 +832,12 @@
   </data>
   <data name="label12.Text" xml:space="preserve">
     <value>Example Url：</value>
+  </data>
+  <data name="groupBox5.Text" xml:space="preserve">
+    <value>Collection Range</value>
+  </data>
+  <data name="tabPage3.ImageIndex" type="System.Int32, mscorlib">
+    <value>-1</value>
   </data>
   <data name="tabPage3.Text" xml:space="preserve">
     <value>Extraction Rules</value>
@@ -969,10 +990,10 @@
     <value>NoControl</value>
   </data>
   <data name="IsIncludeHeader.Size" type="System.Drawing.Size, System.Drawing">
-    <value>286, 17</value>
+    <value>141, 17</value>
   </data>
   <data name="IsIncludeHeader.Text" xml:space="preserve">
-    <value>Include the table header(Only for Excel File or Text File)</value>
+    <value>Include the table header</value>
   </data>
   <data name="cmdBrowser.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1010,6 +1031,9 @@
   <data name="groupBox4.Text" xml:space="preserve">
     <value>Publish File</value>
   </data>
+  <data name="tabPage5.ImageIndex" type="System.Int32, mscorlib">
+    <value>-1</value>
+  </data>
   <data name="tabPage5.Text" xml:space="preserve">
     <value>Publish</value>
   </data>
@@ -1027,6 +1051,9 @@
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
     <value>The testing of collecting data content</value>
+  </data>
+  <data name="tabPage4.ImageIndex" type="System.Int32, mscorlib">
+    <value>-1</value>
   </data>
   <data name="tabPage4.Text" xml:space="preserve">
     <value>Testing</value>
@@ -1133,10 +1160,10 @@
     <value>NoControl</value>
   </data>
   <data name="IsDelRepRow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 17</value>
+    <value>124, 17</value>
   </data>
   <data name="IsDelRepRow.Text" xml:space="preserve">
-    <value>remove repeat rows</value>
+    <value>Remove repeat rows</value>
   </data>
   <data name="IsIgnore404.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1151,13 +1178,16 @@
     <value>NoControl</value>
   </data>
   <data name="label43.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 13</value>
+    <value>107, 13</value>
   </data>
   <data name="label43.Text" xml:space="preserve">
-    <value>If pick failed, try ：</value>
+    <value>If collect failed, try ：</value>
   </data>
   <data name="groupBox11.Text" xml:space="preserve">
     <value>Advanced</value>
+  </data>
+  <data name="tabPage6.ImageIndex" type="System.Int32, mscorlib">
+    <value>-1</value>
   </data>
   <data name="tabPage6.Text" xml:space="preserve">
     <value>Advanced</value>
@@ -1167,7 +1197,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABy
-        FQAAAk1TRnQBSQFMAgEBDAEAAcQBBAHEAQQBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        FQAAAk1TRnQBSQFMAgEBDAEAAQQBBQEEAQUBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAAUADAAEBAQABCAYAARAYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA

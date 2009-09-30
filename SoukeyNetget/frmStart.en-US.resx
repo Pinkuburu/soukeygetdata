@@ -131,11 +131,15 @@
   <data name="label4.Text" xml:space="preserve">
     <value>License：Free</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 13</value>
+    <value>314, 35</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Program is starting,please waiting......</value>
@@ -152,7 +156,6 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Version：1.60</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>

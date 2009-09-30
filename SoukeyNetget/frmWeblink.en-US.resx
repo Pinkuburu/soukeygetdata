@@ -196,7 +196,7 @@
     <value>File(&amp;F)</value>
   </data>
   <data name="menuAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="menuAbout.Text" xml:space="preserve">
     <value>About(&amp;A)</value>

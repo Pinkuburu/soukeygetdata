@@ -284,6 +284,7 @@
             this.MinimizeBox = false;
             this.Name = "frmAddGatherRule";
             this.Load += new System.EventHandler(this.frmAddGatherRule_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmAddGatherRule_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

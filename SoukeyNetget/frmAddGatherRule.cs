@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
+using System.Resources;
 
 namespace SoukeyNetget
 {
@@ -13,6 +15,7 @@ namespace SoukeyNetget
         public delegate void ReturnData(ListViewItem Litem);
         public ReturnData rData;
 
+        private ResourceManager rm;
 
         public frmAddGatherRule()
         {
@@ -21,36 +24,43 @@ namespace SoukeyNetget
 
         private void frmAddGatherRule_Load(object sender, EventArgs e)
         {
-            this.comLimit.Items.Add("不做任意格式的限制");
-            this.comLimit.Items.Add("匹配时去掉网页符号");
-            this.comLimit.Items.Add("只匹配中文");
-            this.comLimit.Items.Add("只匹配双字节字符");
-            this.comLimit.Items.Add("只匹配数字");
-            this.comLimit.Items.Add("只匹配字母数字及常用字符");
-            this.comLimit.Items.Add("自定义正则匹配表达式");
+            rm = new ResourceManager("SoukeyNetget.Resources.globalUI", Assembly.GetExecutingAssembly());
+
+            //根据当前的区域进行显示信息的加载
+            ResourceManager rmPara = new ResourceManager("SoukeyNetget.Resources.globalPara", Assembly.GetExecutingAssembly());
+
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign1"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign2"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign3"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign4"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign5"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign6"));
+            this.comLimit.Items.Add(rmPara.GetString("LimitSign7"));
             this.comLimit.SelectedIndex = 0;
 
-            this.comExportLimit.Items.Add("不做输出控制");
-            this.comExportLimit.Items.Add("输出时去掉网页符号");
-            this.comExportLimit.Items.Add("输出时附加前缀");
-            this.comExportLimit.Items.Add("输出时附加后缀");
-            this.comExportLimit.Items.Add("左起去掉字符");
-            this.comExportLimit.Items.Add("右起去掉字符");
-            this.comExportLimit.Items.Add("替换其中符合条件的字符");
-            this.comExportLimit.Items.Add("去掉字符串首尾空格");
-            this.comExportLimit.Items.Add("输出时采用正则表达式进行替换");
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit1"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit2"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit3"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit4"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit5"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit6"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit7"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit8"));
+            this.comExportLimit.Items.Add(rmPara.GetString("ExportLimit9"));
             this.comExportLimit.SelectedIndex = 0;
 
-            this.comGetType.Items.Add("文本");
-            this.comGetType.Items.Add("图片");
-            this.comGetType.Items.Add("Flash");
-            this.comGetType.Items.Add("文件");
+            this.comGetType.Items.Add(rmPara.GetString("GDataType4"));
+            this.comGetType.Items.Add(rmPara.GetString("GDataType3"));
+            this.comGetType.Items.Add(rmPara.GetString("GDataType2"));
+            this.comGetType.Items.Add(rmPara.GetString("GDataType1"));
             this.comGetType.SelectedIndex = 0;
 
             this.txtGetTitleName.Items.Add("链接地址");
             this.txtGetTitleName.Items.Add("标题");
             this.txtGetTitleName.Items.Add("内容");
             this.txtGetTitleName.Items.Add("图片");
+
+            rmPara = null;
         }
 
         private void comLimit_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,37 +76,37 @@ namespace SoukeyNetget
             switch (this.comExportLimit.SelectedIndex)
             {
                 case 0:
-                    this.label37.Text = "加工条件：";
+                    this.label37.Text = rm.GetString("Label1");
                     this.txtExpression.Text = "";
                     this.txtExpression.Enabled = false;
                     break;
                 case 1:
-                    this.label37.Text = "加工条件：";
+                    this.label37.Text = rm.GetString("Label1");
                     this.txtExpression.Text = "";
                     this.txtExpression.Enabled = false;
                     break;
                 case 2:
-                    this.label37.Text = "前缀：";
+                    this.label37.Text = rm.GetString("Label2");
                     this.txtExpression.Text = "";
                     this.txtExpression.Enabled = true;
                     break;
                 case 3:
-                    this.label37.Text = "后缀：";
+                    this.label37.Text = rm.GetString("Label3");
                     this.txtExpression.Text = "";
                     this.txtExpression.Enabled = true;
                     break;
                 case 4:
-                    this.label37.Text = "截取字符数：";
+                    this.label37.Text = rm.GetString("Label4");
                     this.txtExpression.Text = "0";
                     this.txtExpression.Enabled = true;
                     break;
                 case 5:
-                    this.label37.Text = "截取字符数：";
+                    this.label37.Text = rm.GetString("Label4");
                     this.txtExpression.Text = "0";
                     this.txtExpression.Enabled = true;
                     break;
                 case 6:
-                    this.label37.Text = "表达式：";
+                    this.label37.Text = rm.GetString("Label5");
                     this.txtExpression.Text = "\"\",\"\"";
                     this.txtExpression.Enabled = true;
                     break;
@@ -104,7 +114,7 @@ namespace SoukeyNetget
                     this.txtExpression.Enabled = false;
                     break;
                 case 8:
-                    this.label37.Text = "正则表达式：";
+                    this.label37.Text = rm.GetString("Label6");
                     this.txtExpression.Text = "\"\",\"\"";
                     this.txtExpression.Enabled = true;
                     break;
@@ -118,14 +128,14 @@ namespace SoukeyNetget
         {
             if (this.txtGetTitleName.Text.Trim().ToString() == "")
             {
-                MessageBox.Show ("请输入采集数据的名称","Soukey采摘 系统信息",MessageBoxButtons.OK ,MessageBoxIcon.Information );
+                MessageBox.Show(rm.GetString ("Error8"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.txtGetTitleName.Focus();
                 return;
             }
 
             if (this.txtGetStart.Text.Trim().ToString() == "")
             {
-                MessageBox.Show("请输入采集数据的起始标志", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString("Error9"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.txtGetStart.Focus();
                 return;
 
@@ -133,7 +143,7 @@ namespace SoukeyNetget
 
             if (this.txtGetEnd.Text.Trim().ToString() == "")
             {
-                MessageBox.Show("请输入采集数据的结束标志", "Soukey采摘 系统信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(rm.GetString("Error10"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.txtGetEnd.Focus();
                 return;
             }
@@ -161,6 +171,11 @@ namespace SoukeyNetget
         private void button5_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmAddGatherRule_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            rm = null;
         }
     }
 }

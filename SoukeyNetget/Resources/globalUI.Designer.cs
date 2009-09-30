@@ -223,6 +223,24 @@ namespace SoukeyNetget.Resources {
         }
         
         /// <summary>
+        ///   查找类似 至少需要提供一个需要采集数据的网址！ 的本地化字符串。
+        /// </summary>
+        internal static string Error24 {
+            get {
+                return ResourceManager.GetString("Error24", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 至少需要提供一种采集数据的规则！ 的本地化字符串。
+        /// </summary>
+        internal static string Error25 {
+            get {
+                return ResourceManager.GetString("Error25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 任务保存时失败，出错原因是： 的本地化字符串。
         /// </summary>
         internal static string Error3 {
@@ -1717,11 +1735,47 @@ namespace SoukeyNetget.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Next 的本地化字符串。
+        /// </summary>
+        internal static string Label27 {
+            get {
+                return ResourceManager.GetString("Label27", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Back 的本地化字符串。
+        /// </summary>
+        internal static string Label28 {
+            get {
+                return ResourceManager.GetString("Label28", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 完成 的本地化字符串。
+        /// </summary>
+        internal static string Label29 {
+            get {
+                return ResourceManager.GetString("Label29", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 后缀： 的本地化字符串。
         /// </summary>
         internal static string Label3 {
             get {
                 return ResourceManager.GetString("Label3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 保  存 的本地化字符串。
+        /// </summary>
+        internal static string Label30 {
+            get {
+                return ResourceManager.GetString("Label30", resourceCulture);
             }
         }
         

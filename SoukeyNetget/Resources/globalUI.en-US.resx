@@ -171,6 +171,12 @@
   <data name="Error23" xml:space="preserve">
     <value>Load the task of running error, the task of error will not be displayed in the “Task Running”, it may be due to these missions cited dictionary parameter does not exist, the proposed restoration of the dictionary is missing parameters, if the error still persists, please run the area after all tasks are running, delete Tasks\taskrun.xml file, through the program automatically creates this file, which fixes this problem.</value>
   </data>
+  <data name="Error24" xml:space="preserve">
+    <value>Need at least need to provide a data collection web site!</value>
+  </data>
+  <data name="Error25" xml:space="preserve">
+    <value>At least need to provide a data acquisition rules!</value>
+  </data>
   <data name="Error3" xml:space="preserve">
     <value>Save the task failed, error message：</value>
   </data>
@@ -196,19 +202,19 @@
     <value>Daily</value>
   </data>
   <data name="GridCollectionCount" xml:space="preserve">
-    <value>The number has been collected</value>
+    <value>Collected</value>
   </data>
   <data name="GridCompleteCount" xml:space="preserve">
-    <value>The number has been completed</value>
+    <value>Completed</value>
   </data>
   <data name="GridCount" xml:space="preserve">
     <value>Amount</value>
   </data>
   <data name="GridErrorCount" xml:space="preserve">
-    <value>The number of errors</value>
+    <value>Errors</value>
   </data>
   <data name="GridExportedCount" xml:space="preserve">
-    <value>The number has been exported</value>
+    <value>Exported</value>
   </data>
   <data name="GridExportType" xml:space="preserve">
     <value>Export Type</value>
@@ -223,7 +229,7 @@
     <value>Is Failure</value>
   </data>
   <data name="GridNextTime" xml:space="preserve">
-    <value>The next execution time</value>
+    <value>Next Execution Time</value>
   </data>
   <data name="GridOvertimeRule" xml:space="preserve">
     <value>Failure Rules</value>
@@ -655,10 +661,10 @@
     <value>Seconds</value>
   </data>
   <data name="Label22" xml:space="preserve">
-    <value>effective</value>
+    <value>Effective</value>
   </data>
   <data name="Label23" xml:space="preserve">
-    <value>invalid</value>
+    <value>Invalid</value>
   </data>
   <data name="Label24" xml:space="preserve">
     <value>Automatic Checking</value>
@@ -669,8 +675,20 @@
   <data name="Label26" xml:space="preserve">
     <value>Chinese (Simplified)</value>
   </data>
+  <data name="Label27" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Label28" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Label29" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="Label3" xml:space="preserve">
-    <value>suffix:</value>
+    <value>Suffix:</value>
+  </data>
+  <data name="Label30" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Label4" xml:space="preserve">
     <value>Interception of the number of characters:</value>
@@ -682,25 +700,25 @@
     <value>regular expression:</value>
   </data>
   <data name="Label7" xml:space="preserve">
-    <value>task does not start</value>
+    <value>Task does not start</value>
   </data>
   <data name="Label8" xml:space="preserve">
-    <value>task has been stopped</value>
+    <value>Task has been stopped</value>
   </data>
   <data name="label9" xml:space="preserve">
-    <value>task has been completed</value>
+    <value>Task has been completed</value>
   </data>
   <data name="Log" xml:space="preserve">
-    <value>log</value>
+    <value>Log</value>
   </data>
   <data name="Logon" xml:space="preserve">
-    <value>login</value>
+    <value>Login</value>
   </data>
   <data name="LogSave" xml:space="preserve">
-    <value>log Save</value>
+    <value>Log Save</value>
   </data>
   <data name="LogSaveSuccess" xml:space="preserve">
-    <value>log saved successfully</value>
+    <value>Log saved successfully</value>
   </data>
   <data name="MessageboxError" xml:space="preserve">
     <value>SoukeyExtractor Error</value>
@@ -715,58 +733,58 @@
     <value>SoukeyExtractor Warning</value>
   </data>
   <data name="NaviLevel" xml:space="preserve">
-    <value>level</value>
+    <value>Level</value>
   </data>
   <data name="NaviRule" xml:space="preserve">
-    <value>acquisition rules</value>
+    <value>Acquisition rules</value>
   </data>
   <data name="NextPage" xml:space="preserve">
-    <value>next</value>
+    <value>Next</value>
   </data>
   <data name="NoLogon" xml:space="preserve">
-    <value>not log</value>
+    <value>None Logon</value>
   </data>
   <data name="PM" xml:space="preserve">
-    <value>pm</value>
+    <value>PM</value>
   </data>
   <data name="Quaere1" xml:space="preserve">
-    <value>not defined in this task to be collected or collection website web site rules, whether to save the task?</value>
+    <value>Not defined in this task to be collected or collection website web site rules, whether to save the task?</value>
   </data>
   <data name="Quaere10" xml:space="preserve">
-    <value>delete the task has been completed will delete the data has been collected, you can delete the pre-mission to export the data to continue?</value>
+    <value>Delete the task has been completed will delete the data has been collected, you can delete the pre-mission to export the data to continue?</value>
   </data>
   <data name="Quaere11" xml:space="preserve">
-    <value>you choose to delete a number of tasks have been completed, remove the tasks have been completed will delete the data has been collected, you can delete the pre-mission to export the data to continue?</value>
+    <value>You choose to delete a number of tasks have been completed, remove the tasks have been completed will delete the data has been collected, you can delete the pre-mission to export the data to continue?</value>
   </data>
   <data name="Quaere12" xml:space="preserve">
-    <value>you choose to start the task of running the district has been there or have the same name, the task is already running area, you need to run this task to confirm or need to run a second instance of this task?</value>
+    <value>You choose to start the task of running the district has been there or have the same name, the task is already running area, you need to run this task to confirm or need to run a second instance of this task?</value>
   </data>
   <data name="Quaere13" xml:space="preserve">
-    <value>the current task has been loaded into the operating area can not modify operation, continue to see?</value>
+    <value>The current task has been loaded into the operating area can not modify operation, continue to see?</value>
   </data>
   <data name="Quaere14" xml:space="preserve">
-    <value>run district is running the task, forced to withdraw may result in loss of data collected, it really out of Soukey pick?</value>
+    <value>Run district is running the task, forced to withdraw may result in loss of data collected, it really out of Soukey pick?</value>
   </data>
   <data name="Quaere15" xml:space="preserve">
-    <value>you choose to reset the number of already running task, the task to reset the task will be to restore the initial state, and delete the data has been collected, but if you have to export the data or to export the data automatically by the system is not will receive the impact of whether to continue?</value>
+    <value>You choose to reset the number of already running task, the task to reset the task will be to restore the initial state, and delete the data has been collected, but if you have to export the data or to export the data automatically by the system is not will receive the impact of whether to continue?</value>
   </data>
   <data name="Quaere16" xml:space="preserve">
-    <value>task will be reset to resume the task of the initial state, and delete the data has been collected, but if you have to export the data or data derived by the system automatically, you will not be affected, whether to continue?</value>
+    <value>Task will be reset to resume the task of the initial state, and delete the data has been collected, but if you have to export the data or data derived by the system automatically, you will not be affected, whether to continue?</value>
   </data>
   <data name="Quaere17" xml:space="preserve">
-    <value>you specify below this version of the task to import requirements, be allowed to carry out the task to upgrade its mission to import, whether the task is now to upgrade operations "?</value>
+    <value>You specify below this version of the task to import requirements, be allowed to carry out the task to upgrade its mission to import, whether the task is now to upgrade operations "?</value>
   </data>
   <data name="Quaere18" xml:space="preserve">
-    <value>mission operations control file is lost, I ask whether the task is running according to the situation created automatically?</value>
+    <value>Mission operations control file is lost, I ask whether the task is running according to the situation created automatically?</value>
   </data>
   <data name="Quaere19" xml:space="preserve">
-    <value>has completed the task of the index file is missing, need to re-establish, but the task has been completed the information will be lost, the data content is not lost, the data is stored in:</value>
+    <value>Has completed the task of the index file is missing, need to re-establish, but the task has been completed the information will be lost, the data content is not lost, the data is stored in:</value>
   </data>
   <data name="Quaere2" xml:space="preserve">
-    <value>task information changes have taken place, exit without saving?</value>
+    <value>Task information changes have taken place, exit without saving?</value>
   </data>
   <data name="Quaere20" xml:space="preserve">
-    <value>categories of the index file is missing, does it automatically created?</value>
+    <value>Categories of the index file is missing, does it automatically created?</value>
   </data>
   <data name="Quaere21" xml:space="preserve">
     <value>If this dictionary content has been used in URL parameters, then the site will be collected consecutive failure, whether to continue?</value>
@@ -775,37 +793,37 @@
     <value>If this dictionary content has been used in URL parameters, then the site will be collected consecutive failure, whether to continue?</value>
   </data>
   <data name="Quaere3" xml:space="preserve">
-    <value>mission operations control file is lost, I ask whether the task is running according to the situation created automatically?</value>
+    <value>Mission operations control file is lost, I ask whether the task is running according to the situation created automatically?</value>
   </data>
   <data name="Quaere4" xml:space="preserve">
-    <value>you load the mission and mandate of the current system to support different versions, please upgrade version of the task and then loaded, whether the task is now to upgrade operations</value>
+    <value>You load the mission and mandate of the current system to support different versions, please upgrade version of the task and then loaded, whether the task is now to upgrade operations</value>
   </data>
   <data name="Quaere5" xml:space="preserve">
     <value>If this task is running, the deletion will not affect, but this task can not be removed to restore, to continue?</value>
   </data>
   <data name="Quaere6" xml:space="preserve">
-    <value>you choose to delete more than one task, the removal operation will not cause influence, but this task can not be removed to restore, to continue?</value>
+    <value>You choose to delete more than one task, the removal operation will not cause influence, but this task can not be removed to restore, to continue?</value>
   </data>
   <data name="Quaere7" xml:space="preserve">
-    <value>implementation of the plan you choose clear history, note that even if you did not select all the historical record, but this action is to refer to empty all the log information, and the data will not be restored, whether to continue?</value>
+    <value>Implementation of the plan you choose clear history, note that even if you did not select all the historical record, but this action is to refer to empty all the log information, and the data will not be restored, whether to continue?</value>
   </data>
   <data name="Quaere8" xml:space="preserve">
-    <value>you choose to delete multiple tasks to run area, delete the task of running district does not affect the completion of this task has been collecting data on whether to continue?</value>
+    <value>You choose to delete multiple tasks to run area, delete the task of running district does not affect the completion of this task has been collecting data on whether to continue?</value>
   </data>
   <data name="Quaere9" xml:space="preserve">
-    <value>delete the task of running district does not affect this task has been completed the data collected, whether to continue?</value>
+    <value>Delete the task of running district does not affect this task has been completed the data collected, whether to continue?</value>
   </data>
   <data name="rmenu1" xml:space="preserve">
-    <value>increment the variable</value>
+    <value>Increment the variable</value>
   </data>
   <data name="rmenu2" xml:space="preserve">
-    <value>decreasing variable</value>
+    <value>Decreasing variable</value>
   </data>
   <data name="rmenu3" xml:space="preserve">
-    <value>letter increment</value>
+    <value>Letter increment</value>
   </data>
   <data name="rmenu4" xml:space="preserve">
-    <value>letter descending</value>
+    <value>Letter descending</value>
   </data>
   <data name="rmenu5" xml:space="preserve">
     <value>POST prefix</value>
@@ -814,25 +832,25 @@
     <value>POST suffix</value>
   </data>
   <data name="rmenu7" xml:space="preserve">
-    <value>manual capture POST data</value>
+    <value>Manual capture POST data</value>
   </data>
   <data name="rmenu8" xml:space="preserve">
     <value>Dictionary</value>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>run</value>
+    <value>Run</value>
   </data>
   <data name="SoukeyStartInfo" xml:space="preserve">
-    <value>system startup</value>
+    <value>System startup</value>
   </data>
   <data name="State1" xml:space="preserve">
-    <value>task queue:</value>
+    <value>Task Queue:</value>
   </data>
   <data name="State2" xml:space="preserve">
-    <value>run</value>
+    <value>Run</value>
   </data>
   <data name="State3" xml:space="preserve">
-    <value>stop</value>
+    <value>Stop</value>
   </data>
   <data name="State4" xml:space="preserve">
     <value>Export</value>
@@ -844,31 +862,31 @@
     <value>offline</value>
   </data>
   <data name="State7" xml:space="preserve">
-    <value>currently displayed:</value>
+    <value>Currrent Selected:</value>
   </data>
   <data name="State8" xml:space="preserve">
     <value>Current Status: Ready</value>
   </data>
   <data name="Task" xml:space="preserve">
-    <value>task</value>
+    <value>Task</value>
   </data>
   <data name="TaskGCompleted" xml:space="preserve">
     <value>Task collected successfully</value>
   </data>
   <data name="TaskGError" xml:space="preserve">
-    <value>task of collecting an error</value>
+    <value>Task of collecting an error</value>
   </data>
   <data name="TaskGFailed" xml:space="preserve">
-    <value>task of collecting failure, had stopped</value>
+    <value>Task of collecting failure, had stopped</value>
   </data>
   <data name="TaskPublishFailed" xml:space="preserve">
-    <value>task release failure, has been transferred to the completion of the regional</value>
+    <value>Task release failure, has been transferred to the completion of the regional</value>
   </data>
   <data name="TaskPublishing" xml:space="preserve">
-    <value>outset of the mission data release</value>
+    <value>Outset of the mission data release</value>
   </data>
   <data name="TaskPulished" xml:space="preserve">
-    <value>task successfully posted</value>
+    <value>Task successfully posted</value>
   </data>
   <data name="TaskStarted" xml:space="preserve">
     <value>Task to start</value>

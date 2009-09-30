@@ -1087,7 +1087,7 @@ namespace SoukeyNetget.Task
                 string tClassPath = "";
 
                 //判断新的任务路径是否存在，如果存在则报错
-                if (TClass == "任务分类")
+                if (TClass == "")
                 {
                     tClassPath = Program.getPrjPath() + "tasks";
                 }
@@ -1103,7 +1103,7 @@ namespace SoukeyNetget.Task
 
                 cTaskIndex xmlTasks = new cTaskIndex();
 
-                if (TClass == "任务分类")
+                if (TClass == "")
                 {
                     xmlTasks.GetTaskDataByClass();
                 }

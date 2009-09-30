@@ -171,6 +171,12 @@
   <data name="Error23" xml:space="preserve">
     <value>加载正在运行的任务出错，发生错误的任务将无法显示在运行区，有可能是由于这些任务引用了不存在的字典参数，建议修复丢失的字典参数，如果错误还是无法解决，请在运行区所有任务都运行完毕后，删除Tasks\taskrun.xml文件，通过程序自动建立此文件，从而修复此问题。</value>
   </data>
+  <data name="Error24" xml:space="preserve">
+    <value>至少需要提供一个需要采集数据的网址！</value>
+  </data>
+  <data name="Error25" xml:space="preserve">
+    <value>至少需要提供一种采集数据的规则！</value>
+  </data>
   <data name="Error3" xml:space="preserve">
     <value>任务保存时失败，出错原因是：</value>
   </data>
@@ -669,8 +675,20 @@
   <data name="Label26" xml:space="preserve">
     <value>中文简体</value>
   </data>
+  <data name="Label27" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Label28" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Label29" xml:space="preserve">
+    <value>完成</value>
+  </data>
   <data name="Label3" xml:space="preserve">
     <value>后缀：</value>
+  </data>
+  <data name="Label30" xml:space="preserve">
+    <value>保  存</value>
   </data>
   <data name="Label4" xml:space="preserve">
     <value>截取字符数：</value>

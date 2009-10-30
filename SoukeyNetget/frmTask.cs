@@ -1311,20 +1311,26 @@ namespace SoukeyNetget
                 return;
             }
 
-            List<cNavigRule> cns = new List<cNavigRule>();
+            List<cNavigRule> cns;
             cNavigRule cn;
+
+            string nUrl = this.txtWebLink.Text;
 
             for (int m = 0; m < this.dataNRule.Rows.Count; m++)
             {
+                cns= new List<cNavigRule>();
+
                 cn = new cNavigRule();
-                cn.Url = this.txtWebLink.Text;
-                cn.Level = int.Parse(this.dataNRule.Rows[m].Cells[0].Value.ToString());
+                cn.Url = nUrl;
+                cn.Level = 1;
                 cn.NavigRule = this.dataNRule.Rows[m].Cells[1].Value.ToString();
 
                 cns.Add(cn);
+
+                nUrl = GetTestUrl(nUrl, cns);
             }
 
-            string Url = GetTestUrl(this.txtWebLink.Text, cns);
+            string Url = nUrl;
 
             if (!Regex.IsMatch(Url, @"(http|https|ftp)+://[^\s]*"))
             {
@@ -1336,7 +1342,42 @@ namespace SoukeyNetget
 
         }
 
+        private delegate string delegateGNavUrl(string webLink, List<cNavigRule> NavRule);
         private string GetTestUrl(string webLink, List<cNavigRule> NavRule)
+        {
+            //定义一个获取导航网址的委托
+            delegateGNavUrl sd = new delegateGNavUrl(this.GetNavUrl);
+
+            //开始调用函数,可以带参数 
+            IAsyncResult ir = sd.BeginInvoke(webLink, NavRule, null, null);
+
+            //显示等待的窗口 
+            frmWaiting fWait = new frmWaiting(rm.GetString("Info117"));
+            fWait.Text = rm.GetString("Info117");
+            fWait.Show(this);
+
+            //刷新这个等待的窗口 
+            Application.DoEvents();
+
+            //循环检测是否完成了异步的操作 
+            while (true)
+            {
+                if (ir.IsCompleted)
+                {
+                    //完成了操作则关闭窗口
+                    fWait.Close();
+                    break;
+                }
+
+            }
+
+            //取函数的返回值 
+            string rUrl = sd.EndInvoke(ir);
+
+            return rUrl;
+        }
+
+        private string GetNavUrl(string webLink, List<cNavigRule> NavRule)
         {
             List<string> Urls;
 
@@ -1453,6 +1494,8 @@ namespace SoukeyNetget
                 if (this.listWeblink.Items[0].SubItems[1].Text == "N")
                 {
                     IsNav = false;
+
+                    DemoUrl = AddDemoUrl(this.listWeblink.Items[0].Text.ToString(), IsNav, cns);
                 }
                 else
                 {
@@ -1466,9 +1509,24 @@ namespace SoukeyNetget
                             break;
                         }
                     }
+
+                    string nUrl = this.listWeblink.Items[0].Text.ToString();
+                    List<cNavigRule> tempcns;
+                    cNavigRule tempcn;
+
+                    for (int j = 0; j < cns.Count; j++)
+                    {
+                        tempcns = new List<cNavigRule>();
+                        tempcn =new cNavigRule ();
+                        tempcn.Url = nUrl;
+                        tempcn.Level = 1;
+                        tempcn.NavigRule = cns[j].NavigRule;
+                        tempcns.Add(tempcn);
+                        nUrl = AddDemoUrl(nUrl, IsNav, tempcns);
+                    }
+                    DemoUrl=nUrl;
                 }
 
-                DemoUrl = AddDemoUrl(this.listWeblink.Items[0].Text.ToString(), IsNav, cns);
 
                 //根据判断当前是否需要Url进行编码
                 if (this.IsUrlEncode.Checked == true)
@@ -1649,7 +1707,7 @@ namespace SoukeyNetget
                 this.txtNextPage.Text = this.listWeblink.SelectedItems[0].SubItems[3].Text;
             }
 
-            this.IsSave.Text = "false";
+            //this.IsSave.Text = "false";
 
         }
 
@@ -2961,7 +3019,27 @@ namespace SoukeyNetget
             rm = null;
         }
 
-       
+
+        private void cmdMoreNRule_Click(object sender, EventArgs e)
+        {
+            if (this.txtWebLink.Text=="http://" || this.txtWebLink.Text=="")
+            {
+                MessageBox.Show(rm.GetString ("Info114"),rm.GetString ("MessageboxInfo"),MessageBoxButtons.OK ,MessageBoxIcon.Information );
+                this.txtWebLink.Focus ();
+                return ;
+            }
+
+            frmAddNavRules fn = new frmAddNavRules(this.txtWebLink.Text);
+            fn.rNavRule = new frmAddNavRules.ReturnNavRule(GetNavRule);
+            fn.ShowDialog();
+            fn.Dispose();
+
+        }
+
+        private void GetNavRule(string strNavRule)
+        {
+            this.txtNag.Text = strNavRule;
+        }
           
    }
 

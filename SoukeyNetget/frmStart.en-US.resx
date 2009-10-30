@@ -126,10 +126,10 @@
     <value>158, 53</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 13</value>
+    <value>119, 13</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>License：Free</value>
+    <value>License：BSD Licence</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
@@ -154,7 +154,7 @@
     <value>75, 13</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Version：1.60</value>
+    <value>Version：1.61</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>

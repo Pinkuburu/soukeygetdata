@@ -68,6 +68,7 @@
             this.label47 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.cmdMoreNRule = new System.Windows.Forms.Button();
             this.dataNRule = new System.Windows.Forms.DataGridView();
             this.nRuleLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nRule = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -560,6 +561,7 @@
             // 
             // groupBox14
             // 
+            this.groupBox14.Controls.Add(this.cmdMoreNRule);
             this.groupBox14.Controls.Add(this.dataNRule);
             this.groupBox14.Controls.Add(this.groupBox15);
             this.groupBox14.Controls.Add(this.cmdDelNRule);
@@ -570,6 +572,13 @@
             resources.ApplyResources(this.groupBox14, "groupBox14");
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.TabStop = false;
+            // 
+            // cmdMoreNRule
+            // 
+            resources.ApplyResources(this.cmdMoreNRule, "cmdMoreNRule");
+            this.cmdMoreNRule.Name = "cmdMoreNRule";
+            this.cmdMoreNRule.UseVisualStyleBackColor = true;
+            this.cmdMoreNRule.Click += new System.EventHandler(this.cmdMoreNRule_Click);
             // 
             // dataNRule
             // 
@@ -2004,6 +2013,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nRule;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.Button cmdMoreNRule;
 
 
     }

@@ -342,5 +342,25 @@ namespace SoukeyNetget
         {
             rm = null;
         }
+
+        private void cmdMoreNRule_Click(object sender, EventArgs e)
+        {
+            if (this.txtWebLink.Text == "http://" || this.txtWebLink.Text == "")
+            {
+                MessageBox.Show(rm.GetString("Info114"), rm.GetString("MessageboxInfo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.txtWebLink.Focus();
+                return;
+            }
+
+            frmAddNavRules fn = new frmAddNavRules(this.txtWebLink.Text);
+            fn.rNavRule = new frmAddNavRules.ReturnNavRule(GetNavRule);
+            fn.ShowDialog();
+            fn.Dispose();
+        }
+
+        private void GetNavRule(string strNavRule)
+        {
+            this.txtNag.Text = strNavRule;
+        }
     }
 }

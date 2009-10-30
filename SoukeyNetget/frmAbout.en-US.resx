@@ -186,7 +186,7 @@
     <value>75, 13</value>
   </data>
   <data name="label10.Text" xml:space="preserve">
-    <value>Version：1.60</value>
+    <value>Version：1.61</value>
   </data>
   <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>

@@ -241,6 +241,15 @@ namespace SoukeyNetget.Resources {
         }
         
         /// <summary>
+        ///   查找类似 导航规则配置错误，错误信息为： 的本地化字符串。
+        /// </summary>
+        internal static string Error26 {
+            get {
+                return ResourceManager.GetString("Error26", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 任务保存时失败，出错原因是： 的本地化字符串。
         /// </summary>
         internal static string Error3 {
@@ -687,6 +696,42 @@ namespace SoukeyNetget.Resources {
         internal static string Info113 {
             get {
                 return ResourceManager.GetString("Info113", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先填写网址，再进行导航规则的添加 的本地化字符串。
+        /// </summary>
+        internal static string Info114 {
+            get {
+                return ResourceManager.GetString("Info114", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导航前缀只能添加一次，且只能第一次添加 的本地化字符串。
+        /// </summary>
+        internal static string Info115 {
+            get {
+                return ResourceManager.GetString("Info115", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请先添加导航网址的前缀，才可添加公共部分 的本地化字符串。
+        /// </summary>
+        internal static string Info116 {
+            get {
+                return ResourceManager.GetString("Info116", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在解析导航网址，请等待...... 的本地化字符串。
+        /// </summary>
+        internal static string Info117 {
+            get {
+                return ResourceManager.GetString("Info117", resourceCulture);
             }
         }
         
@@ -1785,6 +1830,33 @@ namespace SoukeyNetget.Resources {
         internal static string Label31 {
             get {
                 return ResourceManager.GetString("Label31", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导航网址前缀 的本地化字符串。
+        /// </summary>
+        internal static string Label32 {
+            get {
+                return ResourceManager.GetString("Label32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 相同部分 的本地化字符串。
+        /// </summary>
+        internal static string Label33 {
+            get {
+                return ResourceManager.GetString("Label33", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 导航网址后缀 的本地化字符串。
+        /// </summary>
+        internal static string Label34 {
+            get {
+                return ResourceManager.GetString("Label34", resourceCulture);
             }
         }
         

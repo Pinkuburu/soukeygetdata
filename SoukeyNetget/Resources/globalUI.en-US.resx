@@ -177,6 +177,9 @@
   <data name="Error25" xml:space="preserve">
     <value>At least need to provide a data acquisition rules!</value>
   </data>
+  <data name="Error26" xml:space="preserve">
+    <value>Navigate rule is error，error message：</value>
+  </data>
   <data name="Error3" xml:space="preserve">
     <value>Save the task failed, error message：</value>
   </data>
@@ -326,6 +329,18 @@
   </data>
   <data name="Info113" xml:space="preserve">
     <value>Your changes have been successful, but needs the next time the system starts to take effect!</value>
+  </data>
+  <data name="Info114" xml:space="preserve">
+    <value>Please fill out the URL, and then add the rules for navigation</value>
+  </data>
+  <data name="Info115" xml:space="preserve">
+    <value>Navigation prefix can be added only once, and only for the first time to add</value>
+  </data>
+  <data name="Info116" xml:space="preserve">
+    <value>Please add the prefix site navigation in order to add the same part of the</value>
+  </data>
+  <data name="Info117" xml:space="preserve">
+    <value>Parsing navigate url,please waiting......</value>
   </data>
   <data name="Info12" xml:space="preserve">
     <value>Please specify the name of the exported text file</value>
@@ -692,6 +707,15 @@
   </data>
   <data name="Label31" xml:space="preserve">
     <value>saved to the default path</value>
+  </data>
+  <data name="Label32" xml:space="preserve">
+    <value>Navigation URL Prefix</value>
+  </data>
+  <data name="Label33" xml:space="preserve">
+    <value>Same Part</value>
+  </data>
+  <data name="Label34" xml:space="preserve">
+    <value>Navigation URL Suffix</value>
   </data>
   <data name="Label4" xml:space="preserve">
     <value>Interception of the number of characters:</value>

@@ -98,6 +98,12 @@
     <Compile Include="frmAddGatherUrl.Designer.cs">
       <DependentUpon>frmAddGatherUrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAddNavRules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddNavRules.Designer.cs">
+      <DependentUpon>frmAddNavRules.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddPlanTask.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,11 +274,11 @@
     <Compile Include="frmWaiting.Designer.cs">
       <DependentUpon>frmWaiting.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmWeblink.cs">
+    <Compile Include="frmBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmWeblink.Designer.cs">
-      <DependentUpon>frmWeblink.cs</DependentUpon>
+    <Compile Include="frmBrowser.Designer.cs">
+      <DependentUpon>frmBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -299,6 +305,14 @@
     <EmbeddedResource Include="frmAddGatherUrl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmAddGatherUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddNavRules.en-US.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddNavRules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddNavRules.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmAddNavRules.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddPlanTask.en-US.resx">
       <SubType>Designer</SubType>
@@ -444,13 +458,13 @@
       <SubType>Designer</SubType>
       <DependentUpon>frmWaiting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmWeblink.en-US.resx">
+    <EmbeddedResource Include="frmBrowser.en-US.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>frmWeblink.cs</DependentUpon>
+      <DependentUpon>frmBrowser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmWeblink.resx">
+    <EmbeddedResource Include="frmBrowser.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>frmWeblink.cs</DependentUpon>
+      <DependentUpon>frmBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\globalPara.en-US.resx">
       <SubType>Designer</SubType>

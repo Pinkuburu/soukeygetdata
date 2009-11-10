@@ -423,9 +423,9 @@ namespace SoukeyNetget
             //判断此任务是否需要登录，如果需要登录则需要用户干预
             if (t.TaskData.IsLogin == true)
             {
-                frmWeblink f = new frmWeblink(t.TaskData.LoginUrl);
+                frmBrowser f = new frmBrowser(t.TaskData.LoginUrl);
                 f.Owner = this;
-                f.rCookie = new frmWeblink.ReturnCookie(GetCookie);
+                f.rCookie = new frmBrowser.ReturnCookie(GetCookie);
                 f.getFlag = 0;
                 if (f.ShowDialog() == DialogResult.Cancel)
                 {
@@ -4732,7 +4732,11 @@ namespace SoukeyNetget
             if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C" || this.treeMenu.SelectedNode.Name == "nodTaskClass"
                 || this.treeMenu.SelectedNode.Name=="nodPlanRunning") 
             {
-                this.treeMenu.LabelEdit = true;
+                if (this.treeMenu.SelectedNode.Name.Substring(0, 1) == "C")
+                    this.treeMenu.LabelEdit = true;
+                else
+                    this.treeMenu.LabelEdit = false;
+
                 this.dataTask.ReadOnly = false;
             }
             else
@@ -4932,7 +4936,7 @@ namespace SoukeyNetget
 
         private void toolWebbrowser_Click(object sender, EventArgs e)
         {
-            frmWeblink fweb = new frmWeblink();
+            frmBrowser fweb = new frmBrowser();
             fweb.getFlag = 4;
             fweb.ShowDialog();
             fweb.Dispose();

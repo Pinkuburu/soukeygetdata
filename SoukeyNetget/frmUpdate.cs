@@ -85,12 +85,11 @@ namespace SoukeyNetget
             this.textBox1.Text += "\r\n" + rm.GetString("Info97") + New_Copy;
             Application.DoEvents();
 
-            ///版本号比较需要比较四个界别：00.00.00.00，所有版本必须遵照此格式，否则会出现错误。
+            ///版本号比较需要比较三个界别：00.00.00，所有版本必须遵照此格式，否则会出现错误。
             ///比较顺序为：主版本->低版本，只要有一个新版本号大于旧版本号，则就进行升级操作
 
             int Old_V;
             int New_V;
-
 
             for (int i = 0; i < 3; i++)
             {
@@ -102,7 +101,6 @@ namespace SoukeyNetget
 
                 if (New_V >Old_V )
                 {
-
                     this.textBox1.Text += "\r\n" + rm.GetString("Info98");
                     Application.DoEvents();
 
@@ -111,12 +109,9 @@ namespace SoukeyNetget
 
                     gData = null;
 
-
                     this.button2.Enabled = true;
                     this.button1.Enabled = true;
                     return;
-                    
-                    
                 }
             }
 

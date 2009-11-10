@@ -52,6 +52,9 @@ namespace SoukeyNetget
         /// <returns></returns>
         static  public string GetHtmlSource(string url,bool Isbool)
         {
+            if (url == "")
+                return "";
+
             string charSet = "";
             WebClient myWebClient = new WebClient();
 
@@ -206,7 +209,11 @@ namespace SoukeyNetget
             string conStr = "";
             if (Regex.IsMatch(str, @"[\$\*\[\]\?\\\(\)]"))
             {
-                Regex re = new Regex(@"\$", RegexOptions.IgnoreCase);
+                Regex re = new Regex(@"\\", RegexOptions.IgnoreCase);
+                str = re.Replace(str, @"\\");
+                re = null;
+
+                re = new Regex(@"\$", RegexOptions.IgnoreCase);
                 str = re.Replace(str, @"\$");
                 re = null;
 
@@ -228,10 +235,6 @@ namespace SoukeyNetget
 
                 re = new Regex(@"\?", RegexOptions.IgnoreCase);
                 str = re.Replace(str, @"\?");
-                re = null;
-
-                re = new Regex(@"\\", RegexOptions.IgnoreCase);
-                str = re.Replace(str, @"\\");
                 re = null;
 
                 re = new Regex(@"\(", RegexOptions.IgnoreCase);

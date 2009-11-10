@@ -294,9 +294,9 @@ namespace SoukeyNetget
 
         private void button10_Click(object sender, EventArgs e)
         {
-            frmWeblink wftm = new frmWeblink();
+            frmBrowser wftm = new frmBrowser();
             wftm.getFlag = 0;
-            wftm.rCookie = new frmWeblink.ReturnCookie(GetCookie);
+            wftm.rCookie = new frmBrowser.ReturnCookie(GetCookie);
             wftm.ShowDialog();
             wftm.Dispose();
 
@@ -713,9 +713,9 @@ namespace SoukeyNetget
 
         private void button11_Click(object sender, EventArgs e)
         {
-            frmWeblink wftm = new frmWeblink();
+            frmBrowser wftm = new frmBrowser();
             wftm.getFlag = 2;
-            wftm.rExportCookie = new frmWeblink.ReturnExportCookie(GetExportCookie);
+            wftm.rExportCookie = new frmBrowser.ReturnExportCookie(GetExportCookie);
             wftm.ShowDialog();
             wftm.Dispose();
         }
@@ -1379,7 +1379,7 @@ namespace SoukeyNetget
             List<string> Urls;
 
 
-            Urls = gUrl.ParseUrlRule(webLink, NavRule);
+            Urls = gUrl.ParseUrlRule(webLink, NavRule,(cGlobalParas.WebCode) cGlobalParas.ConvertID(this.comWebCode.SelectedItem.ToString()) ,this.txtCookie.Text);
 
 
             if (Urls == null || Urls.Count == 0)

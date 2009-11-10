@@ -182,7 +182,7 @@
     <value>408, 24</value>
   </data>
   <data name="labTitle.Text" xml:space="preserve">
-    <value>SoukeyExtractor Task Maintenance Wizard</value>
+    <value>SoukeyMiner Task Maintenance Wizard</value>
   </data>
   <data name="lab10.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 13</value>

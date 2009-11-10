@@ -899,17 +899,30 @@ namespace SoukeyNetget.Gather
                             {
                                 //NextUrl = strNext;
                             }
+                            else if (strNext.StartsWith("?", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                Match aa = Regex.Match(Url, @".*(?=\?)");
+                                string PreUrl = aa.Groups[0].Value.ToString();
+                                strNext = PreUrl + strNext;
+                            }
                             else
                             {
                                 Match aa = Regex.Match(Url, ".*/");
                                 string PreUrl = aa.Groups[0].Value.ToString();
                                 strNext = PreUrl + strNext;
                             }
+
+                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "下一页网址获取成功：" + NextUrl + "\n", this.IsErrorLog));
+
+                        }
+                        else
+                        {
+                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "已经到最终页" + NextUrl + "\n", this.IsErrorLog));
+
                         }
 
                         NextUrl = strNext;
 
-                        e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "下一页网址获取成功：" + NextUrl + "\n", this.IsErrorLog));
                         
                     }
                     while (NextUrl != "" && Old_Url != NextUrl);
@@ -1008,29 +1021,42 @@ namespace SoukeyNetget.Gather
                             Match charSetMatch = Regex.Match(webSource, NRule, RegexOptions.IgnoreCase | RegexOptions.Multiline);
                             string strNext = charSetMatch.Groups[1].Value;
 
-                            //判断获取的地址是否为相对地址
-                            if (strNext.Substring(0, 1) == "/")
+                            if (strNext != "")
                             {
-                                string PreUrl = Url;
-                                PreUrl = PreUrl.Substring(7, PreUrl.Length - 7);
-                                PreUrl = PreUrl.Substring(0, PreUrl.IndexOf("/"));
-                                PreUrl = "http://" + PreUrl;
-                                strNext = PreUrl + strNext;
-                            }
-                            else if (strNext.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                NextUrl = strNext;
+                                //判断获取的地址是否为相对地址
+                                if (strNext.Substring(0, 1) == "/")
+                                {
+                                    string PreUrl = Url;
+                                    PreUrl = PreUrl.Substring(7, PreUrl.Length - 7);
+                                    PreUrl = PreUrl.Substring(0, PreUrl.IndexOf("/"));
+                                    PreUrl = "http://" + PreUrl;
+                                    strNext = PreUrl + strNext;
+                                }
+                                else if (strNext.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase))
+                                {
+                                    NextUrl = strNext;
+                                }
+                                else if (strNext.StartsWith("?", StringComparison.CurrentCultureIgnoreCase))
+                                {
+                                    Match aa = Regex.Match(Url, @".*(?=\?)");
+                                    string PreUrl = aa.Groups[0].Value.ToString();
+                                    strNext = PreUrl + strNext;
+                                }
+                                else
+                                {
+                                    Match aa = Regex.Match(Url, ".*/");
+                                    string PreUrl = aa.Groups[0].Value.ToString();
+                                    strNext = PreUrl + strNext;
+                                }
+
+                                e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "下一页网址获取成功：" + NextUrl + "\n", this.IsErrorLog));
                             }
                             else
                             {
-                                Match aa = Regex.Match(Url, ".*/");
-                                string PreUrl = aa.Groups[0].Value.ToString();
-                                strNext = PreUrl + strNext;
+                                e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "已经到最终页" + "\n", this.IsErrorLog));
                             }
 
                             NextUrl = strNext;
-
-                            e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "下一页网址获取成功：" + NextUrl + "\n", this.IsErrorLog));
 
                         }
                         else if (m_ThreadRunning == false)
@@ -1080,16 +1106,16 @@ namespace SoukeyNetget.Gather
 
             e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "开始根据导航规则获取网页地址，请等待......\n导航层级为：" + nRules.Count + " 层\n", this.IsErrorLog));
 
-            gUrls = u.ParseUrlRule(Url, nRules);
-
-            e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "成功根据导航规则获取" + gUrls.Count + "个网址\n", this.IsErrorLog));
+            gUrls = u.ParseUrlRule(Url, nRules,m_WebCode ,m_Cookie );
 
             u = null;
             if (gUrls == null || gUrls.Count == 0)
             {
-                onError(new System.Exception("网页地址解析失败！"));
-                return false ;
+                e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + Url + " 导航解析失败，有可能是由于导航规则配置错误，也有可能是由于垃圾数据造成，如果是垃圾数据，则不影响系统对数据的采集\n", this.IsErrorLog));
+                return false;
             }
+
+            e_Log(this, new cGatherTaskLogArgs(m_TaskID, ((int)cGlobalParas.LogType.Info).ToString() + "成功根据导航规则获取" + gUrls.Count + "个网址\n", this.IsErrorLog));
 
             //更新实际采集网址总数，因是导航页面，所以实际采集网址总数发生了变化
             //通过事件触发更新任务的采集数量总数，同时更新子任务的采集总数

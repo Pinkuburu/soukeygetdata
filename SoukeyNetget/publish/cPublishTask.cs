@@ -982,83 +982,69 @@ namespace SoukeyNetget.publish
         //web在线发布数据
         private void ExportWeb()
         {
-            //判断网页编码
-
-            string PostPara = "";
-            string url = this.m_pTaskData.ExportUrl;
-
-            CookieContainer CookieCon = new CookieContainer();
-
-            HttpWebRequest wReq;
-
-            if (Regex.IsMatch(url, @"<POST>.*</POST>", RegexOptions.IgnoreCase))
-            {
-                wReq = (HttpWebRequest)WebRequest.Create(@url.Substring(0, url.IndexOf("<POST>")));
-            }
-            else
-            {
-                wReq = (HttpWebRequest)WebRequest.Create(@url);
-            }
-
-
-            wReq.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50215;)";
-
-            Match a = Regex.Match(url, @"(http://).[^/]*[?=/]", RegexOptions.IgnoreCase);
-            string url1 = a.Groups[0].Value.ToString();
-            wReq.Referer = url1;
-
-            //判断是否有cookie
-            string cookie = this.m_pTaskData.ExportCookie;
-            if (cookie != "")
-            {
-                CookieCollection cl = new CookieCollection();
-
-                foreach (string sc in cookie.Split(';'))
-                {
-                    string ss = sc.Trim();
-                    cl.Add(new Cookie(ss.Split('=')[0].Trim(), ss.Split('=')[1].Trim(), "/"));
-                }
-                CookieCon.Add(new Uri(url), cl);
-                wReq.CookieContainer = CookieCon;
-            }
-
-            //设置页面超时时间为8秒
-            wReq.Timeout = 8000;
-
             //开始循环发布数据
+            //这是一个大循环
             for (int i = 0; i < m_pTaskData.PublishData.Rows.Count; i++)
             {
-                string ExportUrl=url;
+                string PostPara = "";
+                string url = this.m_pTaskData.ExportUrl;
+
+                CookieContainer CookieCon;
+
+                HttpWebRequest wReq;
+
+
+                CookieCon = new CookieContainer();
+
+                if (Regex.IsMatch(url, @"<POST>.*</POST>", RegexOptions.IgnoreCase))
+                {
+                    wReq = (HttpWebRequest)WebRequest.Create(@url.Substring(0, url.IndexOf("<POST>")));
+                }
+                else
+                {
+                    wReq = (HttpWebRequest)WebRequest.Create(@url);
+                }
+
+
+                wReq.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50215;)";
+
+                Match a = Regex.Match(url, @"(http://).[^/]*[?=/]", RegexOptions.IgnoreCase);
+                string url1 = a.Groups[0].Value.ToString();
+                wReq.Referer = url1;
+
+                //判断是否有cookie
+                string cookie = this.m_pTaskData.ExportCookie;
+                if (cookie != "")
+                {
+                    CookieCollection cl = new CookieCollection();
+
+                    foreach (string sc in cookie.Split(';'))
+                    {
+                        string ss = sc.Trim();
+                        cl.Add(new Cookie(ss.Split('=')[0].Trim(), ss.Split('=')[1].Trim(), "/"));
+                    }
+                    CookieCon.Add(new Uri(url), cl);
+                    wReq.CookieContainer = CookieCon;
+                }
+
+                //设置页面超时时间为8秒
+                wReq.Timeout = 8000;
+
+
+                //string ExportUrl=url;
 
                 //替换Url地址中的参数
                 for (int j = 0; j < m_pTaskData.PublishData.Columns.Count; j++)
                 {
                     string strPara = "{" + m_pTaskData.PublishData.Columns[j].ColumnName + "}";
                     string strParaValue = m_pTaskData.PublishData.Rows[i][j].ToString();
-                    ExportUrl = ExportUrl.Replace(strPara, strParaValue);
+                    url = url.Replace(strPara, strParaValue);
                 }
 
                 //判断是否需要进行Url编码
-                switch (int.Parse(this.m_pTaskData.ExportUrlCode))
+                if (int.Parse(this.m_pTaskData.ExportUrlCode) != (int)cGlobalParas.WebCode.NoCoding)
                 {
-                    case (int)cGlobalParas.WebCode.NoCoding:
-                        
-                        break;
-                    case (int)cGlobalParas.WebCode.gb2312:
-                        ExportUrl =System.Web.HttpUtility.UrlEncode (ExportUrl,Encoding.GetEncoding ("gb2312"));
-                        break;
-                    case (int)cGlobalParas.WebCode.gbk:
-                        ExportUrl =System.Web.HttpUtility.UrlEncode (ExportUrl,Encoding.GetEncoding ("gbk"));
-                        break;
-                    case (int)cGlobalParas.WebCode.utf8:
-                        ExportUrl =System.Web.HttpUtility.UrlEncode (ExportUrl,Encoding.UTF8 );
-                        break;
-                    case (int)cGlobalParas.WebCode.big5:
-                        ExportUrl =System.Web.HttpUtility.UrlEncode (ExportUrl,Encoding.GetEncoding ("gib5"));
-                        break;
-                    default:
-                        ExportUrl = System.Web.HttpUtility.UrlEncode(ExportUrl, Encoding.UTF8);
-                        break;
+                    url = cTool.UrlEncode(url, (cGlobalParas.WebCode)int.Parse(this.m_pTaskData.ExportUrlCode));
                 }
 
 
@@ -1095,12 +1081,8 @@ namespace SoukeyNetget.publish
                 string strWebData = reader.ReadToEnd();
                 reader.Close();
                 reader.Dispose();
-               
+
             }
-
-            
-
-           
 
 
         }

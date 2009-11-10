@@ -31,6 +31,22 @@ namespace SoukeyNetget
             this.contextMenuStrip1.Show(this.button2, 0, 21);
         }
 
+        //构建两个属性，webCode和Cookie，主要用于测试网址导航，因为有些网址
+        //导航时需要进行cookie认证的
+        private cGlobalParas.WebCode m_webCode;
+        public cGlobalParas.WebCode webCode
+        {
+            get { return m_webCode; }
+            set { m_webCode = value; }
+        }
+
+        private string m_cookie;
+        public string cookie
+        {
+            get { return m_cookie; }
+            set { m_cookie = value; }
+        }
+
         private void button6_Click(object sender, EventArgs e)
         {
             if (this.dataNRule.Rows.Count == 0)
@@ -68,7 +84,7 @@ namespace SoukeyNetget
             List<string> Urls;
 
 
-            Urls = gUrl.ParseUrlRule(webLink, NavRule);
+            Urls = gUrl.ParseUrlRule(webLink, NavRule,m_webCode ,m_cookie);
 
 
             if (Urls == null || Urls.Count == 0)
@@ -198,9 +214,9 @@ namespace SoukeyNetget
         {
             if (e.ClickedItem.Name == "rmenuGetPostData")
             {
-                frmWeblink wftm = new frmWeblink();
+                frmBrowser wftm = new frmBrowser();
                 wftm.getFlag = 1;
-                wftm.rPData = new frmWeblink.ReturnPOST(GetPData);
+                wftm.rPData = new frmBrowser.ReturnPOST(GetPData);
                 wftm.ShowDialog();
                 wftm.Dispose();
 
@@ -353,6 +369,9 @@ namespace SoukeyNetget
             }
 
             frmAddNavRules fn = new frmAddNavRules(this.txtWebLink.Text);
+            fn.webCode =m_webCode ;
+            fn.cookie = m_cookie;
+
             fn.rNavRule = new frmAddNavRules.ReturnNavRule(GetNavRule);
             fn.ShowDialog();
             fn.Dispose();

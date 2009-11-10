@@ -30,6 +30,8 @@ namespace SoukeyNetget
 
         private ResourceManager rm;
 
+        private bool m_IsHoldClose = false;
+
         public frmTaskClass()
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace SoukeyNetget
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
+            m_IsHoldClose = false;
             this.Dispose();
         }
 
@@ -55,6 +58,9 @@ namespace SoukeyNetget
             if (this.textBox1.Text.Trim().ToString() == "")
             {
                 MessageBox.Show(rm.GetString ("Info88"), rm.GetString("MessageboxError"),MessageBoxButtons.OK, MessageBoxIcon.Error);
+                m_IsHoldClose = true;
+                this.textBox1.Focus();
+                return;
             }
 
             try
@@ -67,11 +73,13 @@ namespace SoukeyNetget
             catch (cSoukeyException ex)
             {
                 MessageBox.Show(ex.Message, rm.GetString ("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                m_IsHoldClose = true;
                 return;
             }
             catch (System.Exception  ex)
             {
                 MessageBox.Show(ex.Message, rm.GetString("MessageboxError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                m_IsHoldClose = true;
                 return;
             }
 
@@ -104,6 +112,15 @@ namespace SoukeyNetget
         private void frmTaskClass_FormClosed(object sender, FormClosedEventArgs e)
         {
             rm = null;
+        }
+
+        private void frmTaskClass_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason != CloseReason.UserClosing)
+            {
+                if (m_IsHoldClose == true)
+                    e.Cancel = true;
+            }
         }
 
       

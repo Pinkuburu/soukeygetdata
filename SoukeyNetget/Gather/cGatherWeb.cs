@@ -5,6 +5,7 @@ using System.Net;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.IO.Compression;
 
 ///功能：采集数据处理
 ///完成时间：2009-3-2
@@ -81,25 +82,7 @@ namespace SoukeyNetget.Gather
             Encoding wCode;
             string PostPara = "";
 
-            switch (webCode)
-            {
-                case cGlobalParas.WebCode.auto:
-                    wCode = Encoding.Default;
-                    break;
-                case cGlobalParas.WebCode.gb2312:
-                    wCode = Encoding.GetEncoding("gb2312");
-                    break;
-                case cGlobalParas.WebCode.gbk:
-                    wCode = Encoding.GetEncoding("gbk");
-                    break;
-                case cGlobalParas.WebCode.utf8:
-                    wCode = Encoding.UTF8;
-                    break;
-                default:
-                    wCode = Encoding.UTF8;
-                    break;
-            }
-
+            
             CookieContainer CookieCon = new CookieContainer();
 
             HttpWebRequest wReq ;
@@ -190,12 +173,59 @@ namespace SoukeyNetget.Gather
             HttpWebResponse wResp = (HttpWebResponse)wReq.GetResponse();
 
             System.IO.Stream respStream = wResp.GetResponseStream();
-            
-            System.IO.StreamReader reader;
-            reader = new System.IO.StreamReader(respStream, wCode);
-            string strWebData = reader.ReadToEnd();
-            reader.Close();
-            reader.Dispose();
+            string strWebData = "";
+
+            switch (webCode)
+            {
+                case cGlobalParas.WebCode.auto:
+                    try
+                    {
+                        wCode = Encoding.Default;
+                        string cType = wResp.ContentType.ToLower();
+                        Match charSetMatch = Regex.Match(cType, "(?<=charset=)([^<]*)*", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                        string webCharSet = charSetMatch.ToString();
+                        wCode = System.Text.Encoding.GetEncoding(webCharSet);
+                    }
+                    catch
+                    {
+                        wCode = Encoding.Default;
+                    }
+
+                    break;
+                case cGlobalParas.WebCode.gb2312:
+                    wCode = Encoding.GetEncoding("gb2312");
+                    break;
+                case cGlobalParas.WebCode.gbk:
+                    wCode = Encoding.GetEncoding("gbk");
+                    break;
+                case cGlobalParas.WebCode.utf8:
+                    wCode = Encoding.UTF8;
+                    break;
+                default:
+                    wCode = Encoding.UTF8;
+                    break;
+            }
+
+
+            if (wResp.ContentEncoding == "gzip")
+            {
+                GZipStream myGZip = new GZipStream(respStream, CompressionMode.Decompress);
+                System.IO.StreamReader reader;
+                reader = new System.IO.StreamReader(myGZip, wCode);
+                strWebData = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+            }
+            else
+            {
+                System.IO.StreamReader reader;
+                reader = new System.IO.StreamReader(respStream, wCode);
+                strWebData = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+            }
+
+          
 
             //去除回车换行符号
             if (IsCutnr == true)
@@ -206,18 +236,18 @@ namespace SoukeyNetget.Gather
             }
 
             //获取此页面的编码格式,并对源码进行一次判断,无论用户是否指定了网页代码
-            Match charSetMatch = Regex.Match(strWebData, "<meta([^<]*)charset=([^<]*)\"", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            string webCharSet = charSetMatch.Groups[2].Value;
-            string charSet = webCharSet;
+            //Match charSetMatch = Regex.Match(strWebData, "<meta([^<]*)charset=([^<]*)\"", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            //string webCharSet = charSetMatch.Groups[2].Value;
+            //string charSet = webCharSet;
 
-            if (charSet != null && charSet != "" && Encoding.GetEncoding(charSet) != wCode)
-            {
-                byte[] myDataBuffer;
+            //if (charSet != null && charSet != "" && Encoding.GetEncoding(charSet) != wCode)
+            //{
+            //    byte[] myDataBuffer;
                 
-                myDataBuffer = System.Text.Encoding.GetEncoding(charSet).GetBytes(strWebData);
-                strWebData = Encoding.GetEncoding(charSet).GetString(myDataBuffer);
+            //    myDataBuffer = System.Text.Encoding.GetEncoding(charSet).GetBytes(strWebData);
+            //    strWebData = Encoding.GetEncoding(charSet).GetString(myDataBuffer);
 
-            }
+            //}
 
             //按照截取网页的起始标志和终止标志进行截取
             //如果起始或终止截取标识有一个为空，则不进行截取

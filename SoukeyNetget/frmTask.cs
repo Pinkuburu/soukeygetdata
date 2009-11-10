@@ -1269,9 +1269,9 @@ namespace SoukeyNetget
         {
             if (e.ClickedItem.Name == "rmenuGetPostData")
             {
-                frmWeblink wftm = new frmWeblink();
+                frmBrowser wftm = new frmBrowser();
                 wftm.getFlag = 1;
-                wftm.rPData  = new frmWeblink.ReturnPOST (GetPData);
+                wftm.rPData  = new frmBrowser.ReturnPOST (GetPData);
                 wftm.ShowDialog();
                 wftm.Dispose();
 
@@ -1342,14 +1342,14 @@ namespace SoukeyNetget
 
         }
 
-        private delegate string delegateGNavUrl(string webLink, List<cNavigRule> NavRule);
+        private delegate string delegateGNavUrl(string webLink, List<cNavigRule> NavRule, cGlobalParas.WebCode webCode, string cookie);
         private string GetTestUrl(string webLink, List<cNavigRule> NavRule)
         {
             //定义一个获取导航网址的委托
             delegateGNavUrl sd = new delegateGNavUrl(this.GetNavUrl);
 
             //开始调用函数,可以带参数 
-            IAsyncResult ir = sd.BeginInvoke(webLink, NavRule, null, null);
+            IAsyncResult ir = sd.BeginInvoke(webLink, NavRule,(cGlobalParas.WebCode) cGlobalParas.ConvertID(this.comWebCode.SelectedItem.ToString()) ,this.txtCookie.Text, null, null);
 
             //显示等待的窗口 
             frmWaiting fWait = new frmWaiting(rm.GetString("Info117"));
@@ -1377,12 +1377,12 @@ namespace SoukeyNetget
             return rUrl;
         }
 
-        private string GetNavUrl(string webLink, List<cNavigRule> NavRule)
+        private string GetNavUrl(string webLink, List<cNavigRule> NavRule, cGlobalParas.WebCode webCode, string cookie)
         {
             List<string> Urls;
 
 
-            Urls = gUrl.ParseUrlRule(webLink, NavRule);
+            Urls = gUrl.ParseUrlRule(webLink, NavRule,webCode ,cookie );
            
 
             if (Urls == null || Urls.Count ==0)
@@ -1566,9 +1566,9 @@ namespace SoukeyNetget
 
         private void button10_Click(object sender, EventArgs e)
         {
-            frmWeblink wftm = new frmWeblink();
+            frmBrowser wftm = new frmBrowser();
             wftm.getFlag = 0;
-            wftm.rCookie = new frmWeblink.ReturnCookie(GetCookie);
+            wftm.rCookie = new frmBrowser.ReturnCookie(GetCookie);
             wftm.ShowDialog();
             wftm.Dispose();
 
@@ -1671,6 +1671,7 @@ namespace SoukeyNetget
             if (this.listWeblink.SelectedItems[0].SubItems[1].Text == "N" )
             {
                 this.IsNavigPage.Checked = false;
+                this.dataNRule.Rows.Clear();
             }
             else
             {
@@ -2388,9 +2389,9 @@ namespace SoukeyNetget
 
         private void button11_Click(object sender, EventArgs e)
         {
-            frmWeblink wftm = new frmWeblink();
+            frmBrowser wftm = new frmBrowser();
             wftm.getFlag = 2;
-            wftm.rExportCookie = new frmWeblink.ReturnExportCookie(GetExportCookie);
+            wftm.rExportCookie = new frmBrowser.ReturnExportCookie(GetExportCookie);
             wftm.ShowDialog();
             wftm.Dispose();
 
@@ -2661,9 +2662,9 @@ namespace SoukeyNetget
         {
             if (e.ClickedItem.Name == "rmenuPublishPostData")
             {
-                frmWeblink wftm = new frmWeblink();
+                frmBrowser wftm = new frmBrowser();
                 wftm.getFlag = 3;
-                wftm.rExportPData = new frmWeblink.ReturnExportPOST(GetExportpData);
+                wftm.rExportPData = new frmBrowser.ReturnExportPOST(GetExportpData);
                 wftm.ShowDialog();
                 wftm.Dispose();
 

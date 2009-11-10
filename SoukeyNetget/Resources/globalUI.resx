@@ -177,6 +177,9 @@
   <data name="Error25" xml:space="preserve">
     <value>至少需要提供一种采集数据的规则！</value>
   </data>
+  <data name="Error26" xml:space="preserve">
+    <value>导航规则配置错误，错误信息为：</value>
+  </data>
   <data name="Error3" xml:space="preserve">
     <value>任务保存时失败，出错原因是：</value>
   </data>
@@ -326,6 +329,18 @@
   </data>
   <data name="Info113" xml:space="preserve">
     <value>您的修改已经成功，但需要在下次系统启动时才会生效！</value>
+  </data>
+  <data name="Info114" xml:space="preserve">
+    <value>请先填写网址，再进行导航规则的添加</value>
+  </data>
+  <data name="Info115" xml:space="preserve">
+    <value>导航前缀只能添加一次，且只能第一次添加</value>
+  </data>
+  <data name="Info116" xml:space="preserve">
+    <value>请先添加导航网址的前缀，才可添加公共部分</value>
+  </data>
+  <data name="Info117" xml:space="preserve">
+    <value>正在解析导航网址，请等待......</value>
   </data>
   <data name="Info12" xml:space="preserve">
     <value>请指定导出的文本文件名</value>
@@ -692,6 +707,15 @@
   </data>
   <data name="Label31" xml:space="preserve">
     <value>此任务不分类，直接保存到默认路径</value>
+  </data>
+  <data name="Label32" xml:space="preserve">
+    <value>导航网址前缀</value>
+  </data>
+  <data name="Label33" xml:space="preserve">
+    <value>相同部分</value>
+  </data>
+  <data name="Label34" xml:space="preserve">
+    <value>导航网址后缀</value>
   </data>
   <data name="Label4" xml:space="preserve">
     <value>截取字符数：</value>

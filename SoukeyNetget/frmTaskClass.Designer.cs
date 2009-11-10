@@ -118,6 +118,7 @@
             this.Name = "frmTaskClass";
             this.Load += new System.EventHandler(this.frmTaskClass_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmTaskClass_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTaskClass_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
